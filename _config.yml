@@ -14,16 +14,18 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Dycon Platform Documentation
+shorttitle: Platform Documentation
 email: djoroya@deusto.es
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "dycon-platform-documentation" # the subpath of your site, e.g. /blog
+  DyCon project aims at making a breakthrough contribution in the broad area of Control of Partial Differential Equations (PDE) and their numerical approximation methods by addressing key unsolved issues appearing systematically in real-life applications.
+
+baseurl: "/dycon-platform-documentation" # the subpath of your site, e.g. /blog
 url: "http://djoroyaDeusto.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  djoroyaDeusto
 
 #
+permalink: /:categories/:title
+
 destination: docs
 
 # Build settings
