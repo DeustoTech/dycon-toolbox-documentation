@@ -20,7 +20,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   DyCon project aims at making a breakthrough contribution in the broad area of Control of Partial Differential Equations (PDE) and their numerical approximation methods by addressing key unsolved issues appearing systematically in real-life applications.
 
 baseurl: "/dycon-platform-documentation" # the subpath of your site, e.g. /blog
-url: "http://djoroyaDeusto.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://DeustoTech.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  djoroyaDeusto
 
 #
