@@ -8,7 +8,7 @@ body { font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif; color:
 h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px; }
 
 /** Images */
-img { max-width: none; vertical-align: middle; }
+img { max-width: 70%; margin-left: auto; margin-right: auto; vertical-align: middle; }
 
 /** Figures */
 figure > img { display: block; }
