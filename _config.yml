@@ -26,6 +26,7 @@ github_username:  djoroyaDeusto
 #
 permalink: /:categories/:title
 
+
 destination: docs
 
 # Build settings

@@ -43,8 +43,9 @@ ul, ol, dl, figure,
  * Images
  */
 img {
-  max-width: 100%;
+  max-width: none;
   vertical-align: middle;
+
 }
 
 
@@ -67,6 +68,8 @@ figcaption {
  */
 ul, ol {
   margin-left: $spacing-unit;
+  font-family: 'Lusitana', serif;
+
 }
 
 li {
@@ -83,6 +86,7 @@ li {
  */
 h1, h2, h3, h4, h5, h6 {
   font-weight: $base-font-weight;
+  font-family: 'Lusitana', serif;
 }
 
 
