@@ -3,10 +3,10 @@
   <channel>
     <title>DyCon Platform</title>
     <description>This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.</description>
-    <link>https://DeustoTech.github.iodycon-platform-documentation/</link>
-    <atom:link href="https://DeustoTech.github.iodycon-platform-documentation/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 04 Oct 2018 10:17:49 +0200</pubDate>
-    <lastBuildDate>Thu, 04 Oct 2018 10:17:49 +0200</lastBuildDate>
+    <link>https://DeustoTech.github.io/dycon-platform-documentation/</link>
+    <atom:link href="https://DeustoTech.github.io/dycon-platform-documentation/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Thu, 04 Oct 2018 10:20:20 +0200</pubDate>
+    <lastBuildDate>Thu, 04 Oct 2018 10:20:20 +0200</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -114,8 +114,8 @@ For last, if you type ‚Äúanimation(x,t,u)‚Äù, in MATLAB console. You can see the
 
 </description>
         <pubDate>Sat, 21 Jul 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.iodycon-platform-documentation/tutorials/wp05/P0001-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.iodycon-platform-documentation/tutorials/wp05/P0001-T</guid>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp05/P0001-T</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp05/P0001-T</guid>
         
         
         <category>Tutorials</category>
@@ -383,8 +383,8 @@ References
 
 </description>
         <pubDate>Sat, 21 Jul 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.iodycon-platform-documentation/tutorials/wp01/P0001-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.iodycon-platform-documentation/tutorials/wp01/P0001-T</guid>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0001-T</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0001-T</guid>
         
         
         <category>Tutorials</category>
@@ -418,8 +418,8 @@ Flanagan, D., &amp;amp; Matsumoto, Y. (2008). The Ruby Programming Language. O‚Ä
 Flanagan, D., &amp;amp; Matsumoto, Y. (2008). The Rubo Programming Language. O‚ÄôReilly Media.
 </description>
         <pubDate>Tue, 02 May 2017 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.iodycon-platform-documentation/posts/Control_of_PDE_non_local_terms</link>
-        <guid isPermaLink="true">https://DeustoTech.github.iodycon-platform-documentation/posts/Control_of_PDE_non_local_terms</guid>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms</guid>
         
         <category>post</category>
         
@@ -437,8 +437,8 @@ Flanagan, D., &amp;amp; Matsumoto, Y. (2008). The Rubo Programming Language. O‚Ä
 SDas
 </description>
         <pubDate>Tue, 19 Apr 2016 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.iodycon-platform-documentation/documentation/New-Post</link>
-        <guid isPermaLink="true">https://DeustoTech.github.iodycon-platform-documentation/documentation/New-Post</guid>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/documentation/New-Post</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/documentation/New-Post</guid>
         
         <category>post</category>
         
