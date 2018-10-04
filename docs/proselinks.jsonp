@@ -1,0 +1,23 @@
+callback([
+
+  {
+    "text": "New Post",
+    "href": "http://DeustoTech.github.io/dycon-platform-documentation/documentation/New-Post"
+  } ,
+
+  {
+    "text": "Control of PDEs involving non-local terms",
+    "href": "http://DeustoTech.github.io/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms"
+  } ,
+
+  {
+    "text": "Average Control by classical gradient step method",
+    "href": "http://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0001-T"
+  } ,
+
+  {
+    "text": "WKB expasion of fractional Schrodinger Equation",
+    "href": "http://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp05/P0001-T"
+  } 
+
+])

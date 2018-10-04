@@ -1,0 +1,69 @@
+{
+  
+
+    "tutorials-wp05-p0001-t": {
+      "title": "WKB expasion of fractional Schrodinger Equation",
+      "content"	 : "In the particular case under analysis, the construction that we obtain is then applied to the study  of controllability properties for the one dimensional fractional Schrodinger equation.With highly oscillatory initial datumNx = 100;L = 1;hx = (2*L)/(Nx+1);Now, we can be define the function_handle u0, from before data.x0 = 0;fr = pi^2/16;gamma = hx^(-0.9);u0 = @(x) exp(-0.5*gamma*(x-x0).^2).*exp(1i*fr*x/hx);Can see the representation of initial Datumfig = gcf;set(gcf,&#39;Units&#39;,&#39;pixels&#39;,&#39;Position&#39;,[427 306 712 284])%x = -L:hx:L;%subplot(1,3,1)plot(x,abs(u0(x)))title(&#39;|u_0(x)|&#39;)xlabel(&#39;x&#39;); ylabel(&#39;u(x)&#39;);%subplot(1,3,2)plot(x,real(u0(x)))title(&#39;real(u_0(x))&#39;)xlabel(&#39;x&#39;); ylabel(&#39;u(x)&#39;);%subplot(1,3,3)plot(x,imag(u0(x)))title(&#39;img(u_0(x))&#39;)xlabel(&#39;x&#39;); ylabel(&#39;u(x)&#39;);%format_plot(fig)Solution for s = 1/2To solve this equation, Need define the next parameters;s   = 0.5  % Laplacian OrderL          % x in (-L , L)Nx         % Number of points in spaceT   = 5    % Final times =    0.5000L =     1Nx =   100T =     5And u0 is the function_handle, that have showed before. Now call the function fractional_schr to solve the equation.[x,t,u] = fractional_schr(s,L,Nx,T,u0);Obtain the in u variable. Now we can see a graphical interpretation[X ,T] = meshgrid(x,t);%clfmesh(X,T,u&#39;);format_plot(gcf);view(0,90)xlabel(&#39;x&#39;); ylabel(&#39;t&#39;); title(&#39;Ray Evolution&#39;);For last, if you type “animation(x,t,u)”, in MATLAB console. You can see the evolution in time of this wave.",
+      "url": "/dycon-platform-documentation/tutorials/wp05/P0001-T",
+      "author": "[&quot;UmbertoB&quot;, &quot;AlejandroA&quot;, &quot;EnriqueZ&quot;]",
+      "categories": "Tutorials, WP05"
+    }
+    ,
+  
+
+    "tutorials-wp01-p0001-t": {
+      "title": "Average Control by classical gradient step method",
+      "content"	 : "In this work, we address the optimal control of parameter-dependent systems. We introduce the notion of averaged control in which the quantity of interest is the average of the states with respect to the parameter family In this case $nu_i$ are:nu = 1:0.5:6nu =  Columns 1 through 7    1.0000    1.5000    2.0000    2.5000    3.0000    3.5000    4.0000  Columns 8 through 11    4.5000    5.0000    5.5000    6.0000And save in K, the number of valuesK = length(nu);Where the finite dimensional linear control system is:We can, define the initial state of all ode’sN = 3; % dimension of vector statex0 = ones(N, 1);Also, need define a initial control, that will be evolvedt = 0.02;t0 = 0; T  = 1;span = (t0:dt:T);%u = zeros(length(span),1);%Moreover, we can define the matrix A&#39;s and B&#39;s, that determine the problemAm = -triu(ones(N))Am =    -1    -1    -1     0    -1    -1     0     0    -1Bm = zeros(N, 1);Bm(N) = 1Bm =     0     0     1So, we can create these edo’s in variable primal_odes.primal_odes = zeros(1,K,&#39;ode&#39;);for index = 1:K    A = Am + (nu(index) - 1 )*diag(diag(Am));    %    primal_odes(index) = ode(A,&#39;B&#39;,Bm);    % all have the same control    primal_odes(index).u  = u;    % time intervals    primal_odes(index).span = span;    % initial state    primal_odes(index).x0 = x0;endSo, we have a $K$ ordinary differential equationsprimal_odesprimal_odes =   1x11 ode array with properties:    A    B    u    x0    x    span    xendTo solve average control problem to x0; in this case:xt = ones(N, 1)xt =     1     1     1we can solve the minimization problemWe can use the classical gradient descent method based on the adjoint methodology, and obtain the corresponding adjoint system for 1,The same way that before, we define the adjoints problemsadjoint_odes = zeros(1,K,&#39;ode&#39;);for index = 1:K    A = primal_odes(index).A&#39;;    adjoint_odes(index) = ode(A);    % all have the same control    adjoint_odes(index).u = u;    % time intervals    adjoint_odes(index).span = span;endHowever the initial state  adjoint_odes(index).x0 hasn’t been assign. This initial state will be assign in every step of solution.To minimize the functional, $mathcal{J}left( uright)$, we take the steepest descent direction given byWe process to solve the problem of classical gradient descentgamma = 1;beta  = 1e-3;tol   = 1e-8;  % Toleranceerror = Inf;MaxIter = 50;iter = 0;xhistory = {}; uhistory = {};  error_history = [];    % array here we will save the evolution of average vector stateswhile (error &amp;gt; tol &amp;amp;amp;&amp;amp;amp; iter &amp;lt; MaxIter)    iter = iter + 1;    % solve primal problem    % ====================    solve(primal_odes);    % calculate mean state final vector of primal problems    xMend = forall({primal_odes.xend},&#39;mean&#39;);    % solve adjoints problems    % =======================    % update new initial state of all adjoint problems    for iode = adjoint_odes        iode.x0 = -(xMend&#39; - xt);    end    % solve adjoints problems with the new initial state    solve(adjoint_odes);    % update control    % ===============    % calculate mean state vector of adjoints problems    pM = forall({adjoint_odes.x},&#39;mean&#39;);    pM = pM*Bm;    % reverse adjoint variable    pM = flipud(pM);    % Control update    u = primal_odes(1).u; % catch control currently    Du = beta*u - pM;    u = u - gamma*Du;    % update control in primal problems    for index = 1:K        primal_odes(index).u = u;    end    % Control error    % =============    % Calculate area ratio  of Du^2 and u^2    Au2   =  trapz(span,u.^2);    ADu2  =  trapz(span,Du.^2);    %    error = sqrt(ADu2/Au2);    % Save evolution    xhistory{iter} = [ span&#39;,forall({primal_odes.x},&#39;mean&#39;)];    uhistory{iter} = [ span&#39;,u];    error_history  = [ error_history, error];endThe average control obtain isplot(span,u)xlabel(&#39;time&#39;);ylabel(&#39;u(t)&#39;)format_plot(gcf)Also, on average the objective [0 0 0] has been reached.figure;plot(iode.span,forall({primal_odes.x},&#39;mean&#39;))xlabel(&#39;t&#39;);ylabel(&#39;x_{i}(t)&#39;)legend(strcat(&#39;x_{&#39;,num2str((1:N)&#39;,&#39;%0.1d&#39;),&#39;}(t)&#39;))title(&#39;Evolution of cordinates of vector state.&#39;)format_plot(gcf)You can use the comandanimation_sol(xhistory,uhistory,&#39;XLim&#39;,[-0.1 0.25],&#39;ULim&#39;,[-0.5 0.0])We can see If we analyze the evolution in the error, we can see that we should have stopped, in iteration 20.plot(error_history,&#39;-*&#39;)title(&#39;Error Evolution&#39;)ylabel(&#39;Error&#39;); xlabel(&#39;Iterations&#39;)format_plot(gcf)References            E. Zuazua (2014) Averaged Control. Automatica, 50 (12), p. 3077-3087. &amp;#8617;      ",
+      "url": "/dycon-platform-documentation/tutorials/wp01/P0001-T",
+      "author": "[&quot;VictorH&quot;, &quot;JoseV&quot;, &quot;EnriqueZ&quot;]",
+      "categories": "Tutorials, WP01"
+    }
+    ,
+  
+
+    "posts-control-of-pde-non-local-terms": {
+      "title": "Control of PDEs involving non-local terms",
+      "content"	 : "Why non-local?Relevant models in Continuum Mechanics, Mathematical Physics and Biology are of non-local nature:Cars and Viscoelasticity  Boltzmann equations in gas dynamics. (Flanagan &amp;amp; Matsumoto, 2008)  Navier-Stokes equations in Fluid Mechanics.  Keller-Segel model for Chemotaxis.  Moreover, these models are applied for the description of several complex phenomena for which a local approach is inappropriate or limiting.Peierls-Nabarro equation in elasticity ([^fr]) (Flanagan &amp;amp; Matsumoto, 2008)Image processing algorithms ([7])Anomalous diffusion models ([3])Finance: description of the pricing of American options ([8])In this setting, classical PDE theory fails because of non-locality. Yet many of the existing techniques can be tuned and adapted, although this is often a delicate matter.BibliographyFlanagan, D., &amp;amp; Matsumoto, Y. (2008). The Ruby Programming Language. O’Reilly Media.Flanagan, D., &amp;amp; Matsumoto, Y. (2008). The Rubo Programming Language. O’Reilly Media.",
+      "url": "/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms",
+      "author": "[&quot;UmbertoB&quot;, &quot;EnriqueZ&quot;]",
+      "categories": "Posts"
+    }
+    ,
+  
+
+    "documentation-new-post": {
+      "title": "New Post",
+      "content"	 : "SDas",
+      "url": "/dycon-platform-documentation/documentation/New-Post",
+      "author": "Ahmet Cecen",
+      "categories": "Documentation"
+    }
+    
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+}
