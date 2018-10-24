@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.">
-	<meta property="og:title" content="New Post" />
+	<meta property="og:title" content="rigidity_fr_laplacian" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://DeustoTech.github.io//dycon-platform-documentation//documentation/New-Post" />
+<meta property="og:url" content="https://DeustoTech.github.io//dycon-platform-documentation//documentation/rigidity_fr_laplacian-F" />
 <meta property="og:image" content="https://DeustoTech.github.io//dycon-platform-documentation/img/home-bg.gif">
 	
 	
@@ -29,14 +29,29 @@
 <meta name="citation_author" content="">
 
 
+<meta name="citation_author" content="">
+
+
+<meta name="citation_author" content="">
+
+
+<meta name="citation_author" content="">
+
+
+<meta name="citation_author" content="">
+
+
+<meta name="citation_author" content="">
+
+
 
 	
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>New Post - DyCon Platform</title>
+    <title>rigidity_fr_laplacian - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/New-Post">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/rigidity_fr_laplacian-F">
 	
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -137,10 +152,6 @@
                 </li>
                 
                 <li>
-                    <a href="/dycon-platform-documentation/search/">Search</a>
-                </li>
-                
-                <li>
                         <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>
                 </li>                
             </ul>
@@ -157,16 +168,14 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1>New Post</h1>
+                    <h1>rigidity_fr_laplacian</h1>
                     
-                    <h2 class="subheading">Some Short Description of Post</h2>
+					<span class="meta">Create by: 
 					
-					<span class="meta">Posted by: 
-					
-						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href=""></a></span></span>
+						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="">Umberto Biccari</a></span></span>
 					
 					</span>	
-					<span>on April 19, 2016</span>
+					<span>on April 1, 2017</span>
                 </div>
             </div>
         </div>
@@ -203,56 +212,32 @@
 	 
 	
 	
-		 
-		
-		<div class="float-right">
-		<div class="relevantpost" style="padding: 10px">
-		
-		
-		<h4> You may find interesting: </h4> 
-		
-		<hr class="style-one">
-		
-		<a href="/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms"><h2 class="post-title"> Control of PDEs involving non-local terms</h2></a>
-		
-		
-			<h4 class="post-subtitle">The problem of controllability of fractional (in time) Partial Differential Equations</h4>
-		
-		
-		<p class="post-meta" style="margin-top: 5px;margin-bottom:5px; font-size: 0.8em">Posted by UmbertoBEnriqueZ on May 2, 2017</p>
-		
-		<div class="notepad-index-post-tags" style="">
-		<a href="/dycon-platform-documentation/search/index.html#post" title="Other posts from the Post tag">Post</a>&nbsp;<a href="/dycon-platform-documentation/search/index.html#template" title="Other posts from the Template tag">Template</a>
-		</div> 
-		
-		
-		
-		
 	
-			
-		
-		 
-		
-		<hr class="style-one">
-		
-		<a href="/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms"><h2 class="post-title"> Control of PDEs involving non-local terms</h2></a>
-		
-		
-			<h4 class="post-subtitle">The problem of controllability of fractional (in time) Partial Differential Equations</h4>
-		
-		
-		<p class="post-meta" style="margin-top: 5px;margin-bottom:5px; font-size: 0.8em">Posted by UmbertoBEnriqueZ on May 2, 2017</p>
-		
-		<div class="notepad-index-post-tags" style="">
-		<a href="/dycon-platform-documentation/search/index.html#post" title="Other posts from the Post tag">Post</a>&nbsp;<a href="/dycon-platform-documentation/search/index.html#template" title="Other posts from the Template tag">Template</a>
-		</div> 
-		
-		
-		
-		
+
+	
+	 
+	
 	
 	
 
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	
+	
+
+	
+	 
 	
 	
 	
@@ -315,14 +300,72 @@ img:active{
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<!-- Start Writing Below in Markdown -->
 
-<p>SDas</p>
+
+				Compute the rigidity matrix for the FE discretization of the fractional Laplacian  $(-dx^2)^s \in (-L,L)$.
+
+				<h1>Input Vars</h1>
+				<ul>
+					
+					<li>
+						s : Fractional Order of laplacian $(-dx^2)^s$
+					</li>
+				
+					<li>
+						L : Define the interval of x, So $x \in (-L,L)$
+					</li>
+				
+					<li>
+						N : number of points of discretitation
+					</li>
+				
+				</ul>
+
+				<h1>Output Vars</h1>
+				<ul>
+					
+					<li>
+						A : Rigidity Matrix of fractional Laplacian
+					</li>
+				
+				</ul>
+
+
+
+				<p>Choose following parameters</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Execute the function</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="n">rigidity_fr_laplacian</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Can see graphically representation of matrix</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">mesh</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">view</span><span class="p">(</span><span class="mi">155</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="./../assets/imgs/functions/help_rigidity_fr_laplacian_01.png" alt="" /></p>
+
+
+
+
+
 
 
                 <hr>
 
                 <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/dycon-platform-documentation/documentation/fractional_schr-F" data-toggle="tooltip" data-placement="top" title="fractional_schr">&larr; Previous Post</a>
+                    </li>
                     
                     
                     <li class="next">

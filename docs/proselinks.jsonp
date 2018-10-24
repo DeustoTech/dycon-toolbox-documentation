@@ -1,8 +1,13 @@
 callback([
 
   {
-    "text": "New Post",
-    "href": "https://DeustoTech.github.io/dycon-platform-documentation/documentation/New-Post"
+    "text": "fractional_schr",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/documentation/fractional_schr-F"
+  } ,
+
+  {
+    "text": "rigidity_fr_laplacian",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/documentation/rigidity_fr_laplacian-F"
   } ,
 
   {
@@ -16,8 +21,23 @@ callback([
   } ,
 
   {
-    "text": "WKB expasion of fractional Schrodinger Equation",
+    "text": "Rays propagation of a fractional Schrodinger Equation",
     "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp05/P0001-T"
+  } ,
+
+  {
+    "text": "Gradient Descent in semilinear control",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp02/P0001-T"
+  } ,
+
+  {
+    "text": "Synchronized Oscillators",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0004-T"
+  } ,
+
+  {
+    "text": "Inverted Pendulum Control",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0002-T"
   } 
 
 ])

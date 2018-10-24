@@ -11,7 +11,7 @@ font-family: 'Lusitana', serif;
 }
 p {
   line-height: 1.5;
-  margin: 30px 0;
+  margin: 0px 0;
 }
 p a {
   text-decoration: underline;
@@ -222,12 +222,12 @@ hr.small {
 .post-preview > a > .post-title {
   font-size: 30px;
   margin-top: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 .post-preview > a > .post-subtitle {
   margin: 0;
   font-weight: 300;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 .post-preview > .post-meta {
   color: #808080;
@@ -246,11 +246,11 @@ hr.small {
 }
 @media only screen and (min-width: 768px) {
   .post-preview > a > .post-title {
-    font-size: 36px;
+    font-size: 20px;
   }
 }
 .section-heading {
-  font-size: 36px;
+  font-size: 26px;
   margin-top: 60px;
   font-weight: 700;
 }
