@@ -382,13 +382,13 @@ A =
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 theta0 =
 
-   10.1450
-   -3.8530
-   12.2818
-   10.6742
-    2.7450
-   -5.5123
-   12.9204
+   20.3206
+  -11.3219
+   -9.3685
+  -10.7385
+    3.5834
+   -2.1551
+   17.1415
 
 
 </code></pre></div></div>
@@ -425,9 +425,9 @@ theta0 =
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Results_Classical</span> <span class="o">=</span> <span class="p">{};</span><span class="n">Results_Stochastic</span> <span class="o">=</span> <span class="p">{};</span>
 <span class="c1">%</span>
-<span class="n">maxN</span> <span class="o">=</span> <span class="mi">80</span><span class="p">;</span> <span class="c1">% &lt;=== Maximal number of oscillator allowed in the model</span>
+<span class="n">maxN</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span> <span class="c1">% &lt;=== Maximal number of oscillator allowed in the model</span>
 <span class="n">iter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="k">for</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="n">maxN</span>
+<span class="k">for</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">:</span><span class="n">maxN</span>
     <span class="c1">% We solve the problem for each N</span>
     <span class="n">iter</span> <span class="o">=</span> <span class="n">iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
     <span class="c1">% Definition of the linearized Kuramoto problem</span>

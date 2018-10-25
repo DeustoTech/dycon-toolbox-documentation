@@ -5,8 +5,8 @@
     <description>This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.</description>
     <link>https://DeustoTech.github.io/dycon-platform-documentation/</link>
     <atom:link href="https://DeustoTech.github.io/dycon-platform-documentation/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 Oct 2018 07:30:57 +0200</pubDate>
-    <lastBuildDate>Thu, 25 Oct 2018 07:30:57 +0200</lastBuildDate>
+    <pubDate>Thu, 25 Oct 2018 08:48:41 +0200</pubDate>
+    <lastBuildDate>Thu, 25 Oct 2018 08:48:41 +0200</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -262,13 +262,13 @@ theta0 = normrnd(mu,sigma,N,1)
 
 theta0 =
 
-   10.1450
-   -3.8530
-   12.2818
-   10.6742
-    2.7450
-   -5.5123
-   12.9204
+   20.3206
+  -11.3219
+   -9.3685
+  -10.7385
+    3.5834
+   -2.1551
+   17.1415
 
 
 
@@ -305,9 +305,9 @@ In this example, we show that stochastic method is faster than the classical des
 
 Results_Classical = {};Results_Stochastic = {};
 %
-maxN = 80; % &amp;lt;=== Maximal number of oscillator allowed in the model
+maxN = 500; % &amp;lt;=== Maximal number of oscillator allowed in the model
 iter = 0;
-for N = 1:15:maxN
+for N = 1:100:maxN
     % We solve the problem for each N
     iter = iter + 1;
     % Definition of the linearized Kuramoto problem
