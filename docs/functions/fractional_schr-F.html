@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.">
-	<meta property="og:title" content="rigidity_fr_laplacian" />
+	<meta property="og:title" content="fractional_schr" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://DeustoTech.github.io//dycon-platform-documentation//documentation/rigidity_fr_laplacian-F" />
+<meta property="og:url" content="https://DeustoTech.github.io//dycon-platform-documentation//functions/fractional_schr-F" />
 <meta property="og:image" content="https://DeustoTech.github.io//dycon-platform-documentation/img/home-bg.gif">
 	
 	
@@ -49,9 +49,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>rigidity_fr_laplacian - DyCon Platform</title>
+    <title>fractional_schr - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/rigidity_fr_laplacian-F">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/functions/fractional_schr-F">
 	
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -123,7 +123,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-platform-documentation/"> 
-                 <img style="height: 40px;padding-bottom: 10px;" src= "https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+                 <img style="height: 40px;padding-bottom: 10px;padding-top:0px;" src= "https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
             </a>
         </div>
 
@@ -135,7 +135,7 @@
                 </li>
 				
                 <li>
-                    <a href="/dycon-platform-documentation/projects/documentation">Documentation</a>
+                    <a href="/dycon-platform-documentation/projects/documentation">Functions</a>
                 </li>
                 
                 <li>
@@ -168,7 +168,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1>rigidity_fr_laplacian</h1>
+                    <h1>fractional_schr</h1>
                     
 					<span class="meta">Create by: 
 					
@@ -233,11 +233,11 @@
 	
 
 	
+	 
+	
 	
 	
 
-	
-	 
 	
 	
 	
@@ -302,21 +302,29 @@ img:active{
 
 
 
-				Compute the rigidity matrix for the FE discretization of the fractional Laplacian  $(-dx^2)^s \in (-L,L)$.
+				Solver the fractional Schrodinger equation in 1d
 
 				<h1>Input Vars</h1>
 				<ul>
 					
 					<li>
-						s : Fractional Order of laplacian $(-dx^2)^s$
+						s : Order of the fractional Laplacian (-dx^2)^s
 					</li>
 				
 					<li>
-						L : Define the interval of x, So $x \in (-L,L)$
+						L : Define the interval of x, So x \in (-L,L)
 					</li>
 				
 					<li>
-						N : number of points of discretitation
+						N : number of points in the space discretization
+					</li>
+				
+					<li>
+						T : length of the time interval
+					</li>
+				
+					<li>
+						u0 : initial datum u0(x)
 					</li>
 				
 				</ul>
@@ -325,14 +333,39 @@ img:active{
 				<ul>
 					
 					<li>
-						A : Rigidity Matrix of fractional Laplacian
+						x : space partition
+					</li>
+				
+					<li>
+						t : time partition
+					</li>
+				
+					<li>
+						u : solution of the equation
 					</li>
 				
 				</ul>
 
 
 
-				<p>Choose following parameters</p>
+				<hr />
+
+<h2 id="description">Description</h2>
+
+<p>Solves the fractional Schrodinger equation</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{cases} iu_t + (-d_x^2)^s u = 0, &  (x,t) \in (-L,L)\times(0,T)  \\
+
+
+u = 0,                   &  (x,t) \in (-L,L)\times(0,T)  \\
+
+
+u(x,0) = u0(x),          &   x \in (-L,L) \end{cases} %]]></script>
+
+<p>using FE for the approximation of the fractional Laplacian and Cranck-Nicholson for the time integration</p>
+
+<p>For this example we choose following parameters</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
@@ -351,7 +384,7 @@ img:active{
 <span class="nb">view</span><span class="p">(</span><span class="mi">155</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="./../assets/imgs/functions/help_rigidity_fr_laplacian_01.png" alt="" /></p>
+<p><img src="./../assets/imgs/functions/fractional_schr/help_file_01.png" alt="" /></p>
 
 
 
@@ -363,13 +396,9 @@ img:active{
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/dycon-platform-documentation/documentation/fractional_schr-F" data-toggle="tooltip" data-placement="top" title="fractional_schr">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms" data-toggle="tooltip" data-placement="top" title="Control of PDEs involving non-local terms">Next Post &rarr;</a>
+                        <a href="/dycon-platform-documentation/functions/rigidity_fr_laplacian-F" data-toggle="tooltip" data-placement="top" title="rigidity_fr_laplacian">Next Post &rarr;</a>
                     </li>
                     
                 </ul>

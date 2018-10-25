@@ -1,6 +1,6 @@
 ---
 layout: project
-title: "Documentation"
+title: "Functions"
 description: "Documentation of Dycon Platform functions and classes"
 header-img: "img/home-bg.gif"
 category: Documentation

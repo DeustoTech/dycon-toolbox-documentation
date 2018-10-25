@@ -5,8 +5,8 @@
     <description>This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.</description>
     <link>https://DeustoTech.github.io/dycon-platform-documentation/</link>
     <atom:link href="https://DeustoTech.github.io/dycon-platform-documentation/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 24 Oct 2018 12:18:04 +0200</pubDate>
-    <lastBuildDate>Wed, 24 Oct 2018 12:18:04 +0200</lastBuildDate>
+    <pubDate>Thu, 25 Oct 2018 07:30:57 +0200</pubDate>
+    <lastBuildDate>Thu, 25 Oct 2018 07:30:57 +0200</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -231,7 +231,7 @@ As the functional J(b_i) depend on all nodes $\Theta_j$, the gradient $\nabla J(
 
 Matrix $A$ of the linearized Kuramoto model
 
-N = 4;
+N = 7;
 A = (1/N)*ones(N,N);
 for i = 1:N
     A(i,i) = -1;
@@ -242,10 +242,13 @@ A
 
 A =
 
-   -1.0000    0.2500    0.2500    0.2500
-    0.2500   -1.0000    0.2500    0.2500
-    0.2500    0.2500   -1.0000    0.2500
-    0.2500    0.2500    0.2500   -1.0000
+   -1.0000    0.1429    0.1429    0.1429    0.1429    0.1429    0.1429
+    0.1429   -1.0000    0.1429    0.1429    0.1429    0.1429    0.1429
+    0.1429    0.1429   -1.0000    0.1429    0.1429    0.1429    0.1429
+    0.1429    0.1429    0.1429   -1.0000    0.1429    0.1429    0.1429
+    0.1429    0.1429    0.1429    0.1429   -1.0000    0.1429    0.1429
+    0.1429    0.1429    0.1429    0.1429    0.1429   -1.0000    0.1429
+    0.1429    0.1429    0.1429    0.1429    0.1429    0.1429   -1.0000
 
 
 
@@ -259,10 +262,13 @@ theta0 = normrnd(mu,sigma,N,1)
 
 theta0 =
 
-   -5.3830
-    5.6136
-    1.3182
-   -0.0987
+   10.1450
+   -3.8530
+   12.2818
+   10.6742
+    2.7450
+   -5.5123
+   12.9204
 
 
 
@@ -286,15 +292,22 @@ fig1 = JPlotConvergence(Results_Stochastic,'Convergence of Stochastic Method');
 
 
 
+We can see the result obtained
+
+fig2 = LastThetaPlot(Results_Stochastic);
+
+
+
+
 Comparison Clasical vs Stochastic
 
 In this example, we show that stochastic method is faster than the classical descent in a small network.
 
 Results_Classical = {};Results_Stochastic = {};
 %
-maxN = 40; % &amp;lt;=== Maximal number of oscillator allowed in the model
+maxN = 80; % &amp;lt;=== Maximal number of oscillator allowed in the model
 iter = 0;
-for N = 1:30:maxN
+for N = 1:15:maxN
     % We solve the problem for each N
     iter = iter + 1;
     % Definition of the linearized Kuramoto problem
@@ -578,11 +591,159 @@ References
       </item>
     
       <item>
-        <title>Rays propagation of a fractional Schrodinger Equation</title>
-        <description>% Shows the propagation of the solution of a fractional Schrodinger
-% equation with concentrated and highly oscillatory initial datum.
-% The solution remains concentrated along the rays of geometric optics
+        <title>Control of PDEs involving non-local terms</title>
+        <description>Why non-local?
 
+Relevant models in Continuum Mechanics, Mathematical Physics and Biology are of non-local nature:
+
+  Boltzmann equations in gas dynamics;
+  Navier-Stokes equations in Fluid Mechanics;
+  Keller-Segel model for Chemotaxis.
+
+
+Moreover, these models are applied for the description of several complex phenomena for which a local approach is inappropriate or limiting.
+
+  Peierls-Nabarro equation in elasticity 1
+  Image processing algorithms 2
+  Anomalous diffusion models 3
+  Finance: description of the pricing of American options 4.
+
+
+In this setting, classical PDE theory fails because of non-locality. Yet many of the existing techniques can be tuned and adapted, although this is often a delicate matter.
+
+Fractional time derivatives
+
+We analyze the problem of controllability of fractional (in time) Partial Differential Equations. In contrast with the classical PDE control theory, when driving these systems to rest, one is required not only to control the value of the state at the final time but also the memory accumulated by the long-tail effects that the fractional derivative introduces.
+As a consequence, the notion of null controllability to equilibrium needs to take into account both the state and the memory term.
+
+In particular, in (5) we consider the full controllability problem for the system
+
+
+
+with $A$ and $B$ two linear unbound operators and where $\partial_{t,0+}^{\alpha}$ is a classical Caputo derivative. We show that, due to the memory effects controllability cannot be achieved in finite time.
+
+Fractional Schrödinger and wave equations
+
+In 6, we analyse evolution problems involving the fractional Laplace operator $(-\Delta)^s$, $s\in(0,1)$, on a bounded $C^{1,1}$ domain $\Omega\subset\mathbb{R}^N$. In particular we consider the fractional Schrödinger equation
+
+
+
+and the fractional wave equation
+
+
+
+Our main goal is to study the controllability of this kind of phenomena.
+
+
+  Fractional Schrödinger equation: we assume Dirichlet homogeneous boundary conditions and we prove null controllability provided $s\geq 1/2$ and that the control is active on a neighborhood $\omega$ of a subset of the boundary fulfilling the classical multiplier conditions. Moreover, in the limit case $s=1/2$, controllability holds only if the control time $T$ is large enough.
+  Fractional wave equation: we obtain analogous controllability properties, as a direct consequence of the results for the Schrödinger equation.
+
+
+These mentioned controllability properties may be studied also through the employment of microlocal analysis techniques. In this framework, in 7 we present a WKB expansion for the fractional Schrödinger equaiton in one space dimension, which allows to show that the solutions of the model propagate following the rays of geometric optics and that their controllability properties may be reinterpreted in terms of the velocity of propagation of this mentioned rays.
+
+Viscoelasticity
+
+Viscoelastic materials are those for which the behaviour combines liquid-like and solid-like characteristic 8.
+
+
+
+
+
+
+
+In 9, we consider the following model of viscoelasticity, given by a wave equation with both a viscous Kelvin-Voigt and frictional damping
+
+
+
+in which we incorporate an internal control $h$ with a moving support. Our analysis is based on the fact that the above equation can be rewritten as a system coupling a parabolic equation with an ODE. The presence of this ODE, in the case of a fixed  support of the control, is responsible for the lack of controllability of the system, due to the absence of propagation in the space-like direction. Therefore, we prove the null controllability when the control region, driven by the flow of an ODE, covers all the domain.
+
+Equations with non-local spatial terms
+
+In 10, we study the null controllability of the following linear heat equation with spatial non-local integral terms:
+
+
+
+Under some analyticity assumptions on the corresponding kernel, we show that the equations is controllable. We employ compactness-uniqueness arguments in a suitable functional setting, an argument that is harder to apply for heat equations because of its very strong time irreversibility.
+
+These mentioned results have been later improved in [], where we adopted a Carleman approach which allowed us to remove the (strong) analitycity assumptions on the kernel, and to replace them with sharp exponential decay conditions at the extrema of the time domain considered.
+
+Models with memory terms
+
+In 11, we approach the control problem for the following heat equation with lower order memory
+
+
+
+This can be rewritten as a system coupling a heat equation with an ordinary differential equation, as in the context of viscoelasticity. In view of this structure we introduce a Moving geometric Control Condition (MGCC), which turns out to be sufficient for moving control. Furthermore, in (10) we obtain similar results for the following wave equation with a lower order memory term
+
+
+
+while in 7 we were able to address the case of the following one-dimensional wave equation with memory in the principal part
+
+
+Perspectives
+
+
+  Weakening the MGCC for the control of viscoelasticity models.
+  Models with fractional time derivatives: what kind of control theoretical properties can be expected once exact controllability is excluded?
+  General analytic memory kernels.
+  Geometric Optics for wave-like models involving the fractional Laplacian.
+  Can Carleman inequalities handle non-local terms?
+  Links with delay systems.
+  Nonlinear models.
+
+
+References
+
+
+  
+    
+      G.~Lu - “The Peierls-Nabarro model of dislocations: a venerable theory and its current development” - Handbook of Materials Modeling, 2005 &amp;#8617;
+    
+    
+      G.~Gilboa and S.~Osher - “Nonlocal operators with applications to image processing” - Multiscale Model Simul., 2008 &amp;#8617;
+    
+    
+      M.~Bologna, C.~Tsallis and P. Grigolini - “Anomalous diffusion associated with nonlinear fractional derivative Fokker-Plank-like equation: exact time-time dependent solutions” - Phys. Rev., 2000 &amp;#8617;
+    
+    
+      S.~Levendorski - “Pricing of the American put under Levy processes” - Int. J. Theor. Appl. Finance, 2004 &amp;#8617;
+    
+    
+      Q.~L&quot;u and E. Zuazua - “On the lack of controllability of fractional in time ODE and PDE” - Math. Control Signals Syst., 2016 &amp;#8617;
+    
+    
+      U.~Biccari - “Internal control for non-local Schr&quot;odinger and wave eqautions involving the fractional Laplace operator” - Submitted &amp;#8617;
+    
+    
+      U.~Biccari, and Aceves, A. B. WKB expansion for a fractional Schröodinger equation with applications to controllability. Submitted. (2018). &amp;#8617; &amp;#8617;2
+    
+    
+      T.H.~Banks, S.~Hu and Z.R.~Kenz - “A brief review of elasticity and viscoelasticity for solids} - Adv. Appl. Math. Mech., 2011.” &amp;#8617;
+    
+    
+      F.~Chaves, L.~Rosier and E.~Zuazua - “Null controllability of a system of viscoelasticity with moving control” - J. Math. Pures Appl., 2014. &amp;#8617;
+    
+    
+      Q.~L&quot;u, X.~Zhang and E. Zuazua - “Null controllability of wave equations with memory” - Submitted &amp;#8617; &amp;#8617;2
+    
+    
+      F.~Chaves, X.~Zhang and E.~Zuazua - “Controllability of evolution equations with memory” - Submitted &amp;#8617;
+    
+  
+
+</description>
+        <pubDate>Mon, 01 Oct 2018 00:00:00 +0200</pubDate>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms</guid>
+        
+        
+        <category>Posts</category>
+        
+      </item>
+    
+      <item>
+        <title>Rays propagation of a fractional Schrodinger Equation</title>
+        <description>Shows the propagation of the solution of a fractional Schrodinger equation with concentrated and highly oscillatory initial datum. The solution remains concentrated along the rays of geometric optics
 
 N = 250;
 L = 1;
@@ -904,144 +1065,34 @@ References
       </item>
     
       <item>
-        <title>Control of PDEs involving non-local terms</title>
-        <description>Why non-local?
-
-Relevant models in Continuum Mechanics, Mathematical Physics and Biology are of non-local nature:
-
-  Boltzmann equations in gas dynamics;
-  Navier-Stokes equations in Fluid Mechanics;
-  Keller-Segel model for Chemotaxis.
-
-
-Moreover, these models are applied for the description of several complex phenomena for which a local approach is inappropriate or limiting.
-
-  Peierls-Nabarro equation in elasticity (\cite{elasticity});
-  Image processing algorithms (\cite{image_proc});
-  Anomalous diffusion models (\cite{anomalous});
-  Finance: description of the pricing of American options (\cite{finance}).
-
-
-In this setting, classical PDE theory fails because of non-locality. Yet many of the existing techniques can be tuned and adapted, although this is often a delicate matter.
-
-Fractional time derivatives
-
-We analyze the problem of controllability of fractional (in time) Partial Differential Equations. In contrast with the classical PDE control theory, when driving these systems to rest, one is required not only to control the value of the state at the final time but also the memory accumulated by the long-tail effects that the fractional derivative introduces.
-As a consequence, the notion of null controllability to equilibrium needs to take into account both the state and the memory term.
-
-In particular, in \cite{time_frac_eq} we consider the full controllability problem for the system
-
-
-
-with $A$ and $B$ two linear unbound operators and where $\partial_{t,0+}^{\alpha}$ is a classical Caputo derivative. We show that, due to the memory effects controllability cannot be achieved in finite time.
-
-Fractional Schrödinger and wave equations
-
-In \cite{frac_schr}, we analyse evolution problems involving the fractional Laplace operator $(-\Delta)^s$, $s\in(0,1)$, on a bounded $C^{1,1}$ domain $\Omega\subset\mathbb{R}^N$. In particular we consider the fractional Schrödinger equation
-
-
-
-and the fractional wave equation
-
-
-
-Our main goal is to study the controllability of this kind of phenomena.
-
-  Fractional Schrödinger equation: we assume Dirichlet homogeneous boundary conditions and we prove null controllability provided $s\geq 1/2$ and that the control is active on a neighborhood $\omega$ of a subset of the boundary fulfilling the classical multiplier conditions. Moreover, in the limit case $s=1/2$, controllability holds only if the control time $T$ is large enough.
-  Fractional wave equation: we obtain analogous controllability properties, as a direct consequence of the results for the Schrödinger equation.
-
-
-These mentioned controllability properties may be studied also through the employment of microlocal analysis techniques. In this framework, in [] we present a WKB expansion for the fractional Schrödinger equaiton in one space dimension, which allows to show that the solutions of the model propagate following the rays of geometric optics and that their controllability properties may be reinterpreted in terms of the velocity of propagation of this mentioned rays.
-
-Viscoelasticity
-
-Viscoelastic materials are those for which the behaviour combines liquid-like and solid-like characteristic (\cite{visco}).
-
-
-
-
-
-In \cite{moving}, we consider the following model of viscoelasticity, given by a wave equation with both a viscous Kelvin-Voigt and frictional damping
-
-
-
-in which we incorporate an internal control $h$ with a moving support. Our analysis is based on the fact that the above equation can be rewritten as a system coupling a parabolic equation with an ODE. The presence of this ODE, in the case of a fixed  support of the control, is responsible for the lack of controllability of the system, due to the absence of propagation in the space-like direction. Therefore, we prove the null controllability when the control region, driven by the flow of an ODE, covers all the domain.
-
-Equations with non-local spatial terms
-
-In [], we study the null controllability of the following linear heat equation with spatial non-local integral terms:
-
-
-
-Under some analyticity assumptions on the corresponding kernel, we show that the equations is controllable. We employ compactness-uniqueness arguments in a suitable functional setting, an argument that is harder to apply for heat equations because of its very strong time irreversibility.
-
-These mentioned results have been later improved in [], where we adopted a Carleman approach which allowed us to remove the (strong) analitycity assumptions on the kernel, and to replace them with sharp exponential decay conditions at the extrema of the time domain considered.
-
-Models with memory terms
-
-In \cite{memory}, we approach the control problem for the following heat equation with lower order memory
-
-
-
-This can be rewritten as a system coupling a heat equation with an ordinary differential equation, as in the context of viscoelasticity. In view of this structure we introduce a Moving geometric Control Condition (MGCC), which turns out to be sufficient for moving control. Furthermore, in \cite{memory_wave} we obtain similar results for the following wave equation with a lower order memory term
-
-
-
-while in [] we were able to address the case of the following one-dimensional wave equation with memory in the principal part
-
-
-Perspectives
-
-  Weakening the MGCC for the control of viscoelasticity models.
-  Models with fractional time derivatives: what kind of control theoretical properties can be expected once exact controllability is excluded?
-  General analytic memory kernels.
-  Geometric Optics for wave-like models involving the fractional Laplacian.
-  Can Carleman inequalities handle non-local terms?
-  Links with delay systems.
-  Nonlinear models.
-
-
-References
-</description>
-        <pubDate>Tue, 02 May 2017 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/posts/Control_of_PDE_non_local_terms</guid>
-        
-        
-        <category>Posts</category>
-        
-      </item>
-    
-      <item>
         <title>rigidity_fr_laplacian</title>
-        <description>Choose following parameters
+        <description>
 
-s = 0.5;
-N = 100;
-L = 1;
+Description
 
+Summary of example objective
 
-Execute the function
+Section 1 Title
 
-A = rigidity_fr_laplacian(s,L,N);
+Description of first code block
 
-
-Can see graphically representation of matrix
-
-figure(1)
-mesh(A)
-view(155,100)
+a = 1;
 
 
+Section 2 Title
+
+Description of second code block
+
+b = 2;
 
 
 </description>
         <pubDate>Sat, 01 Apr 2017 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/documentation/rigidity_fr_laplacian-F</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/documentation/rigidity_fr_laplacian-F</guid>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/functions/rigidity_fr_laplacian-F</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/functions/rigidity_fr_laplacian-F</guid>
         
         
-        <category>Documentation</category>
+        <category>Functions</category>
         
       </item>
     
@@ -1080,11 +1131,11 @@ view(155,100)
 
 </description>
         <pubDate>Sat, 01 Apr 2017 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/documentation/fractional_schr-F</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/documentation/fractional_schr-F</guid>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/functions/fractional_schr-F</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/functions/fractional_schr-F</guid>
         
         
-        <category>Documentation</category>
+        <category>Functions</category>
         
       </item>
     

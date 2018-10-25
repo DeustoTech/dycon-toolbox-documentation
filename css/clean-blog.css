@@ -6,7 +6,7 @@
 }
 body {
 font-family: 'Lusitana', serif;
-  font-size: 20px;
+  font-size: 18px;
   color: #404040;
 }
 p {
@@ -39,6 +39,12 @@ a:focus {
 }
 a img:hover,
 a img:focus {
+}
+
+img {
+  padding-top: 25px;
+  padding-bottom: 25px;
+
 }
 blockquote {
   color: #808080;

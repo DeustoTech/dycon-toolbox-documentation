@@ -1,6 +1,6 @@
 ---
   layout: function
-  categories: Documentation
+  categories: Functions
   title: fractional_schr
   author: UmbertoB
   date: 2017-04-01

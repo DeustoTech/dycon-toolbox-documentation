@@ -41,7 +41,7 @@ header-img: "img/home-bg.gif"
 <ul>
 {% for post in site.posts %}
 {% if post.categories contains page.title %}
-
+<hr>
 <li style="list-style-type:none">
     <div class="post-preview">
             <a href="{{ post.url | prepend: site.baseurl }}" style="display: block">
@@ -57,7 +57,7 @@ header-img: "img/home-bg.gif"
             </a>
     </div>
 </li>
-
+<hr>
 {% endif %}
 {% endfor %}
 </ul> 

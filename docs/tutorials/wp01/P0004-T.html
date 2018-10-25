@@ -123,7 +123,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-platform-documentation/"> 
-                 <img style="height: 40px;padding-bottom: 10px;" src= "https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+                 <img style="height: 40px;padding-bottom: 10px;padding-top:0px;" src= "https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
             </a>
         </div>
 
@@ -135,7 +135,7 @@
                 </li>
 				
                 <li>
-                    <a href="/dycon-platform-documentation/projects/documentation">Documentation</a>
+                    <a href="/dycon-platform-documentation/projects/documentation">Functions</a>
                 </li>
                 
                 <li>
@@ -169,7 +169,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
                     <h1>Synchronized Oscillators</h1>
-                    
+
 					<span class="meta">Posted by: 
 					
 						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="">Ana Navarro</a></span></span>
@@ -351,7 +351,7 @@ img:active{
 
 <p>Matrix $A$ of the linearized Kuramoto model</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">N</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">N</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
 <span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">/</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
 <span class="k">for</span> <span class="nb">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">N</span>
     <span class="n">A</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="nb">i</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
@@ -362,10 +362,13 @@ img:active{
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 A =
 
-   -1.0000    0.2500    0.2500    0.2500
-    0.2500   -1.0000    0.2500    0.2500
-    0.2500    0.2500   -1.0000    0.2500
-    0.2500    0.2500    0.2500   -1.0000
+   -1.0000    0.1429    0.1429    0.1429    0.1429    0.1429    0.1429
+    0.1429   -1.0000    0.1429    0.1429    0.1429    0.1429    0.1429
+    0.1429    0.1429   -1.0000    0.1429    0.1429    0.1429    0.1429
+    0.1429    0.1429    0.1429   -1.0000    0.1429    0.1429    0.1429
+    0.1429    0.1429    0.1429    0.1429   -1.0000    0.1429    0.1429
+    0.1429    0.1429    0.1429    0.1429    0.1429   -1.0000    0.1429
+    0.1429    0.1429    0.1429    0.1429    0.1429    0.1429   -1.0000
 
 
 </code></pre></div></div>
@@ -379,10 +382,13 @@ A =
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 theta0 =
 
-   -5.3830
-    5.6136
-    1.3182
-   -0.0987
+   10.1450
+   -3.8530
+   12.2818
+   10.6742
+    2.7450
+   -5.5123
+   12.9204
 
 
 </code></pre></div></div>
@@ -406,15 +412,22 @@ theta0 =
 
 <p><img src="./../../assets/imgs/WP01/P0004/Synchronized_oscillators-md_01.png" alt="" /></p>
 
+<p>We can see the result obtained</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig2</span> <span class="o">=</span> <span class="n">LastThetaPlot</span><span class="p">(</span><span class="n">Results_Stochastic</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><img src="./../../assets/imgs/WP01/P0004/Synchronized_oscillators-md_02.png" alt="" /></p>
+
 <h2 id="comparison-clasical-vs-stochastic">Comparison Clasical vs Stochastic</h2>
 
 <p>In this example, we show that stochastic method is faster than the classical descent in a small network.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Results_Classical</span> <span class="o">=</span> <span class="p">{};</span><span class="n">Results_Stochastic</span> <span class="o">=</span> <span class="p">{};</span>
 <span class="c1">%</span>
-<span class="n">maxN</span> <span class="o">=</span> <span class="mi">40</span><span class="p">;</span> <span class="c1">% &lt;=== Maximal number of oscillator allowed in the model</span>
+<span class="n">maxN</span> <span class="o">=</span> <span class="mi">80</span><span class="p">;</span> <span class="c1">% &lt;=== Maximal number of oscillator allowed in the model</span>
 <span class="n">iter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="k">for</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="n">maxN</span>
+<span class="k">for</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="n">maxN</span>
     <span class="c1">% We solve the problem for each N</span>
     <span class="n">iter</span> <span class="o">=</span> <span class="n">iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
     <span class="c1">% Definition of the linearized Kuramoto problem</span>
@@ -453,7 +466,7 @@ theta0 =
 <span class="nb">legend</span><span class="p">({</span><span class="s1">'Stochastic Gradient'</span><span class="p">,</span><span class="s1">'Classical Gradient'</span><span class="p">})</span>
 </code></pre></div></div>
 
-<p><img src="./../../assets/imgs/WP01/P0004/Synchronized_oscillators-md_02.png" alt="" /></p>
+<p><img src="./../../assets/imgs/WP01/P0004/Synchronized_oscillators-md_03.png" alt="" /></p>
 
 <p>Altough in this example we are dealing with a small network, we have shown that stochastic method is faster than the classical descent. If the number of nodes increase we can see better the efectiveness of the stochastic gradient descent method with respect to the classical. <img src="../../assets/imgs/WP01/P0004/ClassicalVStochastic.png" alt="" /></p>
 

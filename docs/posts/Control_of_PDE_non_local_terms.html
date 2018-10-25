@@ -123,7 +123,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-platform-documentation/"> 
-                 <img style="height: 40px;padding-bottom: 10px;" src= "https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+                 <img style="height: 40px;padding-bottom: 10px;padding-top:0px;" src= "https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
             </a>
         </div>
 
@@ -135,7 +135,7 @@
                 </li>
 				
                 <li>
-                    <a href="/dycon-platform-documentation/projects/documentation">Documentation</a>
+                    <a href="/dycon-platform-documentation/projects/documentation">Functions</a>
                 </li>
                 
                 <li>
@@ -169,7 +169,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
                     <h1>Control of PDEs involving non-local terms</h1>
-                    
+
 					<span class="meta">Posted by: 
 					
 						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="">Umberto Biccari</a></span></span>
@@ -177,7 +177,7 @@
 						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="">Enrique Zuazua</a></span></span>
 					
 					</span>	
-					<span>on May 2, 2017</span>
+					<span>on October 1, 2018</span>
                 </div>
             </div>
         </div>
@@ -217,6 +217,10 @@
 	
 
 	
+	
+	
+
+	
 	 
 	
 	
@@ -224,10 +228,6 @@
 
 	
 	 
-	
-	
-	
-
 	
 	
 	
@@ -313,10 +313,10 @@ img:active{
 
 <p>Moreover, these models are applied for the description of several complex phenomena for which a local approach is inappropriate or limiting.</p>
 <ul>
-  <li>Peierls-Nabarro equation in elasticity (\cite{elasticity});</li>
-  <li>Image processing algorithms (\cite{image_proc});</li>
-  <li>Anomalous diffusion models (\cite{anomalous});</li>
-  <li>Finance: description of the pricing of American options (\cite{finance}).</li>
+  <li>Peierls-Nabarro equation in elasticity <sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></li>
+  <li>Image processing algorithms <sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup></li>
+  <li>Anomalous diffusion models <sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup></li>
+  <li>Finance: description of the pricing of American options <sup id="fnref:4"><a href="#fn:4" class="footnote">4</a></sup>.</li>
 </ul>
 
 <p>In this setting, classical PDE theory fails because of non-locality. Yet many of the existing techniques can be tuned and adapted, although this is often a delicate matter.</p>
@@ -326,7 +326,7 @@ img:active{
 <p>We analyze the problem of controllability of fractional (in time) Partial Differential Equations. In contrast with the classical PDE control theory, when driving these systems to rest, one is required not only to control the value of the state at the final time but also the memory accumulated by the long-tail effects that the fractional derivative introduces.
 As a consequence, the notion of null controllability to equilibrium needs to take into account both the state and the memory term.</p>
 
-<p>In particular, in \cite{time_frac_eq} we consider the full controllability problem for the system</p>
+<p>In particular, in (<sup id="fnref:5"><a href="#fn:5" class="footnote">5</a></sup>) we consider the full controllability problem for the system</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
 \left\{\begin{array}{ll}
@@ -339,7 +339,7 @@ As a consequence, the notion of null controllability to equilibrium needs to tak
 
 <h2 id="fractional-schrödinger-and-wave-equations">Fractional Schrödinger and wave equations</h2>
 
-<p>In \cite{frac_schr}, we analyse evolution problems involving the fractional Laplace operator $(-\Delta)^s$, $s\in(0,1)$, on a bounded $C^{1,1}$ domain $\Omega\subset\mathbb{R}^N$. In particular we consider the fractional Schrödinger equation</p>
+<p>In <sup id="fnref:6"><a href="#fn:6" class="footnote">6</a></sup>, we analyse evolution problems involving the fractional Laplace operator $(-\Delta)^s$, $s\in(0,1)$, on a bounded $C^{1,1}$ domain $\Omega\subset\mathbb{R}^N$. In particular we consider the fractional Schrödinger equation</p>
 
 <script type="math/tex; mode=display">iu_t+(-\Delta)^su=0, \;\;(x,t)\in\Omega\times(0,T)</script>
 
@@ -348,30 +348,33 @@ As a consequence, the notion of null controllability to equilibrium needs to tak
 <script type="math/tex; mode=display">u_{tt}+(-\Delta)^{2s}u=0, \;\; (x,t)\in\Omega\times(0,T).</script>
 
 <p>Our main goal is to study the controllability of this kind of phenomena.</p>
+
 <ul>
   <li><strong>Fractional Schrödinger equation</strong>: we assume Dirichlet homogeneous boundary conditions and we prove null controllability provided $s\geq 1/2$ and that the control is active on a neighborhood $\omega$ of a subset of the boundary fulfilling the classical multiplier conditions. Moreover, in the limit case $s=1/2$, controllability holds only if the control time $T$ is large enough.</li>
   <li><strong>Fractional wave equation</strong>: we obtain analogous controllability properties, as a direct consequence of the results for the Schrödinger equation.</li>
 </ul>
 
-<p>These mentioned controllability properties may be studied also through the employment of microlocal analysis techniques. In this framework, in [] we present a WKB expansion for the fractional Schrödinger equaiton in one space dimension, which allows to show that the solutions of the model propagate following the rays of geometric optics and that their controllability properties may be reinterpreted in terms of the velocity of propagation of this mentioned rays.</p>
+<p>These mentioned controllability properties may be studied also through the employment of microlocal analysis techniques. In this framework, in <sup id="fnref:11"><a href="#fn:11" class="footnote">7</a></sup> we present a WKB expansion for the fractional Schrödinger equaiton in one space dimension, which allows to show that the solutions of the model propagate following the rays of geometric optics and that their controllability properties may be reinterpreted in terms of the velocity of propagation of this mentioned rays.</p>
 
 <h2 id="viscoelasticity">Viscoelasticity</h2>
 
-<p>Viscoelastic materials are those for which the behaviour combines liquid-like and solid-like characteristic (\cite{visco}).</p>
+<p>Viscoelastic materials are those for which the behaviour combines liquid-like and solid-like characteristic <sup id="fnref:7"><a href="#fn:7" class="footnote">8</a></sup>.</p>
 
-<p><img src="./visco_car.png" alt="image" />
-<img src="./visco_ball.png" alt="" />
-<img src="./visco_bed.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io/dycon-platform-documentation/assets/imgs/posts/2018-10-01-Control-of-PDEs-involving-non-local-terms/visco_car.png" alt="image" /></p>
 
-<p>In \cite{moving}, we consider the following model of viscoelasticity, given by a wave equation with both a viscous Kelvin-Voigt and frictional damping</p>
+<p><img src="https://DeustoTech.github.io/dycon-platform-documentation/assets/imgs/posts/2018-10-01-Control-of-PDEs-involving-non-local-terms/visco_ball.png" alt="image" /></p>
 
-<script type="math/tex; mode=display">y_{tt}-\Delta y-\Delta y_t+b(x)y_t=h\chi_{\omega(t)},</script>
+<p><img src="https://DeustoTech.github.io/dycon-platform-documentation/assets/imgs/posts/2018-10-01-Control-of-PDEs-involving-non-local-terms/visco_bed.png" alt="image" /></p>
+
+<p>In <sup id="fnref:8"><a href="#fn:8" class="footnote">9</a></sup>, we consider the following model of viscoelasticity, given by a wave equation with both a viscous Kelvin-Voigt and frictional damping</p>
+
+<script type="math/tex; mode=display">y_{tt}-\Delta y-\Delta y_t+b(x)y_t=h\chi_{\omega(t)}</script>
 
 <p>in which we incorporate an internal control $h$ with a moving support. Our analysis is based on the fact that the above equation can be rewritten as a system coupling a parabolic equation with an ODE. The presence of this ODE, in the case of a fixed  support of the control, is responsible for the lack of controllability of the system, due to the absence of propagation in the space-like direction. Therefore, we prove the null controllability when the control region, driven by the flow of an ODE, covers all the domain.</p>
 
 <h2 id="equations-with-non-local-spatial-terms">Equations with non-local spatial terms</h2>
 
-<p>In [], we study the null controllability of the following linear heat equation with spatial non-local integral terms:</p>
+<p>In <sup id="fnref:10"><a href="#fn:10" class="footnote">10</a></sup>, we study the null controllability of the following linear heat equation with spatial non-local integral terms:</p>
 
 <script type="math/tex; mode=display">y_t-\Delta_y+\int_{\Omega} K(x,\xi)y(\xi,t)\,d\xi=v\chi_{\omega}.</script>
 
@@ -381,18 +384,19 @@ As a consequence, the notion of null controllability to equilibrium needs to tak
 
 <h2 id="models-with-memory-terms">Models with memory terms</h2>
 
-<p>In \cite{memory}, we approach the control problem for the following heat equation with lower order memory</p>
+<p>In <sup id="fnref:9"><a href="#fn:9" class="footnote">11</a></sup>, we approach the control problem for the following heat equation with lower order memory</p>
 
-<script type="math/tex; mode=display">y_t-\Delta y+ \int_0^t y(s)\,ds=u\chi_{\omega}(x).</script>
+<script type="math/tex; mode=display">y_t-\Delta y+ \int_0^t y(s)\,ds=u\chi_{\omega}(x)</script>
 
-<p>This can be rewritten as a system coupling a heat equation with an ordinary differential equation, as in the context of viscoelasticity. In view of this structure we introduce a Moving geometric Control Condition (MGCC), which turns out to be sufficient for moving control. Furthermore, in \cite{memory_wave} we obtain similar results for the following wave equation with a lower order memory term</p>
+<p>This can be rewritten as a system coupling a heat equation with an ordinary differential equation, as in the context of viscoelasticity. In view of this structure we introduce a Moving geometric Control Condition (MGCC), which turns out to be sufficient for moving control. Furthermore, in (<sup id="fnref:10:1"><a href="#fn:10" class="footnote">10</a></sup>) we obtain similar results for the following wave equation with a lower order memory term</p>
 
-<script type="math/tex; mode=display">y_{tt}-\Delta y + \int_0^t y(s)\,ds=u\chi_{\omega},</script>
+<script type="math/tex; mode=display">y_{tt}-\Delta y + \int_0^t y(s)\,ds=u\chi_{\omega}</script>
 
-<p>while in [] we were able to address the case of the following one-dimensional wave equation with memory in the principal part</p>
+<p>while in <sup id="fnref:11:1"><a href="#fn:11" class="footnote">7</a></sup> we were able to address the case of the following one-dimensional wave equation with memory in the principal part</p>
 
-<p><script type="math/tex">y_{tt}-y_{xx} + M\int_0^t y_{xx}(s)\,ds=u\chi_{\omega}(x),</script></p>
+<p><script type="math/tex">y_{tt}-y_{xx} + M\int_0^t y_{xx}(s)\,ds=u\chi_{\omega}(x)</script></p>
 <h2 id="perspectives">Perspectives</h2>
+
 <ul>
   <li>Weakening the MGCC for the control of viscoelasticity models.</li>
   <li>Models with fractional time derivatives: what kind of control theoretical properties can be expected once exact controllability is excluded?</li>
@@ -405,18 +409,56 @@ As a consequence, the notion of null controllability to equilibrium needs to tak
 
 <h2 id="references">References</h2>
 
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>G.~Lu - “The Peierls-Nabarro model of dislocations: a venerable theory and its current development” - Handbook of Materials Modeling, 2005 <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>G.~Gilboa and S.~Osher - “Nonlocal operators with applications to image processing” - Multiscale Model Simul., 2008 <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>M.~Bologna, C.~Tsallis and P. Grigolini - “Anomalous diffusion associated with nonlinear fractional derivative Fokker-Plank-like equation: exact time-time dependent solutions” - Phys. Rev., 2000 <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:4">
+      <p>S.~Levendorski - “Pricing of the American put under Levy processes” - Int. J. Theor. Appl. Finance, 2004 <a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:5">
+      <p>Q.~L"u and E. Zuazua - “On the lack of controllability of fractional in time ODE and PDE” - Math. Control Signals Syst., 2016 <a href="#fnref:5" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:6">
+      <p>U.~Biccari - “Internal control for non-local Schr"odinger and wave eqautions involving the fractional Laplace operator” - Submitted <a href="#fnref:6" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:11">
+      <p>U.~Biccari, and Aceves, A. B. WKB expansion for a fractional Schröodinger equation with applications to controllability. Submitted. (2018). <a href="#fnref:11" class="reversefootnote">&#8617;</a> <a href="#fnref:11:1" class="reversefootnote">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:7">
+      <p>T.H.~Banks, S.~Hu and Z.R.~Kenz - “A brief review of elasticity and viscoelasticity for solids} - Adv. Appl. Math. Mech., 2011.” <a href="#fnref:7" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:8">
+      <p>F.~Chaves, L.~Rosier and E.~Zuazua - “Null controllability of a system of viscoelasticity with moving control” - J. Math. Pures Appl., 2014. <a href="#fnref:8" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:10">
+      <p>Q.~L"u, X.~Zhang and E. Zuazua - “Null controllability of wave equations with memory” - Submitted <a href="#fnref:10" class="reversefootnote">&#8617;</a> <a href="#fnref:10:1" class="reversefootnote">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:9">
+      <p>F.~Chaves, X.~Zhang and E.~Zuazua - “Controllability of evolution equations with memory” - Submitted <a href="#fnref:9" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
 
                 <hr>
 
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/dycon-platform-documentation/documentation/rigidity_fr_laplacian-F" data-toggle="tooltip" data-placement="top" title="rigidity_fr_laplacian">&larr; Previous Post</a>
+                        <a href="/dycon-platform-documentation/tutorials/wp05/P0001-T" data-toggle="tooltip" data-placement="top" title="Rays propagation of a fractional Schrodinger Equation">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/dycon-platform-documentation/tutorials/wp01/P0001-T" data-toggle="tooltip" data-placement="top" title="Average Control by classical gradient step method">Next Post &rarr;</a>
+                        <a href="/dycon-platform-documentation/tutorials/wp02/P0001-T" data-toggle="tooltip" data-placement="top" title="Gradient Descent in semilinear control">Next Post &rarr;</a>
                     </li>
                     
                 </ul>

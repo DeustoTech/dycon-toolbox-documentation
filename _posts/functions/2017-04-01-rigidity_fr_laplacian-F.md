@@ -1,64 +1,65 @@
 ---
   layout: function
-  categories: Documentation
+  categories: Functions
   title: rigidity_fr_laplacian
-  author:   UmbertoB
-  date:     2017-04-01
-  short_description: Compute the rigidity matrix for the FE discretization of the fractional Laplacian  $(-dx^2)^s \in (-L,L)$.
-  long_description:  Puedo poner lo que sea $\alpha$ Me va a dej       Puedo poner lo que sea $\alpha$ Me va a deja
+  author: UmbertoB
+  date: 2017-04-01
+  short_description: Stiffness matrix for the FE discretization of the
+                     1d fractional Laplacian.
+  long_description: Computes the rigidity matrix for the FE discretization 
+                    of the fractional Laplacian (-dx^2)^s on the space 
+                    domain (-L,L).
   inputs_variables:  
     s:
         type:        double
         dimension:   1
-        description: Fractional Order of laplacian $(-dx^2)^s$
+        description: Order of the fractional Laplacian (-dx^2)^s
+        WARNING:     S HAS TO BE CHOSNE IN THE INTERVAL (0,1) 
     L:
         type:         double
         dimension:    1
-        description:  Define the interval of x, So $x \in (-L,L)$  
+        description:  Define the interval of x, So x \in (-L,L)  
     N:
         type:        integer
         dimension:   1
-        description: number of points of discretitation 
+        description: number of points in the space discretization 
   outputs_variables:
     A:
         type:        double
         dimension:   NxN
         description: Rigidity Matrix of fractional Laplacian
 ---
+<hr>
+## Description
 
 
-Choose following parameters
-
-
-
-```matlab
-s = 0.5;
-N = 100;
-L = 1;
-```
-
-
-Execute the function
+Summary of example objective
 
 
 
-```matlab
-A = rigidity_fr_laplacian(s,L,N);
-```
+## Section 1 Title
 
 
-Can see graphically representation of matrix
+Description of first code block
 
 
 
 ```matlab
-figure(1)
-mesh(A)
-view(155,100)
+a = 1;
 ```
 
 
-![](./../assets/imgs/functions/help_rigidity_fr_laplacian_01.png)
+
+## Section 2 Title
+
+
+Description of second code block
+
+
+
+```matlab
+b = 2;
+```
 
 
 
