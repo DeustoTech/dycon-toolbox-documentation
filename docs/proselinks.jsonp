@@ -26,6 +26,11 @@ callback([
   } ,
 
   {
+    "text": "WKB expansion for a fractional Schrödinger equation with applications to controllability",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/posts/WBK-Expasion"
+  } ,
+
+  {
     "text": "Gradient Descent in semilinear control",
     "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp02/P0001-T"
   } ,
