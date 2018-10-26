@@ -33,11 +33,6 @@ callback([
   {
     "text": "Synchronized Oscillators",
     "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0004-T"
-  } ,
-
-  {
-    "text": "Inverted Pendulum Control",
-    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0002-T"
   } 
 
 ])

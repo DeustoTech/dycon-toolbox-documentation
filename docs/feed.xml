@@ -5,182 +5,9 @@
     <description>This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.</description>
     <link>https://DeustoTech.github.io/dycon-platform-documentation/</link>
     <atom:link href="https://DeustoTech.github.io/dycon-platform-documentation/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 Oct 2018 08:48:41 +0200</pubDate>
-    <lastBuildDate>Thu, 25 Oct 2018 08:48:41 +0200</lastBuildDate>
+    <pubDate>Fri, 26 Oct 2018 08:04:23 +0200</pubDate>
+    <lastBuildDate>Fri, 26 Oct 2018 08:04:23 +0200</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
-    
-      <item>
-        <title>Inverted Pendulum Control</title>
-        <description>Init
-
-clear
-clc
-
-
-syms t;
-syms x dx theta dtheta;
-syms M m l g;
-syms Lgr Lgr_x Lgr_dx Lgr_theta Lgr_dtheta;
-
-
-Define Lagrangian
-
-Lgr = 1/2 * M*dx^2 + 2/3 * m*l^2*dtheta^2 + m*l*dx*dtheta*cos(theta)...
-        + 1/2 *m*dx^2 - m*g*l*cos(theta);
-Lgr_x = diff(Lgr,x);
-Lgr_dx = diff(Lgr,dx);
-Lgr_theta = diff(Lgr,theta);
-Lgr_dtheta = diff(Lgr,dtheta);
-
-
-Compute derivatives of Lagrangian _f means functionalized
-
-syms x_f(t) dx_f(t) theta_f(t) dtheta_f(t) Lgr_x_f Lgr_dx_f Lgr_theta_f Lgr_dtheta_f;
-dx_f(t)=diff(x_f,t);
-dtheta_f=diff(theta_f,t);
-
-Lgr_dx_f = subs(Lgr_dx,[x dx theta dtheta],[x_f dx_f theta_f dtheta_f])
-Lgr_theta_f = subs(Lgr_theta,[x dx theta dtheta],[x_f dx_f theta_f dtheta_f])
-Lgr_dtheta_f = subs(Lgr_dtheta,[x dx theta dtheta],[x_f dx_f theta_f dtheta_f])
-
-
- 
-Lgr_dx_f =
- 
-M*diff(x_f(t), t) + m*diff(x_f(t), t) + l*m*cos(theta_f(t))*diff(theta_f(t), t)
- 
- 
-Lgr_theta_f =
- 
-g*l*m*sin(theta_f(t)) - l*m*sin(theta_f(t))*diff(theta_f(t), t)*diff(x_f(t), t)
- 
- 
-Lgr_dtheta_f =
- 
-(4*m*diff(theta_f(t), t)*l^2)/3 + m*cos(theta_f(t))*diff(x_f(t), t)*l
- 
-
-
-
-Coumpute LHS of Lagrange equations of motion
-
-syms Leq Eqn;
-Leq = diff([Lgr_dx_f; Lgr_dtheta_f],t) - [Lgr_x; Lgr_theta_f];
-syms Ddx Ddtheta u;
-Leq = subs(Leq,[diff(x_f(t), t, t) , diff(theta_f(t), t, t) ],[Ddx, Ddtheta])-[u; 0];
-Eqn = solve(Leq==0,[Ddx,Ddtheta]);
-
-
-Construct state space equations
-
-syms x1 x2 x3 x4 X;
-X = [x1;x2;x3;x4];
-subs(Eqn.Ddx, [x_f, diff(x_f(t),t), theta_f, diff(theta_f(t),t)], [x1, x2, x3, x4]);
-subs(Eqn.Ddtheta, [x_f, diff(x_f(t),t), theta_f, diff(theta_f(t),t)], [x1, x2, x3, x4]);
-
-syms Nsys
-Nsys = [x2;...
-        subs(Eqn.Ddx, [x_f, diff(x_f(t),t), theta_f, diff(theta_f(t),t)], [x1, x2, x3, x4]);...
-        x4;...
-        subs(Eqn.Ddtheta, [x_f, diff(x_f(t),t), theta_f, diff(theta_f(t),t)], [x1, x2, x3, x4])];
-
-syms F;
-F = subs(Nsys,u,0);
-latex(F)
-
-
-
-syms Amat Bmat
-Amat = subs(jacobian(F,X),[x1,x2,x3,x4],[0,0,0,0]);
-Bmat = diff(subs(Nsys,[x1,x2,x3,x4],[0,0,0,0]),u);
-
-
-Physical parameters
-
-
-  
-    $m = 0.3 [kg]$;
-  
-  
-    $M = 0.8 [kg]$;
-  
-  
-    $l = 0.25 [m]$;
-  
-  
-    $g = 9.8 [m/s^2]$;
-  
-
-
-A = double(subs(Amat,[m M l g],[0.3 0.8 0.25 9.8]));
-B = double(subs(Bmat,[m M l g],[0.3 0.8 0.25 9.8]));
-
-
-Control
-
-Design an LQR controller
-
-R = 1; Q = diag([1,1,1,1]);
-[ricsol,cleig,K,report] = care(A,B,Q);
-
-f_ctr = @(x) -K*x;
-
-i_linear = @(t,x) A*x + B*f_ctr(x);
-
-tspan = [0,10];
-ini =[0,0,0.8,0]; %1.1894299
-[time, state] = ode45(i_linear,tspan, ini);
-
-
-Physical parameters
-
-m = 0.3;% [kg];
-M = 0.8;% [kg];
-l = 0.25;% [m];
-g = 9.8;% [m/s^2];
-i_nonlinear = @(t,x)[                       x(2);                                                               ...
-                    (4*f_ctr(x)-3*g*m*cos(x(3))*sin(x(3))+4*l*m*x(4)^2*sin(x(3)))/(4*M+4*m-3*m*cos(x(3))^2);    ...
-                                            x(4);                                                               ...
-                     -(3*(f_ctr(x)*cos(x(3))-g*m*sin(x(3))-M*g*sin(x(3))+l*m*x(4)^2*cos(x(3))*sin(x(3))))/(l*(4*M+4*m-3*m*cos(x(3))^2))];
- %
-[timen, staten] = ode45(i_nonlinear,tspan, ini);
-
-
-clf
-plot(time, state(:,1),'LineWidth',2)
-hold on
-plot(timen, staten(:,1),'LineWidth',2)
-grid on
-legend('Linear', 'Nonlinear')
-title('Cart position [m]')
-hold off
-
-
-
-
-[timen, staten] = ode45(i_nonlinear,tspan, ini);
-clf
-plot(time, state(:,3),'LineWidth',2)
-hold on
-plot(timen, staten(:,3),'LineWidth',2)
-grid on
-legend('Linear', 'Nonlinear')
-title('Pndulum angle [rad]')
-
-
-
-
-</description>
-        <pubDate>Mon, 22 Oct 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0002-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0002-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP99</category>
-        
-      </item>
     
       <item>
         <title>Synchronized Oscillators</title>
@@ -364,63 +191,86 @@ Altough in this example we are dealing with a small network, we have shown that 
     
       <item>
         <title>Gradient Descent in semilinear control</title>
-        <description>We solve \begin{equation} \min_{u\in L^2((0,T)\times (0,\frac12))}J_{T}(u)=\frac12 \int_0^T\int_{0}^{0.5} u(t)^2 dxdt+\frac{1}{2}\int_0^T\int_{0}^{1} y(t,x)-z(x)^2 dxdt, \end{equation} where: \begin{equation} \begin{cases} y_t- y_{xx}+y^3=u\chi_{(0,\frac12)}\hspace{2.8 cm} &amp;amp; \mbox{in} \hspace{0.10 cm}(0,T)\times (0,1)\ y(t,0)=y(t,1)=0  &amp;amp; \mbox{on}\hspace{0.10 cm} (0,T)\ y(0,x)=y_0(x)  &amp;amp; \mbox{in}\hspace{0.10 cm}  (0,1). \end{cases} \end{equation} For time horizon $T$ large, one can check the emergence of the Turnpike property (see [1]).
+        <description>We solve
 
-%For further details about the problem, see e.g. [1], [2] or [3].
 
+
+where:
+
+
+
+The fucntional $J_T$ is made of two addenda. The first one penalizes the control, while the second one is a tracking term penalizing the distance between the state and the target. Our goal is to keep the state near the target for all times, by a cheap control. As $\beta$ increases, the distance between the optimal state and the target decreases.
+
+For time horizon $T$ large, one can check the emergence of the Turnpike property (see 1). For further details about the problem, see e.g. 1, 2 or 3.
 
 We employ a Gradient Descent Method.
 
 STEP 1. We define the parameters for the algorithm.
 
-% Number of points in the space partition.
+Number of points in the space partition.
+
 %We count the boundary
-Nx=100;
+Nx=50;
 
-% Number of time steps
-Nt=20000;
 
-%WARNING: We have to fulfill
-%Courant-Friedrichs-Levy condition:
-%2(\Delta t)\leq (\Delta x)^2.
+Number of time steps
 
-%Time horizon
+Nt=200;
+
+
+WARNING: We have to fulfill Courant-Friedrichs-Levy condition:
+
+
+
+Time horizon
+
 T=2;
 
-%Penalization parameter for the state.
-beta=1;
 
-%Initial datum for the state equation.
+Penalization parameter for the state.
+
+beta=1000;
+
+
+Initial datum for the state equation.
+
 init=zeros(Nx,1);
 
-%Target for the state.
+
+Target for the state.
+
 zdiscr=ones(Nx,1);
 
-% Maximum number of iterations
-Nmax = 20000000;
 
-% Stepsize for the Gradient Descent algorithm.
-% appearing in the definition of the new iterate
-% u = uold - delta*dJuold.
+Maximum number of iterations
+
+Nmax = 100;
+
+
+Stepsize for the Gradient Descent algorithm. appearing in the definition of the new iterate u = uold - delta*dJuold.
+
 delta = 0.1;
 
-% Tolerance
+
+Tolerance
+
 tol = 1e-1;
 
 
 STEP 2. We initialize the algorithm.
 
-% Control at time iter
+Control at time iter
+
 u = zeros(Nt,floor(Nx/2));
-% Control at time iter-1
+
+
+Control at time iter-1
+
 uold = u;
 
-%We compute the state yold corresponding to the control uold
 
-%The multiplication by
-%the characteristic function \chi_{(0,0.5)}
-%is included
-%in the definition of &quot;source&quot;.
+We compute the state yold corresponding to the control uold. The multiplication by the characteristic function $\chi_{(0,0.5)}$ is included in the definition of “source”.
+
 source=zeros(Nt,Nx);
 for k=1:Nt
     for i=1:floor(Nx/2)
@@ -430,13 +280,8 @@ end
 
 [ y ] = heat_semilinear( @(x) x.^3, T, init, source );
 
-%We compute the adjoint state
-%corresponding to control uiter.
 
-%We define the matrix defining
-%the discretized version of
-%the source:
-%\beta(y(t,x)-z(x)).
+We compute the adjoint state corresponding to control uiter. We define the matrix defining the discretized version of the source: $\beta(y(t,x)-z(x))$.
 
 source=zeros(Nt,Nx);
 for k=1:Nt
@@ -450,6 +295,7 @@ end
 prestr=p(:,1:floor(Nx/2));
 prestrold=prestr;
 
+
 % Initial error
 error = 10;
 % Iteration counter
@@ -458,7 +304,7 @@ iter = 0;
 
 STEP 3. We set up a while loop for the Gradient Descent method.
 
-while (error &amp;gt; tol &amp;amp;&amp;amp; iter &amp;lt; Nmax)
+while (error &amp;gt; tol &amp;amp;amp;&amp;amp;amp; iter &amp;lt; Nmax)
     % Update iteration counter
     iter = iter + 1;
 
@@ -526,6 +372,18 @@ while (error &amp;gt; tol &amp;amp;&amp;amp; iter &amp;lt; Nmax)
 end
 
 
+Iteration 1 - Error 10 - Cost 503.646
+Iteration 2 - Error 2.69873 - Cost 429.651
+Iteration 3 - Error 1.0966 - Cost 414.035
+Iteration 4 - Error 0.552452 - Cost 409.793
+Iteration 5 - Error 0.320747 - Cost 408.451
+Iteration 6 - Error 0.21037 - Cost 407.986
+Iteration 7 - Error 0.152608 - Cost 407.827
+Iteration 8 - Error 0.118849 - Cost 407.792
+Iteration 9 - Error 0.0967289 - Cost 407.812
+
+
+
 STEP 4. Optimal control and optimal state.
 
 %approximate optimal control.
@@ -536,7 +394,8 @@ yopt=y;
 
 STEP 5. We plot optimal control and optimal state.
 
-%optimal control.
+Optimal control.
+
 figure(1)
 clf(1);
 timecontrol=linspace(0,T,Nt);
@@ -544,14 +403,18 @@ spacecontrol=linspace(0,1,floor(Nx/2));
 [TIMECONTROL,SPACECONTROL]=meshgrid(timecontrol,spacecontrol);
 surf(TIMECONTROL,SPACECONTROL,transpose(uopt),'EdgeColor','none');
 colormap jet;
-title('optimal control');
+%title('optimal control');
 xlabel('t [time]','FontSize',20);
 ylabel('x [space]','FontSize',20);
 zlabel('u [control]','FontSize',20);
 xt=get(gca,'XTick');
 set(gca,'FontSize',20);
 
-%optimal state.
+
+
+
+Optimal state.
+
 figure(2);
 clf(2);
 time=linspace(0,T,Nt);
@@ -559,7 +422,7 @@ space=linspace(0,1,Nx);
 [TIME,SPACE]=meshgrid(time,space);
 surf(TIME,SPACE,transpose(yopt),'EdgeColor','none');
 colormap jet;
-title('optimal state');
+%title('optimal state');
 xlabel('t [time]','FontSize',20);
 ylabel('x [space]','FontSize',20);
 zlabel('y [state]','FontSize',20);
@@ -567,16 +430,22 @@ xt=get(gca,'XTick');
 set(gca,'FontSize',20);
 
 
+
+
 References
 
-%[1] Porretta, Alessio and Zuazua, Enrique, Remarks on long time versus steady state optimal control, Mathematical Paradigms of Climate Science, Springer, 2016, pp. 67--89.
 
-%[2] Casas, Eduardo and Mateos, Mariano, Optimal control of partial differential equations,
-%    Computational mathematics, numerical analysis and applications,
-%    Springer, Cham, 2017, pp. 3--5.
-
-%[3] Tr{\&quot;o}ltzsch, Fredi, Optimal control of partial differential equations, Graduate studies in mathematics, American Mathematical Society, 2010.
-
+  
+    
+      Porretta, Alessio and Zuazua, Enrique, Remarks on long time versus steady state optimal control, Mathematical Paradigms of Climate Science, Springer, 2016, pp. 67–89 &amp;#8617; &amp;#8617;2
+    
+    
+      Casas, Eduardo and Mateos, Mariano, Optimal control of partial differential equations,    Computational mathematics, numerical analysis and applications,    Springer, Cham, 2017, pp. 3–5. &amp;#8617;
+    
+    
+      Troltzsch, Fredi, Optimal control of partial differential equations, Graduate studies in mathematics, American Mathematical Society, 2010. &amp;#8617;
+    
+  
 
 </description>
         <pubDate>Thu, 18 Oct 2018 00:00:00 +0200</pubDate>
@@ -870,6 +739,20 @@ In this case $\nu_i$ are:
 nu = 1:0.5:6
 
 
+
+nu =
+
+  Columns 1 through 7
+
+    1.0000    1.5000    2.0000    2.5000    3.0000    3.5000    4.0000
+
+  Columns 8 through 11
+
+    4.5000    5.0000    5.5000    6.0000
+
+
+
+
 And save in K, the number of values
 
 K = length(nu);
@@ -898,8 +781,28 @@ u = zeros(length(span),1);
 Am = -triu(ones(N))
 
 
+
+Am =
+
+    -1    -1    -1
+     0    -1    -1
+     0     0    -1
+
+
+
+
 Bm = zeros(N, 1);
 Bm(N) = 1
+
+
+
+Bm =
+
+     0
+     0
+     1
+
+
 
 
 So, we can create these edo’s in variable primal_odes.
@@ -923,9 +826,35 @@ So, we have a $K$ ordinary differential equations
 primal_odes
 
 
+
+primal_odes = 
+
+  1x11 ode array with properties:
+
+    A
+    B
+    u
+    x0
+    x
+    span
+    xend
+
+
+
+
 To solve average control problem to x0; in this case:
 
 xt = ones(N, 1)
+
+
+
+xt =
+
+     1
+     1
+     1
+
+
 
 
 we can solve the minimization problem
@@ -964,7 +893,7 @@ error = Inf;
 MaxIter = 50;
 iter = 0;
 xhistory = {}; uhistory = {};  error_history = [];    % array here we will save the evolution of average vector states
-while (error &amp;gt; tol &amp;amp;&amp;amp; iter &amp;lt; MaxIter)
+while (error &amp;gt; tol &amp;amp;amp;&amp;amp;amp; iter &amp;lt; MaxIter)
     iter = iter + 1;
     % solve primal problem
     % ====================
@@ -1019,6 +948,8 @@ xlabel('time');ylabel('u(t)')
 format_plot(gcf)
 
 
+
+
 Also, on average the objective [0 0 0] has been reached.
 
 figure;
@@ -1027,6 +958,8 @@ xlabel('t');ylabel('x_{i}(t)')
 legend(strcat('x_{',num2str((1:N)','%0.1d'),'}(t)'))
 title('Evolution of cordinates of vector state.')
 format_plot(gcf)
+
+
 
 
 You can use the comand
@@ -1041,6 +974,8 @@ plot(error_history,'-*')
 title('Error Evolution')
 ylabel('Error'); xlabel('Iterations')
 format_plot(gcf)
+
+
 
 
 References

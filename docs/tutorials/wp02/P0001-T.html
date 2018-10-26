@@ -44,6 +44,9 @@
 <meta name="citation_author" content="">
 
 
+<meta name="citation_author" content="">
+
+
 
 	
 
@@ -172,7 +175,7 @@
 
 					<span class="meta">Posted by: 
 					
-						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href=""></a></span></span>
+						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="">Dario Pighin</a></span></span>
 					
 						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="">Enrique Zuazua</a></span></span>
 					
@@ -197,12 +200,6 @@
 <!-- Also Interesting -->
 
 
-
-	
-	 
-	
-	
-	
 
 	
 	 
@@ -302,64 +299,94 @@ img:active{
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<p>We solve \begin{equation<em>} \min_{u\in L^2((0,T)\times (0,\frac12))}J_{T}(u)=\frac12 \int_0^T\int_{0}^{0.5} <code class="highlighter-rouge">u(t)</code>^2 dxdt+\frac{1}{2}\int_0^T\int_{0}^{1} <code class="highlighter-rouge">y(t,x)-z(x)</code>^2 dxdt, \end{equation</em>} where: \begin{equation<em>} \begin{cases} y_t- y_{xx}+y^3=u\chi_{(0,\frac12)}\hspace{2.8 cm} &amp; \mbox{in} \hspace{0.10 cm}(0,T)\times (0,1)\ y(t,0)=y(t,1)=0  &amp; \mbox{on}\hspace{0.10 cm} (0,T)\ y(0,x)=y_0(x)  &amp; \mbox{in}\hspace{0.10 cm}  (0,1). \end{cases} \end{equation</em>} For time horizon $T$ large, one can check the emergence of the Turnpike property (see [1]).</p>
+				<p>We solve</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%For further details about the problem, see e.g. [1], [2] or [3].</span>
-</code></pre></div></div>
+<script type="math/tex; mode=display">\min_{u\in L^2((0,T)\times (0,\frac12))}J_{T}(u)=\frac12 \int_0^T\int_{0}^{0.5} |u(t)|^2 dxdt+\frac{\beta}{2}\int_0^T\int_{0}^{1} |y(t,x)-z(x)|^2 dxdt,</script>
+
+<p>where:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{cases} y_t- y_{xx}+y^3=u\chi_{(0,\frac12)}\hspace{2.8 cm} & \mbox{in} \hspace{0.10 cm}(0,T)\times (0,1)\\
+
+
+y(t,0)=y(t,1)=0  & \mbox{on}\hspace{0.10 cm} (0,T)\\
+
+
+y(0,x)=y_0(x)  & \mbox{in}\hspace{0.10 cm}  (0,1). \end{cases} %]]></script>
+
+<p>The fucntional $J_T$ is made of two addenda. The first one penalizes the control, while the second one is a tracking term penalizing the distance between the state and the target. Our goal is to keep the state near the target for all times, by a cheap control. As $\beta$ increases, the distance between the optimal state and the target decreases.</p>
+
+<p>For time horizon $T$ large, one can check the emergence of the Turnpike property (see <sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>). For further details about the problem, see e.g. <sup id="fnref:1:1"><a href="#fn:1" class="footnote">1</a></sup>, <sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> or <sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>.</p>
 
 <p>We employ a Gradient Descent Method.</p>
 
 <h2 id="step-1-we-define-the-parameters-for-the-algorithm">STEP 1. We define the parameters for the algorithm.</h2>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Number of points in the space partition.</span>
-<span class="c1">%We count the boundary</span>
-<span class="n">Nx</span><span class="o">=</span><span class="mi">100</span><span class="p">;</span>
+<p>Number of points in the space partition.</p>
 
-<span class="c1">% Number of time steps</span>
-<span class="n">Nt</span><span class="o">=</span><span class="mi">20000</span><span class="p">;</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%We count the boundary</span>
+<span class="n">Nx</span><span class="o">=</span><span class="mi">50</span><span class="p">;</span>
+</code></pre></div></div>
 
-<span class="c1">%WARNING: We have to fulfill</span>
-<span class="c1">%Courant-Friedrichs-Levy condition:</span>
-<span class="c1">%2(\Delta t)\leq (\Delta x)^2.</span>
+<p>Number of time steps</p>
 
-<span class="c1">%Time horizon</span>
-<span class="n">T</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Nt</span><span class="o">=</span><span class="mi">200</span><span class="p">;</span>
+</code></pre></div></div>
 
-<span class="c1">%Penalization parameter for the state.</span>
-<span class="nb">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<p>WARNING: We have to fulfill Courant-Friedrichs-Levy condition:</p>
 
-<span class="c1">%Initial datum for the state equation.</span>
-<span class="n">init</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<script type="math/tex; mode=display">2(\Delta t)\leq (\Delta x)^2.</script>
 
-<span class="c1">%Target for the state.</span>
-<span class="n">zdiscr</span><span class="o">=</span><span class="nb">ones</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<p>Time horizon</p>
 
-<span class="c1">% Maximum number of iterations</span>
-<span class="n">Nmax</span> <span class="o">=</span> <span class="mi">20000000</span><span class="p">;</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+</code></pre></div></div>
 
-<span class="c1">% Stepsize for the Gradient Descent algorithm.</span>
-<span class="c1">% appearing in the definition of the new iterate</span>
-<span class="c1">% u = uold - delta*dJuold.</span>
-<span class="n">delta</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
+<p>Penalization parameter for the state.</p>
 
-<span class="c1">% Tolerance</span>
-<span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-1</span><span class="p">;</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">beta</span><span class="o">=</span><span class="mi">1000</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Initial datum for the state equation.</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">init</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Target for the state.</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">zdiscr</span><span class="o">=</span><span class="nb">ones</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Maximum number of iterations</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Nmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Stepsize for the Gradient Descent algorithm. appearing in the definition of the new iterate u = uold - delta*dJuold.</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">delta</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Tolerance</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-1</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h2 id="step-2-we-initialize-the-algorithm">STEP 2. We initialize the algorithm.</h2>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Control at time iter</span>
-<span class="n">u</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">,</span><span class="nb">floor</span><span class="p">(</span><span class="n">Nx</span><span class="p">/</span><span class="mi">2</span><span class="p">));</span>
-<span class="c1">% Control at time iter-1</span>
-<span class="n">uold</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+<p>Control at time iter</p>
 
-<span class="c1">%We compute the state yold corresponding to the control uold</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">u</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">,</span><span class="nb">floor</span><span class="p">(</span><span class="n">Nx</span><span class="p">/</span><span class="mi">2</span><span class="p">));</span>
+</code></pre></div></div>
 
-<span class="c1">%The multiplication by</span>
-<span class="c1">%the characteristic function \chi_{(0,0.5)}</span>
-<span class="c1">%is included</span>
-<span class="c1">%in the definition of "source".</span>
-<span class="n">source</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">,</span><span class="n">Nx</span><span class="p">);</span>
+<p>Control at time iter-1</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uold</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>We compute the state yold corresponding to the control uold. The multiplication by the characteristic function $\chi_{(0,0.5)}$ is included in the definition of “source”.</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">,</span><span class="n">Nx</span><span class="p">);</span>
 <span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">Nt</span>
     <span class="k">for</span> <span class="nb">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="nb">floor</span><span class="p">(</span><span class="n">Nx</span><span class="p">/</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">source</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="nb">i</span><span class="p">)</span><span class="o">=</span><span class="n">u</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="nb">i</span><span class="p">);</span>
@@ -367,16 +394,11 @@ img:active{
 <span class="k">end</span>
 
 <span class="p">[</span> <span class="n">y</span> <span class="p">]</span> <span class="o">=</span> <span class="n">heat_semilinear</span><span class="p">(</span> <span class="o">@</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">x</span><span class="o">.^</span><span class="mi">3</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">init</span><span class="p">,</span> <span class="n">source</span> <span class="p">);</span>
+</code></pre></div></div>
 
-<span class="c1">%We compute the adjoint state</span>
-<span class="c1">%corresponding to control uiter.</span>
+<p>We compute the adjoint state corresponding to control uiter. We define the matrix defining the discretized version of the source: $\beta(y(t,x)-z(x))$.</p>
 
-<span class="c1">%We define the matrix defining</span>
-<span class="c1">%the discretized version of</span>
-<span class="c1">%the source:</span>
-<span class="c1">%\beta(y(t,x)-z(x)).</span>
-
-<span class="n">source</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">,</span><span class="n">Nx</span><span class="p">);</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">,</span><span class="n">Nx</span><span class="p">);</span>
 <span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">Nt</span>
     <span class="k">for</span> <span class="nb">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">Nx</span>
         <span class="n">source</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="nb">i</span><span class="p">)</span><span class="o">=</span><span class="nb">beta</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="nb">i</span><span class="p">)</span><span class="o">-</span><span class="n">zdiscr</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span>
@@ -387,8 +409,9 @@ img:active{
 
 <span class="n">prestr</span><span class="o">=</span><span class="n">p</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="nb">floor</span><span class="p">(</span><span class="n">Nx</span><span class="p">/</span><span class="mi">2</span><span class="p">));</span>
 <span class="n">prestrold</span><span class="o">=</span><span class="n">prestr</span><span class="p">;</span>
+</code></pre></div></div>
 
-<span class="c1">% Initial error</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Initial error</span>
 <span class="nb">error</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 <span class="c1">% Iteration counter</span>
 <span class="n">iter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -396,7 +419,7 @@ img:active{
 
 <h2 id="step-3-we-set-up-a-while-loop-for-the-gradient-descent-method">STEP 3. We set up a while loop for the Gradient Descent method.</h2>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="p">(</span><span class="nb">error</span> <span class="o">&gt;</span> <span class="n">tol</span> <span class="o">&amp;&amp;</span> <span class="n">iter</span> <span class="o">&lt;</span> <span class="n">Nmax</span><span class="p">)</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="p">(</span><span class="nb">error</span> <span class="o">&gt;</span> <span class="n">tol</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">iter</span> <span class="o">&lt;</span> <span class="n">Nmax</span><span class="p">)</span>
     <span class="c1">% Update iteration counter</span>
     <span class="n">iter</span> <span class="o">=</span> <span class="n">iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 
@@ -464,6 +487,18 @@ img:active{
 <span class="k">end</span>
 </code></pre></div></div>
 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Iteration 1 - Error 10 - Cost 503.646
+Iteration 2 - Error 2.69873 - Cost 429.651
+Iteration 3 - Error 1.0966 - Cost 414.035
+Iteration 4 - Error 0.552452 - Cost 409.793
+Iteration 5 - Error 0.320747 - Cost 408.451
+Iteration 6 - Error 0.21037 - Cost 407.986
+Iteration 7 - Error 0.152608 - Cost 407.827
+Iteration 8 - Error 0.118849 - Cost 407.792
+Iteration 9 - Error 0.0967289 - Cost 407.812
+
+</code></pre></div></div>
+
 <h2 id="step-4-optimal-control-and-optimal-state">STEP 4. Optimal control and optimal state.</h2>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%approximate optimal control.</span>
@@ -474,30 +509,35 @@ img:active{
 
 <h2 id="step-5-we-plot-optimal-control-and-optimal-state">STEP 5. We plot optimal control and optimal state.</h2>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%optimal control.</span>
-<span class="nb">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<p>Optimal control.</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">clf</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="n">timecontrol</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Nt</span><span class="p">);</span>
 <span class="n">spacecontrol</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="nb">floor</span><span class="p">(</span><span class="n">Nx</span><span class="p">/</span><span class="mi">2</span><span class="p">));</span>
 <span class="p">[</span><span class="n">TIMECONTROL</span><span class="p">,</span><span class="n">SPACECONTROL</span><span class="p">]</span><span class="o">=</span><span class="nb">meshgrid</span><span class="p">(</span><span class="n">timecontrol</span><span class="p">,</span><span class="n">spacecontrol</span><span class="p">);</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">TIMECONTROL</span><span class="p">,</span><span class="n">SPACECONTROL</span><span class="p">,</span><span class="nb">transpose</span><span class="p">(</span><span class="n">uopt</span><span class="p">),</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">);</span>
 <span class="nb">colormap</span> <span class="nb">jet</span><span class="p">;</span>
-<span class="nb">title</span><span class="p">(</span><span class="s1">'optimal control'</span><span class="p">);</span>
+<span class="c1">%title('optimal control');</span>
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'t [time]'</span><span class="p">,</span><span class="s1">'FontSize'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
 <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'x [space]'</span><span class="p">,</span><span class="s1">'FontSize'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
 <span class="nb">zlabel</span><span class="p">(</span><span class="s1">'u [control]'</span><span class="p">,</span><span class="s1">'FontSize'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
 <span class="n">xt</span><span class="o">=</span><span class="nb">get</span><span class="p">(</span><span class="nb">gca</span><span class="p">,</span><span class="s1">'XTick'</span><span class="p">);</span>
 <span class="nb">set</span><span class="p">(</span><span class="nb">gca</span><span class="p">,</span><span class="s1">'FontSize'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+</code></pre></div></div>
 
-<span class="c1">%optimal state.</span>
-<span class="nb">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<p><img src="./../../assets/imgs/WP02/P0001/SemilinearControlGD-md_01.png" alt="" /></p>
+
+<p>Optimal state.</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 <span class="nb">clf</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 <span class="nb">time</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Nt</span><span class="p">);</span>
 <span class="n">space</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">Nx</span><span class="p">);</span>
 <span class="p">[</span><span class="n">TIME</span><span class="p">,</span><span class="n">SPACE</span><span class="p">]</span><span class="o">=</span><span class="nb">meshgrid</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span><span class="n">space</span><span class="p">);</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">TIME</span><span class="p">,</span><span class="n">SPACE</span><span class="p">,</span><span class="nb">transpose</span><span class="p">(</span><span class="n">yopt</span><span class="p">),</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">);</span>
 <span class="nb">colormap</span> <span class="nb">jet</span><span class="p">;</span>
-<span class="nb">title</span><span class="p">(</span><span class="s1">'optimal state'</span><span class="p">);</span>
+<span class="c1">%title('optimal state');</span>
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'t [time]'</span><span class="p">,</span><span class="s1">'FontSize'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
 <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'x [space]'</span><span class="p">,</span><span class="s1">'FontSize'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
 <span class="nb">zlabel</span><span class="p">(</span><span class="s1">'y [state]'</span><span class="p">,</span><span class="s1">'FontSize'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
@@ -505,17 +545,23 @@ img:active{
 <span class="nb">set</span><span class="p">(</span><span class="nb">gca</span><span class="p">,</span><span class="s1">'FontSize'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
 </code></pre></div></div>
 
+<p><img src="./../../assets/imgs/WP02/P0001/SemilinearControlGD-md_02.png" alt="" /></p>
+
 <h2 id="references">References</h2>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%[1] Porretta, Alessio and Zuazua, Enrique, Remarks on long time versus steady state optimal control, Mathematical Paradigms of Climate Science, Springer, 2016, pp. 67--89.</span>
-
-<span class="c1">%[2] Casas, Eduardo and Mateos, Mariano, Optimal control of partial differential equations,</span>
-<span class="c1">%    Computational mathematics, numerical analysis and applications,</span>
-<span class="c1">%    Springer, Cham, 2017, pp. 3--5.</span>
-
-<span class="c1">%[3] Tr{\"o}ltzsch, Fredi, Optimal control of partial differential equations, Graduate studies in mathematics, American Mathematical Society, 2010.</span>
-</code></pre></div></div>
-
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Porretta, Alessio and Zuazua, Enrique, Remarks on long time versus steady state optimal control, Mathematical Paradigms of Climate Science, Springer, 2016, pp. 67–89 <a href="#fnref:1" class="reversefootnote">&#8617;</a> <a href="#fnref:1:1" class="reversefootnote">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:2">
+      <p>Casas, Eduardo and Mateos, Mariano, Optimal control of partial differential equations,    Computational mathematics, numerical analysis and applications,    Springer, Cham, 2017, pp. 3–5. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>Troltzsch, Fredi, Optimal control of partial differential equations, Graduate studies in mathematics, American Mathematical Society, 2010. <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
 
                 <hr>
