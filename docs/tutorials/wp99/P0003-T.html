@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.">
-	<meta property="og:title" content="rigidity_fr_laplacian" />
+	<meta property="og:title" content="Riccati theory in LQ optimization with time-varying target" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://DeustoTech.github.io//dycon-platform-documentation//functions/rigidity_fr_laplacian-F" />
+<meta property="og:url" content="https://DeustoTech.github.io//dycon-platform-documentation//tutorials/wp99/P0003-T" />
 <meta property="og:image" content="https://DeustoTech.github.io//dycon-platform-documentation/img/home-bg.gif">
 	
 	
@@ -55,9 +55,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>rigidity_fr_laplacian - DyCon Platform</title>
+    <title>Riccati theory in LQ optimization with time-varying target - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/functions/rigidity_fr_laplacian-F">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0003-T">
 	
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -174,14 +174,14 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1>rigidity_fr_laplacian</h1>
-                    
-					<span class="meta">Create by: 
+                    <h1>Riccati theory in LQ optimization with time-varying target</h1>
+
+					<span class="meta">Posted by: 
 					
-						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="">Umberto Biccari</a></span></span>
+						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="">Dario Pighin</a></span></span>
 					
 					</span>	
-					<span>on April 1, 2017</span>
+					<span>on October 26, 2018</span>
                 </div>
             </div>
         </div>
@@ -203,14 +203,6 @@
 
 
 	
-	 
-	
-	
-	
-
-	
-	 
-	
 	
 	
 
@@ -256,6 +248,14 @@
 	
 	
 
+	
+	 
+	
+	
+	
+
+	
+	 
 	
 	
 	
@@ -324,61 +324,83 @@ img:active{
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
+				<p>In this short tutorial, we explain how to use Riccati’s theory to solve an LQ control problem with targets.</p>
 
+<p>We consider the optimal control problem:</p>
 
-				Stiffness matrix for the FE discretization of the 1d fractional Laplacian.
+<script type="math/tex; mode=display">\min_{u\in L^2(0,T;\mathbb{R}^m)}J^{T}(u)=\frac12 \left[ \int_0^T \|u(t)-q(t)\|^2 dt+\beta\int_0^T \|C(x(t)-z(t))\|^2 dt+\gamma \|D(x(T)-z(T))\|^2\right],</script>
 
-				<h1>Input Vars</h1>
-				<ul>
-					
-					<li>
-						s : Order of the fractional Laplacian (-dx^2)^s
-					</li>
-				
-					<li>
-						L : Define the interval of x, So x \in (-L,L)
-					</li>
-				
-					<li>
-						N : number of points in the space discretization
-					</li>
-				
-				</ul>
+<p>where:</p>
 
-				<h1>Output Vars</h1>
-				<ul>
-					
-					<li>
-						A : Rigidity Matrix of fractional Laplacian
-					</li>
-				
-				</ul>
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{cases} \frac{d}{dt}x(t)+Ax(t)=Bu(t)\hspace{0.6 cm} & t\in (0,T)\\ x(0)=x_0. \end{cases} %]]></script>
 
+<p>In the above control problem, $A \in M_{n \times n}$, $B \in M_{n \times m}$, $C \in M_{r\times n}$ and $D\in M_{r\times n}$. The control $u:[0,T]\longrightarrow R^m$, while the state $x:[0,T]\longrightarrow R^n$. The control target is $q\in C^1([0,T];R^m)$ and the state target is $z\in C^1([0,T];R^n)$. $\beta\geq 0$ and $\gamma\geq 0$ are positive parameters.</p>
 
+<p>By the Direct Methods in the Calculus of Variations and strict convexity, the above problem admits an unique optimal control $u^T$. The corresponding optimal state is denoted by $x^T$.</p>
 
-				<hr />
+<p>We compute the optimal pair (optimal control, optimal state) by using the well-known Riccati’s theory (see, for instance, [1, Lemma 2.6] and [2, section 4.3]).</p>
 
-<h2 id="description">Description</h2>
+<p>For further details regarding the algorithm, we refer to <a href="https://github.com/DeustoTech/RiccatiLQ/blob/master/RiccatiAlgorithm.pdf">RiccatiAlgorithm</a></p>
 
-<p>Summary of example objective</p>
+<p>Take</p>
 
-<h2 id="section-1-title">Section 1 Title</h2>
-
-<p>Description of first code block</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">B</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+<span class="n">C</span><span class="o">=</span><span class="nb">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">D</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="nb">beta</span><span class="o">=</span><span class="mi">26</span><span class="p">;</span>
+<span class="nb">gamma</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">x0</span><span class="o">=</span><span class="p">[</span><span class="mf">1.4</span><span class="p">;</span><span class="mf">1.4</span><span class="p">];</span>
+<span class="n">q</span><span class="o">=@</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">z</span><span class="o">=@</span><span class="p">(</span><span class="n">t</span><span class="p">)[</span><span class="nb">sin</span><span class="p">(</span><span class="n">t</span><span class="p">);</span><span class="nb">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)];</span>
+<span class="n">T</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="n">Nt</span><span class="o">=</span><span class="mi">1000</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="section-2-title">Section 2 Title</h2>
+<p>We solve an LQ problem with the above data.</p>
 
-<p>Description of second code block</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span> <span class="n">uopt</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">lqtarget</span><span class="p">(</span> <span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="nb">beta</span><span class="p">,</span> <span class="nb">gamma</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Nt</span> <span class="p">);</span>
 </code></pre></div></div>
 
+<p><img src="./../../assets/imgs/WP99/P0003/lqtargetfinite-md_01.png" alt="" /></p>
 
+<p><img src="./../../assets/imgs/WP99/P0003/lqtargetfinite-md_02.png" alt="" /></p>
 
+<p><img src="./../../assets/imgs/WP99/P0003/lqtargetfinite-md_03.png" alt="" /></p>
 
+<p>Since the parameter $\beta$ is large enough and the control acts only on the first component of first equation</p>
+
+<ul>
+  <li>
+    <p>the first component of the state is close to the target;</p>
+  </li>
+  <li>
+    <p>the second component of the state is less close to the target;</p>
+  </li>
+  <li>
+    <p>the control is far from its target.</p>
+  </li>
+</ul>
+
+<p>The algorithm described in this guide can be employed to test the fulfillment of the turnpike property (see, for instance, <a href="Alessio Porretta and Enrique Zuazua, *Long time versus steady state optimal control*, SIAM Journal on Control and Optimization, 51 (2013).">1</a> and <a href="Emmanuel Trelat and Enrique Zuazua, *The turnpike property in finite-dimensional nonlinear optimal control*, Journal of Differential Equations, 258 (2015).">3</a>). In agreement with the theory, the turnpike effect is evident if:</p>
+
+<ul>
+  <li>
+    <p>the targets are constants;</p>
+  </li>
+  <li>
+    <p>$(A,B)$ is controllable;</p>
+  </li>
+  <li>
+    <p>$(A,C)$ is observable, $\beta&gt;0$ and $\gamma=0$;</p>
+  </li>
+  <li>
+    <p>the time horizon $T$ is large enough.</p>
+  </li>
+</ul>
+
+<h2 id="references">References</h2>
 
 
 
@@ -387,13 +409,9 @@ img:active{
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/dycon-platform-documentation/functions/fractional_schr-F" data-toggle="tooltip" data-placement="top" title="fractional_schr">&larr; Previous Post</a>
+                        <a href="/dycon-platform-documentation/tutorials/wp99/P0001-T" data-toggle="tooltip" data-placement="top" title="Optimal control of a  graph evolving in discrete time">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/dycon-platform-documentation/tutorials/wp01/P0001-T" data-toggle="tooltip" data-placement="top" title="Average Control by classical gradient step method">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 

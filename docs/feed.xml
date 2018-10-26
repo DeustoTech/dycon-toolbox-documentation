@@ -5,9 +5,559 @@
     <description>This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.</description>
     <link>https://DeustoTech.github.io/dycon-platform-documentation/</link>
     <atom:link href="https://DeustoTech.github.io/dycon-platform-documentation/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Oct 2018 09:57:47 +0200</pubDate>
-    <lastBuildDate>Fri, 26 Oct 2018 09:57:47 +0200</lastBuildDate>
+    <pubDate>Fri, 26 Oct 2018 16:38:24 +0200</pubDate>
+    <lastBuildDate>Fri, 26 Oct 2018 16:38:24 +0200</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
+    
+      <item>
+        <title>Riccati theory in LQ optimization with time-varying target</title>
+        <description>In this short tutorial, we explain how to use Riccati’s theory to solve an LQ control problem with targets.
+
+We consider the optimal control problem:
+
+
+
+where:
+
+
+
+In the above control problem, $A \in M_{n \times n}$, $B \in M_{n \times m}$, $C \in M_{r\times n}$ and $D\in M_{r\times n}$. The control $u:[0,T]\longrightarrow R^m$, while the state $x:[0,T]\longrightarrow R^n$. The control target is $q\in C^1([0,T];R^m)$ and the state target is $z\in C^1([0,T];R^n)$. $\beta\geq 0$ and $\gamma\geq 0$ are positive parameters.
+
+By the Direct Methods in the Calculus of Variations and strict convexity, the above problem admits an unique optimal control $u^T$. The corresponding optimal state is denoted by $x^T$.
+
+We compute the optimal pair (optimal control, optimal state) by using the well-known Riccati’s theory (see, for instance, [1, Lemma 2.6] and [2, section 4.3]).
+
+For further details regarding the algorithm, we refer to RiccatiAlgorithm
+
+Take
+
+A=[2,-1;-1,2];
+B=[1;0];
+C=eye(2);
+D=zeros(2,2);
+beta=26;
+gamma=0;
+x0=[1.4;1.4];
+q=@(t)0;
+z=@(t)[sin(t);sin(t)];
+T=10;
+Nt=1000;
+
+
+We solve an LQ problem with the above data.
+
+[ uopt, x] = lqtarget( A,B,C,D,beta, gamma, q, z, x0,T,Nt );
+
+
+
+
+
+
+
+
+Since the parameter $\beta$ is large enough and the control acts only on the first component of first equation
+
+
+  
+    the first component of the state is close to the target;
+  
+  
+    the second component of the state is less close to the target;
+  
+  
+    the control is far from its target.
+  
+
+
+The algorithm described in this guide can be employed to test the fulfillment of the turnpike property (see, for instance, 1 and 3). In agreement with the theory, the turnpike effect is evident if:
+
+
+  
+    the targets are constants;
+  
+  
+    $(A,B)$ is controllable;
+  
+  
+    $(A,C)$ is observable, $\beta&amp;gt;0$ and $\gamma=0$;
+  
+  
+    the time horizon $T$ is large enough.
+  
+
+
+References
+
+</description>
+        <pubDate>Fri, 26 Oct 2018 00:00:00 +0200</pubDate>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0003-T</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0003-T</guid>
+        
+        
+        <category>Tutorials</category>
+        
+        <category>WP99</category>
+        
+      </item>
+    
+      <item>
+        <title>Optimal control of a  graph evolving in discrete time</title>
+        <description>In this tutorial we are going to show how to use MATLAB to control a discrete-time dynamical system that models the interactions between the nodes of a graph. The control policy will minimize a discrete linear quadratic regulator.
+
+Let us consider a graph G that consists on $N$ nodes $x_i\in\mathbb{R}$, $i={1,2,…,N}$ that evolve in discrete time steps according to the following equation:
+
+
+
+where $\gamma &amp;gt; 0$ is a coupling parameter.
+
+We can simplify this equation by using the Perron matrix $P$ of the graph, this matrix is defined as $P = I - \gamma L$, where $L$ is the Laplacian of the graph and $I$ is the identity matrix. Let $x$ be $[x_1,…,x_N]^T$, the vector of states of the nodes. Moreover, we may add a control
+
+
+
+to drive the states of the nodes to a desired state.
+
+
+
+were $B$ and $C$ are two fixed matrices and $y\in\mathbb{R}^S$ are the observed states of $1\leq S\leq N$ nodes.
+
+We aim to design a control policy ${u[k]}_{k=0,1,…}$ such that minimizes the following functional $J(x,u)$ while stabilizing the system.
+
+
+
+where $Q$ and $R$ are semidefinite positive and definite positive matrices respectively. We can choose these two matrices in order to penalize aggressive or slow controls. To do so, we will use MATLAB’s control system toolbox.
+
+Finally, we will add a reference term in the control so that we can drive the system into a desired state.
+
+For instance, let us consider the coupling parameter
+
+gamma = 0.1;
+
+
+We define now a connected and bidirected graph G. Let E be the edges of the graph. We will define this set as a 2-column matrix and then we create the graph G.
+
+E = [1, 2; 1, 3; 2, 4; 2, 5; 3, 4; 4, 5; 4, 6; 6, 7; 7, 8];
+E = table(E,'VariableNames',{'EndNodes'});
+G = graph(E);
+
+
+This is our graph
+
+plot(G, 'LineWidth', 2, 'EdgeColor', 'r', 'MarkerSize', 10)
+title('Graph representation', 'FontSize', 16)
+
+
+
+
+N is the size of the graph, that is to say, the number of nodes.
+
+N = numnodes(G);
+
+
+We compute the number of neighbours of each node
+
+connectivities = degree(G);
+
+
+We check whether the graph is connected or not, if not, we must choose a different graph.
+
+if max(conncomp(G)) &amp;gt; 1
+    print('Generate a new graph')
+end
+
+
+In this example the considered graph is connected.
+
+We compute the Perron matrix of $G$.
+
+P = eye(N) - gamma * laplacian(G);
+
+
+We can see that the system tends to reach a consensus, that is to say, if no control is applied to the system, it evolves to a steady state in which all the nodes have the same state.
+
+We define the initial state $x_0$
+
+x_0 = [1, 5, 0, 4, 3, 1, 7, 3]';
+
+
+The mean of $x_0$ is 3
+
+mean(x_0)
+
+
+
+ans =
+
+     3
+
+
+
+
+The states of the nodes will evolve to the mean of the states at the initial time. We let the system evolve for 150 iterations.
+
+itmax = 150;
+x = zeros(N, itmax + 1);
+x(:,1) = x_0;
+for k = 1:itmax
+    x(:,k + 1) = P * x(:,k);
+end
+
+
+clf
+hold on
+for k = 1:N
+    plot(0:itmax,x(k,:),'LineWidth',2)
+end
+legend('Node 1','Node 2','Node 3','Node 4','Node 5','Node 6','Node 7','Node 8')
+title('Graph evolution without control','FontSize',16)
+xlabel('Iterations','FontSize',16)
+ylabel('States of the nodes','FontSize',16)
+
+
+
+
+As stated before, we can see in this figure that the system naturally reaches consensus.
+
+Recall that the system dynamics can be written as
+
+
+
+for any $k =0,1,…$.
+
+We want to find a control $u$ such that the system stabilizes to the zero state.
+
+We proceed to define matrices B and C:
+
+B = eye(N);
+C = eye(N);
+% We can check whether the system is controllable
+if rank(ctrb(P,B)) &amp;lt; N
+    print('it is not controllable!')
+end
+% In this case, it is controllable.
+
+
+We choose the matrices $Q$ and $R$ by using Bryson and Ho’s criterium.
+
+Q_diag = 1 / max(x_0.^2) * ones(1, N);
+R_diag = 1 / 5^2 * ones(1, N);
+Q = diag(Q_diag);
+R = diag(R_diag);
+
+
+We can use now the function dlqr (discrete linear quadratic regulator) to find the feedback control $u = -K_{f} x[k]$ that minimizes the functional $J(x,u)$.
+
+[Kf, ~] = dlqr(P, B, Q, R);
+
+
+Now we can stabilize the system by using the feedback control that we have just computed
+
+itmax = 20;
+x = zeros(N, itmax + 1);
+x(:,1) = x_0;
+for k = 1:itmax
+    x(:,k + 1) = (P - B * Kf) * x(:,k);
+end
+
+
+clf
+hold on
+
+for k = 1:N
+    plot(0:itmax,x(k,:),'LineWidth',2)
+end
+legend('Node 1','Node 2','Node 3','Node 4','Node 5','Node 6','Node 7','Node 8')
+title('Graph stabilization','FontSize',16)
+xlabel('Iterations','FontSize',16)
+ylabel('States of the nodes','FontSize',16)
+
+
+
+
+We can see that the system is stabilized fast. One can tune the stabilization speed by choosing matrices $Q$ and $R$ in a smart way.
+
+Now, we are about to add a reference term to the control to drive the system to a desired state. For instance, we can drive the system into the reference state
+
+r = (1:N)';
+
+
+We add a reference term to the control that is proportional to the reference r, $u[k] = -K_{f}x[k] + K_{r}r$. We can use linear algebra to compute the matrix $K_{r}$ in terms of the system matrices.
+
+Kr = -(C * (P - B * Kf - eye(N))^(-1) * B)^(-1);
+
+
+We drive the system to the reference state.
+
+itmax = 20;
+x = zeros(N, itmax + 1);
+x(:,1) = x_0;
+for k = 1:itmax
+    x(:,k + 1) = (P - B * Kf) * x(:,k) + B * Kr * r;
+end
+
+
+clf
+hold on
+for k = 1:N
+    plot(0:itmax,x(k,:),'LineWidth',2)
+end
+legend('Node 1','Node 2','Node 3','Node 4','Node 5','Node 6','Node 7','Node 8')
+title('Controlled graph','FontSize',16)
+xlabel('Iterations','FontSize',16)
+ylabel('States of the nodes','FontSize',16)
+
+
+
+
+Assume now that we can control only the node 1 and we want to drive the node 8 to the reference state r = 1. Can we do it? Let’s see.
+
+B = zeros(N, 1);
+B(1) = 1;
+C = zeros(1, N);
+C(8) = 1;
+if rank(ctrb(P,B)) &amp;lt; N
+    print('it is not controllable!')
+end
+
+
+It is controllable.
+
+Q_diag = 1 / max(x_0.^2) * ones(1, N);
+R_diag = 1 / 5^2;
+Q = diag(Q_diag);
+R = diag(R_diag);
+[Kf, ~] = dlqr(P, B, Q, R);
+Kr = -(C * (P - B * Kf - eye(N))^(-1) * B)^(-1);
+r = 1;
+itmax = 200;
+x = zeros(N, itmax + 1);
+x(:,1) = x_0;
+for k = 1:itmax
+    x(:,k + 1) = (P - B * Kf) * x(:,k) + B * Kr * r;
+end
+
+
+clf
+hold on
+for k = 1:N
+    plot(0:itmax,x(k,:),'LineWidth',2)
+end
+legend('Node 1','Node 2','Node 3','Node 4','Node 5','Node 6','Node 7','Node 8')
+title('Driving node 8 to the state 1','FontSize',16)
+xlabel('Iterations','FontSize',16)
+ylabel('States of the nodes','FontSize',16)
+
+
+
+
+As we can see, the node 8 is driven to the state 1 by achieving consensus in all the states of the graph.
+
+References
+
+</description>
+        <pubDate>Fri, 26 Oct 2018 00:00:00 +0200</pubDate>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0001-T</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0001-T</guid>
+        
+        
+        <category>Tutorials</category>
+        
+        <category>WP99</category>
+        
+      </item>
+    
+      <item>
+        <title>LQR control of a fractional reaction diffusion equation</title>
+        <description>We design a LQR controller for stabilyzing the fractional reaction diffusion
+
+
+
+where $\delta&amp;gt;0$ is a given constant, $\omega = (a,b)\subset(-L,L)$ and $(-d_x^2)^s$, $s\in(0,1)$ denotes the one-dimensional fractional Laplacian defined as
+
+
+
+with $c(s)$ an explicit normalization constant.
+
+When considering this equation without the action of the the control $u$, we know that, depending on the value of $\delta$, the corresponding dynamics may become unstable. This is due to the fact that the eignenvalues of the associated elliptic problem are given by $\mu_k=c-\lambda_k$ ($\lambda_k$ being the eigenvalues of the fractional Laplacian on $(-L,L)$ with zero Dirichlet boundary conditions), and they are positive if $c&amp;gt;\lambda_1$ (since, in addition, we know that $\lambda_1&amp;lt;\lambda_k$ for all $K$). We are then intersted in designing a LQR control which is able to stabilyze this solution and prevent its blow-up.
+
+The computation of the LQR control is carried out by means of the following procedure:
+
+STEP 1. Discretization of the equation
+
+We start by discretizing our original system on a uniform mesh ${x_i}_{i=1}^N$, thus obtaining a N-dimensional system of the type
+
+
+
+where:
+
+
+  
+    with some abuse of notation, we denoted $y\in\mathbb{R}^N$ as the   $N$-dimensional vector whose entries $y_i=y(x_i)$, $i=1,\ldots,N$ are   the evaluation of the function $y$ on the points of the mesh;
+  
+  
+    the matrix $A$ is a discretization of the operator $-(-d_x^2)^s + I$,   $I$ denoting the ideintity;
+  
+  
+    the matrix $B$ defines the action of the control.
+  
+
+
+The computation of the matrix requires the discretization of the fractional Laplacian $(-d_x^2)^s$. This which is done by employing the function “fl_rigidity”, which implements a finite elements method on a uniform mesh discretizing the space interval $(-L,L)$ (complete details on this method may be found in [1]).
+
+The function “fl_rigidity” works by requiring 3 input parameters:
+
+
+  
+    s: the order of the fractional Laplacian, which can be any real value      in the interval $(0,1)$;
+  
+  
+    L: the extrema of the space interval $(-L,L)$;
+  
+  
+    N: the number of discretization points in the mesh employed.
+  
+
+
+The outputs are:
+
+
+  
+    x: the vector containing the mesh;
+  
+  
+    A: the matrix discretizing the fractional Laplacian.
+  
+
+
+The matrix B, instead, is constructed by employing the function “construction_matrix_B”, which takes in input
+
+
+  
+    the vector $x$ containing the mesh;
+  
+  
+    the number of discretization points $N$;
+  
+  
+    the characteristic function of the sub-interval $\omega$.
+  
+
+
+STEP 2. Definition of the cost functional and computation of the control
+
+Once we have the semi-discretization of our original problem, the control we are looking for is computed by minimizing the following cost functional
+
+
+
+where $Q\geq 0$ and $R&amp;gt;0$ are given matrices. Moreover, we know that this control is given in a feedback form by $u^*=-R^{-1}B^TPy$, where $P$ is the solution of the algebraic Riccati equation
+
+
+
+Implementation
+
+clear all
+clc
+
+
+We start by defining the parameter $s\in(0,1)$ (order of the fractional Laplacian), the size of the interval $(-L,L)$, the constant $\delta&amp;gt; \lambda_1$ and the number $N$ of discretizaiton points in our mesh.
+
+s = 0.8;
+L = 1;
+d = (0.5*pi)^(2*s)+0.1;
+N = 100;
+
+
+and we compute the corresponding approximation of the fractional Laplacian
+
+[x,FL] = fl_rigidity(s,L,N);
+
+
+We then use it for building the matrice $A$ describing the dynamics
+
+D = d*eye(N);
+A = -FL+D;
+
+
+Secondly, we use the function “construction_matrix_B” for computing the control operator $B$ on the interval $\omega=(-0.3,0.5)$
+
+matrix_B =  @(x) interval(x,-0.3,0.5);
+B = construction_matrix_B(x,N,matrix_B);
+
+
+Out of the matrices $A$ and $B$, we solve the algebraic Riccati equation by employing the specific function from the control systems toolbox of Matlab. For simplicity, we choose both $R$ and $Q$ as the identity, but other choices are possible in order to improve the efficiency of the method.
+
+R = eye(N);
+Q = eye(N);
+[P,cleig,K,report] = care(A,B,eye(N));
+
+
+The output matrix $K=-R^{-1}B^TP$ is used for defining the action of the control and include it in our system
+
+f_ctr = @(x) -K*x;
+eq_ctr = @(t,x) A*x + B*f_ctr(x);
+
+
+Finally, we choose an initial datum
+
+y0 = cos(pi*x)';
+
+
+and we solve our equation with and without control employing the “ode45” function of Matlab. For the equation without control we choose a relatively short time horizon, since we know that the unstable dynamics will rapidly diverge. For the equation with control, instead, we choose a longer time horizon in order to have enough time for stabilyzing the system.
+
+T1 = 4;
+T2 = 25;
+Nt = 40;
+tspan1 = linspace(0,T1,Nt);
+tspan2 = linspace(0,T2,Nt);
+eq_free = @(t,x) A*x;
+[time1, sol_free] = ode45(eq_free,tspan1,y0);
+[time2, sol_ctr] = ode45(eq_ctr,tspan2,y0);
+
+
+We then plot our results and compare them. Firstly, the free dynamics.
+
+surf(x,time1,sol_free)
+colormap jet
+msol_free = floor(min(min(sol_free)));
+Msol_free = round(max(max(sol_free)));
+xticks([-L L])
+yticks([0 T1])
+zticks([msol_free Msol_free])
+view(135,25)
+title('Free unstable dynamics')
+
+
+
+
+We clearly see the growth of the solution, already in the short time horizon [0,4]. When introducing the LQR control, instead, the problem is corrected and the equation is stabilyzed in time $T_2$
+
+surf(x,time2,sol_ctr)
+colormap jet
+msol_ctr = floor(min(min(sol_ctr)));
+Msol_ctr = round(max(max(sol_ctr)));
+xticks([-L,L])
+yticks([0 T2])
+zticks([msol_ctr Msol_ctr])
+view(135,25)
+title('Controlled dynamics')
+
+
+
+
+References
+
+[1] U. Biccari and V. Hernandez-Santamaria, “Controllability of a one-dimensional fracitonal heat equation: theoretical and nuerical aspects”, IMA J. Math. Control I. (2018).
+
+</description>
+        <pubDate>Wed, 24 Oct 2018 00:00:00 +0200</pubDate>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0004-T</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0004-T</guid>
+        
+        
+        <category>Tutorials</category>
+        
+        <category>WP99</category>
+        
+      </item>
     
       <item>
         <title>Synchronized Oscillators</title>
@@ -1111,49 +1661,6 @@ b = 2;
         <pubDate>Sat, 01 Apr 2017 00:00:00 +0200</pubDate>
         <link>https://DeustoTech.github.io/dycon-platform-documentation/functions/rigidity_fr_laplacian-F</link>
         <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/functions/rigidity_fr_laplacian-F</guid>
-        
-        
-        <category>Functions</category>
-        
-      </item>
-    
-      <item>
-        <title>fractional_schr</title>
-        <description>
-
-Description
-
-Solves the fractional Schrodinger equation
-
-
-
-using FE for the approximation of the fractional Laplacian and Cranck-Nicholson for the time integration
-
-For this example we choose following parameters
-
-s = 0.5;
-N = 100;
-L = 1;
-
-
-Execute the function
-
-A = rigidity_fr_laplacian(s,L,N);
-
-
-Can see graphically representation of matrix
-
-figure(1)
-mesh(A)
-view(155,100)
-
-
-
-
-</description>
-        <pubDate>Sat, 01 Apr 2017 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/functions/fractional_schr-F</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/functions/fractional_schr-F</guid>
         
         
         <category>Functions</category>

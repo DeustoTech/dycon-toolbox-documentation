@@ -38,6 +38,21 @@ callback([
   {
     "text": "Synchronized Oscillators",
     "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0004-T"
+  } ,
+
+  {
+    "text": "LQR control of a fractional reaction diffusion equation",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0004-T"
+  } ,
+
+  {
+    "text": "Optimal control of a  graph evolving in discrete time",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0001-T"
+  } ,
+
+  {
+    "text": "Riccati theory in LQ optimization with time-varying target",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0003-T"
   } 
 
 ])

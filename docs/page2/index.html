@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.">
-	<meta property="og:title" content="rigidity_fr_laplacian" />
+	<meta property="og:title" content="DyCon Platform" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://DeustoTech.github.io//dycon-platform-documentation//functions/rigidity_fr_laplacian-F" />
+<meta property="og:url" content="https://DeustoTech.github.io//dycon-platform-documentation//page2/" />
 <meta property="og:image" content="https://DeustoTech.github.io//dycon-platform-documentation/img/home-bg.gif">
 	
 	
@@ -55,9 +55,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>rigidity_fr_laplacian - DyCon Platform</title>
+    <title>DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/functions/rigidity_fr_laplacian-F">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/page2/">
 	
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -168,242 +168,32 @@
 </nav>
 
 
-    <!-- Post Header -->
-<header class="intro-header" style="background-size: 300px 300px; background-image: url('/dycon-platform-documentation/img/home-bg.gif')">
-    <div class="container" style="padding-top: 70px;">
+    <!-- Page Header -->
+<header class="intro-header" style="  background-size: 250px 250px; background-image: url('/dycon-platform-documentation/img/home-bg.gif')">
+    <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading" style="padding: 0px 0">
-                    <h1>rigidity_fr_laplacian</h1>
-                    
-					<span class="meta">Create by: 
-					
-						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="">Umberto Biccari</a></span></span>
-					
-					</span>	
-					<span>on April 1, 2017</span>
+                <div class="site-heading" style="padding: 75px 0;">
+						
+                        
+                    <hr class="small">
+                    <span class="subheading">This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.</span>
+                    	
+
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-
-
-
-
-
-	
-	
-		
-	
-
-<!-- Also Interesting -->
-
-
-
-	
-	 
-	
-	
-	
-
-	
-	 
-	
-	
-	
-
-	
-	 
-	
-	
-	
-
-	
-	 
-	
-	
-	
-
-	
-	 
-	
-	
-	
-
-	
-	 
-	
-	
-	
-
-	
-	 
-	
-	
-	
-
-	
-	 
-	
-	
-	
-
-	
-	 
-	
-	
-	
-
-	
-	
-	
-
-	
-	 
-	
-	
-	
-
-
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			
 		</div>
-		</div>
-
-<!-- Post Content -->
-<style>
-img {
-	display:block;
-	max-width:  100%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-@media only screen and (min-width: 1000px) {
-img {
-	-moz-transition:-moz-transform 0.5s ease-in; 
-	-webkit-transition:-webkit-transform 0.5s ease-in; 
-	-o-transition:-o-transform 0.5s ease-in;
-}
-img:active{
-	-moz-transform:scale(1.2); 
-	-webkit-transform:scale(1.2);
-	-o-transform:scale(1.2);
-}
-}
-
-@media only screen and (min-width: 1250px) {
-img {
-	-moz-transition:-moz-transform 0.5s ease-in; 
-	-webkit-transition:-webkit-transform 0.5s ease-in; 
-	-o-transition:-o-transform 0.5s ease-in;
-}
-img:active{
-	-moz-transform:scale(1.5); 
-	-webkit-transform:scale(1.5);
-	-o-transform:scale(1.5);
-}
-}
-
-@media only screen and (min-width: 1500px) {
-img {
-	-moz-transition:-moz-transform 0.5s ease-in; 
-	-webkit-transition:-webkit-transform 0.5s ease-in; 
-	-o-transition:-o-transform 0.5s ease-in;
-}
-img:active{
-	-moz-transform:scale(2); 
-	-webkit-transform:scale(2);
-	-o-transform:scale(2);
-}
-}
-</style>
-
-<article>
-    <div id="content" class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-
-
-
-				Stiffness matrix for the FE discretization of the 1d fractional Laplacian.
-
-				<h1>Input Vars</h1>
-				<ul>
-					
-					<li>
-						s : Order of the fractional Laplacian (-dx^2)^s
-					</li>
-				
-					<li>
-						L : Define the interval of x, So x \in (-L,L)
-					</li>
-				
-					<li>
-						N : number of points in the space discretization
-					</li>
-				
-				</ul>
-
-				<h1>Output Vars</h1>
-				<ul>
-					
-					<li>
-						A : Rigidity Matrix of fractional Laplacian
-					</li>
-				
-				</ul>
-
-
-
-				<hr />
-
-<h2 id="description">Description</h2>
-
-<p>Summary of example objective</p>
-
-<h2 id="section-1-title">Section 1 Title</h2>
-
-<p>Description of first code block</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h2 id="section-2-title">Section 2 Title</h2>
-
-<p>Description of second code block</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-</code></pre></div></div>
-
-
-
-
-
-
-
-                <hr>
-
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/dycon-platform-documentation/functions/fractional_schr-F" data-toggle="tooltip" data-placement="top" title="fractional_schr">&larr; Previous Post</a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/dycon-platform-documentation/tutorials/wp01/P0001-T" data-toggle="tooltip" data-placement="top" title="Average Control by classical gradient step method">Next Post &rarr;</a>
-                    </li>
-                    
-                </ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-<hr>
+	</div>
+</div>
 
 
 	
