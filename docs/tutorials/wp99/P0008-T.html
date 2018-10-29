@@ -59,6 +59,9 @@
 <meta name="citation_author" content="">
 
 
+<meta name="citation_author" content="">
+
+
 
 	
 
@@ -213,6 +216,12 @@
 <!-- Also Interesting -->
 
 
+
+	
+	 
+	
+	
+	
 
 	
 	
@@ -572,7 +581,7 @@ detectable.
 
 </code></pre></div></div>
 
-<p>The LQR control is given by the matlab routine care(), as the application $t \mapsto -Kz(t)$, where the matrix $K$, of size $m \times d$ is an output of care(), where $m$ is the dimention of the input space and is equal to one.</p>
+<p>The LQR control is given by the matlab routine care(), as the application $t \mapsto -Kz(t)$. The matrix $K$, of size $m \times d$ is an output of care(), where $m$ is the dimention of the input space and is equal to one.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">ricsol</span><span class="p">,</span> <span class="n">cleig</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">report</span><span class="p">]</span> <span class="o">=</span> <span class="n">care</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span><span class="p">);</span>
 <span class="n">f_ctr</span> <span class="o">=</span> <span class="o">@</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="n">z</span><span class="p">;</span>
@@ -593,11 +602,11 @@ detectable.
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span> <span class="o">=</span> <span class="nb">meshgrid</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">x1</span><span class="p">);</span>
 <span class="nb">figure</span><span class="p">;</span> <span class="nb">surf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z1</span><span class="p">(:,</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">'</span><span class="p">);</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="nb">time</span><span class="err">"</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">space</span><span class="err">"</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Solution</span> <span class="n">y</span> <span class="k">for</span> <span class="n">unstable</span> <span class="n">linear</span> <span class="nb">system</span><span class="err">"</span><span class="p">);</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'time'</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space'</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="s1">'Solution y for unstable linear system'</span><span class="p">);</span>
 
 <span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span> <span class="o">=</span> <span class="nb">meshgrid</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">x2</span><span class="p">);</span>
 <span class="nb">figure</span><span class="p">;</span> <span class="nb">surf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z1</span><span class="p">(:,</span> <span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">'</span><span class="p">);</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="nb">time</span><span class="err">"</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">space</span><span class="err">"</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Solution</span> <span class="n">v</span> <span class="k">for</span> <span class="n">unstable</span> <span class="n">linear</span> <span class="nb">system</span><span class="err">"</span><span class="p">);</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'time'</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space'</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="s1">'Solution v for unstable linear system'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><img src="./../../assets/imgs/WP99/P0008/transport_system_LQR_control-md_01.png" alt="" /></p>
@@ -614,11 +623,11 @@ detectable.
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span> <span class="o">=</span> <span class="nb">meshgrid</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">x1</span><span class="p">);</span>
 <span class="nb">figure</span><span class="p">;</span> <span class="nb">surf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z2</span><span class="p">(:,</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">'</span><span class="p">);</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="nb">time</span><span class="err">"</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">space</span><span class="err">"</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Solution</span> <span class="n">y</span> <span class="k">for</span> <span class="n">stabilized</span> <span class="n">linear</span> <span class="nb">system</span><span class="err">"</span><span class="p">);</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'time'</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space'</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="s1">'Solution y for stabilized linear system'</span><span class="p">);</span>
 
 <span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span> <span class="o">=</span> <span class="nb">meshgrid</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">x2</span><span class="p">);</span>
 <span class="nb">figure</span><span class="p">;</span> <span class="nb">surf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z2</span><span class="p">(:,</span> <span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">'</span><span class="p">);</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="nb">time</span><span class="err">"</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">space</span><span class="err">"</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Solution</span> <span class="n">v</span> <span class="k">for</span> <span class="n">stabilized</span> <span class="n">linear</span> <span class="nb">system</span><span class="err">"</span><span class="p">);</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'time'</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space'</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="s1">'Solution v for stabilized linear system'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><img src="./../../assets/imgs/WP99/P0008/transport_system_LQR_control-md_03.png" alt="" /></p>
@@ -635,11 +644,11 @@ detectable.
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span> <span class="o">=</span> <span class="nb">meshgrid</span><span class="p">(</span><span class="n">t3</span><span class="p">,</span> <span class="n">x1</span><span class="p">);</span>
 <span class="nb">figure</span><span class="p">;</span> <span class="nb">surf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z3</span><span class="p">(:,</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">'</span><span class="p">);</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="nb">time</span><span class="err">"</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">space</span><span class="err">"</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Solution</span> <span class="n">y</span> <span class="k">for</span> <span class="n">stabilized</span> <span class="n">semilinear</span> <span class="nb">system</span><span class="err">"</span><span class="p">);</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'time'</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space'</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="s1">'Solution y for stabilized semilinear system'</span><span class="p">);</span>
 
 <span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span> <span class="o">=</span> <span class="nb">meshgrid</span><span class="p">(</span><span class="n">t3</span><span class="p">,</span> <span class="n">x2</span><span class="p">);</span>
 <span class="nb">figure</span><span class="p">;</span> <span class="nb">surf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z3</span><span class="p">(:,</span> <span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">'</span><span class="p">);</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="nb">time</span><span class="err">"</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">space</span><span class="err">"</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Solution</span> <span class="n">v</span> <span class="k">for</span> <span class="n">stabilized</span> <span class="n">semilinear</span> <span class="nb">system</span><span class="err">"</span><span class="p">);</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'time'</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space'</span><span class="p">);</span> <span class="nb">title</span><span class="p">(</span><span class="s1">'Solution v for stabilized semilinear system'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><img src="./../../assets/imgs/WP99/P0008/transport_system_LQR_control-md_05.png" alt="" /></p>
@@ -684,6 +693,10 @@ detectable.
                         <a href="/dycon-platform-documentation/tutorials/wp99/P0007-T" data-toggle="tooltip" data-placement="top" title="Stabilization of a collective behavior model">&larr; Previous Post</a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/dycon-platform-documentation/tutorials/wp99/P0009-T" data-toggle="tooltip" data-placement="top" title="The control on the Kuramoto model by handling one oscillator">Next Post &rarr;</a>
+                    </li>
                     
                 </ul>
 
