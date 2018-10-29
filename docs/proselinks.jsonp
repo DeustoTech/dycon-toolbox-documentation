@@ -53,6 +53,21 @@ callback([
   {
     "text": "Riccati theory in LQ optimization with time-varying target",
     "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0003-T"
+  } ,
+
+  {
+    "text": "LQR optimal control design for a coupled PDE-ODE system.",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0006-T"
+  } ,
+
+  {
+    "text": "Stabilization of a collective behavior model",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0007-T"
+  } ,
+
+  {
+    "text": "Coupled transport equations and LQR control",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0008-T"
   } 
 
 ])

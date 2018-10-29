@@ -5,9 +5,746 @@
     <description>This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.</description>
     <link>https://DeustoTech.github.io/dycon-platform-documentation/</link>
     <atom:link href="https://DeustoTech.github.io/dycon-platform-documentation/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Oct 2018 16:38:24 +0200</pubDate>
-    <lastBuildDate>Fri, 26 Oct 2018 16:38:24 +0200</lastBuildDate>
+    <pubDate>Mon, 29 Oct 2018 11:36:21 +0100</pubDate>
+    <lastBuildDate>Mon, 29 Oct 2018 11:36:21 +0100</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
+    
+      <item>
+        <title>Coupled transport equations and LQR control</title>
+        <description>We consider the semilinear hyperbolic system
+
+
+
+where $\lambda &amp;gt; 0$ and $u$ is the control. The stability and boundary stabilization of such 1D hyperbolic systems is studied in [1]. The aim of this tutorial is to semi-discretize in space this system of equations and design a stabilizing control by using the LQR method.
+
+The above system linearized around $(y,v) = (0,0)$ has the form
+
+
+
+We will first use the LQR method to design a stabilizing control for the semi-discretized linear system, and then this control will be applied to the semi-discretized semilinear system.
+
+Space discretization
+
+The intervall $(0,L)$ is divided in $n+1$ subintervals, of size $h_x := \frac{L}{n+1}$, by $n+2$ evenly spaced points $x_k = kh_x$. Hence, $x_0 = 0$ and $x_{n+1} = L$. We set $y_k(t) = y(x_k,t), \quad v_k(t) := v(x_k,t)$ and similarly for the inital conditions $y_k^0(t) = y^0(x_k)$ and $v_k^0(t) := v(x_k)$.
+
+clear; clc;
+L = 1; n = 30;
+x = linspace(0, L, n+2);
+hx = 1/(n+1);
+
+
+The points where y and v are unknown are contained in x1 and x2 respectively, where x1 and x2 are defined below.
+
+x1 = x(2:n+2);
+x2 = x(1:n+1);
+
+
+Finite differences for the space derivative give
+
+
+
+and
+
+
+
+The sign of $\lambda$ in each equation must be taken into account to choose the approximation of $\partial_x y$ and $\partial_x v$.
+
+Let $d = 2(n+1)$ represent the dimension of the state space for the semi-discretized systems. Defining the state variable $z \colon (0,T) \mapsto \mathbb{R}^d$ by
+
+
+
+the semilinear system writes as
+
+
+
+and the linearized system writes as
+
+
+
+d = 2*(n+1);
+
+
+We pick the initial condition
+
+
+
+y0 = sin(pi*x1)';
+v0 = sin(pi*x2)';
+z0 = zeros(d, 1); z0(1:n+1, 1) = y0; z0(n+2:d, 1) = v0;
+
+
+We set values for $\lambda$, $c_1$ and $c_2$:
+
+lambda = 1; c1 = 1; c2 = 1;
+
+
+We consider the time parameters
+
+T = 5;
+nT = 70;
+time = linspace(0, T, nT);
+
+
+The matrix $A$ of size $d \times d$ is given by
+
+
+
+where $A_{11}, A_{12}, A_{21}, A_{22}$, of size $(n+1)\times(n+1)$, are defined by
+
+
+
+and
+
+
+
+They are constructed as follows.
+
+A = zeros(d, d);
+% Lower and upper extradiagonals:
+ext_down_1 = zeros(1,2*n+1); ext_down_1(1,1:n) = lambda/hx*ones(1,n);
+ext_down_2 = c2*ones(1,n);
+ext_up_1 = zeros(1,2*n+1); ext_up_1(1,(n+2):(2*n+1)) = lambda/hx*ones(1,n);
+ext_up_2 = zeros(1, n+1); ext_up_2(1, 1) = lambda/hx;
+ext_up_3 = c1*ones(1,n);
+% We assemple:
+A = A - lambda/hx*eye(d); A(n+2, n+2) = A(n+2, n+2) + c2;
+A = A + diag(ext_up_1,1) + diag(ext_up_2, n+1) + diag(ext_up_3,n+2);
+A = A + diag(ext_down_1,-1) + diag(ext_down_2, -n-2);
+
+
+The matrix $B$ is of size $d \times 1$ and is given by
+
+
+
+where $B_1, B_2$, of size $(n+1)\times 1$, are defined by
+
+
+
+B= zeros(d, 1);
+B(n+1, 1) = c1; B(d, 1) = lambda/hx;
+
+
+The LQR method
+
+We check that a LQR control can be computed for the semi-descretize linear system. To begin, we verify that $ (A,BB^\ast) $ is stabilizable (where $B^\ast$ denotes the transpose of $B$), meaning that $\text{rank}((sI-A) BB^\ast) = d$ for any eigenvalue $s$ of $A$ with a nonnegative real part.
+
+disp('Stabilizability of (A, BB*):');
+eA=eig(A);
+not_stabilizable = 0;
+for cpt=1:d
+    if real(eA(cpt))&amp;gt;=0
+        disp(cpt); disp(eA(cpt));
+
+        M = zeros(d, 2*d);
+        M(:, 1:d) = eA(cpt)*eye(d)-A;
+        M(:, d+1:d*2) = B*(B');
+
+        r = rank(M);
+        if (r ~= d)
+            not_stabilizable = not_stabilizable + 1;
+        end
+    end
+end
+if not_stabilizable == 0
+    disp('stabilizable.');
+else
+    disp('not stabilizable.');
+end
+
+
+Stabilizability of (A, BB*):
+    18
+
+    0.3047
+
+stabilizable.
+
+
+
+Then, we verify that the eigenvalues of the Hamiltonian matrix
+
+
+
+are not purely imzginary. Here, $Q$ is a matrix of size $d \times d$ to be chosen.
+
+R = 1; Q = eye(d);
+H = blkdiag(A, -A');
+H(d+1: 2*d, 1:d) = -Q;
+H(1:d, d+1: 2*d) = -B*(B');
+eH = eig(H);
+nb_imaginary_eig_val_hamiltonian = sum(real(eH) == 0);
+disp('Number of eigenvalues of H on the imaginary axis:')
+disp(nb_imaginary_eig_val_hamiltonian);
+
+
+Number of eigenvalues of H on the imaginary axis:
+     0
+
+
+
+
+To finish, we verify that $(Q, A)$ is stabilizable, meaning that the rank of
+
+
+
+is equal to $d$, for any eigenvalue $s$ of $A$ with a nonnegative real part.
+
+disp('Detectability of (Q, A):');
+not_detectable = 0;
+for cpt=1:d
+    if real(eA(cpt))&amp;gt;=0
+        disp(cpt); disp(eA(cpt));
+
+        J = zeros(2*d, d);
+        J(1:d, :) = Q;
+        J(d+1:d*2, :) = eA(cpt)*eye(d)-A;
+
+        r = rank(J);
+        if (r ~= d)
+            not_detectable = not_detectable + 1;
+        end
+    end
+end
+if not_detectable == 0
+    disp('detectable.');
+else
+    disp('not detectable.');
+end
+
+
+Detectability of (Q, A):
+    18
+
+    0.3047
+
+detectable.
+
+
+
+The LQR control is given by the matlab routine care(), as the application $t \mapsto -Kz(t)$, where the matrix $K$, of size $m \times d$ is an output of care(), where $m$ is the dimention of the input space and is equal to one.
+
+[ricsol, cleig, K, report] = care(A, B, Q, R);
+f_ctr = @(z) -K*z;
+
+
+Unstable and stabilized system’s solutions
+
+u = 0;
+
+
+We compute the solution to the linear system with a control equal to zero:
+
+F1 = @(t,z) A*z + B*u;
+[t1, Z1] = ode45(F1, time, z0);
+
+
+The corresponding solutions $y$ and $v$ are displayed:
+
+[X,Y] = meshgrid(t1, x1);
+figure; surf(X, Y, Z1(:, 1:n+1)');
+xlabel(&quot;time&quot;); ylabel(&quot;space&quot;); title(&quot;Solution y for unstable linear system&quot;);
+
+[X,Y] = meshgrid(t1, x2);
+figure; surf(X, Y, Z1(:, n+2:2*(n+1))');
+xlabel(&quot;time&quot;); ylabel(&quot;space&quot;); title(&quot;Solution v for unstable linear system&quot;);
+
+
+
+
+
+
+We compute the solution to the linear system with the feedback control:
+
+F2 = @(t,z) A*z + B*f_ctr(z);
+[t2, Z2] = ode45(F2, time, z0);
+
+
+The corresponding solutions $y$ and $v$ are displayed:
+
+[X,Y] = meshgrid(t2, x1);
+figure; surf(X, Y, Z2(:, 1:n+1)');
+xlabel(&quot;time&quot;); ylabel(&quot;space&quot;); title(&quot;Solution y for stabilized linear system&quot;);
+
+[X,Y] = meshgrid(t2, x2);
+figure; surf(X, Y, Z2(:, n+2:2*(n+1))');
+xlabel(&quot;time&quot;); ylabel(&quot;space&quot;); title(&quot;Solution v for stabilized linear system&quot;);
+
+
+
+
+
+
+We compute the solution to the semilinear system with the same feedback control as the one found for the linear system:
+
+F3 = @(t,z) A*z + B*f_ctr(z) + [z(1:n,1).*z(n+3:d,1);z(n+1, 1)*f_ctr(z);z(n+2, 1)^2 ; z(1:n,1).*z(n+3:d,1)];
+[t3, Z3] = ode45(F3, time, z0);
+
+
+The corresponding solutions $y$ and $v$ are displayed:
+
+[X,Y] = meshgrid(t3, x1);
+figure; surf(X, Y, Z3(:, 1:n+1)');
+xlabel(&quot;time&quot;); ylabel(&quot;space&quot;); title(&quot;Solution y for stabilized semilinear system&quot;);
+
+[X,Y] = meshgrid(t3, x2);
+figure; surf(X, Y, Z3(:, n+2:2*(n+1))');
+xlabel(&quot;time&quot;); ylabel(&quot;space&quot;); title(&quot;Solution v for stabilized semilinear system&quot;);
+
+
+
+
+
+
+We compare the euclidean norm of the preceding solutions:
+
+y1_norm = sum(abs(Z1(:, 1:n+1)).^2, 2);
+y2_norm = sum(abs(Z2(:, 1:n+1)).^2, 2);
+v1_norm = sum(abs(Z1(:, n+2:2*(n+1))).^2, 2);
+v2_norm = sum(abs(Z2(:, n+2:2*(n+1))).^2, 2);
+y3_norm = sum(abs(Z3(:, 1:n+1)).^2, 2);
+v3_norm = sum(abs(Z3(:, n+2:2*(n+1))).^2, 2);
+norm1 = (y1_norm + v1_norm).^(1/2);
+norm2 = (y2_norm + v2_norm).^(1/2);
+norm3 = (y3_norm + v3_norm).^(1/2);
+figure;
+plot(t1, norm1, 'lineWidth', 2);
+hold on;
+plot(t2, norm2, 'lineWidth', 2);
+plot(t3, norm3, 'lineWidth', 2);
+legend('zero control, linear syst.', 'feedback control, linear syst.', 'feedback control, semilin. syst.');
+xlabel('time');
+ylabel('euclidean norm of z');
+title('Euclidean norm of solutions across time');
+
+
+
+
+References
+
+[1] Bastin G., J.-M. Coron, Stability and boundary stabilization of 1-D Hyperbolic systems. 2016.
+
+</description>
+        <pubDate>Mon, 29 Oct 2018 00:00:00 +0100</pubDate>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0008-T</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0008-T</guid>
+        
+        
+        <category>Tutorials</category>
+        
+        <category>WP99</category>
+        
+      </item>
+    
+      <item>
+        <title>Stabilization of a collective behavior model</title>
+        <description>clc;
+clear;
+
+
+Summary of example objective The goal of this tutorial is to use LQR theory applied to a model of collective behavior. The model choosen shares a formal structure with the semidiscretization of the semilinear 1d heat equation.
+
+Consider $N$  agents $y_i$ for $i=1,…,N$, and let $y=(y_1,…,y_N)\in \mathbb{R}^N$.
+
+The model considered is the following:
+
+ where $A$ is a matrix of the form:
+
+
+
+and $\vec{G}:\mathbb{R}^N\to\mathbb{R}^N$ is a non linear function of the form
+
+
+
+where $G$ is a non-linear function, matrix $A$ models the interaction between agents. Agent $i$ changes its state according to the state of agent $i+1$ and $i-1$ in a linear way plus a non-linear effect that depends only on his state.
+
+Note that the manifold
+
+
+
+is invariant under $F$. Indeed, taking $x\in\mathcal{M}_N$ we have that
+
+
+
+Therefore, the mean will follow the following 1-d dynamical system
+
+
+
+Here we will consider that $G(0)=0$ and that $DG(0)&amp;gt;0$, we have an unstable critical point at 0. Let N=20,
+
+N=2;
+A=full(gallery('tridiag',N,1,-2,1));
+A(1,1)=-1;
+A(N,N)=-1;
+
+
+and that
+
+
+
+here $G$ is taken in the following form (and we compute also its derivative).
+
+The non-linearity choosen is:
+
+a=5;
+c=0.20;
+syms G(x);
+syms DG(x);
+G(x) = piecewise(x&amp;lt;=-a, -2*a*a*x*c-2*a*a*a*c, a&amp;lt;=x, -2*a*a*x*c+2*a*a*a*c, -a&amp;lt;x&amp;lt;a, -c*x*(x-a)*(x+a));
+DG(x) = diff(G,x);
+G=@(x)double(G(x));
+DG = @(x)double(DG(x));
+
+close all
+figure(1)
+fplot(G,[-10,10])
+title('Plot of the non-linearity')
+hold off
+grid
+
+
+
+
+The function field assigns an $N$ dimensional vector corresponding to the field for every point in $\mathbb{R}^N$, matrix $A$ and the nonlinear function $G$
+
+F=@(t,y) field(A,G,y)
+
+
+
+F =
+
+  function_handle with value:
+
+    @(t,y)field(A,G,y)
+
+
+
+
+Now its the turn to define our cost functional. Our goal will be to stabilize the system in a critical point inside the manifold $\mathcal{M}_N$. Notice that, in particular $0$ is a critical point.
+
+We will choose the matrix $Q$ in a way that the vector that defines $\mathcal{M}_N$ is an eigenvector of the matrix $Q$, we have seen that the manifold $\mathcal{M}_N$ is invariant under the flow. Our cost functional will take into account if we are not in this manifold.
+
+
+
+We check that its eigenvalues are non-negative
+
+Q=eye(N)-ones([N N])/N;
+EigQ=eig(Q)
+
+
+
+EigQ =
+
+     0
+     1
+
+
+
+
+And we define $R$ being just the identity
+
+R=eye(N);
+
+
+Linearize arround the unstable equilibrium 0 and obtain the linearized system $\dot{y}=Ly$
+
+p=0;
+L=A+DG(p)*eye(N);
+
+
+we set our control matrix B
+
+B=eye(N);
+
+
+One has to check the rank of the controllability matrix to see if we satisfy the Kalman rank condition
+
+Co=ctrb(L,B);
+rank=rank(Co)
+
+
+
+rank =
+
+     2
+
+
+
+
+Once it is done, we are in the position of solving the algebraic Riccati equation
+
+[ricsol,cleig,K,report] = care(L,B,Q);
+
+
+Consider a time span and an initial datum
+
+radius = 6
+ini    = radius*(-0.5+rand(N,1))
+
+
+
+radius =
+
+     6
+
+
+ini =
+
+   -2.1042
+   -1.4550
+
+
+
+
+the free dynamics would result
+
+tspan = [0, 2];
+[t,y] = ode45( F, tspan, ini);
+
+figure(2)
+for i=1:N-1
+    plot(t, y(:,i));
+    hold on;
+end
+plot(t, y(:,N))
+title('Free dynamics')
+hold off
+grid
+
+
+
+
+Now the LQ controller with the linear and the non-linear dynamics
+
+u_lq = @(t,x) -K * x;
+
+
+i_linear = @(t,x) L*x + B*u_lq(t,x);
+[time, state] = ode45(i_linear,tspan, ini);
+
+i_nonlinear = @(t,x)[F(t,x)+B*u_lq(t,x)];
+[timen, staten] = ode45(i_nonlinear,tspan, ini);
+
+figure(3)
+for i=1:N-1
+    plot(time, state(:,i),'LineWidth',2);
+    hold on;
+end
+plot(time, state(:,N),'LineWidth',2)
+grid on
+title('LQR regulator on the linearized system')
+hold off
+
+
+
+
+[timen, staten] = ode45(i_nonlinear,tspan, ini);
+
+figure(4)
+for i=1:N-1
+    plot(timen, staten(:,i),'LineWidth',2);
+    hold on;
+end
+plot(timen, staten(:,N),'LineWidth',2)
+grid on
+title('LQR regulator on the non-linear dynamics')
+hold off
+
+
+
+
+</description>
+        <pubDate>Sun, 28 Oct 2018 00:00:00 +0200</pubDate>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0007-T</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0007-T</guid>
+        
+        
+        <category>Tutorials</category>
+        
+        <category>WP99</category>
+        
+      </item>
+    
+      <item>
+        <title>LQR optimal control design for a coupled PDE-ODE system.</title>
+        <description>In this tutorial, we will demonstrate how to design a LQR controller in order to stabilize the following linear coupled (hybrid) PDE-ODE system:
+
+
+
+Similar systems may appear in the modelling of a variety physical phenomena, such as the melting of ice in a body of water [1] or fluid-structure interaction [2]. This particular system may be seen as a simplification of the well known one-phase Stefan problem. The stabilization and control of the former has been investigated in recent works by Krstic et al. (see [1] for example). The relationship between the considered system and the Stefan problem, as well as the control of the latter will be considered in a future tutorial.
+
+When no forces are applied, a feature of the governing parabolic PDE is its possibility of generating unstable dynamics as $t \rightarrow \infty$. This phenomenon is due to the fact that the sign of the eigenvalues of the governing elliptic differential operator depends on the magnitude of the constant $\beta$. More precisely, as the differential operator has eigenvalues of the form $\mu_k = \beta - \lambda_k$, where $\lambda_k$ are the eigenvalues of the Dirichlet laplacian, taking $\beta &amp;gt; \lambda_1$ (the biggest among the $\lambda_k$) would yield such a result. We will thence implement a LQR optimal control strategy in order to stabilize the system.
+
+We first need to reduce the PDE-ODE system  to a finite dimensional system of the form
+
+
+
+where $A$ and $B$ are matrices, and
+
+
+
+is the finite dimensional state vector.
+
+We fix the parameters as follows: $T=1$, $\alpha=1$ and $\beta = 10$:
+
+clc; clear;
+T = 1;
+nT = 100; nX = 20;
+dt = T/nT; dx = 1/(nX+1);
+x = linspace(0,1,nX+2);
+Dir0 = 1; Dir1 = 0;
+alpha = 1; beta = 10;
+
+
+We begin the code by discretizing in space the parabolic PDE; this is done by finite differences:
+
+Id = eye(nX);
+Lapl = -2*Id + diag(ones(nX-1,1),-1) + diag(ones(nX-1,1),1);
+A0 = alpha*1/dx^2*Lapl + beta*Id;
+
+
+In fact, the finite difference discretization of the Dirichlet laplacian may also be done using the MATLAB routine delsq. We proceed similarly for the term $y_x(1,t)$ in the ODE, and assemble the complete matrix $A$:
+
+A = zeros(nX+1,nX+1); A(2:nX+1,2:nX+1) = A0; A(1,2)=-1/dx;
+
+
+The control matrix B is constructed as follows:
+
+b = zeros(nX,1); b(1,1) = alpha*Dir0/dx^2; b(nX,1) = alpha*Dir1/dx^2;
+B = zeros(nX+1,1);
+B(1,1) = Dir0/dx;
+B(2:nX+1,1) = b;
+
+
+We may now proceed with the optimal control strategy. For a continuous time linear system generated by the matrices $(A,B)$ and an infinite time horizon cost functional defined as
+
+
+
+the feedback control law that minimizes the value of the cost is $u = -Kz$, where $K = R^{-1}B*P$ and $P$ is found by solving the continuous time algebraic Ricatti equation
+
+
+
+We check whether the constructed matrices fit in the framework of LQR. Namely, we first verify that the couple $(A, BB*)$ is stabilizable. This is done by checking if $\text{rank}[\lambda I - A, B] = d$ for any $\lambda \in \sigma(A)\cap \mathbb{R}_+$, where $d$ is the dimension of the state space.
+
+eigs = eig(A);
+for iter=1:nX+1
+    if real(eigs(iter))&amp;gt;=0
+        M = zeros(nX+1,2*(nX+1));
+        M(:,1:nX+1) = eigs(iter)*eye(nX+1)-A; M(:,nX+2:2*(nX+1)) = B*(B');
+        r_ = rank(M);
+        stabilizable = (r_ == nX+1);
+    end
+end
+
+
+Secondly, we check that the eigenvalues of the associated Hamiltonian matrix do not lie on the imaginary axis.
+
+R = 1; Q = eye(nX+1);
+H = blkdiag(A, -A');
+H(nX+2: 2*(nX+1), 1:nX+1) = -Q; H(1:nX+1, nX+2: 2*(nX+1)) = -B*(B');
+eigH = real(eig(H));
+nb_im_eig = sum(eigH == 0);
+
+
+Finally, we check if the pair $(Q, A)$ is detectable; the variable not_det should equal $0$ after the loop.
+
+not_det = 0;
+for iter_=1:nX+1
+    if real(eigs(iter_))&amp;gt;=0
+        M_ = zeros(2*(nX+1), nX+1);
+        M_(1:nX+1, :) = Q; M_(nX+2:(nX+1)*2, :) = eigs(iter_)*eye(nX+1)-A;
+        r_ = rank(M_);
+        if (r_ ~= nX+1)
+            not_det = not_det + 1;
+        end
+    end
+end
+
+
+We are now in a position to construct the LQR feedback control by solving the algebraic Ricatti equation. This is done by using the MATLAB Control Toolbox routine care:
+
+[ricsol, cleig, K, report] = care(A, B, Q, R);
+f_ctr = @(z) -K*z;
+
+
+We now compare the uncontrolled (thence unstable) dynamics with the dynamics stabilized by the LQR feedback control. As initial datum for both systems, we pick $u_0(x) = \cos(\pi*x)$ and $s_0 = 0.1$.
+
+x_int = x(1:nX);
+y0 = cos(x_int*pi)';
+z0 = zeros(nX+1,1); z0(1,1) = 0.1; z0(2:nX+1,1) = y0;
+
+
+The free system is solved with the Dirichlet boundary condition $u(0,t) = 0.15$:
+
+f1 = @(t,v) A*v + B*0.15;
+[t1, z_free] = ode45(f1, linspace(0,T,nT), z0);
+[X1,Y1] = meshgrid(t1,x_int);
+surf(X1, Y1, z_free(:,2:nX+1)');
+xlabel('Time');
+ylabel('Space');
+title('Unstable state y_{un} = y_{un}(t,x)')
+
+
+
+
+Now we solve and visualize the controlled problem:
+
+f2 = @(t,z) A*z + B*f_ctr(z);
+[t2, z_ctr] = ode45(f2, linspace(0,T,nT), z0);
+figure;
+[X2,Y2] = meshgrid(t2,x_int);
+surf(X2, Y2, z_ctr(:,2:nX+1)');
+xlabel('Time');
+ylabel('Space');
+title('Stablilized state y_{st} = y_{st}(t,x)')
+
+
+
+
+We also plot the corresponding solutions to the ODE:
+
+figure;
+plot(t1, z_free(:,1), 'Color', [0.8500, 0.3250, 0.0980], 'LineWidth', 1.5);
+hold on;
+plot(t2, z_ctr(:,1), 'Color', [0, 0.4470, 0.7410], 'LineWidth', 1.5);
+legend('Unstable', 'Stabilized', 'Location', 'SouthWest');
+xlabel('Time')
+title('The state s')
+
+
+
+
+As a final test of our results, we compare the $L^2(0,1)$-norms of both the controlled and uncontrolled state with respect to time.
+
+norm_free = 1/nX*sum(z_free.^2,2).^0.5;
+norm_ctr = 1/nX*sum(z_ctr.^2,2).^0.5;
+figure;
+plot(t1, norm_free, 'Color', [0.8500, 0.3250, 0.0980], 'LineWidth', 1.5);
+hold on;
+plot(t2, norm_ctr, 'Color', [0, 0.4470, 0.7410], 'LineWidth', 1.5);
+legend('Unstable state', 'Stabilized state', 'Location', 'NorthWest');
+xlabel('Time');
+title('L^2 Norm');
+
+
+
+
+References:
+
+[1] Koga, Shumon and Diagne, Mamadou and Krstic, Miroslav. Output feedback control of the one-phase Stefan problem. 2016 IEEE 55th Conference on Decision and Control (CDC) (2016).
+
+[2] Vazquez, Juan Luis and Zuazua, Enrique. Large time behavior for a simplified 1D model of fluid-solid interaction. Comm. Partial Differential Equations 28 (2003), no. 9-10, 1705-1738.
+
+</description>
+        <pubDate>Sun, 28 Oct 2018 00:00:00 +0200</pubDate>
+        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0006-T</link>
+        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0006-T</guid>
+        
+        
+        <category>Tutorials</category>
+        
+        <category>WP99</category>
+        
+      </item>
     
       <item>
         <title>Riccati theory in LQ optimization with time-varying target</title>
@@ -367,7 +1104,7 @@ References
     
       <item>
         <title>LQR control of a fractional reaction diffusion equation</title>
-        <description>We design a LQR controller for stabilyzing the fractional reaction diffusion
+        <description>We design a LQR controller for stabilyzing the fractional reaction diffusion equation
 
 
 
@@ -383,7 +1120,7 @@ The computation of the LQR control is carried out by means of the following proc
 
 STEP 1. Discretization of the equation
 
-We start by discretizing our original system on a uniform mesh ${x_i}_{i=1}^N$, thus obtaining a N-dimensional system of the type
+We start by discretizing our original system on a uniform mesh $x_i$, $i=1,\ldots,N$, thus obtaining a N-dimensional system of the type
 
 
 
@@ -394,14 +1131,14 @@ where:
     with some abuse of notation, we denoted $y\in\mathbb{R}^N$ as the   $N$-dimensional vector whose entries $y_i=y(x_i)$, $i=1,\ldots,N$ are   the evaluation of the function $y$ on the points of the mesh;
   
   
-    the matrix $A$ is a discretization of the operator $-(-d_x^2)^s + I$,   $I$ denoting the ideintity;
+    the matrix $A$ is a discretization of the operator $-(-d_x^2)^s + I$,   $I$ denoting the identity;
   
   
     the matrix $B$ defines the action of the control.
   
 
 
-The computation of the matrix requires the discretization of the fractional Laplacian $(-d_x^2)^s$. This which is done by employing the function “fl_rigidity”, which implements a finite elements method on a uniform mesh discretizing the space interval $(-L,L)$ (complete details on this method may be found in [1]).
+The computation of the matrix requires the discretization of the fractional Laplacian $(-d_x^2)^s$. This is done by employing the function “fl_rigidity”, which implements a finite elements method on a uniform mesh discretizing the space interval $(-L,L)$ (complete details on this method may be found in [1]).
 
 The function “fl_rigidity” works by requiring 3 input parameters:
 
@@ -410,7 +1147,7 @@ The function “fl_rigidity” works by requiring 3 input parameters:
     s: the order of the fractional Laplacian, which can be any real value      in the interval $(0,1)$;
   
   
-    L: the extrema of the space interval $(-L,L)$;
+    L: any real value, defining the extrema of the space interval $(-L,L)$;
   
   
     N: the number of discretization points in the mesh employed.
@@ -458,7 +1195,7 @@ clear all
 clc
 
 
-We start by defining the parameter $s\in(0,1)$ (order of the fractional Laplacian), the size of the interval $(-L,L)$, the constant $\delta&amp;gt; \lambda_1$ and the number $N$ of discretizaiton points in our mesh.
+We start by defining the parameter $s\in(0,1)$ (order of the fractional Laplacian), the size of the interval $(-L,L)$, the constant $\delta&amp;gt; \lambda_1$ and the number $N$ of discretization points in our mesh.
 
 s = 0.8;
 L = 1;
@@ -471,7 +1208,7 @@ and we compute the corresponding approximation of the fractional Laplacian
 [x,FL] = fl_rigidity(s,L,N);
 
 
-We then use it for building the matrice $A$ describing the dynamics
+We then use it for building the matrix $A$ describing the dynamics
 
 D = d*eye(N);
 A = -FL+D;
@@ -545,7 +1282,7 @@ title('Controlled dynamics')
 
 References
 
-[1] U. Biccari and V. Hernandez-Santamaria, “Controllability of a one-dimensional fracitonal heat equation: theoretical and nuerical aspects”, IMA J. Math. Control I. (2018).
+[1] U. Biccari and V. Hernandez-Santamaria, “Controllability of a one-dimensional fractional heat equation: theoretical and nuerical aspects”, IMA J. Math. Control I. (2018).
 
 </description>
         <pubDate>Wed, 24 Oct 2018 00:00:00 +0200</pubDate>
@@ -1243,427 +1980,6 @@ References
         
         
         <category>Posts</category>
-        
-      </item>
-    
-      <item>
-        <title>Rays propagation of a fractional Schrodinger Equation</title>
-        <description>Shows the propagation of the solution of a fractional Schrodinger equation with concentrated and highly oscillatory initial datum. The solution remains concentrated along the rays of geometric optics
-
-N = 250;
-L = 1;
-hx = (2*L)/(N+1);
-
-
-Definition of the initial datum u0 as a function_handle. u0 is chosen as a Gaussian profile multiplied by a higly oscillatory function
-
-x0 = 0; % Center of the Gaussian profile
-gamma = hx^(-0.9); % Amplitude of the Gaussian profile
-fr = (1/hx)*pi^2/16; % Frequency of the oscillations
-
-
-u0 = @(x) exp(-0.5*gamma*(x-x0).^2).*exp(1i*fr*x);
-
-
-Plot of the initial datum
-
-fig = gcf;
-set(gcf,'Units','pixels','Position',[427 306 712 284])
-
-x = -L:hx:L;
-
-subplot(1,3,1) % Modulus
-plot(x,abs(u0(x)))
-title('|u_0(x)|')
-xlabel('x'); ylabel('u(x)');
-
-subplot(1,3,2) % Real part
-plot(x,real(u0(x)))
-title('real(u_0(x))')
-xlabel('x'); ylabel('u(x)');
-
-subplot(1,3,3) % Imaginary part
-plot(x,imag(u0(x)))
-title('img(u_0(x))')
-xlabel('x'); ylabel('u(x)');
-
-format_plot(fig)
-
-
-
-
-Solution for s = 1/2
-
-Define the characteristic parameters of the problem
-
-s = 0.5  % Order of the fractional Laplacian
-L        % Extrema of the space interval
-N        % Number of points in the space mesh
-T = 5    % Length of the time interval
-u0       % The function_handle that we have showed before.
-
-
-
-s =
-
-    0.5000
-
-
-L =
-
-     1
-
-
-N =
-
-   250
-
-
-T =
-
-     5
-
-
-u0 =
-
-  function_handle with value:
-
-    @(x)exp(-0.5*gamma*(x-x0).^2).*exp(1i*fr*x)
-
-
-
-
-To solve the equation, we call the function fractional_schr. The solution of the equation is stored in the u variable.
-
-[x,t,u] = fractional_schr(s,L,N,T,u0);
-
-
-Now we can see a graphical interpretation
-
-[X,T] = meshgrid(x,t);
-%
-clf
-mesh(X,T,u');
-format_plot(gcf);view(0,90)
-xlabel('x'); ylabel('t'); title('Ray Evolution');
-
-
-
-
-By typing “animation(x,t,u)” in the MATLAB console you can see the evolution in time of this wave.
-
-
-
-</description>
-        <pubDate>Sat, 21 Jul 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp05/P0001-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp05/P0001-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP05</category>
-        
-      </item>
-    
-      <item>
-        <title>Average Control by classical gradient step method</title>
-        <description>In this work, we address the optimal control of parameter-dependent systems. We introduce the notion of averaged control in which the quantity of interest is the average of the states with respect to the parameter family 
-
-In this case $\nu_i$ are:
-
-nu = 1:0.5:6
-
-
-
-nu =
-
-  Columns 1 through 7
-
-    1.0000    1.5000    2.0000    2.5000    3.0000    3.5000    4.0000
-
-  Columns 8 through 11
-
-    4.5000    5.0000    5.5000    6.0000
-
-
-
-
-And save in K, the number of values
-
-K = length(nu);
-
-
-Where the finite dimensional linear control system is:
-
-
-
-We can, define the initial state of all ode’s
-
-N = 3; % dimension of vector state
-x0 = ones(N, 1);
-
-
-Also, need define a initial control, that will be evolve
-
-dt = 0.02;
-t0 = 0; T  = 1;
-span = (t0:dt:T);
-%
-u = zeros(length(span),1);
-
-
-%Moreover, we can define the matrix A's and B's, that determine the problem
-Am = -triu(ones(N))
-
-
-
-Am =
-
-    -1    -1    -1
-     0    -1    -1
-     0     0    -1
-
-
-
-
-Bm = zeros(N, 1);
-Bm(N) = 1
-
-
-
-Bm =
-
-     0
-     0
-     1
-
-
-
-
-So, we can create these edo’s in variable primal_odes.
-
-primal_odes = zeros(1,K,'ode');
-for index = 1:K
-    A = Am + (nu(index) - 1 )*diag(diag(Am));
-    %
-    primal_odes(index) = ode(A,'B',Bm);
-    % all have the same control
-    primal_odes(index).u  = u;
-    % time intervals
-    primal_odes(index).span = span;
-    % initial state
-    primal_odes(index).x0 = x0;
-end
-
-
-So, we have a $K$ ordinary differential equations
-
-primal_odes
-
-
-
-primal_odes = 
-
-  1x11 ode array with properties:
-
-    A
-    B
-    u
-    x0
-    x
-    span
-    xend
-
-
-
-
-To solve average control problem to x0; in this case:
-
-xt = ones(N, 1)
-
-
-
-xt =
-
-     1
-     1
-     1
-
-
-
-
-we can solve the minimization problem
-
-
-
-We can use the classical gradient descent method based on the adjoint methodology, and obtain the corresponding adjoint system for 1,
-
-
-
-The same way that before, we define the adjoints problems
-
-adjoint_odes = zeros(1,K,'ode');
-for index = 1:K
-    A = primal_odes(index).A';
-    adjoint_odes(index) = ode(A);
-    % all have the same control
-    adjoint_odes(index).u = u;
-    % time intervals
-    adjoint_odes(index).span = span;
-end
-
-
-However the initial state  adjoint_odes(index).x0 hasn’t been assign. This initial state will be assign in every step of solution.
-
-To minimize the functional, $\mathcal{J}\left( u\right)$, we take the steepest descent direction given by
-
-
-
-We process to solve the problem of classical gradient descent
-
-gamma = 1;
-beta  = 1e-3;
-tol   = 1e-8;  % Tolerance
-error = Inf;
-MaxIter = 50;
-iter = 0;
-xhistory = {}; uhistory = {};  error_history = [];    % array here we will save the evolution of average vector states
-while (error &amp;gt; tol &amp;amp;amp;&amp;amp;amp; iter &amp;lt; MaxIter)
-    iter = iter + 1;
-    % solve primal problem
-    % ====================
-    solve(primal_odes);
-    % calculate mean state final vector of primal problems
-    xMend = forall({primal_odes.xend},'mean');
-
-    % solve adjoints problems
-    % =======================
-    % update new initial state of all adjoint problems
-    for iode = adjoint_odes
-        iode.x0 = -(xMend' - xt);
-    end
-    % solve adjoints problems with the new initial state
-    solve(adjoint_odes);
-
-    % update control
-    % ===============
-    % calculate mean state vector of adjoints problems
-    pM = forall({adjoint_odes.x},'mean');
-    pM = pM*Bm;
-
-    % reverse adjoint variable
-    pM = flipud(pM);
-    % Control update
-    u = primal_odes(1).u; % catch control currently
-    Du = beta*u - pM;
-    u = u - gamma*Du;
-    % update control in primal problems
-    for index = 1:K
-        primal_odes(index).u = u;
-    end
-    % Control error
-    % =============
-    % Calculate area ratio  of Du^2 and u^2
-    Au2   =  trapz(span,u.^2);
-    ADu2  =  trapz(span,Du.^2);
-    %
-
-    error = sqrt(ADu2/Au2);
-    % Save evolution
-    xhistory{iter} = [ span',forall({primal_odes.x},'mean')];
-    uhistory{iter} = [ span',u];
-    error_history  = [ error_history, error];
-end
-
-
-The average control obtain is
-
-plot(span,u)
-xlabel('time');ylabel('u(t)')
-format_plot(gcf)
-
-
-
-
-Also, on average the objective [0 0 0] has been reached.
-
-figure;
-plot(iode.span,forall({primal_odes.x},'mean'))
-xlabel('t');ylabel('x_{i}(t)')
-legend(strcat('x_{',num2str((1:N)','%0.1d'),'}(t)'))
-title('Evolution of cordinates of vector state.')
-format_plot(gcf)
-
-
-
-
-You can use the comand
-
-animation_sol(xhistory,uhistory,'XLim',[-0.1 0.25],'ULim',[-0.5 0.0])
-
-We can see 
-
-If we analyze the evolution in the error, we can see that we should have stopped, in iteration 20.
-
-plot(error_history,'-*')
-title('Error Evolution')
-ylabel('Error'); xlabel('Iterations')
-format_plot(gcf)
-
-
-
-
-References
-
-
-  
-    
-      E. Zuazua (2014) Averaged Control. Automatica, 50 (12), p. 3077-3087. &amp;#8617;
-    
-  
-
-</description>
-        <pubDate>Sat, 21 Jul 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0001-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0001-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP01</category>
-        
-      </item>
-    
-      <item>
-        <title>rigidity_fr_laplacian</title>
-        <description>
-
-Description
-
-Summary of example objective
-
-Section 1 Title
-
-Description of first code block
-
-a = 1;
-
-
-Section 2 Title
-
-Description of second code block
-
-b = 2;
-
-
-</description>
-        <pubDate>Sat, 01 Apr 2017 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/functions/rigidity_fr_laplacian-F</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/functions/rigidity_fr_laplacian-F</guid>
-        
-        
-        <category>Functions</category>
         
       </item>
     
