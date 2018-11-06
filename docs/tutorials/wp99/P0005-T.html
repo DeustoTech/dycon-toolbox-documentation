@@ -1,2048 +1,480 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>DyCon Platform</title>
-    <description>This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.</description>
-    <link>https://DeustoTech.github.io/dycon-platform-documentation/</link>
-    <atom:link href="https://DeustoTech.github.io/dycon-platform-documentation/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Nov 2018 11:31:37 +0100</pubDate>
-    <lastBuildDate>Tue, 06 Nov 2018 11:31:37 +0100</lastBuildDate>
-    <generator>Jekyll v3.8.5</generator>
-    
-      <item>
-        <title>Stabilization of a population dynamics model subject to a high rate of immigration</title>
-        <description>In this tutorial, we will demonstrate how to design a LQR controller in order to stabilize the linear population dynamics model dependent on age and space
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This MATLAB software is dedicated to the development and learning of control problems for applied mathematics.">
+	<meta property="og:title" content="Leontine Seminar" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://DeustoTech.github.io//dycon-platform-documentation//tutorials/wp99/P0005-T" />
+<meta property="og:image" content="https://DeustoTech.github.io//dycon-platform-documentation/img/home-bg.gif">
+	
+	
 
-where $\beta$ and $\mu$ are respectively the fertility and mortality rate. The parameter $\lambda&amp;gt;0$ is an immigration term (or unstable term), $Q_{\omega}=(a,b)\times (a_1,a_2)\times (0,T)$ is the control domain with $(a,b)\subset (0,1)$ and $(a_1,a_2)\subset (0,A).$ Here $(a,b)=(0,1)$ and $(a_1,a_2)=(0,A)$ and we take $A=1$.
+	<meta name="citation_title" content="Project Pages - An Integrated Scientific Blogging Template">
 
-We need to reduce the PDE to the finite dimensional system of the form  where $A$ and $B$ are matrices, and
 
+<meta name="citation_author" content="">
 
 
-is the finite dimensional state vector.
+<meta name="citation_author" content="">
 
-Implementation
 
-Construction of the matrix A. We suppose that $\lambda=\frac{1}{2}.$
+<meta name="citation_author" content="">
 
-clc; clear;
-m=4;
-n=9*m;
 
+<meta name="citation_author" content="">
 
-Matrix of birth Here we suppose that fertility rate $\beta$ equal to:
 
+<meta name="citation_author" content="">
 
 
-Here $\alpha=7$, $\gamma=5$, $v=3$, $a_1=\frac{A}{9}$
+<meta name="citation_author" content="">
 
-The density of new born individuals will be approximated by:
 
+<meta name="citation_author" content="">
 
 
-where $a_i$ is the age discretization.
+<meta name="citation_author" content="">
 
-A1=eye(n);
-A2=zeros(n*n,n*n);
-for j=m:7*m
-    bj=(7*(j/n-1/9)^4*exp(-(j/n-1/9)/3)/(3^5*gamma(5)));
-    A2(1:n,(j-1)*n+1:j*n)=bj*A1;
-end
-P=(25/n)*A2;
 
+<meta name="citation_author" content="">
 
-Discrerization of the second derivative in space and the derivative in age.
 
-A3=diag(ones(n*n-n,1),-n);
-B1=(1/n)*A3;
-A4=(-2/(n*n)-1/n)*eye(n);
-A5=diag(ones(n-1,1),1);
-A6=diag(ones(n-1,1),-1);
-B2=A4+(1/(n*n))*A5+(1/(n*n))*A6;
-B3=kron(eye(n),B2);
+<meta name="citation_author" content="">
 
 
-Mortality matrix. The mortality rate $\beta(a)=\dfrac{1}{9(A-a)}$
+<meta name="citation_author" content="">
 
-S=zeros(n*n,n*n);
-for j=1:n
-    for i=1:n
-        S((j-1)*n+i,(j-1)*n+i)=-1/(16*(1-((j*n)/(n*n+1))));
-    end
-end
-A=P+B1+B3+S+(1/2)*eye(n*n);
 
+<meta name="citation_author" content="">
 
-Initial condition
 
-We suppose that $y(x,a,0)=e^{-((a-3/10)^2/\sqrt{2}+100(x-4/10))}$
+<meta name="citation_author" content="">
 
-T=10;
-Z0=zeros(n*n,1);
-for i=1:n
-    for j=1:n
-        Z0((i-1)*n+j,1)=5*exp(-((i/n-3/10)^2)/sqrt(2))*exp(-(j/n-4/10)^2);
-    end
-end
 
+<meta name="citation_author" content="">
 
-Numerical solution without control and visualisation
 
-f=@(t,Z) A*Z;
-[t1,Z]=ode45(f,[0,T],Z0);
-L=Z(256,:);
-U=Z(512,:);
-W=Z(1025,:);
-J=reshape(L,n,n);
-X=reshape(U,n,n);
-Y=reshape(W,n,n);
-F1=reshape(Z0,n,n);
-V1=linspace(0,1,n+2);
-V2=V1(1,2:n+1);
-[V3,V4]=meshgrid(V2,V2);
-figure;
-surf(V3,V4,F1);
-xlabel('age');
-ylabel('space');
-title('initial condition');
+<meta name="citation_author" content="">
 
 
+<meta name="citation_author" content="">
 
 
-Here is the state y of the unstable system at time t=2,5.
 
-figure;
-surf(V3,V4,J);
-xlabel('age');
-ylabel('space');
-title('state y of the unstable system at timte t=2,5');
+	
 
+	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
+    <title>Leontine Seminar - DyCon Platform</title>
 
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0005-T">
+	
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
 
-Here is the state y of the unstable system at time t=5.
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/clean-blog.css">
+	
+	<!-- Adjust Colors -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/colorscheme.css">
 
-figure;
-surf(V3,V4,X);
-xlabel('age');
-ylabel('space');
-title('state y of the unstable system at time t=10');
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/syntax.css">
 
+	<link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/dycon.css">
 
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lusitana" rel="stylesheet">
 
-
-Here is the state y of the unstable system at time t=10.
-
-figure;
-surf(V3,V4,Y);
-xlabel('age');
-ylabel('space');
-title('state y of the unstable system at time t=10');
-
-
-
-
-The control matrix B is constructed as follows:
-
-B=eye(n*n);
-
-
-We may now proceed with the optimal control strategy. For a continuous time linear system generated by the matrices $(A,B)$ and an infinite time horizon cost functional defined as
-
-
-
-the feedback control law that minimizes the value of the cost is $u = -Kz$, where $K = R^{-1}B*P$ and $P$ is found by solving the continuous time algebraic Ricatti equation
-
-
-
-R = eye(n*n); Q = eye(n*n);
-H = blkdiag(A, -A');
-
-
-LQR feedback control-Algebric Ricatti equation
-
-[ricsol, cleig, K, report] = care(A, B, Q, R);
-f_ctr = @(z) -K*z;
-
-
-Numerical solution with LQR feedback control and visualisation
-
-f_2=@(t,Z) A*Z+B*f_ctr(Z);
-[t2,Z_ctr]=ode45(f_2,[0,T],Z0);
-E=Z_ctr(256,:);
-O=Z_ctr(512,:);
-G=Z_ctr(1025,:);
-G1=reshape(G,n,n);
-N=reshape(E,n,n);
-M=reshape(O,n,n);
-
-
-Here is the stabilized state y of the system at the time t=2,5.
-
-figure;
-surf(V3,V4,N);
-xlabel('age');
-ylabel('space');
-title('stabilized state of the system at time t=2,5');
-
-
-
-
-Here is the stabilized state y of the system at time t=5.
-
-figure;
-surf(V3,V4,M);
-xlabel('age');
-ylabel('space');
-title('stabilized state of the system at time t=5');
-
-
-
-
-Here is the stabilized state y of the system at time t=10.
-
-figure;
-surf(V3,V4,G1);
-xlabel('age');
-ylabel('space');
-title('stabilized state of the system at time t=10')
-
-
-
-
-</description>
-        <pubDate>Mon, 29 Oct 2018 00:00:00 +0100</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0010-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0010-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP99</category>
-        
-      </item>
-    
-      <item>
-        <title>The control on the Kuramoto model by handling one oscillator</title>
-        <description>Define vector fields of ODE : Kuramoto control problem whose dynamics is
-
-
-
-where we control the first oscillator,
-
-
-
-in order to change the limit phase value to be 0.
-
-We first define the system of ODEs in terms of symbolic variables.
-
-clear all
-clc
-
-m = 10;  % [m]: number of oscillators, which we may change later.
-
-th = sym('th', [m,1]);  % [th_i]: phases of oscillators, $\theta_i$
-om = sym('om', [m,1]);  % [om_i]: natural frequencies of osc., $\omega_i$
-KK = sym('K',[m,m]); % [Ki_j]: the coupling network matrix, $K_{i,j}$
-
-syms Nsys;   % [Nsys]: the vector fields of ODEs
-thth = repmat(th,[1 m]);
-Nsys = om + (1./m)*sum(KK.*sin(thth.' - thth),2);   % Kuramoto interaction terms
-syms u; % [u]: One-dimensional control term
-Nsys(1) = Nsys(1) + u;    % For the first particle, we put the control term
-
-
-latex(Nsys)
-
-
-
-ans =
-
-    '\left(\begin{array}{c} \mathrm{om}_{1}+u-\frac{K_{1,2}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{2}\right)}{10}-\frac{K_{1,3}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{3}\right)}{10}-\frac{K_{1,4}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{4}\right)}{10}-\frac{K_{1,5}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{5}\right)}{10}-\frac{K_{1,6}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{6}\right)}{10}-\frac{K_{1,7}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{7}\right)}{10}-\frac{K_{1,8}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{8}\right)}{10}-\frac{K_{1,9}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{9}\right)}{10}-\frac{K_{1,10}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{10}\right)}{10}\\ \mathrm{om}_{2}+\frac{K_{2,1}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{2}\right)}{10}-\frac{K_{2,3}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{3}\right)}{10}-\frac{K_{2,4}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{4}\right)}{10}-\frac{K_{2,5}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{5}\right)}{10}-\frac{K_{2,6}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{6}\right)}{10}-\frac{K_{2,7}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{7}\right)}{10}-\frac{K_{2,8}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{8}\right)}{10}-\frac{K_{2,9}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{9}\right)}{10}-\frac{K_{2,10}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{10}\right)}{10}\\ \mathrm{om}_{3}+\frac{K_{3,1}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{3}\right)}{10}+\frac{K_{3,2}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{3}\right)}{10}-\frac{K_{3,4}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{4}\right)}{10}-\frac{K_{3,5}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{5}\right)}{10}-\frac{K_{3,6}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{6}\right)}{10}-\frac{K_{3,7}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{7}\right)}{10}-\frac{K_{3,8}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{8}\right)}{10}-\frac{K_{3,9}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{9}\right)}{10}-\frac{K_{3,10}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{10}\right)}{10}\\ \mathrm{om}_{4}+\frac{K_{4,1}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{4}\right)}{10}+\frac{K_{4,2}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{4}\right)}{10}+\frac{K_{4,3}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{4}\right)}{10}-\frac{K_{4,5}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{5}\right)}{10}-\frac{K_{4,6}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{6}\right)}{10}-\frac{K_{4,7}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{7}\right)}{10}-\frac{K_{4,8}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{8}\right)}{10}-\frac{K_{4,9}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{9}\right)}{10}-\frac{K_{4,10}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{10}\right)}{10}\\ \mathrm{om}_{5}+\frac{K_{5,1}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{5}\right)}{10}+\frac{K_{5,2}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{5}\right)}{10}+\frac{K_{5,3}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{5}\right)}{10}+\frac{K_{5,4}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{5}\right)}{10}-\frac{K_{5,6}\,\sin\left(\mathrm{th}_{5}-\mathrm{th}_{6}\right)}{10}-\frac{K_{5,7}\,\sin\left(\mathrm{th}_{5}-\mathrm{th}_{7}\right)}{10}-\frac{K_{5,8}\,\sin\left(\mathrm{th}_{5}-\mathrm{th}_{8}\right)}{10}-\frac{K_{5,9}\,\sin\left(\mathrm{th}_{5}-\mathrm{th}_{9}\right)}{10}-\frac{K_{5,10}\,\sin\left(\mathrm{th}_{5}-\mathrm{th}_{10}\right)}{10}\\ \mathrm{om}_{6}+\frac{K_{6,1}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{6}\right)}{10}+\frac{K_{6,2}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{6}\right)}{10}+\frac{K_{6,3}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{6}\right)}{10}+\frac{K_{6,4}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{6}\right)}{10}+\frac{K_{6,5}\,\sin\left(\mathrm{th}_{5}-\mathrm{th}_{6}\right)}{10}-\frac{K_{6,7}\,\sin\left(\mathrm{th}_{6}-\mathrm{th}_{7}\right)}{10}-\frac{K_{6,8}\,\sin\left(\mathrm{th}_{6}-\mathrm{th}_{8}\right)}{10}-\frac{K_{6,9}\,\sin\left(\mathrm{th}_{6}-\mathrm{th}_{9}\right)}{10}-\frac{K_{6,10}\,\sin\left(\mathrm{th}_{6}-\mathrm{th}_{10}\right)}{10}\\ \mathrm{om}_{7}+\frac{K_{7,1}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{7}\right)}{10}+\frac{K_{7,2}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{7}\right)}{10}+\frac{K_{7,3}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{7}\right)}{10}+\frac{K_{7,4}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{7}\right)}{10}+\frac{K_{7,5}\,\sin\left(\mathrm{th}_{5}-\mathrm{th}_{7}\right)}{10}+\frac{K_{7,6}\,\sin\left(\mathrm{th}_{6}-\mathrm{th}_{7}\right)}{10}-\frac{K_{7,8}\,\sin\left(\mathrm{th}_{7}-\mathrm{th}_{8}\right)}{10}-\frac{K_{7,9}\,\sin\left(\mathrm{th}_{7}-\mathrm{th}_{9}\right)}{10}-\frac{K_{7,10}\,\sin\left(\mathrm{th}_{7}-\mathrm{th}_{10}\right)}{10}\\ \mathrm{om}_{8}+\frac{K_{8,1}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{8}\right)}{10}+\frac{K_{8,2}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{8}\right)}{10}+\frac{K_{8,3}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{8}\right)}{10}+\frac{K_{8,4}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{8}\right)}{10}+\frac{K_{8,5}\,\sin\left(\mathrm{th}_{5}-\mathrm{th}_{8}\right)}{10}+\frac{K_{8,6}\,\sin\left(\mathrm{th}_{6}-\mathrm{th}_{8}\right)}{10}+\frac{K_{8,7}\,\sin\left(\mathrm{th}_{7}-\mathrm{th}_{8}\right)}{10}-\frac{K_{8,9}\,\sin\left(\mathrm{th}_{8}-\mathrm{th}_{9}\right)}{10}-\frac{K_{8,10}\,\sin\left(\mathrm{th}_{8}-\mathrm{th}_{10}\right)}{10}\\ \mathrm{om}_{9}+\frac{K_{9,1}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{9}\right)}{10}+\frac{K_{9,2}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{9}\right)}{10}+\frac{K_{9,3}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{9}\right)}{10}+\frac{K_{9,4}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{9}\right)}{10}+\frac{K_{9,5}\,\sin\left(\mathrm{th}_{5}-\mathrm{th}_{9}\right)}{10}+\frac{K_{9,6}\,\sin\left(\mathrm{th}_{6}-\mathrm{th}_{9}\right)}{10}+\frac{K_{9,7}\,\sin\left(\mathrm{th}_{7}-\mathrm{th}_{9}\right)}{10}+\frac{K_{9,8}\,\sin\left(\mathrm{th}_{8}-\mathrm{th}_{9}\right)}{10}-\frac{K_{9,10}\,\sin\left(\mathrm{th}_{9}-\mathrm{th}_{10}\right)}{10}\\ \mathrm{om}_{10}+\frac{K_{10,1}\,\sin\left(\mathrm{th}_{1}-\mathrm{th}_{10}\right)}{10}+\frac{K_{10,2}\,\sin\left(\mathrm{th}_{2}-\mathrm{th}_{10}\right)}{10}+\frac{K_{10,3}\,\sin\left(\mathrm{th}_{3}-\mathrm{th}_{10}\right)}{10}+\frac{K_{10,4}\,\sin\left(\mathrm{th}_{4}-\mathrm{th}_{10}\right)}{10}+\frac{K_{10,5}\,\sin\left(\mathrm{th}_{5}-\mathrm{th}_{10}\right)}{10}+\frac{K_{10,6}\,\sin\left(\mathrm{th}_{6}-\mathrm{th}_{10}\right)}{10}+\frac{K_{10,7}\,\sin\left(\mathrm{th}_{7}-\mathrm{th}_{10}\right)}{10}+\frac{K_{10,8}\,\sin\left(\mathrm{th}_{8}-\mathrm{th}_{10}\right)}{10}+\frac{K_{10,9}\,\sin\left(\mathrm{th}_{9}-\mathrm{th}_{10}\right)}{10} \end{array}\right)'
-
-
-
-
-The system is as follows:
-
-
-
-Linearized model and numerical data setting
-
-We now construct the linearized system using Jacobian:
-
-syms F; % [F]: The system without control
-F = subs(Nsys,u,0);
-
-syms Amat Bmat; % [Amat, Bmat]: Symbolic versions of the matrix A and B
-th_eq = zeros(m,1); % Evaluation of Jacobian is at equilibrium, [0;0;0;0].
-Amat = subs(jacobian(F,th),th,th_eq);
-Bmat = diff(subs(Nsys,th,th_eq),u);
-
-
-Construction of numerical matrices $A$ and $B$:
-
-We next set the physical parameters. Natural frequencies, however, we put them zero to apply linear-quadratic control model.
-
-The coupling network matrix is set to be random near ones(m,m):
-
-  KK_init = ones(m,m)+0.2*(2*(rand(m,m)-0.5));
-
-
-and save it in the folder ‘functions/coupling.mat’.
-
-om_init = zeros(m,1);
-load('functions/coupling.mat','KK_init');
-
-A = double(subs(Amat,[om,KK],[om_init,KK_init]));
-B = double(subs(Bmat,[om,KK],[om_init,KK_init]));
-
-
-Construction of the LQR controller and its evaluation
-
-We design the LQR controller and solve it with linearized model.
-
-The cost is only for the symmetric quadrature at $[0,0,0]$ since we want all of them to be 0.
-
-R = 1; Q = diag(ones(m,1));
-[ricsol,cleig,K,report] = care(A,B,Q);
-K % Present the feedback matrix
-
-
-
-K =
-
-  Columns 1 through 7
-
-    0.6358    0.2930    0.2924    0.2829    0.2604    0.3013    0.2775
-
-  Columns 8 through 10
-
-    0.2777    0.2701    0.2713
-
-
-
-
-Practically, any $K$ with positive elements can make the limit point to be 0, e.g., K=[1,1,1].
-
-The initial condition is chosen on $[-0.55\pi,0.55\pi]$ by
-
-  ini = 0.55*pi()*(2*(rand(m,1)-0.5));
-
-
-which is stored in the functions folder, ‘functions/ini.mat’.
-
-load('functions/ini.mat','ini'); % Safe data
-
-tspan = [0,10];
-
-
-1) Simulate the nonlinear dynamics without any control: $u = 0$.
-
-syms Isys_ori;
-Isys_ori = subs(F,[om,KK],[om_init,KK_init]);
-Isys_ori_ftn_temp = matlabFunction(Isys_ori,'Vars',{th});
-Isys_ori_ftn = @(t,x) Isys_ori_ftn_temp(x);
-
-[timenc, statenc] = ode45(Isys_ori_ftn,tspan, ini); % Solve ODE with 'ode45'
-
-
-2) Simulate the linear dynamics with CARE function
-
-f_ctr = @(x) -K*x;
-
-i_linear = @(t,x) A*x + B*f_ctr(x);
-
-[time, state] = ode45(i_linear,tspan, ini);
-
-
-3) Simulate the nonlinear dynamics with the same control
-
-syms Isys;
-Isys = subs(Nsys,[om,KK,u],[om_init,KK_init,(-K*th)]);
-Isys_ftn_temp = matlabFunction(Isys,'Vars',{th});
-Isys_ftn = @(t,x) Isys_ftn_temp(x);
-
-[timen, staten] = ode45(Isys_ftn,tspan, ini);
-
-
-Visualization
-
-plot(timenc, statenc(:,1)/pi(),'-k','LineWidth',2) % The first oscillator is black-colored.
-hold on
-plot(timenc, statenc(:,2:m)/pi(),'LineWidth',2)
-grid on
-xlabel('Time')
-ylabel('Phases [\pi]') % The unit is $\pi$.
-title('Figure 1: Phases of the model without control')
-hold off
-
-
-
-
-clf
-plot(time, state(:,1)/pi(),'-k','LineWidth',2)
-hold on
-plot(time, state(:,2:m)/pi(),'LineWidth',2)
-grid on
-xlabel('Time')
-ylabel('Phases [\pi]')
-title('Figure 2: Phases of the linearized model')
-hold off
-
-
-
-
-clf
-plot(timen, staten(:,1)/pi(),'-k','LineWidth',2)
-hold on
-plot(timen, staten(:,2:m)/pi(),'LineWidth',2)
-grid on
-xlabel('Time')
-ylabel('Phases [\pi]')
-title('Figure 3: Phases of the Kuramoto model')
-hold off
-
-
-
-
-In Figure 1, the limit point is not zero since the mean value of initial phases is nonzero.
-
-Figure 2 shows that the first oscillator keeps it phase above zero to make the final phases zero.
-
-The nonlinear model has less decay then the linearized model, but goes to zero in Figure 3.
-
-Failure of LQR control for large initial data
-
-The initial data is from
-
-ini2 = pi()*(2*(rand(m,1)-0.5));
-
-
-which is uniformly distributed on $[-\pi,\pi]$. We expect the limit point to be separated in the real line with differences $2\pi$.
-
-load('functions/ini2.mat','ini2'); % Separated data
-
-f_ctr = @(x) -K*x;
-
-i_linear = @(t,x) A*x + B*f_ctr(x);
-
-tspan = [0,20];
-[time, state] = ode45(i_linear,tspan, ini2);
-
-syms Isys;
-Isys = subs(Nsys,[om,KK,u],[om_init,KK_init,(-K*th)]);
-Isys_ftn_temp = matlabFunction(Isys,'Vars',{th});
-Isys_ftn = @(t,x) Isys_ftn_temp(x);
-[timen, staten] = ode45(Isys_ftn,tspan, ini2);
-
-figure(4)
-plot(time, state(:,1)/pi(),'-k','LineWidth',2)
-hold on
-plot(time, state(:,2:m)/pi(),'LineWidth',2)
-grid on
-xlabel('Time')
-ylabel('Phases [\pi]')
-title('Figure 4: Phases of the linearized model')
-hold off
-
-figure(5)
-plot(timen, staten(:,1)/pi(),'-k','LineWidth',2)
-hold on
-plot(timen, staten(:,2:m)/pi(),'LineWidth',2)
-grid on
-xlabel('Time')
-ylabel('Phases [\pi]')
-title('Figure 5: Phases of the Kuramoto model')
-hold off
-
-
-
-
-
-
-We can see that $\theta_1$ does not tend to zero in Figure 5 since $K\times\Theta$ is near zero already. Linear feedback control is not enough, or too weak, for this setting.
-
-</description>
-        <pubDate>Mon, 29 Oct 2018 00:00:00 +0100</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0009-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0009-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP99</category>
-        
-      </item>
-    
-      <item>
-        <title>Coupled transport equations and LQR control</title>
-        <description>We consider the semilinear hyperbolic system
-
-
-
-where $\lambda &amp;gt; 0$ and $u$ is the control. The stability and boundary stabilization of such 1D hyperbolic systems is studied in [1]. The aim of this tutorial is to semi-discretize in space this system of equations and design a stabilizing control by using the LQR method.
-
-The above system linearized around $(y,v) = (0,0)$ has the form
-
-
-
-We will first use the LQR method to design a stabilizing control for the semi-discretized linear system, and then this control will be applied to the semi-discretized semilinear system.
-
-Space discretization
-
-The intervall $(0,L)$ is divided in $n+1$ subintervals, of size $h_x := \frac{L}{n+1}$, by $n+2$ evenly spaced points $x_k = kh_x$. Hence, $x_0 = 0$ and $x_{n+1} = L$. We set $y_k(t) = y(x_k,t), \quad v_k(t) := v(x_k,t)$ and similarly for the inital conditions $y_k^0(t) = y^0(x_k)$ and $v_k^0(t) := v(x_k)$.
-
-clear; clc;
-L = 1; n = 30;
-x = linspace(0, L, n+2);
-hx = 1/(n+1);
-
-
-The points where y and v are unknown are contained in x1 and x2 respectively, where x1 and x2 are defined below.
-
-x1 = x(2:n+2);
-x2 = x(1:n+1);
-
-
-Finite differences for the space derivative give
-
-
-
-and
-
-
-
-The sign of $\lambda$ in each equation must be taken into account to choose the approximation of $\partial_x y$ and $\partial_x v$.
-
-Let $d = 2(n+1)$ represent the dimension of the state space for the semi-discretized systems. Defining the state variable $z \colon (0,T) \mapsto \mathbb{R}^d$ by
-
-
-
-the semilinear system writes as
-
-
-
-and the linearized system writes as
-
-
-
-d = 2*(n+1);
-
-
-We pick the initial condition
-
-
-
-y0 = sin(pi*x1)';
-v0 = sin(pi*x2)';
-z0 = zeros(d, 1); z0(1:n+1, 1) = y0; z0(n+2:d, 1) = v0;
-
-
-We set values for $\lambda$, $c_1$ and $c_2$:
-
-lambda = 1; c1 = 1; c2 = 1;
-
-
-We consider the time parameters
-
-T = 5;
-nT = 70;
-time = linspace(0, T, nT);
-
-
-The matrix $A$ of size $d \times d$ is given by
-
-
-
-where $A_{11}, A_{12}, A_{21}, A_{22}$, of size $(n+1)\times(n+1)$, are defined by
-
-
-
-and
-
-
-
-They are constructed as follows.
-
-A = zeros(d, d);
-% Lower and upper extradiagonals:
-ext_down_1 = zeros(1,2*n+1); ext_down_1(1,1:n) = lambda/hx*ones(1,n);
-ext_down_2 = c2*ones(1,n);
-ext_up_1 = zeros(1,2*n+1); ext_up_1(1,(n+2):(2*n+1)) = lambda/hx*ones(1,n);
-ext_up_2 = zeros(1, n+1); ext_up_2(1, 1) = lambda/hx;
-ext_up_3 = c1*ones(1,n);
-% We assemple:
-A = A - lambda/hx*eye(d); A(n+2, n+2) = A(n+2, n+2) + c2;
-A = A + diag(ext_up_1,1) + diag(ext_up_2, n+1) + diag(ext_up_3,n+2);
-A = A + diag(ext_down_1,-1) + diag(ext_down_2, -n-2);
-
-
-The matrix $B$ is of size $d \times 1$ and is given by
-
-
-
-where $B_1, B_2$, of size $(n+1)\times 1$, are defined by
-
-
-
-B= zeros(d, 1);
-B(n+1, 1) = c1; B(d, 1) = lambda/hx;
-
-
-The LQR method
-
-We check that a LQR control can be computed for the semi-descretize linear system. To begin, we verify that $ (A,BB^\ast) $ is stabilizable (where $B^\ast$ denotes the transpose of $B$), meaning that $\text{rank}((sI-A) BB^\ast) = d$ for any eigenvalue $s$ of $A$ with a nonnegative real part.
-
-disp('Stabilizability of (A, BB*):');
-eA=eig(A);
-not_stabilizable = 0;
-for cpt=1:d
-    if real(eA(cpt))&amp;gt;=0
-        disp(cpt); disp(eA(cpt));
-
-        M = zeros(d, 2*d);
-        M(:, 1:d) = eA(cpt)*eye(d)-A;
-        M(:, d+1:d*2) = B*(B');
-
-        r = rank(M);
-        if (r ~= d)
-            not_stabilizable = not_stabilizable + 1;
-        end
-    end
-end
-if not_stabilizable == 0
-    disp('stabilizable.');
-else
-    disp('not stabilizable.');
-end
-
-
-Stabilizability of (A, BB*):
-    18
-
-    0.3047
-
-stabilizable.
-
-
-
-Then, we verify that the eigenvalues of the Hamiltonian matrix
-
-
-
-are not purely imzginary. Here, $Q$ is a matrix of size $d \times d$ to be chosen.
-
-R = 1; Q = eye(d);
-H = blkdiag(A, -A');
-H(d+1: 2*d, 1:d) = -Q;
-H(1:d, d+1: 2*d) = -B*(B');
-eH = eig(H);
-nb_imaginary_eig_val_hamiltonian = sum(real(eH) == 0);
-disp('Number of eigenvalues of H on the imaginary axis:')
-disp(nb_imaginary_eig_val_hamiltonian);
-
-
-Number of eigenvalues of H on the imaginary axis:
-     0
-
-
-
-
-To finish, we verify that $(Q, A)$ is stabilizable, meaning that the rank of
-
-
-
-is equal to $d$, for any eigenvalue $s$ of $A$ with a nonnegative real part.
-
-disp('Detectability of (Q, A):');
-not_detectable = 0;
-for cpt=1:d
-    if real(eA(cpt))&amp;gt;=0
-        disp(cpt); disp(eA(cpt));
-
-        J = zeros(2*d, d);
-        J(1:d, :) = Q;
-        J(d+1:d*2, :) = eA(cpt)*eye(d)-A;
-
-        r = rank(J);
-        if (r ~= d)
-            not_detectable = not_detectable + 1;
-        end
-    end
-end
-if not_detectable == 0
-    disp('detectable.');
-else
-    disp('not detectable.');
-end
-
-
-Detectability of (Q, A):
-    18
-
-    0.3047
-
-detectable.
-
-
-
-The LQR control is given by the matlab routine care(), as the application $t \mapsto -Kz(t)$. The matrix $K$, of size $m \times d$ is an output of care(), where $m$ is the dimention of the input space and is equal to one.
-
-[ricsol, cleig, K, report] = care(A, B, Q, R);
-f_ctr = @(z) -K*z;
-
-
-Unstable and stabilized system’s solutions
-
-u = 0;
-
-
-We compute the solution to the linear system with a control equal to zero:
-
-F1 = @(t,z) A*z + B*u;
-[t1, Z1] = ode45(F1, time, z0);
-
-
-The corresponding solutions $y$ and $v$ are displayed:
-
-[X,Y] = meshgrid(t1, x1);
-figure; surf(X, Y, Z1(:, 1:n+1)');
-xlabel('time'); ylabel('space'); title('Solution y for unstable linear system');
-
-[X,Y] = meshgrid(t1, x2);
-figure; surf(X, Y, Z1(:, n+2:2*(n+1))');
-xlabel('time'); ylabel('space'); title('Solution v for unstable linear system');
-
-
-
-
-
-
-We compute the solution to the linear system with the feedback control:
-
-F2 = @(t,z) A*z + B*f_ctr(z);
-[t2, Z2] = ode45(F2, time, z0);
-
-
-The corresponding solutions $y$ and $v$ are displayed:
-
-[X,Y] = meshgrid(t2, x1);
-figure; surf(X, Y, Z2(:, 1:n+1)');
-xlabel('time'); ylabel('space'); title('Solution y for stabilized linear system');
-
-[X,Y] = meshgrid(t2, x2);
-figure; surf(X, Y, Z2(:, n+2:2*(n+1))');
-xlabel('time'); ylabel('space'); title('Solution v for stabilized linear system');
-
-
-
-
-
-
-We compute the solution to the semilinear system with the same feedback control as the one found for the linear system:
-
-F3 = @(t,z) A*z + B*f_ctr(z) + [z(1:n,1).*z(n+3:d,1);z(n+1, 1)*f_ctr(z);z(n+2, 1)^2 ; z(1:n,1).*z(n+3:d,1)];
-[t3, Z3] = ode45(F3, time, z0);
-
-
-The corresponding solutions $y$ and $v$ are displayed:
-
-[X,Y] = meshgrid(t3, x1);
-figure; surf(X, Y, Z3(:, 1:n+1)');
-xlabel('time'); ylabel('space'); title('Solution y for stabilized semilinear system');
-
-[X,Y] = meshgrid(t3, x2);
-figure; surf(X, Y, Z3(:, n+2:2*(n+1))');
-xlabel('time'); ylabel('space'); title('Solution v for stabilized semilinear system');
-
-
-
-
-
-
-We compare the euclidean norm of the preceding solutions:
-
-y1_norm = sum(abs(Z1(:, 1:n+1)).^2, 2);
-y2_norm = sum(abs(Z2(:, 1:n+1)).^2, 2);
-v1_norm = sum(abs(Z1(:, n+2:2*(n+1))).^2, 2);
-v2_norm = sum(abs(Z2(:, n+2:2*(n+1))).^2, 2);
-y3_norm = sum(abs(Z3(:, 1:n+1)).^2, 2);
-v3_norm = sum(abs(Z3(:, n+2:2*(n+1))).^2, 2);
-norm1 = (y1_norm + v1_norm).^(1/2);
-norm2 = (y2_norm + v2_norm).^(1/2);
-norm3 = (y3_norm + v3_norm).^(1/2);
-figure;
-plot(t1, norm1, 'lineWidth', 2);
-hold on;
-plot(t2, norm2, 'lineWidth', 2);
-plot(t3, norm3, 'lineWidth', 2);
-legend('zero control, linear syst.', 'feedback control, linear syst.', 'feedback control, semilin. syst.');
-xlabel('time');
-ylabel('euclidean norm of z');
-title('Euclidean norm of solutions across time');
-
-
-
-
-References
-
-[1] Bastin G., J.-M. Coron, Stability and boundary stabilization of 1-D Hyperbolic systems. 2016.
-
-</description>
-        <pubDate>Mon, 29 Oct 2018 00:00:00 +0100</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0008-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0008-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP99</category>
-        
-      </item>
-    
-      <item>
-        <title>Stabilization of a collective behavior model</title>
-        <description>clc;
-clear;
-
-
-Summary of example objective The goal of this tutorial is to use LQR theory applied to a model of collective behavior. The model choosen shares a formal structure with the semidiscretization of the semilinear 1d heat equation.
-
-Consider $N$  agents $y_i$ for $i=1,…,N$, and let $y=(y_1,…,y_N)\in \mathbb{R}^N$.
-
-The model considered is the following:
-
- where $A$ is a matrix of the form:
-
-
-
-and $\vec{G}:\mathbb{R}^N\to\mathbb{R}^N$ is a non linear function of the form
-
-
-
-where $G$ is a non-linear function, matrix $A$ models the interaction between agents. Agent $i$ changes its state according to the state of agent $i+1$ and $i-1$ in a linear way plus a non-linear effect that depends only on his state.
-
-Note that the manifold
-
-
-
-is invariant under $F$. Indeed, taking $x\in\mathcal{M}_N$ we have that
-
-
-
-Therefore, the mean will follow the following 1-d dynamical system
-
-
-
-Here we will consider that $G(0)=0$ and that $DG(0)&amp;gt;0$, we have an unstable critical point at 0. Let N=20,
-
-N=2;
-A=full(gallery('tridiag',N,1,-2,1));
-A(1,1)=-1;
-A(N,N)=-1;
-
-
-and that
-
-
-
-here $G$ is taken in the following form (and we compute also its derivative).
-
-The non-linearity choosen is:
-
-a=5;
-c=0.20;
-syms G(x);
-syms DG(x);
-G(x) = piecewise(x&amp;lt;=-a, -2*a*a*x*c-2*a*a*a*c, a&amp;lt;=x, -2*a*a*x*c+2*a*a*a*c, -a&amp;lt;x&amp;lt;a, -c*x*(x-a)*(x+a));
-DG(x) = diff(G,x);
-G=@(x)double(G(x));
-DG = @(x)double(DG(x));
-
-close all
-figure(1)
-fplot(G,[-10,10])
-title('Plot of the non-linearity')
-hold off
-grid
-
-
-
-
-The function field assigns an $N$ dimensional vector corresponding to the field for every point in $\mathbb{R}^N$, matrix $A$ and the nonlinear function $G$
-
-F=@(t,y) field(A,G,y)
-
-
-
-F =
-
-  function_handle with value:
-
-    @(t,y)field(A,G,y)
-
-
-
-
-Now its the turn to define our cost functional. Our goal will be to stabilize the system in a critical point inside the manifold $\mathcal{M}_N$. Notice that, in particular $0$ is a critical point.
-
-We will choose the matrix $Q$ in a way that the vector that defines $\mathcal{M}_N$ is an eigenvector of the matrix $Q$, we have seen that the manifold $\mathcal{M}_N$ is invariant under the flow. Our cost functional will take into account if we are not in this manifold.
-
-
-
-We check that its eigenvalues are non-negative
-
-Q=eye(N)-ones([N N])/N;
-EigQ=eig(Q)
-
-
-
-EigQ =
-
-     0
-     1
-
-
-
-
-And we define $R$ being just the identity
-
-R=eye(N);
-
-
-Linearize arround the unstable equilibrium 0 and obtain the linearized system $\dot{y}=Ly$
-
-p=0;
-L=A+DG(p)*eye(N);
-
-
-we set our control matrix B
-
-B=eye(N);
-
-
-One has to check the rank of the controllability matrix to see if we satisfy the Kalman rank condition
-
-Co=ctrb(L,B);
-rank=rank(Co)
-
-
-
-rank =
-
-     2
-
-
-
-
-Once it is done, we are in the position of solving the algebraic Riccati equation
-
-[ricsol,cleig,K,report] = care(L,B,Q);
-
-
-Consider a time span and an initial datum
-
-radius = 6
-ini    = radius*(-0.5+rand(N,1))
-
-
-
-radius =
-
-     6
-
-
-ini =
-
-   -2.1042
-   -1.4550
-
-
-
-
-the free dynamics would result
-
-tspan = [0, 2];
-[t,y] = ode45( F, tspan, ini);
-
-figure(2)
-for i=1:N-1
-    plot(t, y(:,i));
-    hold on;
-end
-plot(t, y(:,N))
-title('Free dynamics')
-hold off
-grid
-
-
-
-
-Now the LQ controller with the linear and the non-linear dynamics
-
-u_lq = @(t,x) -K * x;
-
-
-i_linear = @(t,x) L*x + B*u_lq(t,x);
-[time, state] = ode45(i_linear,tspan, ini);
-
-i_nonlinear = @(t,x)[F(t,x)+B*u_lq(t,x)];
-[timen, staten] = ode45(i_nonlinear,tspan, ini);
-
-figure(3)
-for i=1:N-1
-    plot(time, state(:,i),'LineWidth',2);
-    hold on;
-end
-plot(time, state(:,N),'LineWidth',2)
-grid on
-title('LQR regulator on the linearized system')
-hold off
-
-
-
-
-[timen, staten] = ode45(i_nonlinear,tspan, ini);
-
-figure(4)
-for i=1:N-1
-    plot(timen, staten(:,i),'LineWidth',2);
-    hold on;
-end
-plot(timen, staten(:,N),'LineWidth',2)
-grid on
-title('LQR regulator on the non-linear dynamics')
-hold off
-
-
-
-
-</description>
-        <pubDate>Sun, 28 Oct 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0007-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0007-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP99</category>
-        
-      </item>
-    
-      <item>
-        <title>LQR optimal control design for a coupled PDE-ODE system.</title>
-        <description>In this tutorial, we will demonstrate how to design a LQR controller in order to stabilize the following linear coupled (hybrid) PDE-ODE system:
-
-
-
-Similar systems may appear in the modelling of a variety physical phenomena, such as the melting of ice in a body of water [1] or fluid-structure interaction [2]. This particular system may be seen as a simplification of the well known one-phase Stefan problem. The stabilization and control of the former has been investigated in recent works by Krstic et al. (see [1] for example). The relationship between the considered system and the Stefan problem, as well as the control of the latter will be considered in a future tutorial.
-
-When no forces are applied, a feature of the governing parabolic PDE is its possibility of generating unstable dynamics as $t \rightarrow \infty$. This phenomenon is due to the fact that the sign of the eigenvalues of the governing elliptic differential operator depends on the magnitude of the constant $\beta$. More precisely, as the differential operator has eigenvalues of the form $\mu_k = \beta - \lambda_k$, where $\lambda_k$ are the eigenvalues of the Dirichlet laplacian, taking $\beta &amp;gt; \lambda_1$ (the biggest among the $\lambda_k$) would yield such a result. We will thence implement a LQR optimal control strategy in order to stabilize the system.
-
-We first need to reduce the PDE-ODE system  to a finite dimensional system of the form
-
-
-
-where $A$ and $B$ are matrices, and
-
-
-
-is the finite dimensional state vector.
-
-We fix the parameters as follows: $T=1$, $\alpha=1$ and $\beta = 10$:
-
-clc; clear;
-T = 1;
-nT = 100; nX = 20;
-dt = T/nT; dx = 1/(nX+1);
-x = linspace(0,1,nX+2);
-Dir0 = 1; Dir1 = 0;
-alpha = 1; beta = 10;
-
-
-We begin the code by discretizing in space the parabolic PDE; this is done by finite differences:
-
-Id = eye(nX);
-Lapl = -2*Id + diag(ones(nX-1,1),-1) + diag(ones(nX-1,1),1);
-A0 = alpha*1/dx^2*Lapl + beta*Id;
-
-
-In fact, the finite difference discretization of the Dirichlet laplacian may also be done using the MATLAB routine delsq. We proceed similarly for the term $y_x(1,t)$ in the ODE, and assemble the complete matrix $A$:
-
-A = zeros(nX+1,nX+1); A(2:nX+1,2:nX+1) = A0; A(1,2)=-1/dx;
-
-
-The control matrix B is constructed as follows:
-
-b = zeros(nX,1); b(1,1) = alpha*Dir0/dx^2; b(nX,1) = alpha*Dir1/dx^2;
-B = zeros(nX+1,1);
-B(1,1) = Dir0/dx;
-B(2:nX+1,1) = b;
-
-
-We may now proceed with the optimal control strategy. For a continuous time linear system generated by the matrices $(A,B)$ and an infinite time horizon cost functional defined as
-
-
-
-the feedback control law that minimizes the value of the cost is $u = -Kz$, where $K = R^{-1}B*P$ and $P$ is found by solving the continuous time algebraic Ricatti equation
-
-
-
-We check whether the constructed matrices fit in the framework of LQR. Namely, we first verify that the couple $(A, BB*)$ is stabilizable. This is done by checking if $\text{rank}[\lambda I - A, B] = d$ for any $\lambda \in \sigma(A)\cap \mathbb{R}_+$, where $d$ is the dimension of the state space.
-
-eigs = eig(A);
-for iter=1:nX+1
-    if real(eigs(iter))&amp;gt;=0
-        M = zeros(nX+1,2*(nX+1));
-        M(:,1:nX+1) = eigs(iter)*eye(nX+1)-A; M(:,nX+2:2*(nX+1)) = B*(B');
-        r_ = rank(M);
-        stabilizable = (r_ == nX+1);
-    end
-end
-
-
-Secondly, we check that the eigenvalues of the associated Hamiltonian matrix do not lie on the imaginary axis.
-
-R = 1; Q = eye(nX+1);
-H = blkdiag(A, -A');
-H(nX+2: 2*(nX+1), 1:nX+1) = -Q; H(1:nX+1, nX+2: 2*(nX+1)) = -B*(B');
-eigH = real(eig(H));
-nb_im_eig = sum(eigH == 0);
-
-
-Finally, we check if the pair $(Q, A)$ is detectable; the variable not_det should equal $0$ after the loop.
-
-not_det = 0;
-for iter_=1:nX+1
-    if real(eigs(iter_))&amp;gt;=0
-        M_ = zeros(2*(nX+1), nX+1);
-        M_(1:nX+1, :) = Q; M_(nX+2:(nX+1)*2, :) = eigs(iter_)*eye(nX+1)-A;
-        r_ = rank(M_);
-        if (r_ ~= nX+1)
-            not_det = not_det + 1;
-        end
-    end
-end
-
-
-We are now in a position to construct the LQR feedback control by solving the algebraic Ricatti equation. This is done by using the MATLAB Control Toolbox routine care:
-
-[ricsol, cleig, K, report] = care(A, B, Q, R);
-f_ctr = @(z) -K*z;
-
-
-We now compare the uncontrolled (thence unstable) dynamics with the dynamics stabilized by the LQR feedback control. As initial datum for both systems, we pick $u_0(x) = \cos(\pi*x)$ and $s_0 = 0.1$.
-
-x_int = x(1:nX);
-y0 = cos(x_int*pi)';
-z0 = zeros(nX+1,1); z0(1,1) = 0.1; z0(2:nX+1,1) = y0;
-
-
-The free system is solved with the Dirichlet boundary condition $u(0,t) = 0.15$:
-
-f1 = @(t,v) A*v + B*0.15;
-[t1, z_free] = ode45(f1, linspace(0,T,nT), z0);
-[X1,Y1] = meshgrid(t1,x_int);
-surf(X1, Y1, z_free(:,2:nX+1)');
-xlabel('Time');
-ylabel('Space');
-title('Unstable state y_{un} = y_{un}(t,x)')
-
-
-
-
-Now we solve and visualize the controlled problem:
-
-f2 = @(t,z) A*z + B*f_ctr(z);
-[t2, z_ctr] = ode45(f2, linspace(0,T,nT), z0);
-figure;
-[X2,Y2] = meshgrid(t2,x_int);
-surf(X2, Y2, z_ctr(:,2:nX+1)');
-xlabel('Time');
-ylabel('Space');
-title('Stablilized state y_{st} = y_{st}(t,x)')
-
-
-
-
-We also plot the corresponding solutions to the ODE:
-
-figure;
-plot(t1, z_free(:,1), 'Color', [0.8500, 0.3250, 0.0980], 'LineWidth', 1.5);
-hold on;
-plot(t2, z_ctr(:,1), 'Color', [0, 0.4470, 0.7410], 'LineWidth', 1.5);
-legend('Unstable', 'Stabilized', 'Location', 'SouthWest');
-xlabel('Time')
-title('The state s')
-
-
-
-
-As a final test of our results, we compare the $L^2(0,1)$-norms of both the controlled and uncontrolled state with respect to time.
-
-norm_free = 1/nX*sum(z_free.^2,2).^0.5;
-norm_ctr = 1/nX*sum(z_ctr.^2,2).^0.5;
-figure;
-plot(t1, norm_free, 'Color', [0.8500, 0.3250, 0.0980], 'LineWidth', 1.5);
-hold on;
-plot(t2, norm_ctr, 'Color', [0, 0.4470, 0.7410], 'LineWidth', 1.5);
-legend('Unstable state', 'Stabilized state', 'Location', 'NorthWest');
-xlabel('Time');
-title('L^2 Norm');
-
-
-
-
-References:
-
-[1] Koga, Shumon and Diagne, Mamadou and Krstic, Miroslav. Output feedback control of the one-phase Stefan problem. 2016 IEEE 55th Conference on Decision and Control (CDC) (2016).
-
-[2] Vazquez, Juan Luis and Zuazua, Enrique. Large time behavior for a simplified 1D model of fluid-solid interaction. Comm. Partial Differential Equations 28 (2003), no. 9-10, 1705-1738.
-
-</description>
-        <pubDate>Sun, 28 Oct 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0006-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0006-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP99</category>
-        
-      </item>
-    
-      <item>
-        <title>Riccati theory in LQ optimization with time-varying target</title>
-        <description>In this short tutorial, we explain how to use Riccati’s theory to solve an LQ control problem with targets.
-
-We consider the optimal control problem:
-
-
-
-where:
-
-
-
-In the above control problem, $A \in M_{n \times n}$, $B \in M_{n \times m}$, $C \in M_{r\times n}$ and $D\in M_{r\times n}$. The control $u:[0,T]\longrightarrow R^m$, while the state $x:[0,T]\longrightarrow R^n$. The control target is $q\in C^1([0,T];R^m)$ and the state target is $z\in C^1([0,T];R^n)$. $\beta\geq 0$ and $\gamma\geq 0$ are positive parameters.
-
-By the Direct Methods in the Calculus of Variations and strict convexity, the above problem admits an unique optimal control $u^T$. The corresponding optimal state is denoted by $x^T$.
-
-We compute the optimal pair (optimal control, optimal state) by using the well-known Riccati’s theory (see, for instance, [1, Lemma 2.6] and [2, section 4.3]).
-
-For further details regarding the algorithm, we refer to RiccatiAlgorithm
-
-Take
-
-A=[2,-1;-1,2];
-B=[1;0];
-C=eye(2);
-D=zeros(2,2);
-beta=26;
-gamma=0;
-x0=[1.4;1.4];
-q=@(t)0;
-z=@(t)[sin(t);sin(t)];
-T=10;
-Nt=1000;
-
-
-We solve an LQ problem with the above data.
-
-[ uopt, x] = lqtarget( A,B,C,D,beta, gamma, q, z, x0,T,Nt );
-
-
-
-
-
-
-
-
-Since the parameter $\beta$ is large enough and the control acts only on the first component of first equation
-
-
-  
-    the first component of the state is close to the target;
-  
-  
-    the second component of the state is less close to the target;
-  
-  
-    the control is far from its target.
-  
-
-
-The algorithm described in this guide can be employed to test the fulfillment of the turnpike property (see, for instance, 1 and 3). In agreement with the theory, the turnpike effect is evident if:
-
-
-  
-    the targets are constants;
-  
-  
-    $(A,B)$ is controllable;
-  
-  
-    $(A,C)$ is observable, $\beta&amp;gt;0$ and $\gamma=0$;
-  
-  
-    the time horizon $T$ is large enough.
-  
-
-
-References
-
-</description>
-        <pubDate>Fri, 26 Oct 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0003-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0003-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP99</category>
-        
-      </item>
-    
-      <item>
-        <title>Optimal control of a  graph evolving in discrete time</title>
-        <description>In this tutorial we are going to show how to use MATLAB to control a discrete-time dynamical system that models the interactions between the nodes of a graph. The control policy will minimize a discrete linear quadratic regulator.
-
-Let us consider a graph G that consists on $N$ nodes $x_i\in\mathbb{R}$, $i={1,2,…,N}$ that evolve in discrete time steps according to the following equation:
-
-
-
-where $\gamma &amp;gt; 0$ is a coupling parameter.
-
-We can simplify this equation by using the Perron matrix $P$ of the graph, this matrix is defined as $P = I - \gamma L$, where $L$ is the Laplacian of the graph and $I$ is the identity matrix. Let $x$ be $[x_1,…,x_N]^T$, the vector of states of the nodes. Moreover, we may add a control
-
-
-
-to drive the states of the nodes to a desired state.
-
-
-
-were $B$ and $C$ are two fixed matrices and $y\in\mathbb{R}^S$ are the observed states of $1\leq S\leq N$ nodes.
-
-We aim to design a control policy ${u[k]}_{k=0,1,…}$ such that minimizes the following functional $J(x,u)$ while stabilizing the system.
-
-
-
-where $Q$ and $R$ are semidefinite positive and definite positive matrices respectively. We can choose these two matrices in order to penalize aggressive or slow controls. To do so, we will use MATLAB’s control system toolbox.
-
-Finally, we will add a reference term in the control so that we can drive the system into a desired state.
-
-For instance, let us consider the coupling parameter
-
-gamma = 0.1;
-
-
-We define now a connected and bidirected graph G. Let E be the edges of the graph. We will define this set as a 2-column matrix and then we create the graph G.
-
-E = [1, 2; 1, 3; 2, 4; 2, 5; 3, 4; 4, 5; 4, 6; 6, 7; 7, 8];
-E = table(E,'VariableNames',{'EndNodes'});
-G = graph(E);
-
-
-This is our graph
-
-plot(G, 'LineWidth', 2, 'EdgeColor', 'r', 'MarkerSize', 10)
-title('Graph representation', 'FontSize', 16)
-
-
-
-
-N is the size of the graph, that is to say, the number of nodes.
-
-N = numnodes(G);
-
-
-We compute the number of neighbours of each node
-
-connectivities = degree(G);
-
-
-We check whether the graph is connected or not, if not, we must choose a different graph.
-
-if max(conncomp(G)) &amp;gt; 1
-    print('Generate a new graph')
-end
-
-
-In this example the considered graph is connected.
-
-We compute the Perron matrix of $G$.
-
-P = eye(N) - gamma * laplacian(G);
-
-
-We can see that the system tends to reach a consensus, that is to say, if no control is applied to the system, it evolves to a steady state in which all the nodes have the same state.
-
-We define the initial state $x_0$
-
-x_0 = [1, 5, 0, 4, 3, 1, 7, 3]';
-
-
-The mean of $x_0$ is 3
-
-mean(x_0)
-
-
-
-ans =
-
-     3
-
-
-
-
-The states of the nodes will evolve to the mean of the states at the initial time. We let the system evolve for 150 iterations.
-
-itmax = 150;
-x = zeros(N, itmax + 1);
-x(:,1) = x_0;
-for k = 1:itmax
-    x(:,k + 1) = P * x(:,k);
-end
-
-
-clf
-hold on
-for k = 1:N
-    plot(0:itmax,x(k,:),'LineWidth',2)
-end
-legend('Node 1','Node 2','Node 3','Node 4','Node 5','Node 6','Node 7','Node 8')
-title('Graph evolution without control','FontSize',16)
-xlabel('Iterations','FontSize',16)
-ylabel('States of the nodes','FontSize',16)
-
-
-
-
-As stated before, we can see in this figure that the system naturally reaches consensus.
-
-Recall that the system dynamics can be written as
-
-
-
-for any $k =0,1,…$.
-
-We want to find a control $u$ such that the system stabilizes to the zero state.
-
-We proceed to define matrices B and C:
-
-B = eye(N);
-C = eye(N);
-% We can check whether the system is controllable
-if rank(ctrb(P,B)) &amp;lt; N
-    print('it is not controllable!')
-end
-% In this case, it is controllable.
-
-
-We choose the matrices $Q$ and $R$ by using Bryson and Ho’s criterium.
-
-Q_diag = 1 / max(x_0.^2) * ones(1, N);
-R_diag = 1 / 5^2 * ones(1, N);
-Q = diag(Q_diag);
-R = diag(R_diag);
-
-
-We can use now the function dlqr (discrete linear quadratic regulator) to find the feedback control $u = -K_{f} x[k]$ that minimizes the functional $J(x,u)$.
-
-[Kf, ~] = dlqr(P, B, Q, R);
-
-
-Now we can stabilize the system by using the feedback control that we have just computed
-
-itmax = 20;
-x = zeros(N, itmax + 1);
-x(:,1) = x_0;
-for k = 1:itmax
-    x(:,k + 1) = (P - B * Kf) * x(:,k);
-end
-
-
-clf
-hold on
-
-for k = 1:N
-    plot(0:itmax,x(k,:),'LineWidth',2)
-end
-legend('Node 1','Node 2','Node 3','Node 4','Node 5','Node 6','Node 7','Node 8')
-title('Graph stabilization','FontSize',16)
-xlabel('Iterations','FontSize',16)
-ylabel('States of the nodes','FontSize',16)
-
-
-
-
-We can see that the system is stabilized fast. One can tune the stabilization speed by choosing matrices $Q$ and $R$ in a smart way.
-
-Now, we are about to add a reference term to the control to drive the system to a desired state. For instance, we can drive the system into the reference state
-
-r = (1:N)';
-
-
-We add a reference term to the control that is proportional to the reference r, $u[k] = -K_{f}x[k] + K_{r}r$. We can use linear algebra to compute the matrix $K_{r}$ in terms of the system matrices.
-
-Kr = -(C * (P - B * Kf - eye(N))^(-1) * B)^(-1);
-
-
-We drive the system to the reference state.
-
-itmax = 20;
-x = zeros(N, itmax + 1);
-x(:,1) = x_0;
-for k = 1:itmax
-    x(:,k + 1) = (P - B * Kf) * x(:,k) + B * Kr * r;
-end
-
-
-clf
-hold on
-for k = 1:N
-    plot(0:itmax,x(k,:),'LineWidth',2)
-end
-legend('Node 1','Node 2','Node 3','Node 4','Node 5','Node 6','Node 7','Node 8')
-title('Controlled graph','FontSize',16)
-xlabel('Iterations','FontSize',16)
-ylabel('States of the nodes','FontSize',16)
-
-
-
-
-Assume now that we can control only the node 1 and we want to drive the node 8 to the reference state r = 1. Can we do it? Let’s see.
-
-B = zeros(N, 1);
-B(1) = 1;
-C = zeros(1, N);
-C(8) = 1;
-if rank(ctrb(P,B)) &amp;lt; N
-    print('it is not controllable!')
-end
-
-
-It is controllable.
-
-Q_diag = 1 / max(x_0.^2) * ones(1, N);
-R_diag = 1 / 5^2;
-Q = diag(Q_diag);
-R = diag(R_diag);
-[Kf, ~] = dlqr(P, B, Q, R);
-Kr = -(C * (P - B * Kf - eye(N))^(-1) * B)^(-1);
-r = 1;
-itmax = 200;
-x = zeros(N, itmax + 1);
-x(:,1) = x_0;
-for k = 1:itmax
-    x(:,k + 1) = (P - B * Kf) * x(:,k) + B * Kr * r;
-end
-
-
-clf
-hold on
-for k = 1:N
-    plot(0:itmax,x(k,:),'LineWidth',2)
-end
-legend('Node 1','Node 2','Node 3','Node 4','Node 5','Node 6','Node 7','Node 8')
-title('Driving node 8 to the state 1','FontSize',16)
-xlabel('Iterations','FontSize',16)
-ylabel('States of the nodes','FontSize',16)
-
-
-
-
-As we can see, the node 8 is driven to the state 1 by achieving consensus in all the states of the graph.
-
-References
-
-</description>
-        <pubDate>Fri, 26 Oct 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0001-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0001-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP99</category>
-        
-      </item>
-    
-      <item>
-        <title>LQR control of a fractional reaction diffusion equation</title>
-        <description>We design a LQR controller for stabilyzing the fractional reaction diffusion equation
-
-
-
-where $\delta&amp;gt;0$ is a given constant, $\omega = (a,b)\subset(-L,L)$ and $(-d_x^2)^s$, $s\in(0,1)$ denotes the one-dimensional fractional Laplacian defined as
-
-
-
-with $c(s)$ an explicit normalization constant.
-
-When considering this equation without the action of the the control $u$, we know that, depending on the value of $\delta$, the corresponding dynamics may become unstable. This is due to the fact that the eignenvalues of the associated elliptic problem are given by $\mu_k=c-\lambda_k$ ($\lambda_k$ being the eigenvalues of the fractional Laplacian on $(-L,L)$ with zero Dirichlet boundary conditions), and they are positive if $c&amp;gt;\lambda_1$ (since, in addition, we know that $\lambda_1&amp;lt;\lambda_k$ for all $K$). We are then intersted in designing a LQR control which is able to stabilyze this solution and prevent its blow-up.
-
-The computation of the LQR control is carried out by means of the following procedure:
-
-STEP 1. Discretization of the equation
-
-We start by discretizing our original system on a uniform mesh $x_i$, $i=1,\ldots,N$, thus obtaining a N-dimensional system of the type
-
-
-
-where:
-
-
-  
-    with some abuse of notation, we denoted $y\in\mathbb{R}^N$ as the   $N$-dimensional vector whose entries $y_i=y(x_i)$, $i=1,\ldots,N$ are   the evaluation of the function $y$ on the points of the mesh;
-  
-  
-    the matrix $A$ is a discretization of the operator $-(-d_x^2)^s + I$,   $I$ denoting the identity;
-  
-  
-    the matrix $B$ defines the action of the control.
-  
-
-
-The computation of the matrix requires the discretization of the fractional Laplacian $(-d_x^2)^s$. This is done by employing the function “fl_rigidity”, which implements a finite elements method on a uniform mesh discretizing the space interval $(-L,L)$ (complete details on this method may be found in [1]).
-
-The function “fl_rigidity” works by requiring 3 input parameters:
-
-
-  
-    s: the order of the fractional Laplacian, which can be any real value      in the interval $(0,1)$;
-  
-  
-    L: any real value, defining the extrema of the space interval $(-L,L)$;
-  
-  
-    N: the number of discretization points in the mesh employed.
-  
-
-
-The outputs are:
-
-
-  
-    x: the vector containing the mesh;
-  
-  
-    A: the matrix discretizing the fractional Laplacian.
-  
-
-
-The matrix B, instead, is constructed by employing the function “construction_matrix_B”, which takes in input
-
-
-  
-    the vector $x$ containing the mesh;
-  
-  
-    the number of discretization points $N$;
-  
-  
-    the characteristic function of the sub-interval $\omega$.
-  
-
-
-STEP 2. Definition of the cost functional and computation of the control
-
-Once we have the semi-discretization of our original problem, the control we are looking for is computed by minimizing the following cost functional
-
-
-
-where $Q\geq 0$ and $R&amp;gt;0$ are given matrices. Moreover, we know that this control is given in a feedback form by $u^*=-R^{-1}B^TPy$, where $P$ is the solution of the algebraic Riccati equation
-
-
-
-Implementation
-
-clear all
-clc
-
-
-We start by defining the parameter $s\in(0,1)$ (order of the fractional Laplacian), the size of the interval $(-L,L)$, the constant $\delta&amp;gt; \lambda_1$ and the number $N$ of discretization points in our mesh.
-
-s = 0.8;
-L = 1;
-d = (0.5*pi)^(2*s)+0.1;
-N = 100;
-
-
-and we compute the corresponding approximation of the fractional Laplacian
-
-[x,FL] = fl_rigidity(s,L,N);
-
-
-We then use it for building the matrix $A$ describing the dynamics
-
-D = d*eye(N);
-A = -FL+D;
-
-
-Secondly, we use the function “construction_matrix_B” for computing the control operator $B$ on the interval $\omega=(-0.3,0.5)$
-
-matrix_B =  @(x) interval(x,-0.3,0.5);
-B = construction_matrix_B(x,N,matrix_B);
-
-
-Out of the matrices $A$ and $B$, we solve the algebraic Riccati equation by employing the specific function from the control systems toolbox of Matlab. For simplicity, we choose both $R$ and $Q$ as the identity, but other choices are possible in order to improve the efficiency of the method.
-
-R = eye(N);
-Q = eye(N);
-[P,cleig,K,report] = care(A,B,eye(N));
-
-
-The output matrix $K=-R^{-1}B^TP$ is used for defining the action of the control and include it in our system
-
-f_ctr = @(x) -K*x;
-eq_ctr = @(t,x) A*x + B*f_ctr(x);
-
-
-Finally, we choose an initial datum
-
-y0 = cos(pi*x)';
-
-
-and we solve our equation with and without control employing the “ode45” function of Matlab. For the equation without control we choose a relatively short time horizon, since we know that the unstable dynamics will rapidly diverge. For the equation with control, instead, we choose a longer time horizon in order to have enough time for stabilyzing the system.
-
-T1 = 4;
-T2 = 25;
-Nt = 40;
-tspan1 = linspace(0,T1,Nt);
-tspan2 = linspace(0,T2,Nt);
-eq_free = @(t,x) A*x;
-[time1, sol_free] = ode45(eq_free,tspan1,y0);
-[time2, sol_ctr] = ode45(eq_ctr,tspan2,y0);
-
-
-We then plot our results and compare them. Firstly, the free dynamics.
-
-surf(x,time1,sol_free)
-colormap jet
-msol_free = floor(min(min(sol_free)));
-Msol_free = round(max(max(sol_free)));
-xticks([-L L])
-yticks([0 T1])
-zticks([msol_free Msol_free])
-view(135,25)
-title('Free unstable dynamics')
-
-
-
-
-We clearly see the growth of the solution, already in the short time horizon [0,4]. When introducing the LQR control, instead, the problem is corrected and the equation is stabilyzed in time $T_2$
-
-surf(x,time2,sol_ctr)
-colormap jet
-msol_ctr = floor(min(min(sol_ctr)));
-Msol_ctr = round(max(max(sol_ctr)));
-xticks([-L,L])
-yticks([0 T2])
-zticks([msol_ctr Msol_ctr])
-view(135,25)
-title('Controlled dynamics')
-
-
-
-
-References
-
-[1] U. Biccari and V. Hernandez-Santamaria, “Controllability of a one-dimensional fractional heat equation: theoretical and nuerical aspects”, IMA J. Math. Control I. (2018).
-
-</description>
-        <pubDate>Wed, 24 Oct 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0004-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0004-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP99</category>
-        
-      </item>
-    
-      <item>
-        <title>Synchronized Oscillators</title>
-        <description>What’s a consensus problem?
-
-We consider a population of N coupled-phase oscillators, $\theta_i(t)$, $i=1,\ldots,N$ and we want to compute a control such that in time $T$ we reach the state $\theta_i(T)=\ldots =\theta_N(T)=:\bar{\theta}$ in which all the oscillators are sincronized.
-
-The mathematical model
-
-The dynamics of the oscillators is described by the Kuramoto model
-
-
-
-
-
-The model is non-linear, then, we apply a standard linearization process around the steady state $\bar{\theta}$ obtaining
-
-
-
-By classical techniques, the control is obtained by minimizing the following cost functional, subject to the linearized Kuramoto model, for each node
-
-
-
-in which
-
-
-  
-    the first term measures the distance between the rest of nodes and the target.
-  
-  
-    the second term is a penalization one introduced in order to   avoid using control with a too large size.
-  
-
-
-In fact, through the above minimization procedure, we find the control $b = (b_1,\ldots,b_N)$ which has minimum norm among all the controls capable to steer the system to the equilibrium dynamics.
-
-How do you usually solve this type of problem?
-
-The usual technique for solving minimizing problems based on quadratic functionals is the Gradient Descent Method, which is based on the following iterative algorithm
-
-
-
-This technique is tipycally chosen because: - It is (relatively) easy to implement. - It is not very memory demanding.
-
-What we propose?
-
-As the functional J(b_i) depend on all nodes $\Theta_j$, the gradient $\nabla J(b_i)$ too. Therefore, in each iteration of the Gradient Descent algorithm we shall consider all nodes in the network. Then, when the number of nodes is large, the complexity if substantial per iteration. To avoid evaluate the full gradient, we propose to approach the problem by means of the Stochastic Descent Gradient method which only uses a small portion of data.
-
-Matrix $A$ of the linearized Kuramoto model
-
-N = 7;
-A = (1/N)*ones(N,N);
-for i = 1:N
-    A(i,i) = -1;
-end
-A
-
-
-
-A =
-
-   -1.0000    0.1429    0.1429    0.1429    0.1429    0.1429    0.1429
-    0.1429   -1.0000    0.1429    0.1429    0.1429    0.1429    0.1429
-    0.1429    0.1429   -1.0000    0.1429    0.1429    0.1429    0.1429
-    0.1429    0.1429    0.1429   -1.0000    0.1429    0.1429    0.1429
-    0.1429    0.1429    0.1429    0.1429   -1.0000    0.1429    0.1429
-    0.1429    0.1429    0.1429    0.1429    0.1429   -1.0000    0.1429
-    0.1429    0.1429    0.1429    0.1429    0.1429    0.1429   -1.0000
-
-
-
-
-Initial condition: 
-
-mu = 4;sigma = 10;
-theta0 = normrnd(mu,sigma,N,1)
-
-
-
-theta0 =
-
-   20.3206
-  -11.3219
-   -9.3685
-  -10.7385
-    3.5834
-   -2.1551
-   17.1415
-
-
-
-
-Now, choose initial control,
-
-t0 = 0;T = 1;dt = 0.1;
-tspan = t0:dt:T;
-u0 = zeros(length(tspan),N);
-
-
-We can solve with the StochasticGradient function.
-
-Results_Stochastic =  StochasticGradient(A,theta0,tspan,u0);
-
-
-And see the convergence
-
-fig1 = JPlotConvergence(Results_Stochastic,'Convergence of Stochastic Method');
-
-
-
-
-We can see the result obtained
-
-fig2 = LastThetaPlot(Results_Stochastic);
-
-
-
-
-Comparison Clasical vs Stochastic
-
-In this example, we show that stochastic method is faster than the classical descent in a small network.
-
-Results_Classical = {};Results_Stochastic = {};
-%
-maxN = 500; % &amp;lt;=== Maximal number of oscillator allowed in the model
-iter = 0;
-for N = 1:100:maxN
-    % We solve the problem for each N
-    iter = iter + 1;
-    % Definition of the linearized Kuramoto problem
-    A = (1/N)*ones(N,N);
-    for i = 1:N
-        A(i,i) = -1;
-    end
-    % Initial state
-    mu = 4;sigma = 5;
-    theta0 = normrnd(mu,sigma,N,1);
-    % Initial control
-    t0 = 0;T = 1;dt = 0.1;
-    tspan = t0:dt:T;
-    u0 = zeros(length(tspan),N);
-
-    % Classical Gradient Method
-    Results_Classical{iter}  =  ClassicalGradient(A,theta0,tspan,u0);
-    % Stochastic Gradient Method
-    Results_Stochastic{iter} =  StochasticGradient(A,theta0,tspan,u0);
-end
-
-
-We can graphically see the following result. If the number of nodes increase we can see better the efectiveness of the stochastic gradient descent method with respect to the classical.
-
-% For the next step it is necessary to convert the cells into arrays
-Results_Classical  = [Results_Classical{:}];
-Results_Stochastic = [Results_Stochastic{:}];
-%
-fig2 = figure; ax  = axes;
-ax.FontSize = 17;
-ax.XLabel.String = 'Number of Oscillators'; ax.YLabel.String = 'time(s)';
-ax.XGrid = 'on'; ax.YGrid = 'on';
-%
-line([Results_Stochastic.N],[Results_Stochastic.t],'Parent',ax,'Color','red','Marker','s')
-line([Results_Classical.N],[Results_Classical.t],'Parent',ax,'Color','blue','Marker','s')
-legend({'Stochastic Gradient','Classical Gradient'})
-
-
-
-
-Altough in this example we are dealing with a small network, we have shown that stochastic method is faster than the classical descent. If the number of nodes increase we can see better the efectiveness of the stochastic gradient descent method with respect to the classical. 
-
-</description>
-        <pubDate>Fri, 19 Oct 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0004-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0004-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP01</category>
-        
-      </item>
-    
-      <item>
-        <title>Leontine Seminar</title>
-        <description>we solve an ODE system with time dependent parameters, this type of system modelise the propagation of an infectious desease considering the climate change
-
-\left{\begin{array}{ll}  \dfrac{dS}{dt} = \Lambda+\delta R -\mu S -  \beta(t) SI \ \dfrac{dE}{dt} =   \beta(t) SI - \left( \mu + a\right) E \ \dfrac{dI}{dt} = \pi aE - \left( \mu+\sigma + \rho \right)  I \ \dfrac{dR}{dt} = \rho I + (1-\pi)aE- \left( \delta  + \mu \right)  R \end{array} \right}
-
-With initial conditions $ S( 0 ) $, $ E( 0 ) $, $ I( 0 )  $ $ R( 0 ) $ $ \geqslant 0 $
-
-where: \beta(t) is the time dependent parameters , here $\beta(t)$ is the predictive function of wheather
-
-
-
-tNew= 1:1:13;
-W1=[sin(tNew/2/exp(1)*pi)+1]/2;
-plot(tNew,W1)
-grid on
-xlabel('')
-ylabel('')
-
-
-
-
-STEP1
-
-The first step is to comput \beta(t) in twelve giving points , thoses points reprensents months in one year
-
-we employ the function interp1
-
-clear all;
-to = 1;   % temps initial
-tf =13;  % temps final
-yo = [200;15; 8.5;1]; % conditions initiales
-[t y] = ode45(@meningitev2,[to tf],yo); % pour tracer
-u=y(:,1);v=y(:,3);w=y(:,4);f=y(:,2);
-
-
-clf
-grid on
-subplot(2,3,1)
-plot(t,u,'b','linewidth',2) %trajectoire du modele
-xlabel('t(months)','fontsize',12);ylabel('S(t)(susceptibles)','fontsize',12);
-grid on,
-subplot(2,3,2)
-plot(t,f,'b','linewidth',2) %trajectoire du modele
-xlabel('t(months)','fontsize',12);ylabel('E(t)(infecte latents)','fontsize',12);
-grid on,
-subplot(2,3,3)
-plot(t,v,'b','linewidth',2)  %trajectoire du modele
-xlabel('t(months)','fontsize',12);ylabel('I(t)(infectes)','fontsize',12);
- grid on
-subplot(2,3,4)
- plot(t,w,'b','linewidth',2)
- xlabel('t(months)','fontsize',12);ylabel('R(t)()','fontsize',12);
-grid on
-subplot(2,3,5)
-plot3(v,u,f,'linewidth',2)
-grid on
-xlabel('S', 'fontsize',10);ylabel('E','fontsize',10);zlabel('I','fontsize',10);
-%plottools
-
-
-
-
-Ploting the function beta we have
-
-STEP 2. we create a matlab file for our ODE system%%
-
-STEP 3  we create another file, and in this file we whrite a code in order to plot the trajectories of our sytem.
-
-Ploting the function beta we have 
-
-STEP 4 dynamic of system with beta constant
-
-% ![](extradata/average_Meningistisspreadwithoutclimatechangebeta=0.35.png)
-
-
-function Z = meningitev2( t,y)
-%%%%%%%%%%%%%%%%%%we declare  values of constante parameters of models %%%%%%%%%%%%%%%%%%%%%%%%%%
-Lambda= 10 ; mu=0.021 ; pi1 = 0.6  ; sigma=0.5 ; rho=0.5;
-delta=0.2 ; a=0.6
- %  Now we compute the function parameter beta   %
-tNew= 1:1:13;
-W1=[sin(tNew/2/exp(1)*pi)+1]/2
-W=interp1(tNew,W1,t,'cubic');
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%To comput directly the value of thereshold %%%%%%%
-R_0= (W*pi1*Lambda*a)/(mu*(mu+a)*(mu+sigma+rho))
-
-%%%%%%%%%%%%%%% the system %%%%%%%%%%%%%%%%%%%%%%%%%
-Z(1) =Lambda + delta*y(4)-(mu*y(1) + W*y(1)* y(3));
-Z(2)= W*y(1)* y(3)- (mu + a)*y(2);
-Z(3) = pi1*a *y(2)-(mu+sigma+rho)*y(3);
-Z(4) =  rho*y(3)+(1-pi1)*a*y(2)-( delta+mu)*y(4);
-Z= [Z(1) Z(2) Z(3) Z(4)]';
-% we are goind to create another matlab file val_meningitev2
-end
-
-
-
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<!-- Math Jax -->
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript"
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+		TeX: { equationNumbers: { autoNumber: "AMS" } }
+	});
+	</script>
+
+	<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" type="text/javascript"></script>-->
+
+    <!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+	<script src="https://DeustoTech.github.io/dycon-platform-documentation/js/clean-blog.min.js "></script>
+	
+	
+	
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/dycon-platform-documentation/"> 
+                 <img style="height: 40px;padding-bottom: 10px;padding-top:0px;" src= "https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/dycon-platform-documentation/">Home</a>
+                </li>
+				
+                <li>
+                    <a href="/dycon-platform-documentation/projects/documentation">Functions</a>
+                </li>
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/posts">Posts</a>
+                </li>
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/tutorials">Tutorials</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/GettingStrated">Getting Started</a>
+                </li>
+                
+                <li>
+                        <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>
+                </li>                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-size: 300px 300px; background-image: url('/dycon-platform-documentation/img/home-bg.gif')">
+    <div class="container" style="padding-top: 70px;">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading" style="padding: 0px 0">
+                    <h1>Leontine Seminar</h1>
+
+					<span class="meta">Posted by: 
+					
+						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href=""></a></span></span>
+					
+					</span>	
+					<span>on October 18, 2018</span>
+					
+						<p>PATH: Tutorials/WP99_Other_topics/P0005</p>
+					
+                </div>
+            </div>
+		</div>
+
+	</div>
+</header>
+
+
+
+
+
+
+
+
+
+
+<!-- Also Interesting -->
+
+
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+
+		</div>
+		</div>
+
+<!-- Post Content -->
+<style>
+img {
+	display:block;
+	max-width:  100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@media only screen and (min-width: 1000px) {
+img {
+	-moz-transition:-moz-transform 0.5s ease-in; 
+	-webkit-transition:-webkit-transform 0.5s ease-in; 
+	-o-transition:-o-transform 0.5s ease-in;
+}
+img:active{
+	-moz-transform:scale(1.2); 
+	-webkit-transform:scale(1.2);
+	-o-transform:scale(1.2);
+}
+}
+
+@media only screen and (min-width: 1250px) {
+img {
+	-moz-transition:-moz-transform 0.5s ease-in; 
+	-webkit-transition:-webkit-transform 0.5s ease-in; 
+	-o-transition:-o-transform 0.5s ease-in;
+}
+img:active{
+	-moz-transform:scale(1.5); 
+	-webkit-transform:scale(1.5);
+	-o-transform:scale(1.5);
+}
+}
+
+@media only screen and (min-width: 1500px) {
+img {
+	-moz-transition:-moz-transform 0.5s ease-in; 
+	-webkit-transition:-webkit-transform 0.5s ease-in; 
+	-o-transition:-o-transform 0.5s ease-in;
+}
+img:active{
+	-moz-transform:scale(2); 
+	-webkit-transform:scale(2);
+	-o-transform:scale(2);
+}
+}
+</style>
+
+<article>
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p>we solve an ODE system with time dependent parameters, this type of system modelise the propagation of an infectious desease considering the climate change</p>
+
+<p>\left{\begin{array}{ll}  \dfrac{dS}{dt} = \Lambda+\delta R -\mu S -  \beta(t) SI \ \dfrac{dE}{dt} =   \beta(t) SI - \left( \mu + a\right) E \ \dfrac{dI}{dt} = \pi aE - \left( \mu+\sigma + \rho \right)  I \ \dfrac{dR}{dt} = \rho I + (1-\pi)aE- \left( \delta  + \mu \right)  R \end{array} \right}</p>
+
+<p>With initial conditions $ S( 0 ) $, $ E( 0 ) $, $ I( 0 )  $ $ R( 0 ) $ $ \geqslant 0 $</p>
+
+<p>where: \beta(t) is the time dependent parameters , here $\beta(t)$ is the predictive function of wheather</p>
+
+<script type="math/tex; mode=display">\beta (t)= [sin(t/2/exp(1)*pi)+1]/2</script>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tNew</span><span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">13</span><span class="p">;</span>
+<span class="n">W1</span><span class="o">=</span><span class="p">[</span><span class="nb">sin</span><span class="p">(</span><span class="n">tNew</span><span class="p">/</span><span class="mi">2</span><span class="p">/</span><span class="nb">exp</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nb">pi</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">]/</span><span class="mi">2</span><span class="p">;</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">tNew</span><span class="p">,</span><span class="n">W1</span><span class="p">)</span>
+<span class="nb">grid</span> <span class="n">on</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="./../../assets/imgs/WP99/P0005/LeontineSeminar-md_01.png" alt="" /></p>
+
+<h2 id="step1">STEP1</h2>
+
+<p>The first step is to comput \beta(t) in twelve giving points , thoses points reprensents months in one year</p>
+
+<p>we employ the function interp1</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span> <span class="nb">all</span><span class="p">;</span>
+<span class="n">to</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>   <span class="c1">% temps initial</span>
+<span class="n">tf</span> <span class="o">=</span><span class="mi">13</span><span class="p">;</span>  <span class="c1">% temps final</span>
+<span class="n">yo</span> <span class="o">=</span> <span class="p">[</span><span class="mi">200</span><span class="p">;</span><span class="mi">15</span><span class="p">;</span> <span class="mf">8.5</span><span class="p">;</span><span class="mi">1</span><span class="p">];</span> <span class="c1">% conditions initiales</span>
+<span class="p">[</span><span class="n">t</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="nb">ode45</span><span class="p">(</span><span class="o">@</span><span class="n">meningitev2</span><span class="p">,[</span><span class="n">to</span> <span class="n">tf</span><span class="p">],</span><span class="n">yo</span><span class="p">);</span> <span class="c1">% pour tracer</span>
+<span class="n">u</span><span class="o">=</span><span class="n">y</span><span class="p">(:,</span><span class="mi">1</span><span class="p">);</span><span class="n">v</span><span class="o">=</span><span class="n">y</span><span class="p">(:,</span><span class="mi">3</span><span class="p">);</span><span class="n">w</span><span class="o">=</span><span class="n">y</span><span class="p">(:,</span><span class="mi">4</span><span class="p">);</span><span class="n">f</span><span class="o">=</span><span class="n">y</span><span class="p">(:,</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clf</span>
+<span class="nb">grid</span> <span class="n">on</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="s1">'b'</span><span class="p">,</span><span class="s1">'linewidth'</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">%trajectoire du modele</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'t(months)'</span><span class="p">,</span><span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span><span class="nb">ylabel</span><span class="p">(</span><span class="s1">'S(t)(susceptibles)'</span><span class="p">,</span><span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span>
+<span class="nb">grid</span> <span class="n">on</span><span class="p">,</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="s1">'b'</span><span class="p">,</span><span class="s1">'linewidth'</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">%trajectoire du modele</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'t(months)'</span><span class="p">,</span><span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span><span class="nb">ylabel</span><span class="p">(</span><span class="s1">'E(t)(infecte latents)'</span><span class="p">,</span><span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span>
+<span class="nb">grid</span> <span class="n">on</span><span class="p">,</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="s1">'b'</span><span class="p">,</span><span class="s1">'linewidth'</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  <span class="c1">%trajectoire du modele</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'t(months)'</span><span class="p">,</span><span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span><span class="nb">ylabel</span><span class="p">(</span><span class="s1">'I(t)(infectes)'</span><span class="p">,</span><span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span>
+ <span class="nb">grid</span> <span class="n">on</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+ <span class="nb">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="s1">'b'</span><span class="p">,</span><span class="s1">'linewidth'</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+ <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'t(months)'</span><span class="p">,</span><span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span><span class="nb">ylabel</span><span class="p">(</span><span class="s1">'R(t)()'</span><span class="p">,</span><span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span>
+<span class="nb">grid</span> <span class="n">on</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">plot3</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="s1">'linewidth'</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">grid</span> <span class="n">on</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'S'</span><span class="p">,</span> <span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span><span class="nb">ylabel</span><span class="p">(</span><span class="s1">'E'</span><span class="p">,</span><span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span><span class="nb">zlabel</span><span class="p">(</span><span class="s1">'I'</span><span class="p">,</span><span class="s1">'fontsize'</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+<span class="c1">%plottools</span>
+</code></pre></div></div>
+
+<p><img src="./../../assets/imgs/WP99/P0005/LeontineSeminar-md_02.png" alt="" /></p>
+
+<p>Ploting the function beta we have</p>
+
+<h2 id="step-2-we-create-a-matlab-file-for-our-ode-system">STEP 2. we create a matlab file for our ODE system%%</h2>
+
+<h2 id="step-3--we-create-another-file-and-in-this-file-we-whrite-a-code-in-order-to-plot-the-trajectories-of-our-sytem">STEP 3  we create another file, and in this file we whrite a code in order to plot the trajectories of our sytem.</h2>
+
+<p>Ploting the function beta we have <img src="extradata/average_Meningitisspreadwithclimatechangesbeta(t).png" alt="" /></p>
+
+<h2 id="step-4-dynamic-of-system-with-beta-constant">STEP 4 dynamic of system with beta constant</h2>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% ![](extradata/average_Meningistisspreadwithoutclimatechangebeta=0.35.png)</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">meningitev2</span><span class="p">(</span> <span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="c1">%%%%%%%%%%%%%%%%%%we declare  values of constante parameters of models %%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="n">Lambda</span><span class="o">=</span> <span class="mi">10</span> <span class="p">;</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.021</span> <span class="p">;</span> <span class="n">pi1</span> <span class="o">=</span> <span class="mf">0.6</span>  <span class="p">;</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.5</span> <span class="p">;</span> <span class="n">rho</span><span class="o">=</span><span class="mf">0.5</span><span class="p">;</span>
+<span class="n">delta</span><span class="o">=</span><span class="mf">0.2</span> <span class="p">;</span> <span class="n">a</span><span class="o">=</span><span class="mf">0.6</span>
+ <span class="c1">%  Now we compute the function parameter beta   %</span>
+<span class="n">tNew</span><span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">13</span><span class="p">;</span>
+<span class="n">W1</span><span class="o">=</span><span class="p">[</span><span class="nb">sin</span><span class="p">(</span><span class="n">tNew</span><span class="p">/</span><span class="mi">2</span><span class="p">/</span><span class="nb">exp</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nb">pi</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">]/</span><span class="mi">2</span>
+<span class="n">W</span><span class="o">=</span><span class="nb">interp1</span><span class="p">(</span><span class="n">tNew</span><span class="p">,</span><span class="n">W1</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="s1">'cubic'</span><span class="p">);</span>
+<span class="c1">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="c1">%To comput directly the value of thereshold %%%%%%%</span>
+<span class="n">R_0</span><span class="o">=</span> <span class="p">(</span><span class="n">W</span><span class="o">*</span><span class="n">pi1</span><span class="o">*</span><span class="n">Lambda</span><span class="o">*</span><span class="n">a</span><span class="p">)/(</span><span class="n">mu</span><span class="o">*</span><span class="p">(</span><span class="n">mu</span><span class="o">+</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">mu</span><span class="o">+</span><span class="n">sigma</span><span class="o">+</span><span class="n">rho</span><span class="p">))</span>
+
+<span class="c1">%%%%%%%%%%%%%%% the system %%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="n">Z</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span><span class="n">Lambda</span> <span class="o">+</span> <span class="n">delta</span><span class="o">*</span><span class="n">y</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">mu</span><span class="o">*</span><span class="n">y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">W</span><span class="o">*</span><span class="n">y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="n">y</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+<span class="n">Z</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">=</span> <span class="n">W</span><span class="o">*</span><span class="n">y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="n">y</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">-</span> <span class="p">(</span><span class="n">mu</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">Z</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="n">pi1</span><span class="o">*</span><span class="n">a</span> <span class="o">*</span><span class="n">y</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">mu</span><span class="o">+</span><span class="n">sigma</span><span class="o">+</span><span class="n">rho</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">Z</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span>  <span class="n">rho</span><span class="o">*</span><span class="n">y</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">pi1</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">y</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="p">(</span> <span class="n">delta</span><span class="o">+</span><span class="n">mu</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">Z</span><span class="o">=</span> <span class="p">[</span><span class="n">Z</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">Z</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">Z</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">Z</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span><span class="o">'</span><span class="p">;</span>
+<span class="c1">% we are goind to create another matlab file val_meningitev2</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 a =
 
     0.6000
@@ -14072,19 +12504,59 @@ R_0 =
   262.5565
 
 
+</code></pre></div></div>
 
 
-</description>
-        <pubDate>Thu, 18 Oct 2018 00:00:00 +0200</pubDate>
-        <link>https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0005-T</link>
-        <guid isPermaLink="true">https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0005-T</guid>
-        
-        
-        <category>Tutorials</category>
-        
-        <category>WP99</category>
-        
-      </item>
-    
-  </channel>
-</rss>
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/dycon-platform-documentation/tutorials/wp02/P0001-T" data-toggle="tooltip" data-placement="top" title="Gradient Descent in semilinear control">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/dycon-platform-documentation/tutorials/wp01/P0004-T" data-toggle="tooltip" data-placement="top" title="Synchronized Oscillators">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<hr>
+
+
+	
+    <!-- Footer -->
+<footer>
+
+
+    <hr>
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                                <img style="width: 300px;" src="/dycon-platform-documentation/img/logos/UAMweb.png " alt="">
+                        </li>			
+                        <li>
+                            <img style="width: 250px;" src="/dycon-platform-documentation/img/logos/DeustoTech.png " alt="">
+                        </li>	
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+</footer>
+
+
+
+</body>
+
+</html>
