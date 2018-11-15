@@ -202,7 +202,7 @@
 					</span>	
 					<span>on July 21, 2018</span>
 					
-						<p>PATH: Tutorials/WP01_Control_of_parameter_dependent_problems/</p>
+						<p>PATH: Tutorials/WP01_Control_of_parameter_dependent_problems/P0001</p>
 					
                 </div>
             </div>
@@ -382,9 +382,20 @@ img:active{
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<p>In this work, we address the optimal control of parameter-dependent systems. We introduce the notion of averaged control in which the quantity of interest is the average of the states with respect to the parameter family <script type="math/tex">\mathcal{K}= \left\{ \nu_i \in \mathbb{R}, \enspace 1\leq i \leq K \right\}.</script></p>
+				<p>In this work, we address the concept of optimal control of parameter-dependent systems. We introduce the notion of averaged control in which the quantity of interest is the average of the states with respect to the parameter family <script type="math/tex">\mathcal{K}= \left\{ \nu_i \in \mathbb{R}, \enspace 1\leq i \leq K \right\}.</script></p>
 
-<p>In this case $\nu_i$ are:</p>
+<p>Our objective it to solve the minimization problem</p>
+
+<script type="math/tex; mode=display">\begin{equation*} \min_{u \in L^2(0,T)} \mathcal{J}\left( u\right) = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}| \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ \end{equation*}</script>
+
+<p>Subject to the finite dimensional linear control system</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}  \left\{ \begin{array}{ll} x^\prime \left( t \right) = A \left( \nu \right) x \left( t \right) + B \left( \nu \right) u \left( t \right), \quad 0 < t <T, \\ x\left( 0 \right) = x^0. \end{array} \right. \end{align*} %]]></script>
+
+<p>Then, a control $u\left( t \right)$ independent of the parameter $\nu$ will be performed in order to minimize the distance between the average of the final states and a given final target.</p>
+
+<p>In this case $\nu_i$ are</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nu</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.5</span><span class="p">:</span><span class="mi">6</span>
 </code></pre></div></div>
@@ -406,14 +417,10 @@ nu =
 <p>And save in K, the number of values</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">K</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="n">nu</span><span class="p">);</span>
+<span class="c1">%</span>
 </code></pre></div></div>
 
-<p>Where the finite dimensional linear control system is:</p>
-
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{align*}  \left\{ \begin{array}{ll} x^\prime \left( t \right) = A \left( \nu \right) x \left( t \right) + B \left( \nu \right) u \left( t \right), \quad 0 < t <T, \\ x\left( 0 \right) = x^0. \end{array} \right. \end{align*} %]]></script>
-
-<p>We can, define the initial state of all ode’s</p>
+<p>We can, define the initial state of all ODE’s</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">N</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">% dimension of vector state</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
@@ -458,11 +465,11 @@ Bm =
 
 <p>So, we can create these edo’s in variable primal_odes.</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">primal_odes</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="s1">'ode'</span><span class="p">);</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">primal_odes</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="s1">'LinearODE'</span><span class="p">);</span>
 <span class="k">for</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">K</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">Am</span> <span class="o">+</span> <span class="p">(</span><span class="n">nu</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">)</span><span class="o">*</span><span class="nb">diag</span><span class="p">(</span><span class="nb">diag</span><span class="p">(</span><span class="n">Am</span><span class="p">));</span>
     <span class="c1">%</span>
-    <span class="n">primal_odes</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="n">Bm</span><span class="p">);</span>
+    <span class="n">primal_odes</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">=</span> <span class="n">LinearODE</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="n">Bm</span><span class="p">);</span>
     <span class="c1">% all have the same control</span>
     <span class="n">primal_odes</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">u</span>  <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
     <span class="c1">% time intervals</span>
@@ -480,7 +487,7 @@ Bm =
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 primal_odes = 
 
-  1x11 ode array with properties:
+  1x11 LinearODE array with properties:
 
     A
     B
@@ -493,36 +500,32 @@ primal_odes =
 
 </code></pre></div></div>
 
-<p>To solve average control problem to x0; in this case:</p>
+<p>We take as final target</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xt</span> <span class="o">=</span> <span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xt</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 xt =
 
-     1
-     1
-     1
+     0
+     0
+     0
 
 
 </code></pre></div></div>
 
-<p>we can solve the minimization problem</p>
-
-<script type="math/tex; mode=display">\begin{equation*} \min_{u \in L^2(0,T)} \mathcal{J}\left( u\right) = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{K} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ \end{equation*}</script>
-
-<p>We can use the classical gradient descent method based on the adjoint methodology, and obtain the corresponding adjoint system for <sup id="fnref:fn"><a href="#fn:fn" class="footnote">1</a></sup>,</p>
+<p>We can use the classical gradient descent method based on the adjoint methodology to obtain the iterative method in order to compute the optimal control. Applying this methodology we obtain the corresponding adjoint system for <sup id="fnref:fn"><a href="#fn:fn" class="footnote">1</a></sup>,</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
-\begin{align*} \left\{ \begin{array}{ll} p^\prime \left( t \right) = -A \left( \nu \right) p \left( t \right), \quad 0 < t <T, \\ \displaystyle p\left( T \right) = - \left[ \frac{1}{K} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]. \end{array} \right. \end{align*} %]]></script>
+\begin{align*} \left\{ \begin{array}{ll} p^\prime \left( t, \nu \right) = -A \left( \nu \right) p \left( t,\nu \right), \quad 0 < t <T, \\ \displaystyle p\left( T \right) = - \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]. \end{array} \right. \end{align*} %]]></script>
 
 <p>The same way that before, we define the adjoints problems</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adjoint_odes</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="s1">'ode'</span><span class="p">);</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adjoint_odes</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="s1">'LinearODE'</span><span class="p">);</span>
 <span class="k">for</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">K</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">primal_odes</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">A</span><span class="o">'</span><span class="p">;</span>
-    <span class="n">adjoint_odes</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+    <span class="n">A</span> <span class="o">=</span><span class="n">primal_odes</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">A</span><span class="o">'</span><span class="p">;</span>
+    <span class="n">adjoint_odes</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">=</span> <span class="n">LinearODE</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
     <span class="c1">% all have the same control</span>
     <span class="n">adjoint_odes</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
     <span class="c1">% time intervals</span>
@@ -530,11 +533,11 @@ xt =
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>However the initial state  <code class="highlighter-rouge">adjoint_odes(index).x0</code> hasn’t been assign. This initial state will be assign in every step of solution.</p>
+<p>However the initial state  <code class="highlighter-rouge">adjoint_odes(index).x0</code> has not been assign. This initial state will be assign in every step of solution.</p>
 
 <p>To minimize the functional, $\mathcal{J}\left( u\right)$, we take the steepest descent direction given by</p>
 
-<script type="math/tex; mode=display">\begin{equation*} u^{\left( k+1 \right)} = u^{\left( k \right)} - \gamma J^\prime \left[ u^{\left( k \right)} \right] \end{equation*}</script>
+<script type="math/tex; mode=display">\begin{equation*} u^{\left( k+1 \right)} = u^{\left( k \right)} - \gamma \left( \beta u^{\left( k \right)}-\frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} B^{\top}p \left( t,\nu \right) \right) \end{equation*}</script>
 
 <p>We process to solve the problem of classical gradient descent</p>
 
@@ -542,10 +545,10 @@ xt =
 <span class="nb">beta</span>  <span class="o">=</span> <span class="mf">1e-3</span><span class="p">;</span>
 <span class="n">tol</span>   <span class="o">=</span> <span class="mf">1e-8</span><span class="p">;</span>  <span class="c1">% Tolerance</span>
 <span class="nb">error</span> <span class="o">=</span> <span class="n">Inf</span><span class="p">;</span>
-<span class="n">MaxIter</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+<span class="n">MaxIter</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
 <span class="n">iter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">xhistory</span> <span class="o">=</span> <span class="p">{};</span> <span class="n">uhistory</span> <span class="o">=</span> <span class="p">{};</span>  <span class="n">error_history</span> <span class="o">=</span> <span class="p">[];</span>    <span class="c1">% array here we will save the evolution of average vector states</span>
-<span class="k">while</span> <span class="p">(</span><span class="nb">error</span> <span class="o">&gt;</span> <span class="n">tol</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">iter</span> <span class="o">&lt;</span> <span class="n">MaxIter</span><span class="p">)</span>
+<span class="k">while</span> <span class="p">(</span><span class="nb">error</span> <span class="o">&gt;</span> <span class="n">tol</span> <span class="o">&amp;&amp;</span> <span class="n">iter</span> <span class="o">&lt;</span> <span class="n">MaxIter</span><span class="p">)</span>
     <span class="n">iter</span> <span class="o">=</span> <span class="n">iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
     <span class="c1">% solve primal problem</span>
     <span class="c1">% ====================</span>
@@ -616,7 +619,7 @@ xt =
 
 <p>You can use the comand</p>
 
-<p><code class="highlighter-rouge">animation_sol(xhistory,uhistory,'XLim',[-0.1 0.25],'ULim',[-0.5 0.0])</code></p>
+<p><code class="highlighter-rouge">animation(xhistory,uhistory,'XLim',[-0.1 0.25],'ULim',[-0.5 0.0])</code></p>
 
 <p>We can see <img src="../../assets/imgs/WP01/P0001/average_control.gif" alt="Evolution in each iteration" /></p>
 

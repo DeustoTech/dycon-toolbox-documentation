@@ -36,11 +36,6 @@ callback([
   } ,
 
   {
-    "text": "Leontine Seminar",
-    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0005-T"
-  } ,
-
-  {
     "text": "Synchronized Oscillators",
     "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp01/P0004-T"
   } ,
@@ -83,6 +78,11 @@ callback([
   {
     "text": "Stabilization of a population dynamics model subject to a high rate of immigration",
     "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0010-T"
+  } ,
+
+  {
+    "text": "Stability analysis of Power Electronic Converters Connected to AC Grids",
+    "href": "https://DeustoTech.github.io/dycon-platform-documentation/tutorials/wp99/P0012-T"
   } 
 
 ])
