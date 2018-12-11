@@ -4,6 +4,14 @@
   padding: 100px 0 50px;
   color: rgb(0, 0, 0);
 }
+.post-title {
+  text-align: center;
+  padding: 10px;
+}
+.title {
+  color: black;
+  padding-top: 50px;
+}
 body {
 font-family: 'Lusitana', serif;
   font-size: 18px;
@@ -41,11 +49,10 @@ a img:hover,
 a img:focus {
 }
 
-img {
+/*img {
   padding-top: 25px;
   padding-bottom: 25px;
-
-}
+}*/
 blockquote {
   color: #808080;
   font-style: italic;
@@ -68,6 +75,10 @@ hr.small {
 .navbar-custom .navbar-brand {
   font-weight: 800;
 }
+.navbar-custom .navbar-brand > img {
+  padding-bottom: 20px;
+  height: 50px;
+}
 .navbar-custom .nav li a {
   text-transform: uppercase;
   font-size: 12px;
@@ -82,7 +93,6 @@ hr.small {
   }
   .navbar-custom .navbar-brand {
     color:black;
-    padding: 20px;
   }
   .navbar-custom .navbar-brand:hover,
   .navbar-custom .navbar-brand:focus {
@@ -153,6 +163,9 @@ hr.small {
   background-size: cover;
   -o-background-size: cover;
   margin-bottom: 20px;
+}
+.front-page-start-container {
+  padding-top: 20px;
 }
 @media only screen and (min-width: 768px) {
   .intro-header .site-heading,
@@ -440,18 +453,18 @@ th {
 }
 
 div.float-right{
-    width:300px;
-    position:fixed;
-    right:0;
+  width:300px;
+  position:fixed;
+  right:0;
 	/* margin-top:50px; */
 	margin-right:2%;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-div.float-left{
-    width:300px;
-    position:fixed;
-    left:0;
+div.float-left {
+  width:300px;
+  position:fixed;
+  left:0;
 	/* margin-top:50px; */
 	margin-left:2%;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
