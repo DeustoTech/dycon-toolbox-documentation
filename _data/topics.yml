@@ -3,12 +3,12 @@
 #   description: blabla
 TP02:
   name: Optimal Control
-  description: blabla
+  description: Optimal control deals with the problem of finding a control law for a given system such that a certain optimality criterion is achieved. A control problem includes a cost functional that is a function of state and control variables. The optimal control can be derived using Pontryagin's maximum principle or by solving the Hamilton–Jacobi–Bellman equation (a sufficient condition).
 
 TP03:
   name: Average Control
-  description: blabla
-  
+  description: Averaged control is a first important concept that aims to control the averaged dynamics. This is often a challenging issue since the model governing the evolution of the averaged dynamics is usually hard to be determined and may change type with respect to the original parameter-depending dynamics.
+
 TP04:
   name: Consensus Problems
   description: blabla
