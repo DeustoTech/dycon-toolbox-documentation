@@ -19,7 +19,7 @@ font-family: 'Lusitana', serif;
 }
 p {
   line-height: 1.5;
-  margin: 0px 0;
+  margin: 15px 0;
 }
 p a {
   text-decoration: underline;
@@ -484,4 +484,12 @@ hr.style-one {
     height: 1px;
     background: #333;
     background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+
+
+#wrapper {
+  height: 250px;
+  width: 100%;
+  overflow: auto;
 }

@@ -1,12 +1,10 @@
 ---
 layout: project
-title: "Functions"
+title: "Documentation"
 description: "Documentation of Dycon Platform functions and classes"
-header-img: "img/home-bg.gif"
-category: Documentation
 ---
 {% for post in site.posts %}
-{% if post.categories contains page.title %}
+{% if post.categories[0] contains 'documentation' %}
 <hr>
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
