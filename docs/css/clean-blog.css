@@ -85,6 +85,12 @@ hr.small {
   font-weight: 800;
   letter-spacing: 1px;
 }
+/* Downloads Page */
+.inst-guide { padding-top: 25px;}
+.rel_date { float: right; }
+.sha256 {
+    display: block;
+}
 @media only screen and (min-width: 768px) {
   .navbar-custom {
     background: transparent;
