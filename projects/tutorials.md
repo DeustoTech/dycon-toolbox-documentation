@@ -20,7 +20,7 @@ description: "The tutorials of Dycon Platform"
 <li style="list-style-type:none">
     <div  class="post-preview">
             <a href="{{ post.url | prepend: site.baseurl }}" style="display: block">
-            <p class="post-title"> &#9673; {{ post.title }} <small><p class="post-subtitle">{{ post.subtitle }}</p></small></p>
+            <p class="post-title"> &#9673; {{ post.title }} <small><p class="post-subtitle">{{ post.description }}</p></small></p>
                 <small style="color:grey">
                             {% for aut in post.author %}
                             &#9702; {{site.data.members[\"aut\"].name}} 

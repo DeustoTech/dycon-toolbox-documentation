@@ -8,9 +8,10 @@ TP02:
 TP03:
   name: Average Control
   description: blabla
-# TP04:
-#   name: Stabilization 
-#   description: blabla
+  
+TP04:
+  name: Consensus Problems
+  description: blabla
 
 # TP05: 
 #   name: StabilityAnalisys

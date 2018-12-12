@@ -449,7 +449,8 @@ th {
 	border-bottom-color: black;
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
-	border-collapse: collapse;
+  border-collapse: collapse;
+  padding: 5px
 }
 
 div.float-right{

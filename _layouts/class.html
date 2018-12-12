@@ -9,7 +9,7 @@ layout: default
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
                     <h1 class="post-title">{{ page.title }}</h1>
-                    <h2 class="subheading">{{ page.description }}</h2>
+                    <h2 class="subheading">MATLAB Class</h2>
           					<span class="meta">Created by:
           					{% for aut in page.author %}
           						<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="{{site.data.members[aut].web }}">{{ site.data.members[aut].name }}</a></span></span>
@@ -17,11 +17,48 @@ layout: default
           					</span>
           					<span>on {{ page.date | date: "%B %-d, %Y" }}</span>
                 </div>
+
+				{{page.description}}
+
+				<h1>Properties</h1>
+				<table>
+					<tr>
+						<th>Name</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+
+					</tr>
+					{% for vars in page.properties %}
+					<tr>
+                        <th>{{vars[0]}}</th>
+                        <th>{{vars[1].type}}</th>
+                        <th>{{vars[1].default}}</th>
+						<th>{{vars[1].description}}</th>
+					</tr>
+				{% endfor %}
+				</table>
+
+                
+				<h1>Methods</h1>
+				<table>
+					<tr>
+						<th>Name</th>
+                        <th>Description</th>
+
+					</tr>
+					{% for vars in page.methods %}
+					<tr>
+                        <th>{{vars[0]}}</th>
+						<th>{{vars[1].description}}</th>
+					</tr>
+				{% endfor %}
+				</table>
+
+                <h2>Example</h2>
+                {{content}}
             </div>
         </div>
     </div>
 </header>
 
-
-{{page.properties.Jfun}}
-{{content}}
