@@ -99,6 +99,16 @@ hr.small {
 .sha256 {
     display: block;
 }
+/* Documentation Page */
+.doc-header-title {
+  padding: 40px 0 0 0;
+  text-align: center;
+}
+/* Index page */
+.index-p {
+  padding-top: 20px;
+  text-align: left;
+}
 @media only screen and (min-width: 768px) {
   .navbar-custom {
     background: transparent;
@@ -204,7 +214,7 @@ hr.small {
   display: block;
   font-family: 'Lusitana', serif;
   font-weight: 300;
-  margin: 10px 0 0;
+  margin: 20px 0 0;
 }
 @media only screen and (min-width: 768px) {
   .intro-header .site-heading h1,
@@ -511,6 +521,8 @@ hr.style-one {
 
 
 .shadowbox{
-  padding:20px;
+  padding: 1px 20px 20px 20px;
+  margin: 20px 0 40px 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 4px;
 }
