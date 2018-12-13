@@ -1,5 +1,5 @@
 ---
-description: The problem control class is able to solve problems of optimization of a function restricted to an ordinary differential equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. This class has methods that help us find optimal control as well as the obtaining of the attached problem and the form of the derivative, in its symbolic and numerical versions.
+description: This class is able to solve optimization problems of a function restricted to an ordinary differential equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. <strong>ControlProblem</strong> class has methods that help us find optimal control as well as obtaining the attached problem and it's derivative form, in both symbolic and numerical versions.
 title: ControlProblem
 categories: [documentation, MDL01]
 layout: class
@@ -16,7 +16,19 @@ properties:
    T: 
       type: double
       default: 1
-      description: Final Time 
+      description: Final Time
+   dt: 
+   UOptimal: 
+   precision: 
+   P: 
+   adjoint: 
+   dH_du: 
+   Jhistory: 
+   yhistory: 
+   uhistory: 
+   iter: 
+   time: 
+   dimension: 
 methods:
    ControlProblem:
         name: ControlProblem
@@ -42,7 +54,7 @@ methods:
               default: iode.T 
           dt:
               name: Final Time 
-              description: 'This parameter represent is the interval to interpolate the control u and state y to obtain the functional J and the gradient dH/du'
+              description: "This parameter represent is the interval to interpolate the control u and state y to obtain the functional J and the gradient dH/du"
               class: double
               dimension: [1x1]
               default: iode.dt
@@ -112,6 +124,7 @@ methods:
               class: double
               dimension: [length(iCP.tline)]
               default:
+
 ---
 
 Ejemplo de control problem

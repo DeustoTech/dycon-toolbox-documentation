@@ -33,8 +33,8 @@ properties:
       type: "Functional"
       default: "none"
       description: "This property represent the cost of optimal control"
-   u: 
    addata: 
+   u: 
 methods:
    AverageControl:
         name: AverageControl
@@ -64,6 +64,87 @@ methods:
               class: double
               dimension: [1x1]
               default: iode.dt
+   animation:
+        description: Metodo de Es
+        autor: JOroya
+        MandatoryInputs:   
+        iCP: 
+           name: Control Problem
+           description: 
+           class: ControlProblem
+           dimension: [1x1]
+        OptionalInputs:
+        U0:
+           name: Initial Control 
+           description: matrix 
+           class: double
+           dimension: [length(iCP.tline)]
+           default:   empty
+   plot:
+        description: Metodo de Es
+        autor: JOroya
+        MandatoryInputs:   
+        iCP: 
+           name: Control Problem
+           description: 
+           class: ControlProblem
+           dimension: [1x1]
+        OptionalInputs:
+        U0:
+           name: Initial Control 
+           description: matrix 
+           class: double
+           dimension: [length(iCP.tline)]
+           default:   empty
+   solveClassicalGradient:
+        description: Metodo de Es
+        autor: JOroya
+        MandatoryInputs:   
+        iCP: 
+           name: Control Problem
+           description: 
+           class: ControlProblem
+           dimension: [1x1]
+        OptionalInputs:
+        U0:
+           name: Initial Control 
+           description: matrix 
+           class: double
+           dimension: [length(iCP.tline)]
+           default:   empty
+   solveConjugateGradient:
+        description: Metodo de Es
+        autor: JOroya
+        MandatoryInputs:   
+        iCP: 
+           name: Control Problem
+           description: 
+           class: ControlProblem
+           dimension: [1x1]
+        OptionalInputs:
+        U0:
+           name: Initial Control 
+           description: matrix 
+           class: double
+           dimension: [length(iCP.tline)]
+           default:   empty
+   solveStochasticGradient:
+        description: Metodo de Es
+        autor: JOroya
+        MandatoryInputs:   
+        iCP: 
+           name: Control Problem
+           description: 
+           class: ControlProblem
+           dimension: [1x1]
+        OptionalInputs:
+        U0:
+           name: Initial Control 
+           description: matrix 
+           class: double
+           dimension: [length(iCP.tline)]
+           default:   empty
+
 ---
 
 Average Control Help

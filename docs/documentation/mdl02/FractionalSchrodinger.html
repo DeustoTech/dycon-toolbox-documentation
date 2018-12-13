@@ -12,9 +12,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>FractionalLaplacian - DyCon Platform</title>
+    <title>FractionalSchrodinger - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl02/FractionalLaplacian">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl02/FractionalSchrodinger">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -128,10 +128,10 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">FractionalLaplacian <small>Function</small></h1>
+                    <h1 class="post-title">FractionalSchrodinger <small>Function</small></h1>
                 </div>
 
-                <p>Compute the rigidity matrix for solving the Poisson problem $$(-\Delta)^s u = F  \ \in (-L,L)$$ $$u=0,              \   \in R(-L,L)$$ using linear finite elements on a mesh of N points</p>
+                <p>Solver the fractional Schrodinger equation in 1d</p>
                 <h1>Input Parameters</h1>
                 <h4>Madatory</h4>
 				<table>
@@ -144,10 +144,38 @@
 					</tr>
 					
 					<tr>
-                        <th>iCP</th>
-                        <th>ControlProblem</th>
-                        <th>1x1</th>
-						<th></th>
+                        <th>s</th>
+                        <th>double</th>
+                        <th>1</th>
+						<th>Order of the fractional Laplacian $(-dx^2)^s$</th>
+					</tr>
+				
+					<tr>
+                        <th>L</th>
+                        <th>double</th>
+                        <th>1</th>
+						<th>Define the interval of x, So x \in (-L,L)</th>
+					</tr>
+				
+					<tr>
+                        <th>N</th>
+                        <th>integer</th>
+                        <th>1</th>
+						<th>number of points in the space discretization</th>
+					</tr>
+				
+					<tr>
+                        <th>T</th>
+                        <th>double</th>
+                        <th>1</th>
+						<th>length of the time interval</th>
+					</tr>
+				
+					<tr>
+                        <th>u0</th>
+                        <th>function handle</th>
+                        <th>1</th>
+						<th>initial datum u0(x)</th>
 					</tr>
 				
                 </table>
@@ -164,11 +192,27 @@
 					</tr>
 					
 					<tr>
-                        <th>U0</th>
-                        <th>matrix</th>
+                        <th>x</th>
+                        <th>space partition</th>
                         <th>double</th>
-                        <th>length(iCP.tline)</th>
-						<th>empty</th>
+                        <th>1x(N+2)</th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>t</th>
+                        <th>time partition</th>
+                        <th>double</th>
+                        <th>1xNt (Nt defined applying the CFL condition)</th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>u</th>
+                        <th>solution of the equation</th>
+                        <th>double</th>
+                        <th>NxNt</th>
+						<th></th>
 					</tr>
 				
                 </table>
@@ -184,19 +228,11 @@
     
                         </tr>
                         
-                        <tr>
-                            <th>A</th>
-                            <th>double</th>
-                            <th>NxN</th>
-                            <th>Mass Matrix of Fractional Laplacian</th>
-                        </tr>
-                    
                     </table>
                 <hr>
 
                 <h1>Example</h1>
-                <p>Ejemplo de Fractional</p>
-
+                <p>```matlab</p>
 
 
             </div>

@@ -1,7 +1,10 @@
 ---
 data:
-  description: Metodo de Es
-  autor: JOroya
+  description: Compute the rigidity matrix for solving the Poisson problem
+                    $$(-\Delta)^s u = F  \ \in (-L,L)$$
+                    $$u=0,              \   \in R(-L,L)$$
+                    using linear finite elements on a mesh of N points
+  autor: UmbertoB
   MandatoryInputs:   
     iCP: 
         name: Control Problem Object

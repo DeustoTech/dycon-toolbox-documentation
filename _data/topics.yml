@@ -6,7 +6,7 @@ TP02:
   description: The main objective in optimal control theory is to determine the best control for a given system. Optimal Control deals with the computation of this control by solving an optimization problem of the form $$\min_{u} J(x,u)$$  where $J(x,u)$ is the cost functional, that is, a function of state and control variables. Optimal control problems can be derived using Pontryagin's maximum principle or by solving the Hamilton–Jacobi–Bellman equation (a sufficient condition).
 
 TP03:
-  name: Average Control
+  name: Control of parameter dependent problems
   description: Given a parameter-dependent system, the controllability  of this system can be addressed from different perspectives. The classical is the simultaneous controllability that consists of controlling each specific realization. The averaged control consists of controlling the average of the states with respect to the parameter, rather than controlling each realization what can be very expensive.
 
 TP04:
