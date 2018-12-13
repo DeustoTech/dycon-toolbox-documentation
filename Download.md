@@ -4,6 +4,7 @@ title: Downloads
 description: "Releases of the DyCon Toolbox"
 ---
 
+{::nomarkdown}
 <div>
   <ul>
     <li>
@@ -22,3 +23,4 @@ description: "Releases of the DyCon Toolbox"
     Explanation: Bla bla bla + links
   </div>
 </div>
+{:/nomarkdown}

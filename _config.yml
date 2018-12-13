@@ -1,7 +1,6 @@
 # Site settings
 title: DyCon Platform
-#description: "This MATLAB software is devoted to the development and learning of control problems for applied mathematics."
-description: "Welcome to the web layer of the computational platform developed within the ERC DyCon - Dynamic Control project."
+description: Welcome to the web interface of DyCon Toolbox, the computational platform developed within the <a href='https://cmc.deusto.eus/dycon/' target='_blank'>ERC DyCon - Dynamic Control</a> project.
 
 scholar:
   style: apa
