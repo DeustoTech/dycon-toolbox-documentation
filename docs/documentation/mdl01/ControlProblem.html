@@ -42,15 +42,20 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	<!-- Math Jax -->
-	<script type="text/x-mathjax-config">
-	MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-	</script>
-	<script type="text/javascript"
-	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-	</script>
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 	<script type="text/x-mathjax-config">
 	MathJax.Hub.Config({
-		TeX: { equationNumbers: { autoNumber: "AMS" } }
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']]
+    },
+		TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    /*CommonHTML: {
+      scale: 300
+    }*/
 	});
 	</script>
 
@@ -126,7 +131,7 @@
                     <h1 class="post-title">ControlProblem <small>Class</small></h1>
                 </div>
 
-				The problem control class is able to solve problems of optimization of a function restricted to an ordinary differential equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. This class has methods that help us find optimal control as well as the obtaining of the attached problem and the form of the derivative, in its symbolic and numerical versions.
+				This class is able to solve optimization problems of a function restricted to an ordinary differential equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. <strong>ControlProblem</strong> class has methods that help us find optimal control as well as obtaining the attached problem and it's derivative form, in both symbolic and numerical versions.
 
 				<h1>Properties</h1>
 				<table>
@@ -381,7 +386,6 @@
 
                 <h2>Example</h2>
                 <p>Ejemplo de control problem</p>
-
 
             </div>
         </div>

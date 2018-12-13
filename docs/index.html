@@ -42,15 +42,20 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	<!-- Math Jax -->
-	<script type="text/x-mathjax-config">
-	MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-	</script>
-	<script type="text/javascript"
-	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-	</script>
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 	<script type="text/x-mathjax-config">
 	MathJax.Hub.Config({
-		TeX: { equationNumbers: { autoNumber: "AMS" } }
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']]
+    },
+		TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    /*CommonHTML: {
+      scale: 300
+    }*/
 	});
 	</script>
 
@@ -132,6 +137,7 @@
                     </p>
                     <ul>
                       <li>
+                        DyCon Toolbox helps you develop and bridge the gap to
                         The main goal of the toolbox is to help bridging the gap to real life problems
                         in various fields, such as medicine, waste management, etc.
                       </li>
@@ -139,9 +145,9 @@
                     <p>
                       The DyCon MATLAB Toolbox is primarily developed by the <a href="https://cmc.deusto.eus"
                       target="_blank"> Chair of Computational Mathematics</a>, in DeustoTech. However,
-                      we welcome any improvement and additions to the computational platform. For that,
-                      please contact Jesús Oroya(<a href="mailto:djoroya@deusto.es" target="_blank">
-                      djoroya@deusto.es</a>) for further information.
+                      we welcome any improvement and additions to the computational platform. Please contact
+                      Jesús Oroya(<a href="mailto:djoroya@deusto.es" target="_blank">djoroya@deusto.es</a>)
+                      for further information.
                     </p>
                     <p>
 

@@ -85,6 +85,14 @@ hr.small {
   font-weight: 800;
   letter-spacing: 1px;
 }
+.display-block {
+  display: block;
+}
+/* MathJax CSS */
+.MathJax {
+  font-size: 2em !important;
+}
+
 /* Downloads Page */
 .inst-guide { padding-top: 25px;}
 .rel_date { float: right; }
