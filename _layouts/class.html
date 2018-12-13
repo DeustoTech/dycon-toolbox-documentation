@@ -8,14 +8,7 @@ layout: default
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">{{ page.title }}</h1>
-                    <h2 class="subheading">MATLAB Class</h2>
-          					<span class="meta">Created by:
-          					{% for aut in page.author %}
-          						<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="{{site.data.members[aut].web }}">{{ site.data.members[aut].name }}</a></span></span>
-          					{% endfor %}
-          					</span>
-          					<span>on {{ page.date | date: "%B %-d, %Y" }}</span>
+                    <h1 class="post-title">{{ page.title }} <small>Class</small></h1>
                 </div>
 
 				{{page.description}}
@@ -41,19 +34,59 @@ layout: default
 
                 
 				<h1>Methods</h1>
-				<table>
-					<tr>
-						<th>Name</th>
-                        <th>Description</th>
 
-					</tr>
-					{% for vars in page.methods %}
-					<tr>
-                        <th>{{vars[0]}}</th>
-						<th>{{vars[1].description}}</th>
-					</tr>
-				{% endfor %}
-				</table>
+					{% for method in page.methods %}
+					<h3>{{method[0]}}</h3>
+					<p>{{method[1].description}}</p>
+					<h4>Mandatory Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						{% for var in method[1].MandatoryInputs %}
+						<tr>
+							<th>{{var[0]}}</th>
+							<th>{{var[1].description}}</th>
+							<th>{{var[1].class}}</th>
+						</tr>
+						{% endfor %}
+					</table>
+					<!--  -->
+					<h4>Optional Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						{% for var in method[1].OptionalInputs %}
+						<tr>
+							<th>{{var[0]}}</th>
+							<th>{{var[1].description}}</th>
+							<th>{{var[1].class}}</th>
+						</tr>
+						{% endfor %}
+					</table>
+					<!--  -->
+					<h4>Output Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						{% for var in method[1].Outputs %}
+						<tr>
+							<th>{{var[0]}}</th>
+							<th>{{var[1].description}}</th>
+							<th>{{var[1].class}}</th>
+						</tr>
+						{% endfor %}
+					</table>
+					<!--  -->
+					{% endfor %}
 
                 <h2>Example</h2>
                 {{content}}

@@ -1,73 +1,51 @@
 ---
-description: Control Problem Class
+description: The problem control class is able to solve problems of optimization of a function restricted to an ordinary differential equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. This class has methods that help us find optimal control as well as the obtaining of the attached problem and the form of the derivative, in its symbolic and numerical versions.
 title: ControlProblem
 categories: [documentation, MDL01]
 layout: class
 type: constructor
 properties:
    Jfun: 
-      description: "ControlProblem/Jfun is a property."
-      type: "ControlProblem/Jfun is a property."
+      type: "Functional"
+      default: "none"
+      description: "This property represent the cost of optimal control"
    ode: 
-      description: "ControlProblem/ode is a property."
-      type: "ControlProblem/ode is a property."
+      type: "ode"
+      default: "none"
+      description: "This property represent ordinal differential equation"
    T: 
-      description: "ControlProblem/T is a property."
-      type: "ControlProblem/T is a property."
-   dt: 
-      description: "ControlProblem/dt is a property."
-      type: "ControlProblem/dt is a property."
-   UOptimal: 
-      description: "ControlProblem/UOptimal is a property."
-      type: "ControlProblem/UOptimal is a property."
-   precision: 
-      description: ""
-      type: ""
-   P: 
-      description: ""
-      type: ""
-   adjoint: 
-      description: ""
-      type: ""
-   dH_du: 
-      description: ""
-      type: ""
-   Jhistory: 
-      description: ""
-      type: ""
-   yhistory: 
-      description: ""
-      type: ""
-   uhistory: 
-      description: ""
-      type: ""
-   iter: 
-      description: ""
-      type: ""
-   time: 
-      description: ""
-      type: ""
-   dimension: 
-      description: ""
-      type: ""
+      type: double
+      default: 1
+      description: Final Time 
 methods:
    ControlProblem:
-        name: GradientMethod
-        description: Metodo de Es
+        name: ControlProblem
+        description: 
         autor: JOroya
         MandatoryInputs:   
-          iCP: 
-              name: Control Problem
-              description: 
-              class: ControlProblem
+          iode: 
+              name: Ordinary Differential Equation 
+              description: Ordinary Differential Equation represent the constrain to minimization the functional 
+              class: ode
               dimension: [1x1]
+          Jfun: 
+              name: functional
+              description: Cost function to obtain the optimal control 
+              class: Functional
+              dimension: [1x1]        
         OptionalInputs:
-          U0:
-              name: Initial Control 
-              description: matrix 
+          T:
+              name: Final Time 
+              description: This parameter represent the final time of simulation.  
               class: double
-              dimension: [length(iCP.tline)]
-              default:
+              dimension: [1x1]
+              default: iode.T 
+          dt:
+              name: Final Time 
+              description: 'This parameter represent is the interval to interpolate the control u and state y to obtain the functional J and the gradient dH/du'
+              class: double
+              dimension: [1x1]
+              default: iode.dt
    GetAdjointProblem:
          description: Metodo de Es
          autor: JOroya
@@ -84,6 +62,7 @@ methods:
                class: double
                dimension: [length(iCP.tline)]
                default:
+         Output:
    GetFunctional:
         description: Metodo de Es
         autor: JOroya
@@ -133,13 +112,7 @@ methods:
               class: double
               dimension: [length(iCP.tline)]
               default:
-
 ---
 
-# tp8721c4b3_1c18_47c2_94bf_494a95565fd8
-
-
 Ejemplo de control problem
-
-
 

@@ -123,15 +123,10 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">AverageControl</h1>
-                    <h2 class="subheading">MATLAB Class</h2>
-          					<span class="meta">Created by:
-          					
-          					</span>
-          					<span>on January 1, 0001</span>
+                    <h1 class="post-title">AverageControl <small>Class</small></h1>
                 </div>
 
-				AVERAGECONTROL Summary of this class goes here Detailed explanation goes here
+				The Average Control class is able to calculate the average control given the matrices that depend on the parameter. It has as parameter the state where you want to take all the equations that depend on the parameters.
 
 				<h1>Properties</h1>
 				<table>
@@ -145,51 +140,51 @@
 					
 					<tr>
                         <th>A</th>
-                        <th>A -  A(:,:,K) with K number of parameter</th>
-                        <th></th>
-						<th>A -  A(:,:,K) with K number of parameter</th>
+                        <th>Functional</th>
+                        <th>none</th>
+						<th>This property represent the cost of optimal control</th>
 					</tr>
 				
 					<tr>
                         <th>B</th>
-                        <th>B -  B(:,:,K) with K number of parameter</th>
-                        <th></th>
-						<th>B -  B(:,:,K) with K number of parameter</th>
+                        <th>Functional</th>
+                        <th>none</th>
+						<th>This property represent the cost of optimal control</th>
 					</tr>
 				
 					<tr>
                         <th>x0</th>
-                        <th>x0 -  initial state of all ode's</th>
-                        <th></th>
-						<th>x0 -  initial state of all ode's</th>
+                        <th>Functional</th>
+                        <th>none</th>
+						<th>This property represent the cost of optimal control</th>
 					</tr>
 				
 					<tr>
                         <th>u0</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
+                        <th>Functional</th>
+                        <th>none</th>
+						<th>This property represent the cost of optimal control</th>
 					</tr>
 				
 					<tr>
                         <th>span</th>
-                        <th>span -  Time line [t0 : dt : T],</th>
-                        <th></th>
-						<th>span -  Time line [t0 : dt : T],</th>
+                        <th>Functional</th>
+                        <th>none</th>
+						<th>This property represent the cost of optimal control</th>
 					</tr>
 				
 					<tr>
                         <th>K</th>
-                        <th>K -  length of parameters list</th>
-                        <th></th>
-						<th>K -  length of parameters list</th>
+                        <th>Functional</th>
+                        <th>none</th>
+						<th>This property represent the cost of optimal control</th>
 					</tr>
 				
 					<tr>
                         <th>N</th>
-                        <th>N -  dimesion of vector state</th>
-                        <th></th>
-						<th>N -  dimesion of vector state</th>
+                        <th>Functional</th>
+                        <th>none</th>
+						<th>This property represent the cost of optimal control</th>
 					</tr>
 				
 					<tr>
@@ -210,34 +205,65 @@
 
                 
 				<h1>Methods</h1>
-				<table>
-					<tr>
-						<th>Name</th>
-                        <th>Description</th>
 
-					</tr>
 					
-					<tr>
-                        <th>AverageControl</th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>animation</th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>plot</th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>solveClassicalGradient</th>
-						<th></th>
-					</tr>
-				
-				</table>
+					<h3>AverageControl</h3>
+					<p>AverageControl constructor</p>
+					<h4>Mandatory Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+						<tr>
+							<th>iode</th>
+							<th>Ordinary Differential Equation represent the constrain to minimization the functional</th>
+							<th>ode</th>
+						</tr>
+						
+						<tr>
+							<th>Jfun</th>
+							<th>Cost function to obtain the optimal control</th>
+							<th>Functional</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Optional Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+						<tr>
+							<th>T</th>
+							<th>This parameter represent the final time of simulation.</th>
+							<th>double</th>
+						</tr>
+						
+						<tr>
+							<th>dt</th>
+							<th>This parameter represent is the interval to interpolate the control u and state y to obtain the functional</th>
+							<th>double</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Output Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					
 
                 <h2>Example</h2>
                 <p>Average Control Help</p>

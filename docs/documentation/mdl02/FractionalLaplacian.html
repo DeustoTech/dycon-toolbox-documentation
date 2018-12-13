@@ -12,9 +12,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>Documentation - DyCon Platform</title>
+    <title>FractionalLaplacian - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/projects/documentation">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl02/FractionalLaplacian">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -117,91 +117,88 @@
 </nav>
 
 
-    <!-- Page Header -->
+    <!-- Post Header -->
 <header class="intro-header">
-    <div class="container">
+    <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading" style="padding: 75px 0;">
-                      <h1 class="title">
-                        Documentation
-                      </h1>
-                    <hr class="small">
-                    <span class="subheading">Documentation of Dycon Platform functions and classes</span>
+                <div class="post-heading" style="padding: 0px 0">
+                    <h1 class="post-title">FractionalLaplacian <small>Function</small></h1>
                 </div>
+
+                <p>Metodo de Es</p>
+                <h1>Input Parameters</h1>
+                <h4>Madatory</h4>
+				<table>
+					<tr>
+						<th>Name</th>
+                        <th>Class</th>
+                        <th>Dimension</th>
+                        <th>Description</th>
+
+					</tr>
+					
+					<tr>
+                        <th>iCP</th>
+                        <th>ControlProblem</th>
+                        <th>1x1</th>
+						<th></th>
+					</tr>
+				
+                </table>
+                <hr>
+                <h4>Optional</h4>
+				<table>
+					<tr>
+						<th>Name</th>
+                        <th>Class</th>
+                        <th>Description</th>
+                        <th>Dimension</th>
+                        <th>Default</th>
+
+					</tr>
+					
+					<tr>
+                        <th>U0</th>
+                        <th>matrix</th>
+                        <th>double</th>
+                        <th>length(iCP.tline)</th>
+						<th>empty</th>
+					</tr>
+				
+                </table>
+                <hr>
+
+                <h1>Output Parameters</h1>
+				<table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Dimension</th>
+                            <th>Description</th>
+    
+                        </tr>
+                        
+                        <tr>
+                            <th>A</th>
+                            <th>double</th>
+                            <th>NxN</th>
+                            <th>Mass Matrix of Fractional Laplacian</th>
+                        </tr>
+                    
+                    </table>
+                <hr>
+
+                <h1>Example</h1>
+                <p>Ejemplo de Fractional</p>
+
+
+
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<h1>Classes</h1>
-
-<hr />
-
-<div class="post-preview">
-    <a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem">
-        <h2 class="post-title"> &#9673; ControlProblem
-        </h2>
-        <small>
-        The problem control class is able to solve problems of optimization of a function restricted to an ordinary differential equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. This class has methods that help us find optimal control as well as the obtaining of the attached problem and the form of the derivative, in its symbolic and numerical versions.
-        </small>
-
-    </a>
-</div>
-<hr />
-
-<hr />
-
-<div class="post-preview">
-    <a href="/dycon-platform-documentation/documentation/mdl01/AverageControl">
-        <h2 class="post-title"> &#9673; AverageControl
-        </h2>
-        <small>
-        The Average Control class is able to calculate the average control given the matrices that depend on the parameter. It has as parameter the state where you want to take all the equations that depend on the parameters.
-        </small>
-
-    </a>
-</div>
-<hr />
-
-<h1>Functions</h1>
-
-<hr />
-
-<div class="post-preview">
-    <a href="/dycon-platform-documentation/documentation/mdl02/FractionalLaplacian">
-        <h2 class="post-title"> &#9673; FractionalLaplacian
-        </h2>
-        <small>
-        
-        </small>
-
-    </a>
-</div>
-<hr />
-
-<hr />
-
-<div class="post-preview">
-    <a href="/dycon-platform-documentation/documentation/mdl01/ClassicalDescent">
-        <h2 class="post-title"> &#9673; ClassicalDescent
-        </h2>
-        <small>
-        
-        </small>
-
-    </a>
-</div>
-<hr />
-
-
-		</div>
-	</div>
-</div>
 
 
     <!-- Footer -->

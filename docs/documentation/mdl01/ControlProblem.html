@@ -123,15 +123,10 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">ControlProblem</h1>
-                    <h2 class="subheading">MATLAB Class</h2>
-          					<span class="meta">Created by:
-          					
-          					</span>
-          					<span>on January 1, 0001</span>
+                    <h1 class="post-title">ControlProblem <small>Class</small></h1>
                 </div>
 
-				Control Problem Class
+				The problem control class is able to solve problems of optimization of a function restricted to an ordinary differential equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. This class has methods that help us find optimal control as well as the obtaining of the attached problem and the form of the derivative, in its symbolic and numerical versions.
 
 				<h1>Properties</h1>
 				<table>
@@ -145,151 +140,247 @@
 					
 					<tr>
                         <th>Jfun</th>
-                        <th>ControlProblem/Jfun is a property.</th>
-                        <th></th>
-						<th>ControlProblem/Jfun is a property.</th>
+                        <th>Functional</th>
+                        <th>none</th>
+						<th>This property represent the cost of optimal control</th>
 					</tr>
 				
 					<tr>
                         <th>ode</th>
-                        <th>ControlProblem/ode is a property.</th>
-                        <th></th>
-						<th>ControlProblem/ode is a property.</th>
+                        <th>ode</th>
+                        <th>none</th>
+						<th>This property represent ordinal differential equation</th>
 					</tr>
 				
 					<tr>
                         <th>T</th>
-                        <th>ControlProblem/T is a property.</th>
-                        <th></th>
-						<th>ControlProblem/T is a property.</th>
-					</tr>
-				
-					<tr>
-                        <th>dt</th>
-                        <th>ControlProblem/dt is a property.</th>
-                        <th></th>
-						<th>ControlProblem/dt is a property.</th>
-					</tr>
-				
-					<tr>
-                        <th>UOptimal</th>
-                        <th>ControlProblem/UOptimal is a property.</th>
-                        <th></th>
-						<th>ControlProblem/UOptimal is a property.</th>
-					</tr>
-				
-					<tr>
-                        <th>precision</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>P</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>adjoint</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>dH_du</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>Jhistory</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>yhistory</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>uhistory</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>iter</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>time</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
-					</tr>
-				
-					<tr>
-                        <th>dimension</th>
-                        <th></th>
-                        <th></th>
-						<th></th>
+                        <th>double</th>
+                        <th>1</th>
+						<th>Final Time</th>
 					</tr>
 				
 				</table>
 
                 
 				<h1>Methods</h1>
-				<table>
-					<tr>
-						<th>Name</th>
-                        <th>Description</th>
 
-					</tr>
 					
-					<tr>
-                        <th>ControlProblem</th>
-						<th>Metodo de Es</th>
-					</tr>
-				
-					<tr>
-                        <th>GetAdjointProblem</th>
-						<th>Metodo de Es</th>
-					</tr>
-				
-					<tr>
-                        <th>GetFunctional</th>
-						<th>Metodo de Es</th>
-					</tr>
-				
-					<tr>
-                        <th>GetGradient</th>
-						<th>Metodo de Es</th>
-					</tr>
-				
-					<tr>
-                        <th>GradientMethod</th>
-						<th>Metodo de Es</th>
-					</tr>
-				
-				</table>
+					<h3>ControlProblem</h3>
+					<p></p>
+					<h4>Mandatory Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+						<tr>
+							<th>iode</th>
+							<th>Ordinary Differential Equation represent the constrain to minimization the functional</th>
+							<th>ode</th>
+						</tr>
+						
+						<tr>
+							<th>Jfun</th>
+							<th>Cost function to obtain the optimal control</th>
+							<th>Functional</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Optional Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+						<tr>
+							<th>T</th>
+							<th>This parameter represent the final time of simulation.</th>
+							<th>double</th>
+						</tr>
+						
+						<tr>
+							<th>dt</th>
+							<th>This parameter represent is the interval to interpolate the control u and state y to obtain the functional J and the gradient dH/du</th>
+							<th>double</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Output Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					
+					<h3>GetAdjointProblem</h3>
+					<p>Metodo de Es</p>
+					<h4>Mandatory Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+						<tr>
+							<th>iCP</th>
+							<th></th>
+							<th>ControlProblem</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Optional Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+						<tr>
+							<th>U0</th>
+							<th>matrix</th>
+							<th>double</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Output Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					
+					<h3>GetFunctional</h3>
+					<p>Metodo de Es</p>
+					<h4>Mandatory Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Optional Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Output Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					
+					<h3>GetGradient</h3>
+					<p>Metodo de Es</p>
+					<h4>Mandatory Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Optional Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Output Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					
+					<h3>GradientMethod</h3>
+					<p>Metodo de Es</p>
+					<h4>Mandatory Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+						<tr>
+							<th>iCP</th>
+							<th></th>
+							<th>ControlProblem</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Optional Input Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+						<tr>
+							<th>U0</th>
+							<th>matrix</th>
+							<th>double</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					<h4>Output Parameters</h4>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+					</table>
+					<!--  -->
+					
 
                 <h2>Example</h2>
-                <h1 id="tp8721c4b3_1c18_47c2_94bf_494a95565fd8">tp8721c4b3_1c18_47c2_94bf_494a95565fd8</h1>
-
-<p>Ejemplo de control problem</p>
+                <p>Ejemplo de control problem</p>
 
 
             </div>

@@ -8,20 +8,77 @@ layout: default
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">{{ page.title }}</h1>
-                    {% if page.subtitle %}
-                    <h2 class="subheading">{{ page.subtitle }}</h2>
-          					{% endif %}
-          					<span class="meta">Created by:
-          					{% for aut in page.author %}
-          						<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="{{site.data.members[aut].web }}">{{ site.data.members[aut].name }}</a></span></span>
-          					{% endfor %}
-          					</span>
-          					<span>on {{ page.date | date: "%B %-d, %Y" }}</span>
+                    <h1 class="post-title">{{ page.title }} <small>Function</small></h1>
                 </div>
+
+                <p>{{page.data.description}}</p>
+                <h1>Input Parameters</h1>
+                <h4>Madatory</h4>
+				<table>
+					<tr>
+						<th>Name</th>
+                        <th>Class</th>
+                        <th>Dimension</th>
+                        <th>Description</th>
+
+					</tr>
+					{% for vars in page.data.MandatoryInputs %}
+					<tr>
+                        <th>{{vars[0]}}</th>
+                        <th>{{vars[1].class}}</th>
+                        <th>{{vars[1].dimension}}</th>
+						<th>{{vars[1].description}}</th>
+					</tr>
+				{% endfor %}
+                </table>
+                <hr>
+                <h4>Optional</h4>
+				<table>
+					<tr>
+						<th>Name</th>
+                        <th>Class</th>
+                        <th>Description</th>
+                        <th>Dimension</th>
+                        <th>Default</th>
+
+					</tr>
+					{% for vars in page.data.OptionalInputs %}
+					<tr>
+                        <th>{{vars[0]}}</th>
+                        <th>{{vars[1].description}}</th>
+                        <th>{{vars[1].class}}</th>
+                        <th>{{vars[1].dimension}}</th>
+						<th>{{vars[1].default}}</th>
+					</tr>
+				{% endfor %}
+                </table>
+                <hr>
+
+                <h1>Output Parameters</h1>
+				<table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Dimension</th>
+                            <th>Description</th>
+    
+                        </tr>
+                        {% for vars in page.data.Outputs %}
+                        <tr>
+                            <th>{{vars[0]}}</th>
+                            <th>{{vars[1].class}}</th>
+                            <th>{{vars[1].dimension}}</th>
+                            <th>{{vars[1].description}}</th>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                <hr>
+
+                <h1>Example</h1>
+                {{content}}
+
             </div>
         </div>
     </div>
 </header>
-
 

@@ -1,54 +1,70 @@
 ---
-description: AVERAGECONTROL Summary of this class goes here Detailed explanation goes here
+description: The Average Control class is able to calculate the average control given the matrices that depend on the parameter. It has as parameter the state where you want to take all the equations that depend on the parameters.
 title: AverageControl
 categories: [documentation, MDL01]
 layout: class
 type: constructor
 properties:
    A: 
-      description: "A -  A(:,:,K) with K number of parameter"
-      type: "A -  A(:,:,K) with K number of parameter"
+      type: "Functional"
+      default: "none"
+      description: "This property represent the cost of optimal control"
    B: 
-      description: "B -  B(:,:,K) with K number of parameter"
-      type: "B -  B(:,:,K) with K number of parameter"
+      type: "Functional"
+      default: "none"
+      description: "This property represent the cost of optimal control"
    x0: 
-      description: "x0 -  initial state of all ode's"
-      type: "x0 -  initial state of all ode's"
+      type: "Functional"
+      default: "none"
+      description: "This property represent the cost of optimal control"
    u0: 
-      description: ""
-      type: ""
+      type: "Functional"
+      default: "none"
+      description: "This property represent the cost of optimal control"
    span: 
-      description: "span -  Time line [t0 : dt : T],"
-      type: "span -  Time line [t0 : dt : T],"
+      type: "Functional"
+      default: "none"
+      description: "This property represent the cost of optimal control"
    K: 
-      description: "K -  length of parameters list"
-      type: "K -  length of parameters list"
+      type: "Functional"
+      default: "none"
+      description: "This property represent the cost of optimal control"
    N: 
-      description: "N -  dimesion of vector state"
-      type: "N -  dimesion of vector state"
+      type: "Functional"
+      default: "none"
+      description: "This property represent the cost of optimal control"
    u: 
-      description: ""
-      type: ""
    addata: 
-      description: ""
-      type: ""
 methods:
    AverageControl:
-        A VERAGECONTROL Construct an instance of this class  Detailed explanation goes here
-   animation:
-       ANIMATION_SOL Summary of this function goes here
-          Detailed explanation goes here
-   plot:
-       LINE Summary of this function goes here
-          Detailed explanation goes here
-   solveClassicalGradient:
-       SOLVE_SG Summary of this function goes here
-          Detailed explanation goes here
-       
+        name: AverageControl
+        description: AverageControl constructor
+        autor: JOroya
+        MandatoryInputs:   
+          iode: 
+              name: Ordinary Differential Equation 
+              description: Ordinary Differential Equation represent the constrain to minimization the functional 
+              class: ode
+              dimension: [1x1]
+          Jfun: 
+              name: functional
+              description: Cost function to obtain the optimal control 
+              class: Functional
+              dimension: [1x1]        
+        OptionalInputs:
+          T:
+              name: Final Time 
+              description: This parameter represent the final time of simulation.  
+              class: double
+              dimension: [1x1]
+              default: iode.T 
+          dt:
+              name: Final Time 
+              description: "This parameter represent is the interval to interpolate the control u and state y to obtain the functional"
+              class: double
+              dimension: [1x1]
+              default: iode.dt
 ---
 
-
 Average Control Help
-
-
 
