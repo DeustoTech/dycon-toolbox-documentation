@@ -32,7 +32,7 @@ properties:
 methods:
    ControlProblem:
         name: ControlProblem
-        description:
+        description: TODO
         autor: JOroya
         MandatoryInputs:   
           iode:
@@ -66,7 +66,7 @@ methods:
               dimension: [1x1]
         url: /documentation/mdl01/ControlProblem/ControlProblem
    ClassicalDescent:
-         description: Metodo de Es
+         description: TODO
          autor: JOroya
          MandatoryInputs:   
            iCP:
@@ -133,7 +133,7 @@ methods:
                dimension: [1x1]
         url: /documentation/mdl01/ControlProblem/GetAdjointProblem
    GetFunctional:
-        description: Metodo de Es
+        description: TODO
         autor: JOroya
         MandatoryInputs:   
         iCP:
