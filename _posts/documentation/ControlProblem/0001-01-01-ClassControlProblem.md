@@ -64,7 +64,7 @@ methods:
               description: ControlProblem MATLAB class
               class: ControlProblem
               dimension: [1x1]
-        url: /documentation/MDL01/ControlProblem-ControlProblem
+        url: /documentation/MDL01/ControlProblem/ControlProblem
    ClassicalDescent:
          description: Metodo de Es
          autor: JOroya
@@ -100,7 +100,7 @@ methods:
                class: double
                dimension: [length(iCP.tline)]
                default: 
-         url: /documentation/MDL01/ControlProblem-ClassicalDescent
+         url: /documentation/MDL01/ControlProblem/ClassicalDescent
    GetAdjointProblem:
         little_description: Metodo capaz de calcular el problema adjunto de la ecuacion diferencial atravez del hamiltoniano
                              asociado (Principi de Pontriagin). Mediante la formula $ \frac{d\textbf{P}}{dt} = \vec{\nabla}_{Y} H $
@@ -131,7 +131,7 @@ methods:
                description: Control problem object
                class: ControlProblem
                dimension: [1x1]
-        url: /documentation/MDL01/ControlProblem-GetAdjointProblem
+        url: /documentation/MDL01/ControlProblem/GetAdjointProblem
    GetFunctional:
         description: Metodo de Es
         autor: JOroya
@@ -148,7 +148,7 @@ methods:
            class: double
            dimension: [length(iCP.tline)]
            default:   empty
-        url: /documentation/MDL01/ControlProblem-GetFunctional
+        url: /documentation/MDL01/ControlProblem/GetFunctional
    GetGradient:
         description: Metodo de Es
         autor: JOroya
@@ -165,7 +165,7 @@ methods:
            class: double
            dimension: [length(iCP.tline)]
            default:   empty
-        url: /documentation/MDL01/ControlProblem-GetGradient
+        url: /documentation/MDL01/ControlProblem/GetGradient
    GradientMethod:
         name: GradientMethod
         description: Metodo de Es
@@ -183,7 +183,7 @@ methods:
               class: double
               dimension: [length(iCP.tline)]
               default:
-        url: /documentation/MDL01/ControlProblem-GradientMethod
+        url: /documentation/MDL01/ControlProblem/GradientMethod
 
 ---
 

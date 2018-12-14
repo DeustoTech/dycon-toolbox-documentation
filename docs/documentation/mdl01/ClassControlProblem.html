@@ -12,9 +12,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>GradientMethod - DyCon Platform</title>
+    <title>ControlProblem - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/ControlProblem-GradientMethod">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/ClassControlProblem">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -128,44 +128,185 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">GradientMethod</h1> 
+                    <h1 class="post-title">ControlProblem <small>Class</small></h1>
                 </div>
 
-                <!-- MANDATORY INPUTS  -->
-                Metodo de Es
-                <h1>Mandatory Input Parameters</h1>
+				This class is able to solve optimization problems of a function restricted to an ordinary differential equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. <strong>ControlProblem</strong> class has methods that help us find optimal control as well as obtaining the attached problem and it's derivative form, in both symbolic and numerical versions.
 
-                <table>
-                    <tr>
-                        <th>Name</th>
+				<h1>Properties</h1>
+				<table>
+					<tr>
+						<th>Name</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
                         <th>Description</th>
-                        <th>class</th>
-                    </tr>
-                    
-                    <tr>
-                        <th>iCP</th>
+
+					</tr>
+					
+					<tr>
+                        <th>Jfun</th>
+                        <th>Functional</th>
+                        <th>none</th>
+						<th>This property represent the cost of optimal control</th>
+					</tr>
+				
+					<tr>
+                        <th>ode</th>
+                        <th>ode</th>
+                        <th>none</th>
+						<th>This property represent ordinal differential equation</th>
+					</tr>
+				
+					<tr>
+                        <th>T</th>
+                        <th>double</th>
+                        <th>1</th>
+						<th>Final Time</th>
+					</tr>
+				
+					<tr>
+                        <th>dt</th>
                         <th></th>
-                        <th>ControlProblem</th>
-                    </tr>
-                    
-
-                </table>
-
-                <!-- OPTIONAL INPUTS  -->
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>UOptimal</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>precision</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>P</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>adjoint</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>dH_du</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>Jhistory</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>yhistory</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>uhistory</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>iter</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>time</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+					<tr>
+                        <th>dimension</th>
+                        <th></th>
+                        <th></th>
+						<th></th>
+					</tr>
+				
+				</table>
 
                 
+				<h1>Methods</h1>
 
-                <!--  OUTPUTS -->
-                <h1>Output Parameters</h1>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>class</th>
-                    </tr>
-                    
-                </table>
-                                    <!--  -->
+					
+					<div class="shadowbox">
+						<h3>ControlProblem</h3>
+						<p></p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/ControlProblem">
+							<span>See more...</span>
+						</a>
+					</div>
+					
+					<div class="shadowbox">
+						<h3>ClassicalDescent</h3>
+						<p></p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/ClassicalDescent">
+							<span>See more...</span>
+						</a>
+					</div>
+					
+					<div class="shadowbox">
+						<h3>GetAdjointProblem</h3>
+						<p>Metodo capaz de calcular el problema adjunto de la ecuacion diferencial atravez del hamiltoniano asociado (Principi de Pontriagin). Mediante la formula $ \frac{d\textbf{P}}{dt} = \vec{\nabla}_{Y} H $</p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/GetAdjointProblem">
+							<span>See more...</span>
+						</a>
+					</div>
+					
+					<div class="shadowbox">
+						<h3>GetFunctional</h3>
+						<p></p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/GetFunctional">
+							<span>See more...</span>
+						</a>
+					</div>
+					
+					<div class="shadowbox">
+						<h3>GetGradient</h3>
+						<p></p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/GetGradient">
+							<span>See more...</span>
+						</a>
+					</div>
+					
+					<div class="shadowbox">
+						<h3>GradientMethod</h3>
+						<p></p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/GradientMethod">
+							<span>See more...</span>
+						</a>
+					</div>
+					
+
+                <h2>Example</h2>
+                <p>Ejemplo de control problem</p>
+
+
             </div>
         </div>
     </div>

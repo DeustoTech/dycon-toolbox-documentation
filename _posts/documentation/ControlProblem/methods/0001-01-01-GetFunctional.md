@@ -1,6 +1,5 @@
 ---
-title: GetGradient
-url: /documentation/MDL01/ControlProblem-GetGradient
+title: GetFunctional
 data: 
   description: Metodo de Es
   autor: JOroya
@@ -17,6 +16,6 @@ data:
      class: double
      dimension: [length(iCP.tline)]
      default:   empty
-categories: [ documentation ,MDL01,]
+categories: [ documentation , MDL01 , ControlProblem]
 layout: method
 ---
