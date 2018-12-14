@@ -1,6 +1,5 @@
 ---
 title: GetFunctional
-url: /documentation/MDL01/ControlProblem/GetFunctional
 data: 
   description: Metodo de Es
   autor: JOroya

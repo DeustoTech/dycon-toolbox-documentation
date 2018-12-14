@@ -1,6 +1,5 @@
 ---
 title: GetAdjointProblem
-url: /documentation/MDL01/ControlProblem/GetAdjointProblem
 data: 
   little_description: Metodo capaz de calcular el problema adjunto de la ecuacion diferencial atravez del hamiltoniano
                        asociado (Principi de Pontriagin). Mediante la formula $ \frac{d\textbf{P}}{dt} = \vec{\nabla}_{Y} H $

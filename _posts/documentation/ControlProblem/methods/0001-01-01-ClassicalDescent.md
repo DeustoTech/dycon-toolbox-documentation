@@ -1,6 +1,5 @@
 ---
 title: ClassicalDescent
-url: /documentation/MDL01/ControlProblem/ClassicalDescent
 data: 
    description: Metodo de Es
    autor: JOroya

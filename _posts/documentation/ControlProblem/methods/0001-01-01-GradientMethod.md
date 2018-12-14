@@ -1,6 +1,5 @@
 ---
 title: GradientMethod
-url: /documentation/MDL01/ControlProblem/GradientMethod
 data: 
   name: GradientMethod
   description: Metodo de Es

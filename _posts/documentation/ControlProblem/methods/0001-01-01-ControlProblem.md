@@ -1,6 +1,5 @@
 ---
 title: ControlProblem
-url: /documentation/MDL01/ControlProblem/ControlProblem
 data: 
   name: ControlProblem
   description: 

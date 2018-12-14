@@ -1,6 +1,5 @@
 ---
 title: GetGradient
-url: /documentation/MDL01/ControlProblem/GetGradient
 data: 
   description: Metodo de Es
   autor: JOroya
