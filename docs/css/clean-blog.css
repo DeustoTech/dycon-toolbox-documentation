@@ -1,8 +1,13 @@
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
-  padding: 100px 0 50px;
-  color: rgb(0, 0, 0);
+  padding: 50px 0 50px;
+}
+.intro-header .site-heading > h1 {
+  padding-bottom: 20px;
+}
+.intro-header .site-heading .subheading {
+  padding: 20px 0 20px;
 }
 .post-title {
   text-align: center;
@@ -20,6 +25,7 @@ font-family: 'Lusitana', serif;
 p {
   line-height: 1.5;
   margin: 15px 0;
+  color: black;
 }
 p a {
   text-decoration: underline;
@@ -192,10 +198,9 @@ hr.small {
   padding-top: 20px;
 }
 @media only screen and (min-width: 768px) {
-  .intro-header .site-heading,
-  .intro-header .post-heading,
-  .intro-header .page-heading {
-    padding: 150px 0;
+  .intro-header .site-heading h1,
+  .intro-header .page-heading h1 {
+    font-size: 60px;
   }
 }
 .intro-header .site-heading,
@@ -216,12 +221,7 @@ hr.small {
   font-weight: 300;
   margin: 20px 0 0;
 }
-@media only screen and (min-width: 768px) {
-  .intro-header .site-heading h1,
-  .intro-header .page-heading h1 {
-    font-size: 60px;
-  }
-}
+
 .intro-header .post-heading h1 {
   font-size: 35px;
 }
@@ -308,7 +308,7 @@ hr.small {
   border-bottom-left-radius: 5px;
 }
 footer {
-  padding: 50px 0 65px;
+  padding-bottom: 20px;
 }
 footer .list-inline {
   margin: 0;
