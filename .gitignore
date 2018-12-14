@@ -3,4 +3,3 @@ _site
 .jekyll-metadata
 *.DS_Store
 docs/feed.xml
-docs/*
