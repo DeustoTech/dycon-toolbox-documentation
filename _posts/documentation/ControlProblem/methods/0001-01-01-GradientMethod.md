@@ -1,6 +1,6 @@
 ---
 title: GradientMethod
-url: /documentation/MDL01/ControlProblem-GradientMethod
+url: /documentation/MDL01/ControlProblem/GradientMethod
 data: 
   name: GradientMethod
   description: Metodo de Es
@@ -18,6 +18,6 @@ data:
         class: double
         dimension: [length(iCP.tline)]
         default:
-categories: [ documentation ,MDL01,]
+categories: [ documentation , MDL01 , ControlProblem]
 layout: method
 ---

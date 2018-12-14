@@ -12,9 +12,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>GradientMethod - DyCon Platform</title>
+    <title>GetAdjointProblem - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/ControlProblem-GradientMethod">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/controlproblem/GetAdjointProblem">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -128,11 +128,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">GradientMethod</h1> 
+                    <h1 class="post-title">GetAdjointProblem</h1> 
                 </div>
 
                 <!-- MANDATORY INPUTS  -->
-                Metodo de Es
+                Este metodo agrega el problema adjunto al objecto ControlProblem, dado que tenemos $$ \dot{\textbf{Y}} = f(\textbf{Y},t) $$ y el funcional $$ J = \Psi(\textbf{Y}(T)) + \int_{0}^T L(\textbf{Y},U,t)dt $$ podemos crear el Hamiltoniano $$ H = L + P*F $$ donde $\textbf{P} = [p_1 p_2 p_3 ... ]^T$ . Entonces segun el principio del maximo de pontriagin podemos calcular el problemas adjunto mediantes las formulas $$ \frac{d\textbf{P}}{dt} = \vec{\nabla}_{Y} H = (\frac{\partial H}{ \partial y_1},\frac{\partial H}{ \partial y_2},...)$$ con la condicion final $$ \textbf{P}(T) = (\frac{\partial \Psi}{ \partial y_1},\frac{\partial \Psi}{ \partial y_2},...)$$
                 <h1>Mandatory Input Parameters</h1>
 
                 <table>
@@ -144,7 +144,7 @@
                     
                     <tr>
                         <th>iCP</th>
-                        <th></th>
+                        <th>Control problem object</th>
                         <th>ControlProblem</th>
                     </tr>
                     
@@ -162,6 +162,12 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>iCP</th>
+                        <th>Control problem object</th>
+                        <th>ControlProblem</th>
                     </tr>
                     
                 </table>
