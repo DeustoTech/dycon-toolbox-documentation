@@ -254,218 +254,53 @@
 				<h1>Methods</h1>
 
 					
-					<h3>ControlProblem</h3>
-					<p></p>
-					<h4>Mandatory Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-						<tr>
-							<th>iode</th>
-							<th>Ordinary Differential Equation represent the constrain to minimization the functional</th>
-							<th>ode</th>
-						</tr>
-						
-						<tr>
-							<th>Jfun</th>
-							<th>Cost function to obtain the optimal control</th>
-							<th>Functional</th>
-						</tr>
-						
-					</table>
-					<!--  -->
-					<h4>Optional Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-						<tr>
-							<th>T</th>
-							<th>This parameter represent the final time of simulation.</th>
-							<th>double</th>
-						</tr>
-						
-						<tr>
-							<th>dt</th>
-							<th>This parameter represent is the interval to interpolate the control u and state y to obtain the functional J and the gradient dH/du</th>
-							<th>double</th>
-						</tr>
-						
-					</table>
-					<!--  -->
-					<h4>Output Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-					</table>
-					<!--  -->
+					<div class="shadowbox">
+						<h3>ControlProblem</h3>
+						<p></p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/ControlProblem-ControlProblem">
+							<span>See more...</span>
+						</a>
+					</div>
 					
-					<h3>GetAdjointProblem</h3>
-					<p>Metodo de Es</p>
-					<h4>Mandatory Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-						<tr>
-							<th>iCP</th>
-							<th></th>
-							<th>ControlProblem</th>
-						</tr>
-						
-					</table>
-					<!--  -->
-					<h4>Optional Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-						<tr>
-							<th>U0</th>
-							<th>matrix</th>
-							<th>double</th>
-						</tr>
-						
-					</table>
-					<!--  -->
-					<h4>Output Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-					</table>
-					<!--  -->
+					<div class="shadowbox">
+						<h3>GetAdjointProblem</h3>
+						<p>Metodo capaz de calcular el problema adjunto de la ecuacion diferencial atravez del hamiltoniano asociado (Principi de Pontriagin). Mediante la formula $ \frac{d\textbf{P}}{dt} = \vec{\nabla}_{Y} H $</p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/ControlProblem-GetAdjointProblem">
+							<span>See more...</span>
+						</a>
+					</div>
 					
-					<h3>GetFunctional</h3>
-					<p>Metodo de Es</p>
-					<h4>Mandatory Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-					</table>
-					<!--  -->
-					<h4>Optional Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-					</table>
-					<!--  -->
-					<h4>Output Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-					</table>
-					<!--  -->
+					<div class="shadowbox">
+						<h3>GetFunctional</h3>
+						<p></p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/ControlProblem-GetFunctional">
+							<span>See more...</span>
+						</a>
+					</div>
 					
-					<h3>GetGradient</h3>
-					<p>Metodo de Es</p>
-					<h4>Mandatory Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-					</table>
-					<!--  -->
-					<h4>Optional Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-					</table>
-					<!--  -->
-					<h4>Output Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-					</table>
-					<!--  -->
+					<div class="shadowbox">
+						<h3>GetGradient</h3>
+						<p></p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/ControlProblem-GetGradient">
+							<span>See more...</span>
+						</a>
+					</div>
 					
-					<h3>GradientMethod</h3>
-					<p>Metodo de Es</p>
-					<h4>Mandatory Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-						<tr>
-							<th>iCP</th>
-							<th></th>
-							<th>ControlProblem</th>
-						</tr>
-						
-					</table>
-					<!--  -->
-					<h4>Optional Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-						<tr>
-							<th>U0</th>
-							<th>matrix</th>
-							<th>double</th>
-						</tr>
-						
-					</table>
-					<!--  -->
-					<h4>Output Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						
-					</table>
-					<!--  -->
+					<div class="shadowbox">
+						<h3>GradientMethod</h3>
+						<p></p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/ControlProblem-GradientMethod">
+							<span>See more...</span>
+						</a>
+					</div>
+					
+					<div class="shadowbox">
+						<h3>ClassicalDescent</h3>
+						<p></p>
+						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/ControlProblem-ClassicalDescent">
+							<span>See more...</span>
+						</a>
+					</div>
 					
 
                 <h2>Example</h2>

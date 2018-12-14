@@ -36,56 +36,13 @@ layout: default
 				<h1>Methods</h1>
 
 					{% for method in page.methods %}
-					<h3>{{method[0]}}</h3>
-					<p>{{method[1].description}}</p>
-					<h4>Mandatory Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						{% for var in method[1].MandatoryInputs %}
-						<tr>
-							<th>{{var[0]}}</th>
-							<th>{{var[1].description}}</th>
-							<th>{{var[1].class}}</th>
-						</tr>
-						{% endfor %}
-					</table>
-					<!--  -->
-					<h4>Optional Input Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						{% for var in method[1].OptionalInputs %}
-						<tr>
-							<th>{{var[0]}}</th>
-							<th>{{var[1].description}}</th>
-							<th>{{var[1].class}}</th>
-						</tr>
-						{% endfor %}
-					</table>
-					<!--  -->
-					<h4>Output Parameters</h4>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						{% for var in method[1].Outputs %}
-						<tr>
-							<th>{{var[0]}}</th>
-							<th>{{var[1].description}}</th>
-							<th>{{var[1].class}}</th>
-						</tr>
-						{% endfor %}
-					</table>
-					<!--  -->
+					<div class="shadowbox">
+						<h3>{{method[0]}}</h3>
+						<p>{{method[1].little_description}}</p>
+						<a href="{{ method[1].url | prepend: site.baseurl }}">
+							<span>See more...</span>
+						</a>
+					</div>
 					{% endfor %}
 
                 <h2>Example</h2>

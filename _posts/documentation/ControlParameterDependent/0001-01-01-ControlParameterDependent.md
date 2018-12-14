@@ -1,44 +1,38 @@
 ---
 description: The Average Control class is able to calculate the average control given the matrices that depend on the parameter. It has as parameter the state where you want to take all the equations that depend on the parameters.
-title: AverageControl
+title: ControlParameterDependent
 categories: [documentation, MDL01]
 layout: class
 type: constructor
 properties:
    A: 
-      type: "Functional"
-      default: "none"
-      description: "This property represent the cost of optimal control"
    B: 
-      type: "Functional"
-      default: "none"
-      description: "This property represent the cost of optimal control"
    x0: 
-      type: "Functional"
+      type: "double"
       default: "none"
       description: "This property represent the cost of optimal control"
    u0: 
-      type: "Functional"
+      type: "double"
       default: "none"
       description: "This property represent the cost of optimal control"
    span: 
-      type: "Functional"
+      type: "double"
       default: "none"
       description: "This property represent the cost of optimal control"
    K: 
-      type: "Functional"
+      type: "double"
       default: "none"
       description: "This property represent the cost of optimal control"
    N: 
-      type: "Functional"
+      type: "double"
       default: "none"
       description: "This property represent the cost of optimal control"
    addata: 
    u: 
 methods:
-   AverageControl:
-        name: AverageControl
-        description: AverageControl constructor
+   ControlParameterDependent:
+        name: ControlParameterDependent
+        description: ControlParameterDependent constructor
         autor: JOroya
         MandatoryInputs:   
           iode: 
@@ -96,7 +90,7 @@ methods:
            class: double
            dimension: [length(iCP.tline)]
            default:   empty
-   solveClassicalGradient:
+   AverageStochasticGradient:
         description: Metodo de Es
         autor: JOroya
         MandatoryInputs:   
@@ -112,7 +106,7 @@ methods:
            class: double
            dimension: [length(iCP.tline)]
            default:   empty
-   solveConjugateGradient:
+   AverageClassicalGradient:
         description: Metodo de Es
         autor: JOroya
         MandatoryInputs:   
@@ -128,7 +122,23 @@ methods:
            class: double
            dimension: [length(iCP.tline)]
            default:   empty
-   solveStochasticGradient:
+   AverageConjugateGradient:
+        description: Metodo de Es
+        autor: JOroya
+        MandatoryInputs:   
+        iCP: 
+           name: Control Problem
+           description: 
+           class: ControlProblem
+           dimension: [1x1]
+        OptionalInputs:
+        U0:
+           name: Initial Control 
+           description: matrix 
+           class: double
+           dimension: [length(iCP.tline)]
+           default:   empty
+   SimultaneousStochasticGradient:
         description: Metodo de Es
         autor: JOroya
         MandatoryInputs:   
