@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Welcome to the web interface of DyCon Toolbox, the computational platform developed within the <a href='https://cmc.deusto.eus/dycon/' target='_blank'>ERC DyCon - Dynamic Control</a> project.">
+
+
+
+	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
+
+    <title>Tutorials - DyCon Platform</title>
+
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/projects/tutorials">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/clean-blog.css">
+
+	<!-- Adjust Colors -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/colorscheme.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Lusitana" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<!-- Math Jax -->
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']]
+    },
+		TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    /*CommonHTML: {
+      scale: 300
+    }*/
+	});
+	</script>
+
+	<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" type="text/javascript"></script>-->
+
+    <!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+	<script src="https://DeustoTech.github.io/dycon-platform-documentation/js/clean-blog.min.js "></script>
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/dycon-platform-documentation/">
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/dycon-platform-documentation/">Home</a>
+                </li>
+				
+                <li>
+                    <a href="/dycon-platform-documentation/projects/documentation">Documentation</a>
+                </li>
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/tutorials">Tutorials</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/Download">Downloads</a>
+                </li>
+                
+                <li>
+                        <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<header class="intro-header">
+  <div class="container">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="site-heading">
+        <h1 class="title">
+          Tutorials
+        </h1>
+        <hr class="small">
+        <span class="subheading">Tutorials of the Dycon Toolbox</span>
+        <hr>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="col-md-10 col-md-offset-1">
+		  
+    <h1>Optimal Control</h1>
+    <p>The main objective in optimal control theory is to determine the best control for a given system. Optimal Control deals with the computation of this control by solving an optimization problem of the form $$\min_{u} J(x,u)$$  where $J(x,u)$ is the cost functional, that is, a function of state and control variables. Optimal control problems can be derived using Pontryagin's maximum principle or by solving the Hamilton–Jacobi–Bellman equation (a sufficient condition).</p>
+    <p>See our tutorials:</p>
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp02/T0001" class="display-block">
+                  <h3 class="post-title"> Simple application of ControlProblem MATLAB Object </h3>
+                </a>
+                  <p class="post-subtitle">
+                    sdas
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Jesus Oroya
+                    
+                  </small>
+                  <!--p>
+                    December 12, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp02/T0004" class="display-block">
+                  <h3 class="post-title"> Optimal control of a  graph evolving in discrete time </h3>
+                </a>
+                  <p class="post-subtitle">
+                    blabla.
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Domenec Ruiz
+                    
+                  </small>
+                  <!--p>
+                    October 26, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+    <hr>
+  
+    <h1>Control of parameter dependent problems</h1>
+    <p>Given a parameter-dependent system, the controllability  of this system can be addressed from different perspectives. The classical is the simultaneous controllability that consists of controlling each specific realization. The averaged control consists of controlling the average of the states with respect to the parameter, rather than controlling each realization what can be very expensive.</p>
+    <p>See our tutorials:</p>
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp03/T0002" class="display-block">
+                  <h3 class="post-title"> Average Control Stochas </h3>
+                </a>
+                  <p class="post-subtitle">
+                    
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Alejandro Cunillera
+                    
+                  </small>
+                  <!--p>
+                    October 26, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp03/T0001" class="display-block">
+                  <h3 class="post-title"> Average Control by classical gradient step method </h3>
+                </a>
+                  <p class="post-subtitle">
+                    The example of control by gradient method. We can see the classical gradient method by constrains
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Ana Navarro
+                    
+                      Jesus Oroya
+                    
+                  </small>
+                  <!--p>
+                    July 21, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+    <hr>
+  
+    <h1>Consensus Problems</h1>
+    <p>Consensus problems are fundamental in control of multi-agent systems, that is, systems with different processes or nodes. The main goal is to reach an agreement among a number of agents. Notice that,  this agreement is defined as a subspace.</p>
+    <p>See our tutorials:</p>
+        
+          
+        
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp04/P0009-Dongnam" class="display-block">
+                  <h3 class="post-title"> The control on the Kuramoto model by handling one oscillator </h3>
+                </a>
+                  <p class="post-subtitle">
+                    We design the LQR controller and solve it with linearized model.
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Dongnam Ko
+                    
+                  </small>
+                  <!--p>
+                    October 29, 2018
+                  </p-->
+              </div>
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp04/P0007-Domenec" class="display-block">
+                  <h3 class="post-title"> Stabilization of a collective behavior model </h3>
+                </a>
+                  <p class="post-subtitle">
+                    
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Domenec Ruiz
+                    
+                  </small>
+                  <!--p>
+                    October 28, 2018
+                  </p-->
+              </div>
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp04/P0001" class="display-block">
+                  <h3 class="post-title"> Optimal control of a  graph evolving in discrete time </h3>
+                </a>
+                  <p class="post-subtitle">
+                    Stabilizing the graph by minimizing a discrete LQR and driving it to a reference state.
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Alejandro Cunillera
+                    
+                  </small>
+                  <!--p>
+                    October 26, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp04/P0004" class="display-block">
+                  <h3 class="post-title"> Synchronized Oscillators </h3>
+                </a>
+                  <p class="post-subtitle">
+                    Sincronization of coupled oscillator described by the Kuramoto model, using the Stochastic Conjugate Gradient Method
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Ana Navarro
+                    
+                      Jesus Oroya
+                    
+                      Umberto Biccari
+                    
+                  </small>
+                  <!--p>
+                    October 19, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+    <hr>
+  
+
+
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center">
+          <li>
+            <img style="width: 200px;" src="/dycon-platform-documentation/img/logos/logo_DyCon.png " alt="">
+          </li>
+          <li>
+            <img style="width: 250px;" src="/dycon-platform-documentation/img/logos/logo_CCM_subDerecha_v002.png " alt="">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+
+</html>

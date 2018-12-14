@@ -1,6 +1,6 @@
 ---
 title: ControlProblem
-url: /documentation/MDL01/ControlProblem/ControlProblem-ControlProblem
+url: /documentation/MDL01/ControlProblem-ControlProblem
 data: 
   name: ControlProblem
   description: 
@@ -35,6 +35,6 @@ data:
         description: ControlProblem MATLAB class
         class: ControlProblem
         dimension: [1x1]
-categories: [ documentation ,MDL01 , ControlProblem]
+categories: [ documentation ,MDL01,]
 layout: method
 ---

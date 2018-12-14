@@ -1,6 +1,6 @@
 ---
 title: GetFunctional
-url: /documentation/MDL01/ControlProblem/ControlProblem-GetFunctional
+url: /documentation/MDL01/ControlProblem-GetFunctional
 data: 
   description: Metodo de Es
   autor: JOroya
@@ -17,6 +17,6 @@ data:
      class: double
      dimension: [length(iCP.tline)]
      default:   empty
-categories: [ documentation ,MDL01 , ControlProblem]
+categories: [ documentation ,MDL01,]
 layout: method
 ---
