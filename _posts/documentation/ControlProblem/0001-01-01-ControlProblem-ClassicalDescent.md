@@ -1,6 +1,6 @@
 ---
 title: ClassicalDescent
-url: /documentation/MDL01/ControlProblem/ControlProblem-ClassicalDescent
+url: /documentation/MDL01/ControlProblem-ClassicalDescent
 data: 
    description: Metodo de Es
    autor: JOroya
@@ -36,6 +36,6 @@ data:
          class: double
          dimension: [length(iCP.tline)]
          default: 
-categories: [ documentation ,MDL01 , ControlProblem]
+categories: [ documentation ,MDL01,]
 layout: method
 ---
