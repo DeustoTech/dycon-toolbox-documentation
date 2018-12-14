@@ -40,7 +40,7 @@ description: A wealth of information is available to help you understand, learn 
         </h3>
       </a>
       <p>
-        {{ post.description }}
+        {{ post.data.description }}
       </p>
       <a href="{{ post.url | prepend: site.baseurl }}">
         <span>See more...</span>

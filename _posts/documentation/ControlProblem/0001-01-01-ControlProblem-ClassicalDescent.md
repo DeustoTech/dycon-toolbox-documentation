@@ -1,5 +1,7 @@
 ---
-data:
+title: ClassicalDescent
+url: /documentation/MDL01/ControlProblem/ControlProblem-ClassicalDescent
+data: 
    description: Metodo de Es
    autor: JOroya
    MandatoryInputs:   
@@ -34,12 +36,6 @@ data:
          class: double
          dimension: [length(iCP.tline)]
          default: 
-
-title: ClassicalDescent
-categories: [documentation, MDL01]
-layout: function
-
+categories: [ documentation ,MDL01 , ControlProblem]
+layout: method
 ---
-
-Ejemplo de Classical Descent
-

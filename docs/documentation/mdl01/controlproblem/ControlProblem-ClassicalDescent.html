@@ -14,7 +14,7 @@
 
     <title>ClassicalDescent - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/ClassicalDescent">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/controlproblem/ControlProblem-ClassicalDescent">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -128,91 +128,62 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">ClassicalDescent <small>Function</small></h1>
+                    <h1 class="post-title">ClassicalDescent</h1> 
                 </div>
 
-                <p>Metodo de Es</p>
-                <h1>Input Parameters</h1>
-                <h4>Madatory</h4>
-				<table>
-					<tr>
-						<th>Name</th>
-                        <th>Class</th>
-                        <th>Dimension</th>
-                        <th>Description</th>
+                <!-- MANDATORY INPUTS  -->
+                Metodo de Es
+                <h1>Mandatory Input Parameters</h1>
 
-					</tr>
-					
-					<tr>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
                         <th>iCP</th>
+                        <th></th>
                         <th>ControlProblem</th>
-                        <th>1x1</th>
-						<th></th>
-					</tr>
-				
-                </table>
-                <hr>
-                <h4>Optional</h4>
-				<table>
-					<tr>
-						<th>Name</th>
-                        <th>Class</th>
-                        <th>Description</th>
-                        <th>Dimension</th>
-                        <th>Default</th>
+                    </tr>
+                    
 
-					</tr>
-					
-					<tr>
-                        <th>U0</th>
+                </table>
+
+                <!-- OPTIONAL INPUTS  -->
+
+                
+
+                <!--  OUTPUTS -->
+                <h1>Output Parameters</h1>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Unew</th>
                         <th>matrix</th>
                         <th>double</th>
-                        <th>length(iCP.tline)</th>
-						<th></th>
-					</tr>
-				
+                    </tr>
+                    
+                    <tr>
+                        <th>Ynew</th>
+                        <th>matrix</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Jnew</th>
+                        <th>matrix</th>
+                        <th>double</th>
+                    </tr>
+                    
                 </table>
-                <hr>
-
-                <h1>Output Parameters</h1>
-				<table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Class</th>
-                            <th>Dimension</th>
-                            <th>Description</th>
-    
-                        </tr>
-                        
-                        <tr>
-                            <th>Unew</th>
-                            <th>double</th>
-                            <th>length(iCP.tline)</th>
-                            <th>matrix</th>
-                        </tr>
-                    
-                        <tr>
-                            <th>Ynew</th>
-                            <th>double</th>
-                            <th>length(iCP.tline)</th>
-                            <th>matrix</th>
-                        </tr>
-                    
-                        <tr>
-                            <th>Jnew</th>
-                            <th>double</th>
-                            <th>length(iCP.tline)</th>
-                            <th>matrix</th>
-                        </tr>
-                    
-                    </table>
-                <hr>
-
-                <h1>Example</h1>
-                <p>Ejemplo de Classical Descent</p>
-
-
-
+                                    <!--  -->
             </div>
         </div>
     </div>
