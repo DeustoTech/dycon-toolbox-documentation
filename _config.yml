@@ -2,6 +2,9 @@
 title: DyCon Platform
 description: Welcome to the web interface of DyCon Toolbox, the computational platform developed within the <a href='https://cmc.deusto.eus/dycon/' target='_blank'>ERC DyCon - Dynamic Control</a> project.
 
+# command to ignore docs(must be run inside 'docs' folder): git ls-files | tr '\n' ' ' | xargs git update-index --assume-unchanged
+# command to STOP ignoring docs(must be run inside 'docs' folder): git ls-files | tr '\n' ' ' | xargs git update-index --no-assume-unchanged
+
 scholar:
   style: apa
   source: "_bibliography"
