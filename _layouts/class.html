@@ -32,7 +32,7 @@ layout: default
 				{% endfor %}
 				</table>
 
-                
+
 				<h1>Methods</h1>
 
 					{% for method in page.methods %}
@@ -40,6 +40,9 @@ layout: default
 						<h3>{{method[0]}}</h3>
 						<p>{{method[1].little_description}}</p>
 						<a href="{{ method[1].url | prepend: site.baseurl }}">
+							<span>See more...</span>
+						</a>
+            <a href="{{ method[1].url | prepend: site.baseurl }}">
 							<span>See more...</span>
 						</a>
 					</div>
@@ -51,4 +54,3 @@ layout: default
         </div>
     </div>
 </header>
-
