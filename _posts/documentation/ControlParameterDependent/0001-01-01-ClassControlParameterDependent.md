@@ -77,7 +77,7 @@ methods:
           obj:
               name: Control Prameter Dependent
               description: Control Prameter Dependent Class
-        url: /documentation/MDL01/ControlParameterDependent/ControlParameterDependent
+        url: /documentation/mdl01/ControlParameterDependent/ControlParameterDependent
    AverageClassicalGradient:
         description: The Average Control solve an optimal control problem which is constructed to
           control the distance between the average of the states in the last time
@@ -121,7 +121,7 @@ methods:
            class: double
            dimension: [1x1]
            default:   100
-        url: /documentation/MDL01/ControlParameterDependent/AverageClassicalGradient
+        url: /documentation/mdl01/ControlParameterDependent/AverageClassicalGradient
    AverageConjugateGradient:
         description: This function solve a particular optimal control problem using
           the stochastic gradient descent algorithm. The restriction of the optimization 
@@ -149,13 +149,13 @@ methods:
            description: This number is the power of the control, is define by follow expresion $$J = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$ 
            class: double
            dimension: [1x1]
-           default:   1e-5
+           default:   1e-1
           MaxIter:
            description: Maximun of iterations of this method
            class: double
            dimension: [1x1]
            default:   100
-        url: /documentation/MDL01/ControlParameterDependent/AverageConjugateGradient
+        url: /documentation/mdl01/ControlParameterDependent/AverageConjugateGradient
    AverageStochasticGradient:
         description:  This function solve a particular optimal control problem using
           the stochastic gradient descent algorithm. The restriction of the optimization 
@@ -194,7 +194,7 @@ methods:
            class: double
            dimension: [1x1]
            default:   100
-        url: /documentation/MDL01/ControlParameterDependent/AverageStochasticGradient
+        url: /documentation/mdl01/ControlParameterDependent/AverageStochasticGradient
    SimultaneousStochasticGradient:
         description:  This function solve a particular optimal control problem using
           the stochastic gradient descent algorithm. The restriction of the optimization 
@@ -222,7 +222,7 @@ methods:
            description: This number is the power of the control, is define by follow expresion $$J = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$ 
            class: double
            dimension: [1x1]
-           default:   1e-5
+           default:   1e-1
           gamma0:
            description: Length Step of the gradient Method. The control is update as follow $$u_{k+1} = u_{k} + \gamma \nabla u_{k}$$. In Stochastic method $\gamma_{k} = \gamma_0 * \frac{1}/{\sqrt{k}}$
            class: double
@@ -233,7 +233,7 @@ methods:
            class: double
            dimension: [1x1]
            default:   100
-        url: /documentation/MDL01/ControlParameterDependent/SimultaneousStochasticGradient
+        url: /documentation/mdl01/ControlParameterDependent/SimultaneousStochasticGradient
    animation:
         description: This method allows us to see an animation of the evolution of gradient methods, shows the controls in each iteration with a lapse of $dt=0.15s$
         autor: JOroya
@@ -278,7 +278,7 @@ methods:
            class: double
            dimension: [1x1]
            default: 0.15
-        url: /documentation/MDL01/ControlParameterDependent/animation
+        url: /documentation/mdl01/ControlParameterDependent/animation
    plot:
         description: The plot function applied to a ControlParameterDepent object shows 
                      three graphs that represent the evolution of the different dimensions 
@@ -298,7 +298,7 @@ methods:
            class: double
            dimension: [length(iCP.tline)]
            default:   empty
-        url: /documentation/MDL01/ControlParameterDependent/plot
+        url: /documentation/mdl01/ControlParameterDependent/plot
 
 ---
 

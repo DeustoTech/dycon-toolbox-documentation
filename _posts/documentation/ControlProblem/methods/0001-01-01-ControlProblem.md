@@ -24,7 +24,7 @@ data:
         default: iode.T 
     dt:
         name: Final Time 
-        description: "This parameter represent is the interval to interpolate the control u and state y to obtain the functional J and the gradient dH/du"
+        description: This parameter represent is the interval to interpolate the control, $u$, and state, $y$, to obtain the functional $J$ and the gradient $dH/du$
         class: double
         dimension: [1x1]
         default: iode.dt         

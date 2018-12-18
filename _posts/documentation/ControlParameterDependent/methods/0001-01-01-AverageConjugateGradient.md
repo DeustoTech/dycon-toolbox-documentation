@@ -27,7 +27,7 @@ data:
      description: This number is the power of the control, is define by follow expresion $$J = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$ 
      class: double
      dimension: [1x1]
-     default:   1e-5
+     default:   1e-1
     MaxIter:
      description: Maximun of iterations of this method
      class: double

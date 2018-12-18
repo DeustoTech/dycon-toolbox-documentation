@@ -86,7 +86,7 @@ methods:
               default: iode.T 
           dt:
               name: Final Time 
-              description: "This parameter represent is the interval to interpolate the control u and state y to obtain the functional J and the gradient dH/du"
+              description: This parameter represent is the interval to interpolate the control, $u$, and state, $y$, to obtain the functional $J$ and the gradient $dH/du$
               class: double
               dimension: [1x1]
               default: iode.dt         
@@ -96,7 +96,7 @@ methods:
               description: ControlProblem MATLAB class
               class: ControlProblem
               dimension: [1x1]
-        url: /documentation/MDL01/ControlProblem/ControlProblem
+        url: /documentation/mdl01/ControlProblem/ControlProblem
    ClassicalDescent:
          description: This method is able to update the value of the control by decreasing 
                       the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented 
@@ -153,7 +153,7 @@ methods:
                description: New Value of functional 
                class: double
                dimension: [1x1]
-         url: /documentation/MDL01/ControlProblem/ClassicalDescent
+         url: /documentation/mdl01/ControlProblem/ClassicalDescent
    GetAdjointProblem:
         little_description: Metodo capaz de calcular el problema adjunto de la ecuacion diferencial atravez del hamiltoniano
                              asociado (Principi de Pontriagin). Mediante la formula $ \frac{d\textbf{P}}{dt} = \vec{\nabla}_{Y} H $
@@ -184,7 +184,7 @@ methods:
                description: Control problem object
                class: ControlProblem
                dimension: [1x1]
-        url: /documentation/MDL01/ControlProblem/GetAdjointProblem
+        url: /documentation/mdl01/ControlProblem/GetAdjointProblem
    GetFunctional:
         description: Metodo de Es
         autor: Xinlung
@@ -208,7 +208,7 @@ methods:
            class: double
            dimension: [length(iCP.tline)]
            default:   empty
-        url: /documentation/MDL01/ControlProblem/GetFunctional
+        url: /documentation/mdl01/ControlProblem/GetFunctional
    GetGradient:
         description: Metodo de Es
         autor: JOroya
@@ -225,7 +225,7 @@ methods:
            class: double
            dimension: [length(iCP.tline)]
            default:   empty
-        url: /documentation/MDL01/ControlProblem/GetGradient
+        url: /documentation/mdl01/ControlProblem/GetGradient
    GradientMethod:
         name: GradientMethod
         description: Metodo de Es
@@ -243,7 +243,7 @@ methods:
               class: double
               dimension: [length(iCP.tline)]
               default:
-        url: /documentation/MDL01/ControlProblem/GradientMethod
+        url: /documentation/mdl01/ControlProblem/GradientMethod
    plot:
         name: GradientMethod
         description: Metodo de Es
@@ -261,7 +261,7 @@ methods:
               class: double
               dimension: [length(iCP.tline)]
               default:
-        url: /documentation/MDL01/ControlProblem/plot
+        url: /documentation/mdl01/ControlProblem/plot
 
 ---
 ```matlab

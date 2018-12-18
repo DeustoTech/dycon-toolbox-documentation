@@ -294,7 +294,7 @@
 						
 							<tr>
 								<th>dt</th>
-								<th>This parameter represent is the interval to interpolate the control u and state y to obtain the functional J and the gradient dH/du</th>
+								<th>This parameter represent is the interval to interpolate the control, $u$, and state, $y$, to obtain the functional $J$ and the gradient $dH/du$</th>
 								<th>double</th>
 							</tr>
 						
@@ -329,7 +329,7 @@
     					<div class="shadowbox">
     						<h3>ClassicalDescent</h3>
     						<p>This method is able to update the value of the control by decreasing the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented in that direction, assuring the decrease by the adaptive step size.</p>
-    						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/ClassicalDescent">
+    						<a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/ClassicalDescent">
     							<span>See more...</span>
     						</a>
     					</div>
@@ -339,7 +339,7 @@
     					<div class="shadowbox">
     						<h3>GetAdjointProblem</h3>
     						<p>Este metodo agrega el problema adjunto al objecto ControlProblem, dado que tenemos $$ \dot{\textbf{Y}} = f(\textbf{Y},t) $$ y el funcional $$ J = \Psi(\textbf{Y}(T)) + \int_{0}^T L(\textbf{Y},U,t)dt $$ podemos crear el Hamiltoniano $$ H = L + P*F $$ donde $\textbf{P} = [p_1 p_2 p_3 ... ]^T$ . Entonces segun el principio del maximo de pontriagin podemos calcular el problemas adjunto mediantes las formulas $$ \frac{d\textbf{P}}{dt} = \vec{\nabla}_{Y} H = (\frac{\partial H}{ \partial y_1},\frac{\partial H}{ \partial y_2},...)$$ con la condicion final $$ \textbf{P}(T) = (\frac{\partial \Psi}{ \partial y_1},\frac{\partial \Psi}{ \partial y_2},...)$$</p>
-    						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/GetAdjointProblem">
+    						<a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/GetAdjointProblem">
     							<span>See more...</span>
     						</a>
     					</div>
@@ -349,7 +349,7 @@
     					<div class="shadowbox">
     						<h3>GetFunctional</h3>
     						<p>Metodo de Es</p>
-    						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/GetFunctional">
+    						<a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/GetFunctional">
     							<span>See more...</span>
     						</a>
     					</div>
@@ -359,7 +359,7 @@
     					<div class="shadowbox">
     						<h3>GetGradient</h3>
     						<p>Metodo de Es</p>
-    						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/GetGradient">
+    						<a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/GetGradient">
     							<span>See more...</span>
     						</a>
     					</div>
@@ -369,7 +369,7 @@
     					<div class="shadowbox">
     						<h3>GradientMethod</h3>
     						<p>Metodo de Es</p>
-    						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/GradientMethod">
+    						<a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/GradientMethod">
     							<span>See more...</span>
     						</a>
     					</div>
@@ -379,7 +379,7 @@
     					<div class="shadowbox">
     						<h3>plot</h3>
     						<p>Metodo de Es</p>
-    						<a href="/dycon-platform-documentation/documentation/MDL01/ControlProblem/plot">
+    						<a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/plot">
     							<span>See more...</span>
     						</a>
     					</div>
