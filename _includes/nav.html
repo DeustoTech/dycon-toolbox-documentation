@@ -20,10 +20,12 @@
                 <li>
                     <a href="{{ site.baseurl }}/">Home</a>
                 </li>
-				{% for page in site.pages %}{% if page.url contains "projects/" %}{% if page.title %}
+                {% for page in site.pages %}{% if page.url contains "projects/" %}{% if page.title %}
+                {% if page.url contains "reports"%}{% else %}
                 <li>
                     <a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
                 </li>
+                {% endif %}
                 {% endif %}{% endif %}{% endfor %}
                 {% for page in site.pages %}{% if page.url contains "projects/" or page.url contains "tutorials/" or page.url contains "documentation/"  %}{% else %}{% if page.title %}
                 <li>

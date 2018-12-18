@@ -17,5 +17,6 @@ data:
      dimension: [length(iCP.tline)]
      default:   empty
 categories: [ documentation , MDL01 , ControlProblem]
+class: ControlProblem
 layout: method
 ---

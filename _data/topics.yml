@@ -10,14 +10,10 @@ TP03:
   description: Given a parameter-dependent system, the controllability  of this system can be addressed from different perspectives. The classical is the simultaneous controllability that consists of controlling each specific realization. The averaged control consists of controlling the average of the states with respect to the parameter, rather than controlling each realization what can be very expensive.
 
 TP04:
+  name: Controllability
+  description: Umberto - Consensus problems are fundamental in control of multi-agent systems, that is, systems with different processes or nodes. The main goal is to reach an agreement among a number of agents. Notice that,  this agreement is defined as a subspace.
+
+
+TP06:
   name: Consensus Problems
   description: Consensus problems are fundamental in control of multi-agent systems, that is, systems with different processes or nodes. The main goal is to reach an agreement among a number of agents. Notice that,  this agreement is defined as a subspace.
-
-
-# TP05: 
-#   name: StabilityAnalisys
-#   description: blabla
-# TP06:
-#   name: Other Topics
-#   description: blabla
- 

@@ -31,6 +31,7 @@ layout: default
 					</tr>
 				{% endfor %}
                 </table>
+                {% if page.data.OptionalInputs %}
                 <hr>
                 <h4>Optional</h4>
 				<table>
@@ -53,7 +54,7 @@ layout: default
 				{% endfor %}
                 </table>
                 <hr>
-
+                {% endif %}
                 <h1>Output Parameters</h1>
 				<table>
                         <tr>
@@ -73,10 +74,10 @@ layout: default
                     {% endfor %}
                     </table>
                 <hr>
-
+                {% if page.helpfile %}
                 <h1>Example</h1>
-                {{content}}
-
+                    {{content}}
+                {% endif %}
             </div>
         </div>
     </div>

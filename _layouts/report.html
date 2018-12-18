@@ -1,0 +1,71 @@
+---
+layout: default
+---
+
+<!-- Post Header -->
+<header class="intro-header">
+    <div class="container" style="padding-top: 70px;">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading" style="padding: 0px 0">
+                    <h1>{{ page.title }}</h1>
+                    {{page.date|date_to_long_string}}
+					<span class="meta">Autor:
+					{% for aut in page.author %}
+						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="{{site.data.members[aut].web }}">{{ site.data.members[aut].name }}</a></span></span>
+					{% endfor %}
+					</span>
+                </div>
+            </div>
+		</div>
+
+
+	</div>
+</header>
+
+
+<article>
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>{{page.description}}</p>
+                <p><a href="{{site.url}}{{site.baseurl}}/{{page.pdf}}">resume.pdf</a></p>
+                <p><a href="{{site.url}}{{site.baseurl}}/{{page.zip}}">latex.zip</a></p>
+
+				{{ content | markdownify }}
+
+                <hr>
+                <h1>Slides</h1>
+                
+                <h1>Functions</h1>
+                    {% for post in site.posts %}
+                        {% if post.layout contains 'function' and post.data.author contains page.author %}
+                            <div class="shadowbox post-preview">
+                                <a href="{{site.url}}{{site.baseurl}}/{{post.url}}">
+                                    <h3>{{post.title}}</h3>
+                                </a>  
+                                <p>{{post.data.description}}</p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                <h1>Tutorials</h1>
+                    {% for post in site.posts %}
+                        {% if post.layout contains 'tutorial' and post.author contains page.author %}
+                            <div class="shadowbox post-preview">
+                                <a href="{{site.url}}{{site.baseurl}}/{{post.url}}">
+                                    <h3>{{post.title}}</h3>
+                                </a> 
+                                <p>{{post.description}}</p>
+                            </div>     
+                        {% endif %}
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<hr>

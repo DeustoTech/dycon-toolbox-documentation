@@ -42,6 +42,10 @@ data:
 title: FractionalSchrodinger
 categories: [documentation, MDL02]
 layout: function
-
+helpfile: /Users/jesusoroya/Documents/GitHub/DyCon-Computational-Platform/helps/MDL02_FiniteElement/functions
 ---
-```matlab
+
+Gas a
+
+## sasd
+

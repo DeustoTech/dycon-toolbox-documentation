@@ -1,7 +1,7 @@
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
-  padding: 50px 0 50px;
+  padding: 50px 0 0px;
 }
 .intro-header .site-heading > h1 {
   padding-bottom: 20px;
@@ -19,7 +19,7 @@
 }
 body {
 font-family: 'Lusitana', serif;
-  font-size: 18px;
+  font-size: 17px;
   color: #404040;
 }
 p {
@@ -45,7 +45,7 @@ h6 {
   font-weight: 800;
 }
 a {
-  color: #404040;
+  color: #152fc2;
 }
 a:hover,
 a:focus {
@@ -469,7 +469,7 @@ th {
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
   border-collapse: collapse;
-  padding: 5px
+  padding: 10px
 }
 
 div.float-right{

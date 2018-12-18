@@ -35,5 +35,6 @@ data:
         class: ControlProblem
         dimension: [1x1]
 categories: [ documentation , MDL01 , ControlProblem]
+class: ControlProblem
 layout: method
 ---

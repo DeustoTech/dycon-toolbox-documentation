@@ -97,14 +97,20 @@
                 <li>
                     <a href="/dycon-platform-documentation/">Home</a>
                 </li>
-				
+                
+                
                 <li>
                     <a href="/dycon-platform-documentation/projects/documentation">Documentation</a>
                 </li>
                 
+                
+                
+                
+                
                 <li>
                     <a href="/dycon-platform-documentation/projects/tutorials">Tutorials</a>
                 </li>
+                
                 
                 
                 <li>
@@ -128,11 +134,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">ClassicalDescent</h1> 
+                    <h1 class="post-title">ClassicalDescent </h1> 
+                    <h1 class="post-title"><small>ControlProblem</small></h1>
                 </div>
 
                 <!-- MANDATORY INPUTS  -->
-                Metodo de Es
+                This method is able to update the value of the control by decreasing the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented in that direction, assuring the decrease by the adaptive step size.
                 <h1>Mandatory Input Parameters</h1>
 
                 <table>
@@ -144,8 +151,26 @@
                     
                     <tr>
                         <th>iCP</th>
-                        <th></th>
+                        <th>Control Problem Object</th>
                         <th>ControlProblem</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>UOld</th>
+                        <th>Control Vector in time</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>YOld</th>
+                        <th>State Vector in time</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>JOld</th>
+                        <th>Value of functional J(Uold,Yold)</th>
+                        <th>double</th>
                     </tr>
                     
 
@@ -154,8 +179,37 @@
                 <!-- OPTIONAL INPUTS  -->
 
                 
+                <h1>Optional Input Parameters</h1>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>InitialLengthStep</th>
+                        <th>This parameter is the step size if the MiddleStepControl option is false. If the option MiddleStepControl is activated then this parameter is the initial step of the methodo but then the step is doubled in the case where the functional iteration decreases and is divided by two its the functional one grows.</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>MinLengthStep</th>
+                        <th>It may happen that although we divide the step of the descenco many times, we continue to obtain an update that increases the value of the functional. In this case, it is necessary to have a minimum step size to avoid infinite loops. This parameter is responsible for this.</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>MiddleStepControl</th>
+                        <th>If this parameter is enabled, it allows the algorithm to search for different step-logitudes, provided that the control update decrements the functional value. If it is deactivated, the descent of the gradient will be constant.</th>
+                        <th>double</th>
+                    </tr>
+                    
+                </table>
+                
 
                 <!--  OUTPUTS -->
+                
                 <h1>Output Parameters</h1>
                 <table>
                     <tr>
@@ -166,23 +220,24 @@
                     
                     <tr>
                         <th>Unew</th>
-                        <th>matrix</th>
+                        <th>Update of Control Vector</th>
                         <th>double</th>
                     </tr>
                     
                     <tr>
                         <th>Ynew</th>
-                        <th>matrix</th>
+                        <th>Update of State Vector</th>
                         <th>double</th>
                     </tr>
                     
                     <tr>
                         <th>Jnew</th>
-                        <th>matrix</th>
+                        <th>New Value of functional</th>
                         <th>double</th>
                     </tr>
                     
                 </table>
+                
                                     <!--  -->
             </div>
         </div>

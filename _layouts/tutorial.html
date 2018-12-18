@@ -12,7 +12,7 @@ layout: default
 
 					<span class="meta">Posted by:
 					{% for aut in page.author %}
-						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="{{site.data.members[aut].web }}">{{ site.data.members[aut].name }}</a></span></span>
+						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="{{site.url}}{{site.baseurl}}/author/{{aut}}">{{ site.data.members[aut].name }}</a></span></span>
 					{% endfor %}
 					</span>
 					<div class="shadowbox">

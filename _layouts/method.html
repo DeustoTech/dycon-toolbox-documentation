@@ -8,7 +8,8 @@ layout: default
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">{{ page.title }}</h1> 
+                    <h1 class="post-title">{{ page.title }} </h1> 
+                    <h1 class="post-title"><small>{{ page.class }}</small></h1>
                 </div>
 
                 <!-- MANDATORY INPUTS  -->
@@ -33,7 +34,7 @@ layout: default
 
                 <!-- OPTIONAL INPUTS  -->
 
-                {% if page.OptionalInputs %}
+                {% if page.data.OptionalInputs %}
                 <h1>Optional Input Parameters</h1>
                 <table>
                     <tr>
@@ -52,6 +53,7 @@ layout: default
                 {% endif %}
 
                 <!--  OUTPUTS -->
+                {% if page.data.Outputs %}
                 <h1>Output Parameters</h1>
                 <table>
                     <tr>
@@ -67,6 +69,7 @@ layout: default
                     </tr>
                     {% endfor %}
                 </table>
+                {% endif %}
                                     <!--  -->
             </div>
         </div>

@@ -23,26 +23,88 @@ layout: default
 
 					</tr>
 					{% for vars in page.properties %}
-					<tr>
-                        <th>{{vars[0]}}</th>
-                        <th>{{vars[1].type}}</th>
-                        <th>{{vars[1].default}}</th>
-						<th>{{vars[1].description}}</th>
-					</tr>
-				{% endfor %}
+						<tr>
+							<th>{{vars[0]}}</th>
+							<th>{{vars[1].type}}</th>
+							<th>{{vars[1].default}}</th>
+							<th>{{vars[1].description}}</th>
+						</tr>
+					{% endfor %}
 				</table>
 
+                <!-- CONSTRUCTOR  -->
+
+				<h1>Contructor</h1>
+
+				<h3>Mandatory Input Parameters</h3>
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th>class</th>
+					</tr>
+					{% for var in page.methods[page.title].MandatoryInputs %}
+						<tr>
+							<th>{{var[0]}}</th>
+							<th>{{var[1].description}}</th>
+							<th>{{var[1].class}}</th>
+						</tr>
+					{% endfor %}
+
+				</table>
+
+				<!-- OPTIONAL INPUTS  -->
+
+				{% if page.methods[page.title].OptionalInputs %}
+					<h3>Optional Input Parameters</h3>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						{% for var in page.methods[page.title].OptionalInputs %}
+							<tr>
+								<th>{{var[0]}}</th>
+								<th>{{var[1].description}}</th>
+								<th>{{var[1].class}}</th>
+							</tr>
+						{% endfor %}
+					</table>
+				{% endif %}
+
+				<!--  OUTPUTS -->
+				{% if page.methods[page.title].Outputs %}
+					<h3>Output Parameters</h3>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						{% for var in page.methods[page.title].Outputs %}
+						<tr>
+							<th>{{var[0]}}</th>
+							<th>{{var[1].description}}</th>
+							<th>{{var[1].class}}</th>
+						</tr>
+						{% endfor %}
+					</table>
+				{% endif %}
 
 				<h1>Methods</h1>
 
 					{% for method in page.methods %}
+					{% if method[0] contains page.title %}
+					{% else %}
 					<div class="shadowbox">
 						<h3>{{method[0]}}</h3>
-						<p>{{method[1].little_description}}</p>
+						<p>{{method[1].description}}</p>
 						<a href="{{ method[1].url | prepend: site.baseurl }}">
 							<span>See more...</span>
 						</a>
 					</div>
+					{% endif %}
 					{% endfor %}
 
                 <h2>Example</h2>
