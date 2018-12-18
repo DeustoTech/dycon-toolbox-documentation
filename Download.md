@@ -25,14 +25,14 @@ description: "Releases of the DyCon Toolbox"
 
     The file you have downloaded is a toolbox installer in MATLAB, if you open this file the following window will appear
     <div style="padding:10px">
-      <img src= "{{site.url}}/{{site.baseurl}}/assets/DyconInstall.png">
+      <img src= "{{site.url}}/{{site.baseurl}}/assets/DyConInstall.png">
     </div>
-  Giving the install button, it must be installed. 
+  Giving the install button, it must be installed.
   </div>
   <div class="get-started">
     <h2>Getting Started</h2>
     <hr>
-    Once the DyCon toolbox is installed, we can start exploring the 
+    Once the DyCon toolbox is installed, we can start exploring the
     tutorials  that we have on <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> this page</a>.
     <hr>
 

@@ -17,10 +17,9 @@ layout: default
 				<table>
 					<tr>
 						<th>Name</th>
-                        <th>Type</th>
-                        <th>Default Value</th>
-                        <th>Description</th>
-
+            <th>Type</th>
+            <th>Default Value</th>
+            <th>Description</th>
 					</tr>
 					{% for vars in page.properties %}
 						<tr>
@@ -31,11 +30,8 @@ layout: default
 						</tr>
 					{% endfor %}
 				</table>
-
-                <!-- CONSTRUCTOR  -->
-
+        <!-- CONSTRUCTOR  -->
 				<h1>Contructor</h1>
-
 				<h3>Mandatory Input Parameters</h3>
 				<table>
 					<tr>
@@ -95,16 +91,15 @@ layout: default
 				<h1>Methods</h1>
 
 					{% for method in page.methods %}
-					{% if method[0] contains page.title %}
-					{% else %}
-					<div class="shadowbox">
-						<h3>{{method[0]}}</h3>
-						<p>{{method[1].description}}</p>
-						<a href="{{ method[1].url | prepend: site.baseurl }}">
-							<span>See more...</span>
-						</a>
-					</div>
-					{% endif %}
+  					{% unless method[0] contains page.title %}
+    					<div class="shadowbox">
+    						<h3>{{method[0]}}</h3>
+    						<p>{{method[1].description}}</p>
+    						<a href="{{ method[1].url | prepend: site.baseurl }}">
+    							<span>See more...</span>
+    						</a>
+    					</div>
+  					{% endunless %}
 					{% endfor %}
 
                 <h2>Example</h2>
