@@ -11,7 +11,7 @@ categories: [tutorial,TP04]
 This work is regarding solving 1-d wave equation using RPS semi-discretization method and analysis corresponding dispersion relation.
 
 
-Considering adjoint system of \eqref{control}.
+Considering adjoint system of \eqref{wave}.
 
 
 $$ 	\begin{equation}\begin{cases} 	&u_{tt}- u_{xx} =0,  0\leq x\leq 1, t\in[0,T] \\ 	& u(x,T)=u_0(x),\, \, 0\leq x\leq 1, \\ 	& u_t(x,T)=u_1(x),\,\,0\leq x\leq 1,  \\ 	& u(0,t)=u(1,t)=0, \,\, t\in[0,T], 	\end{cases} 	\label{wave}\end{equation} 	$$

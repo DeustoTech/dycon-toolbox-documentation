@@ -2,7 +2,7 @@
 layout: project
 category: proyect
 title: Tutorials
-description: transmitir estos resultados a otros investigadores no a especialistas en teoria de control, puede ser difícil. Incluso entre los expertos en el tema compartir software es complicado.Aquí hay una serie de tutoriales para la reproducción fiel y fácil de los resultados matemáticos.
+description: Transmitting the results to other researchers, not specialists in control theory, can be difficult. Even among experts on the subject of sharing software is complicated. Here is a series of tutorials for faithful and easy reproduction of mathematical results.
 ---
 
 {::nomarkdown}

@@ -150,12 +150,200 @@
 <!-- Main Content -->
 <div class="container">
 	<div class="col-md-10 col-md-offset-1">
-		<p>
+		<!-- <p>
   Below you will find the different classes and functions the DyCon Toolbox offers to help solve problems
   that may show up in real life TOFINISH
-</p>
+</p> -->
 <!-- TODO: Index of Content with links to scroll smoothly-->
+
+
+<h1 class="doc-header-title">Functions</h1>
+<p>
+List of functions developed within the framework of the DyCon project. Here below we can find the technical description of each function.
+</p>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="post-preview shadowbox doc-preview-box">
+      <a href="/dycon-platform-documentation/documentation/mdl01/SLSD1doptimalnullcontrol">
+        <h3 class="post-preview-title">
+          SLSD1doptimalnullcontrol(...)
+        </h3>
+      </a>
+      <p>
+        This function computes an approximate null-control for the semilinear heat equation. Consider the semilinear heat equation in the interval $[0,1]$ with interior control, $$y_t-Dy_{xx}=G(y)+u\mathbb{1}_\omega$$ with 0 Dirichlet boundary conditions. The control is computed via an optimal control problem. WARNING the control might be non optimum with respect to the functional. It will depend on the non-linearity considered in the heat equation, the convexity of the functional has to be proven. Given the time horizon for the control $T>0$, the functional considered is $$J(y,u)=\|y(T)\|_{L^2(\Omega)}+\beta\int_0^T \|u(t)\|^2_{L^2(\Omega)}dt.$$ Computations are done with the DyCon toolbox considering a semi-discretization on space and integrating the ODE system.
+      </p>
+      <a href="/dycon-platform-documentation/documentation/mdl01/SLSD1doptimalnullcontrol">
+        <span>See more...</span>
+      </a>
+    </div>
+  
+
+  
+    <div class="post-preview shadowbox doc-preview-box">
+      <a href="/dycon-platform-documentation/documentation/mdl00/ODEsolver">
+        <h3 class="post-preview-title">
+          ODEsolver(...)
+        </h3>
+      </a>
+      <p>
+        This is a odesolver using mid-point rule for $$M(d^2u/dt^2)=Ku+f$$
+      </p>
+      <a href="/dycon-platform-documentation/documentation/mdl00/ODEsolver">
+        <span>See more...</span>
+      </a>
+    </div>
+  
+
+  
+    <div class="post-preview shadowbox doc-preview-box">
+      <a href="/dycon-platform-documentation/documentation/mdl02/FractionalSchrodinger">
+        <h3 class="post-preview-title">
+          FractionalSchrodinger(...)
+        </h3>
+      </a>
+      <p>
+        Solver the fractional Schrodinger equation in 1d
+      </p>
+      <a href="/dycon-platform-documentation/documentation/mdl02/FractionalSchrodinger">
+        <span>See more...</span>
+      </a>
+    </div>
+  
+
+  
+    <div class="post-preview shadowbox doc-preview-box">
+      <a href="/dycon-platform-documentation/documentation/mdl02/FractionalLaplacian">
+        <h3 class="post-preview-title">
+          FractionalLaplacian(...)
+        </h3>
+      </a>
+      <p>
+        Compute the rigidity matrix for solving the Poisson problem $$(-\Delta)^s u = F  \ \in (-L,L)$$ where $u=0, \in R(-L,L)$ using linear finite elements on a mesh of N points
+      </p>
+      <a href="/dycon-platform-documentation/documentation/mdl02/FractionalLaplacian">
+        <span>See more...</span>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
 <h1 class="doc-header-title">Classes</h1>
+<p>
+Classes are abstract objects to facilitate the coding of algorithms, then a list of classes developed in the project
+</p>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -187,6 +375,8 @@
         <span>See more...</span>
       </a>
     </div>
+  
+
   
 
   
@@ -253,85 +443,6 @@
         <span>See more...</span>
       </a>
     </div>
-  
-
-  
-
-  
-
-  
-
-
-<h1 class="doc-header-title">Functions</h1>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class="post-preview shadowbox doc-preview-box">
-      <a href="/dycon-platform-documentation/documentation/mdl00/ODEsolver">
-        <h3 class="post-preview-title">
-          ODEsolver(...)
-        </h3>
-      </a>
-      <p>
-        This is a odesolver using mid-point rule for $$M(d^2u/dt^2)=Ku+f$$
-      </p>
-      <a href="/dycon-platform-documentation/documentation/mdl00/ODEsolver">
-        <span>See more...</span>
-      </a>
-    </div>
-  
-
-  
-    <div class="post-preview shadowbox doc-preview-box">
-      <a href="/dycon-platform-documentation/documentation/mdl02/FractionalSchrodinger">
-        <h3 class="post-preview-title">
-          FractionalSchrodinger(...)
-        </h3>
-      </a>
-      <p>
-        Solver the fractional Schrodinger equation in 1d
-      </p>
-      <a href="/dycon-platform-documentation/documentation/mdl02/FractionalSchrodinger">
-        <span>See more...</span>
-      </a>
-    </div>
-  
-
-  
-    <div class="post-preview shadowbox doc-preview-box">
-      <a href="/dycon-platform-documentation/documentation/mdl02/FractionalLaplacian">
-        <h3 class="post-preview-title">
-          FractionalLaplacian(...)
-        </h3>
-      </a>
-      <p>
-        Compute the rigidity matrix for solving the Poisson problem $$(-\Delta)^s u = F  \ \in (-L,L)$$ where $u=0, \in R(-L,L)$ using linear finite elements on a mesh of N points
-      </p>
-      <a href="/dycon-platform-documentation/documentation/mdl02/FractionalLaplacian">
-        <span>See more...</span>
-      </a>
-    </div>
-  
-
-  
-
   
 
   

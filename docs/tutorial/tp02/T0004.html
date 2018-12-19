@@ -12,7 +12,7 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>Optimal control of a  graph evolving in discrete time - DyCon Platform</title>
+    <title>Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model - DyCon Platform</title>
 
     <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/tutorial/tp02/T0004">
 
@@ -137,7 +137,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1>Optimal control of a  graph evolving in discrete time</h1>
+                    <h1>Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model</h1>
 
 					<span class="meta">Posted by:
 					
@@ -214,73 +214,34 @@ img:active{
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span> <span class="nb">all</span><span class="p">;</span>
-<span class="nb">close</span> <span class="nb">all</span><span class="p">;</span>
-</code></pre></div></div>
+				<h2 id="semi-linear-semi-discrete-heat-equation-and-collective-behavior">Semi-linear semi-discrete heat equation and collective behavior</h2>
 
-<h2 id="semi-linear-semi-discrete-heat-equation-and-collective-behavior">Semi-linear semi-discrete heat equation and collective behavior</h2>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">\</span><span class="c1">% In this tutorial we will apply the DyCon toolbox to find a control to the</span>
-<span class="p">\</span><span class="c1">% semi-discrete semi-linear heat equation.</span>
-</code></pre></div></div>
+<p>In this tutorial we will apply the DyCon toolbox to find a control to the semi-discrete semi-linear heat equation.</p>
 
 <script type="math/tex; mode=display">y_t-N^2Ay=G(y)+Bu</script>
 
 <p>where $N^2A$ is the discretization of the Laplacian in 1d in $N$ nodes. We are looking for a control that after time $T$ steers the system near zero. In order to do so we will frame the problem as a minimization of a functional and we will apply gradient descent to find it. Note that the convexity of the fuctional is not proven, therefore, we will obtain a local minima for the functional. The functional considered will be:</p>
 
-<script type="math/tex; mode=display">J(\boldsymbol{y},\boldsymbol{u})=|\boldsymbol{y}(t)|_{L^2}^2+\int_0^T `\boldsymbol{u}(t)`_{L^2}^2 dt</script>
+<script type="math/tex; mode=display">J(\boldsymbol{y},\boldsymbol{u})=/vert\boldsymbol{y}(t)/vert_{L^2}^2+\int_0^T `\boldsymbol{u}(t)`_{L^2}^2 dt</script>
 
-<table>
-  <tbody>
-    <tr>
-      <td>where by $</td>
-      <td>\cdot</td>
-      <td>_^{L^2}$ we understand the discrete $L^2$ norm.</td>
-    </tr>
-  </tbody>
-</table>
+<p>where by $/vert\cdot/vert_{L^2}$ we understand the discrete $L^2$ norm.</p>
 
-<p>We shall see the control for different mesh-sizes, the number of nodes will take this three possible values N=15,25,50.</p>
+<p>Once this control is computed for a certain N, we will think on a dynamical system that models an opinion dynamics with $N$ agents communicating through a chain.</p>
 
-<p>Once this control is computed for each N, we will think on a dynamical system that models an opinion dynamics with $N$ agents communicating through a chain.</p>
+<p>\begin{equation}\label{m1}y_t-\frac{1}{N}Ay=G(y)+Bv\end{equation}</p>
 
-<script type="math/tex; mode=display">y_t-\frac{1}{N}Ay=G(y)+Bv</script>
+<p>The goal will be to compute also the control $v$ thinking model \eqref{m1} as if it was a semidiscretization of a heat equation with diffusivity $\frac{1}{N^3}$. Furthermore we will also compute the control for model \eqref{m1} with the non-linearity being non-homogeneous on $N$ and a time horizon being $T_N=N^3T$.</p>
 
-<h2 id="we-set-for-which-n-are-we-going-to-apply-the-method">We set for which $N$ are we going to apply the method</h2>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Ns</span><span class="o">=</span><span class="p">[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">];</span>
-<span class="p">\</span><span class="c1">%Ns=[15,25];</span>
-<span class="n">norms</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">length</span><span class="p">(</span><span class="n">Ns</span><span class="p">));</span>
-<span class="n">targnorms</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">length</span><span class="p">(</span><span class="n">Ns</span><span class="p">));</span>
-<span class="n">Size</span><span class="o">=</span><span class="nb">size</span><span class="p">(</span><span class="n">norms</span><span class="p">)</span>
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Size =
-
-     1     2
-
-
-</code></pre></div></div>
-
-<h2 id="we-initialize-the-loop">We initialize the loop</h2>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">Size</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h2 id="definition-of-the-time">Definition of the time</h2>
+<p>Definition of the time</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">syms</span> <span class="n">t</span>
-</code></pre></div></div>
-
-<h2 id="discretization-of-the-space">Discretization of the space</h2>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">N</span> <span class="o">=</span> <span class="n">Ns</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
+<span class="c1">%% Discretization of the space</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
 <span class="n">xi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">xf</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="n">xline</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">xf</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
 </code></pre></div></div>
 
-<h2 id="interior-control-region-between-05-and-08">Interior Control region between 0.5 and 0.8</h2>
+<p>Interior Control region between 0.5 and 0.8</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">w1</span><span class="o">=</span><span class="mf">0.5</span><span class="p">;</span>
 <span class="n">w2</span><span class="o">=</span><span class="mf">0.8</span><span class="p">;</span>
@@ -304,37 +265,25 @@ Size =
 <span class="n">symU</span> <span class="o">=</span> <span class="n">SymsVector</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="nb">count</span><span class="p">);</span>
 </code></pre></div></div>
 
-<h2 id="we-create-the-functional-that-we-want-to-minimize">We create the functional that we want to minimize</h2>
-
-<p>Our goal is to set the system to zero penalizing the norm of the control by a parameter $\beta$ that will be small.</p>
+<p>We create the functional that we want to minimize Our goal is to set the system to zero penalizing the norm of the control by a parameter $\beta$ that will be small.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">YT</span> <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">xline</span><span class="o">'</span><span class="p">;</span>
 <span class="n">symPsi</span>  <span class="o">=</span> <span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">symY</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">symY</span><span class="p">);</span>
-<span class="p">\</span><span class="c1">%symPsi  = 0;</span>
 <span class="nb">beta</span><span class="o">=</span><span class="mf">0.0000001</span><span class="p">;</span>
-<span class="p">\</span><span class="c1">%symL    = (YT - symY).'*(YT - symY)+beta*(symU.'*symU)*(abs(w2-w1))/count;</span>
 <span class="n">symL</span>    <span class="o">=</span> <span class="nb">beta</span><span class="o">*</span><span class="p">(</span><span class="n">symU</span><span class="o">.'*</span><span class="n">symU</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">w1</span><span class="o">-</span><span class="n">w2</span><span class="p">))/</span><span class="nb">count</span><span class="p">;</span>
-
 <span class="n">Jfun</span> <span class="o">=</span> <span class="n">Functional</span><span class="p">(</span><span class="n">symPsi</span><span class="p">,</span><span class="n">symL</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">);</span>
 </code></pre></div></div>
 
-<h2 id="we-create-the-ode-object">We create the ODE object</h2>
+<p>We create the ODE object Our ODE object will have the semi-discretization of the semilinear heat equation. We set also initial conditions, define the non linearity and the interaction of the control to the dynamics.</p>
 
-<p>Our ODE object will have the semi-discretization of the semilinear heat equation. We set also initial conditions, define the non linearity and the interaction of the control to the dynamics.</p>
+<p>Initial condition</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">\</span><span class="c1">%\%\%\%\%\%\%\%\%\%\%\%\%\%</span>
-<span class="p">\</span><span class="c1">% Initial condition</span>
-<span class="n">Y0</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="nb">pi</span><span class="o">*</span><span class="n">xline</span><span class="p">)</span><span class="o">'</span><span class="p">;</span>
-<span class="p">\</span><span class="c1">%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Y0</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="nb">pi</span><span class="o">*</span><span class="n">xline</span><span class="p">)</span><span class="o">'</span><span class="p">;</span>
+</code></pre></div></div>
 
+<p>Diffusion part: the discretization of the 1d Laplacian</p>
 
-<span class="p">\</span><span class="c1">% Diffusion part: the discretization of the 1d Laplacian</span>
-<span class="n">A</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="nb">full</span><span class="p">(</span><span class="nb">gallery</span><span class="p">(</span><span class="s1">'tridiag'</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)));</span>
-<span class="p">\</span><span class="c1">%A=1./(N)*(full(gallery('tridiag',N,1,-2,1)));</span>
-<span class="p">\</span><span class="c1">%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%</span>
-<span class="p">\</span><span class="c1">%B = zeros(N,2);</span>
-<span class="p">\</span><span class="c1">%B(1,1) = 1;</span>
-<span class="p">\</span><span class="c1">%B(N,2) = 1;</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="nb">full</span><span class="p">(</span><span class="nb">gallery</span><span class="p">(</span><span class="s1">'tridiag'</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)));</span>
 </code></pre></div></div>
 
 <p>We define the matrix B that will be the effect of the interior control to the dynamics</p>
@@ -360,7 +309,15 @@ Size =
 <span class="n">U</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">=-</span><span class="mi">5</span><span class="o">*</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">);</span>
 <span class="n">G</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">=</span><span class="nb">diff</span><span class="p">(</span><span class="n">U</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
 <span class="n">formula</span><span class="o">=</span><span class="n">G</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
-<span class="n">G</span> <span class="o">=</span> <span class="n">symfun</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">symfun</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 
+G(x) =
+ 
+10*x*exp(-x^2)
+ 
+
 </code></pre></div></div>
 
 <p>and we define the part of the dynamics corresponding to the nonlinearity</p>
@@ -373,295 +330,172 @@ Size =
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Fsym</span>  <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">symY</span> <span class="o">+</span> <span class="n">vectorF</span> <span class="o">+</span> <span class="n">B</span><span class="o">*</span><span class="n">symU</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="creation-of-the-ode-object">Creation of the ODE object</h2>
-
-<p>Time horizon</p>
+<p>Creation of the ODE object Time horizon</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>We create the ODE-object and we change the resolution to dt=0.01 in order to see the variation in a small time scale. We will get the values of the solution in steps of size odeEqn.dt, if we do not care about modifying this parameter in the object, we might get the solution in certain time steps that will hide part of the dynamics.</p>
+<p>We create the ODE-object and we change the resolution to $dt=0.01$ in order to see the variation in a small time scale. We will get the values of the solution in steps of size odeEqn.dt, if we do not care about modifying this parameter in the object, we might get the solution in certain time steps that will hide part of the dynamics.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">odeEqn</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fsym</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">,</span><span class="s1">'Y0'</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="s1">'T'</span><span class="p">,</span><span class="n">T</span><span class="p">);</span>
 <span class="n">odeEqn</span><span class="o">.</span><span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="we-solve-the-equation-and-we-plot-the-free-solution-applying-solve-to-odeeqn-and-we-plot-the-free-solution">We solve the equation and we plot the free solution applying solve to odeEqn and we plot the free solution.</h2>
+<p>We solve the equation and we plot the free solution applying solve to odeEqn and we plot the free solution.</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">solve</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">)</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%%solve(odeEqn)</span>
+</code></pre></div></div>
 
-<span class="nb">figure</span><span class="p">;</span>
-
-<span class="nb">surf</span><span class="p">(</span><span class="n">odeEqn</span><span class="o">.</span><span class="n">Y</span><span class="p">);</span>
-
-<span class="nb">figure</span><span class="p">;</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">YT</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">odeEqn</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,:),</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
-<span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">)</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="n">SIZ</span><span class="o">=</span><span class="nb">size</span><span class="p">(</span><span class="n">odeEqn</span><span class="o">.</span><span class="n">Y</span><span class="p">);</span>
+<span class="nb">time</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="n">space</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+<span class="p">[</span><span class="n">TIME</span><span class="p">,</span><span class="n">SPACE</span><span class="p">]</span><span class="o">=</span><span class="nb">meshgrid</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span><span class="n">space</span><span class="p">);</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">TIME</span><span class="s1">',SPACE'</span><span class="p">,</span><span class="n">odeEqn</span><span class="o">.</span><span class="n">Y</span><span class="p">);</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Free Dynamics'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_01.png" alt="" /></p>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_02.png" alt="" /></p>
-
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_06.png" alt="" /></p>
-
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_07.png" alt="" /></p>
-
-<h2 id="we-create-the-object-that-collects-the-formulation-of-an-optimal-control-problem--by-means-of-the-object-that-describes-the-dynamics-odeeqn-the-functional-to-minimize-jfun-and-the-time-horizon-t">We create the object that collects the formulation of an optimal control problem  by means of the object that describes the dynamics odeEqn, the functional to minimize Jfun and the time horizon T</h2>
+<p>We create the object that collects the formulation of an optimal control problem  by means of the object that describes the dynamics odeEqn, the functional to minimize Jfun and the time horizon T</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iCP1</span> <span class="o">=</span> <span class="n">ControlProblem</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">,</span><span class="n">Jfun</span><span class="p">,</span><span class="s1">'T'</span><span class="p">,</span><span class="n">T</span><span class="p">);</span>
 </code></pre></div></div>
 
-<h2 id="we-apply-the-steepest-descent-method-to-obtain-a-local-minimum-our-functional-might-not-be-convex">We apply the steepest descent method to obtain a local minimum (our functional might not be convex).</h2>
+<p>We apply the steepest descent method to obtain a local minimum (our functional might not be convex).</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tol</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
 <span class="n">maxiter</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
 <span class="n">DescentParameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'MiddleStepControl'</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="s1">'InitialLengthStep'</span><span class="p">,</span><span class="mf">4.0</span><span class="p">};</span>
 <span class="n">GradientParameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'tol'</span><span class="p">,</span><span class="n">tol</span><span class="p">,</span><span class="s1">'DescentParameters'</span><span class="p">,</span><span class="n">DescentParameters</span><span class="p">,</span><span class="s1">'maxiter'</span><span class="p">,</span><span class="n">maxiter</span><span class="p">};</span>
-<span class="p">\</span><span class="c1">%</span>
-<span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">,</span><span class="n">GradientParameters</span><span class="p">{:})</span>
+<span class="c1">%%GradientMethod(iCP1,GradientParameters{:})</span>
+</code></pre></div></div>
 
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="n">SIZ</span><span class="o">=</span><span class="nb">size</span><span class="p">(</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">);</span>
+<span class="nb">time</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="n">space</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+<span class="p">[</span><span class="n">TIME</span><span class="p">,</span><span class="n">SPACE</span><span class="p">]</span><span class="o">=</span><span class="nb">meshgrid</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span><span class="n">space</span><span class="p">);</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">TIME</span><span class="s1">',SPACE'</span><span class="p">,</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Controlled Dynamics'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_02.png" alt="" /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%%The control function inside the control region</span>
 <span class="nb">figure</span><span class="p">;</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span>
-
-<span class="nb">figure</span><span class="p">;</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">iCP1</span><span class="o">.</span><span class="n">UOptimal</span><span class="p">)</span>
-
-<span class="nb">figure</span><span class="p">;</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">YT</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">odeEqn</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,:),</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,:),</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'green'</span><span class="p">)</span>
-<span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
-
-<span class="n">uu</span><span class="o">=</span><span class="n">iCP1</span><span class="o">.</span><span class="n">UOptimal</span><span class="p">;</span>
-<span class="k">for</span> <span class="nb">j</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="nb">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">norms</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">=</span><span class="n">norms</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">uu</span><span class="p">(</span><span class="nb">j</span><span class="p">,:)</span><span class="o">*</span><span class="n">uu</span><span class="p">(</span><span class="nb">j</span><span class="p">,:)</span><span class="o">'</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">w1</span><span class="o">-</span><span class="n">w2</span><span class="p">))/</span><span class="nb">count</span><span class="p">;</span>
-<span class="k">end</span>
-<span class="k">for</span> <span class="nb">j</span><span class="o">=</span><span class="nb">size</span><span class="p">(</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,:))</span>
-<span class="n">targnorms</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">=</span><span class="n">targnorms</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,</span><span class="nb">j</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">;</span>
-<span class="k">end</span>
-<span class="n">targnorms</span><span class="p">(</span><span class="n">k</span><span class="p">)/</span><span class="n">N</span><span class="p">;</span>
+<span class="n">SIZ</span><span class="o">=</span><span class="nb">size</span><span class="p">(</span><span class="n">iCP1</span><span class="o">.</span><span class="n">UOptimal</span><span class="p">);</span>
+<span class="nb">time</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="n">space</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">[</span><span class="n">TIME</span><span class="p">,</span><span class="n">SPACE</span><span class="p">]</span><span class="o">=</span><span class="nb">meshgrid</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span><span class="n">space</span><span class="p">);</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">TIME</span><span class="s1">',SPACE'</span><span class="p">,</span><span class="n">iCP1</span><span class="o">.</span><span class="n">UOptimal</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Control'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_03.png" alt="" /></p>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_04.png" alt="" /></p>
-
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_05.png" alt="" /></p>
-
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_08.png" alt="" /></p>
-
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_09.png" alt="" /></p>
-
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_10.png" alt="" /></p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">end</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">YT</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">odeEqn</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,:),</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,:),</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'green'</span><span class="p">)</span>
+<span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<h2 id="now-we-apply-the-same-procedure-for-the-collective-behavior-dynamics-and-we-get-the-following-results">Now we apply the same procedure for the collective behavior dynamics and we get the following results</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Subscript indices must either be real positive integers or logicals.
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">normscb</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-<span class="n">targnormscb</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-<span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span>
+Error in ./imgs-matlab/copiaRM (line 171)
+line(xline,odeEqn.Y(end,:),'Color','blue')
+
 </code></pre></div></div>
 
-<h2 id="los-vectores-symy---y1-y2-">Los vectores symY = [ y1 y2 ]</h2>
+<p>Now we apply the same procedure for the collective behavior dynamics.</p>
 
-<h2 id="symu---u1-u2-">symU = [ u1 u2 ]</h2>
+<p>We will employ a function that does the algorithm explained before for the semilinear heat equation having the chance to set a diffusivity constant.</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">syms</span> <span class="n">t</span>
-</code></pre></div></div>
+<p>We set the parameters for the function</p>
 
-<h2 id="discretization-of-the-space-1">Discretization of the space</h2>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">N</span> <span class="o">=</span> <span class="n">Ns</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
-<span class="n">xi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">xf</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">xline</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">xf</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
-</code></pre></div></div>
-
-<h2 id="control-region-between-05-and-06">Control region between 0.5 and 0.6</h2>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">w1</span><span class="o">=</span><span class="mf">0.5</span><span class="p">;</span>
-<span class="n">w2</span><span class="o">=</span><span class="mf">0.8</span><span class="p">;</span>
-
-<span class="nb">count</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-<span class="k">for</span> <span class="nb">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">double</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">))/</span><span class="nb">double</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">w1</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)/</span><span class="nb">double</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">w2</span>
-            <span class="nb">count</span><span class="o">=</span><span class="nb">count</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-
-
-<span class="n">symY</span> <span class="o">=</span> <span class="n">SymsVector</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
-<span class="n">symU</span> <span class="o">=</span> <span class="n">SymsVector</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="nb">count</span><span class="p">);</span>
-</code></pre></div></div>
-
-<h2 id="we-create-the-functional-that-we-want-to-minimize-1">We create the functional that we want to minimize</h2>
-
-<p>Our goal is to set the system to zero penalizing the norm of the control by a parameter $\beta$ that will be small.</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">YT</span> <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">xline</span><span class="o">'</span><span class="p">;</span>
-<span class="n">symPsi</span>  <span class="o">=</span> <span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">symY</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">symY</span><span class="p">);</span>
-<span class="p">\</span><span class="c1">%symPsi  = 0;</span>
-<span class="nb">beta</span><span class="o">=</span><span class="mf">0.0000001</span><span class="p">;</span>
-<span class="p">\</span><span class="c1">%symL    = (YT - symY).'*(YT - symY)+beta*(symU.'*symU)*(abs(w2-w1))/count;</span>
-<span class="n">symL</span>    <span class="o">=</span> <span class="nb">beta</span><span class="o">*</span><span class="p">(</span><span class="n">symU</span><span class="o">.'*</span><span class="n">symU</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">w1</span><span class="o">-</span><span class="n">w2</span><span class="p">))/</span><span class="nb">count</span><span class="p">;</span>
-
-<span class="n">Jfun</span> <span class="o">=</span> <span class="n">Functional</span><span class="p">(</span><span class="n">symPsi</span><span class="p">,</span><span class="n">symL</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">);</span>
-</code></pre></div></div>
-
-<h2 id="we-create-the-ode-object-1">We create the ODE object</h2>
-
-<p>Our ODE object will have the semi-discretization of the semilinear heat equation. We set also initial conditions, define the non linearity and the interaction of the control to the dynamics.</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">\</span><span class="c1">%\%\%\%\%\%\%\%\%\%\%\%\%\%</span>
-<span class="p">\</span><span class="c1">% Initial condition</span>
-<span class="n">Y0</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="nb">pi</span><span class="o">*</span><span class="n">xline</span><span class="p">)</span><span class="o">'</span><span class="p">;</span>
-<span class="p">\</span><span class="c1">%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%</span>
-
-
-<span class="p">\</span><span class="c1">% Diffusion part</span>
-<span class="p">\</span><span class="c1">%A=(N^2)*(full(gallery('tridiag',N,1,-2,1)));</span>
-<span class="n">A</span><span class="o">=</span><span class="mi">1</span><span class="p">/(</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="nb">full</span><span class="p">(</span><span class="nb">gallery</span><span class="p">(</span><span class="s1">'tridiag'</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)));</span>
-<span class="p">\</span><span class="c1">%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%</span>
-<span class="p">\</span><span class="c1">%B = zeros(N,2);</span>
-<span class="p">\</span><span class="c1">%B(1,1) = 1;</span>
-<span class="p">\</span><span class="c1">%B(N,2) = 1;</span>
-
-<span class="p">\</span><span class="c1">% Effect of the interior control to the dynamics</span>
-<span class="n">B</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="nb">count</span><span class="p">);</span>
-<span class="n">count2</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-<span class="k">for</span> <span class="nb">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)/</span><span class="nb">double</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">w1</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)/</span><span class="nb">double</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">w2</span>
-            <span class="n">B</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="n">count2</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-            <span class="n">count2</span><span class="o">=</span><span class="n">count2</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-
-
-<span class="p">\</span><span class="c1">% Definition of the non-linearity</span>
-<span class="n">a</span><span class="o">=</span><span class="mi">5</span><span class="p">;</span>
-<span class="n">c</span><span class="o">=</span><span class="mf">0.20</span><span class="p">;</span>
-<span class="p">\</span><span class="c1">%syms G(x);</span>
-<span class="n">syms</span> <span class="n">x</span><span class="p">;</span>
-<span class="n">syms</span> <span class="n">G</span><span class="p">;</span>
-
-<span class="n">syms</span> <span class="n">x</span><span class="p">;</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">beta</span><span class="o">=</span><span class="mf">0.0000001</span><span class="p">;</span>
+<span class="n">y0</span><span class="o">=@</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="mi">2</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="nb">pi</span><span class="o">*</span><span class="n">x</span><span class="p">);</span>
+<span class="n">syms</span> <span class="n">x</span>
 <span class="n">syms</span> <span class="n">G</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 <span class="n">syms</span> <span class="n">U</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 <span class="n">syms</span> <span class="n">DG</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 <span class="n">U</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">=-</span><span class="mi">5</span><span class="o">*</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">);</span>
 <span class="n">G</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">=</span><span class="nb">diff</span><span class="p">(</span><span class="n">U</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
-
-<span class="n">formula</span><span class="o">=</span><span class="n">G</span><span class="p">(</span><span class="n">x</span><span class="p">);\</span><span class="c1">%*(1/N^3);</span>
-
-<span class="n">G</span> <span class="o">=</span> <span class="n">symfun</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
-
-<span class="p">\</span><span class="c1">%G(x) = piecewise(x&lt;=-a, -2*a^2*x*c-2*a*a*a*c, a&lt;=x, -2*a*a*x*c+2*a*a*a*c, -a&lt;x&lt;a, -c*x*(x-a)*(x+a));</span>
-<span class="p">\</span><span class="c1">%GF=@(x) double(G(x));</span>
-
-<span class="n">vectorF</span> <span class="o">=</span> <span class="nb">arrayfun</span><span class="p">(</span> <span class="o">@</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="n">G</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">symY</span><span class="p">);</span>
-<span class="p">\</span><span class="c1">%vectorF = arrayfun( @(x)0,symY);</span>
-
-
-<span class="p">\</span><span class="c1">% B=zeros(N,N);</span>
-<span class="p">\</span><span class="c1">% count=0;</span>
-<span class="p">\</span><span class="c1">% for i=ceil(Nx*w1):floor(Nx*w2)</span>
-<span class="p">\</span><span class="c1">%     B(i,i)=1;</span>
-<span class="p">\</span><span class="c1">%     count=count+1;</span>
-<span class="p">\</span><span class="c1">% end</span>
-<span class="p">\</span><span class="c1">%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%</span>
-
-<span class="p">\</span><span class="c1">% Putting all the things together</span>
-<span class="n">Fsym</span>  <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">symY</span> <span class="o">+</span> <span class="n">vectorF</span> <span class="o">+</span> <span class="n">B</span><span class="o">*</span><span class="n">symU</span><span class="p">;</span>
-<span class="p">\</span><span class="c1">%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%</span>
-<span class="p">\</span><span class="c1">% Time horizon</span>
-<span class="n">T</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-
-<span class="p">\</span><span class="c1">% We create the ODE-object and we change the resolution to dt=0.01 in order</span>
-<span class="p">\</span><span class="c1">% to see the variation in a small time scale. We will get the values of the</span>
-<span class="p">\</span><span class="c1">% solution in steps of size odeEqn.dt, if we do not care about</span>
-<span class="p">\</span><span class="c1">% modifying this parameter in the object, we might get the solution in</span>
-<span class="p">\</span><span class="c1">% certain time steps that will hide part of the dynamics.</span>
-
-<span class="n">odeEqn2</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fsym</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">,</span><span class="s1">'Y0'</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="s1">'T'</span><span class="p">,</span><span class="n">T</span><span class="p">);</span>
-<span class="n">odeEqn2</span><span class="o">.</span><span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span><span class="p">;</span>
+<span class="n">T</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">N</span><span class="o">=</span><span class="mi">11</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="we-solve-the-equation-and-we-plot-the-free-solution-applying">We solve the equation and we plot the free solution applying</h2>
+<p>For the simulation of the model in collective behavior we will employ a diffusivity $D=\frac{1}{N^3}$.</p>
 
-<h2 id="solve-to-odeeqn-and-we-plot-the-free-solution">solve to odeEqn and we plot the free solution.</h2>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">solve</span><span class="p">(</span><span class="n">odeEqn2</span><span class="p">)</span>
-
-<span class="nb">figure</span><span class="p">;</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">odeEqn2</span><span class="o">.</span><span class="n">Y</span><span class="p">);</span>
-
-
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">YT</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">odeEqn2</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,:),</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
-<span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">)</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%%[a,b,c,d]=SLSD1doptimalnullcontrol(N,1/(N^3),G,T,beta,[0.5,0.8],y0);</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_11.png" alt="" /></p>
-
-<h2 id="we-create-the-object-that-collects-the-formulation-of-an-optimal-control-problem">We create the object that collects the formulation of an optimal control problem</h2>
-
-<h2 id="by-means-of-the-object-that-describes-the-dynamics-odeeqn-the-functional-to-minimize-jfun-and-the-time-horizon-t">by means of the object that describes the dynamics odeEqn, the functional to minimize Jfun and the time horizon T</h2>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iCP2</span> <span class="o">=</span> <span class="n">ControlProblem</span><span class="p">(</span><span class="n">odeEqn2</span><span class="p">,</span><span class="n">Jfun</span><span class="p">,</span><span class="s1">'T'</span><span class="p">,</span><span class="n">T</span><span class="p">);</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">);</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Free Dynamics'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<h2 id="we-apply-the-steepest-descent-method-to-obtain-a-local-minimum-our-functional-might-not-be-convex-1">We apply the steepest descent method to obtain a local minimum (our functional might not be convex).</h2>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Controlled Dynamics'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</code></pre></div></div>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tol</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
-<span class="n">maxiter</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
-<span class="n">DescentParameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'MiddleStepControl'</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="s1">'InitialLengthStep'</span><span class="p">,</span><span class="mf">4.0</span><span class="p">};</span>
-<span class="n">GradientParameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'tol'</span><span class="p">,</span><span class="n">tol</span><span class="p">,</span><span class="s1">'DescentParameters'</span><span class="p">,</span><span class="n">DescentParameters</span><span class="p">,</span><span class="s1">'graphs'</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="s1">'TypeGraphs'</span><span class="p">,</span><span class="s1">'PDE'</span><span class="p">,</span><span class="s1">'maxiter'</span><span class="p">,</span><span class="n">maxiter</span><span class="p">};</span>
-<span class="p">\</span><span class="c1">%</span>
-<span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP2</span><span class="p">,</span><span class="n">GradientParameters</span><span class="p">{:})</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Control'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</code></pre></div></div>
 
-<span class="nb">figure</span><span class="p">;</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">iCP2</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span>
-
-<span class="nb">figure</span><span class="p">;</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">iCP2</span><span class="o">.</span><span class="n">UOptimal</span><span class="p">)</span>
-
-
-<span class="nb">figure</span><span class="p">;</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">YT</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">odeEqn2</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,:),</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">iCP2</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,:),</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'green'</span><span class="p">)</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y1</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y2</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y3</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'green'</span><span class="p">)</span>
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
-
-<span class="n">uu</span><span class="o">=</span><span class="n">iCP2</span><span class="o">.</span><span class="n">UOptimal</span><span class="p">;</span>
-<span class="k">for</span> <span class="nb">j</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="nb">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">normscb</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">=</span><span class="n">normscb</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">uu</span><span class="p">(</span><span class="nb">j</span><span class="p">,:)</span><span class="o">*</span><span class="n">uu</span><span class="p">(</span><span class="nb">j</span><span class="p">,:)</span><span class="o">'</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">w1</span><span class="o">-</span><span class="n">w2</span><span class="p">))/</span><span class="nb">count</span><span class="p">;</span>
-<span class="k">end</span>
-<span class="k">for</span> <span class="nb">j</span><span class="o">=</span><span class="nb">size</span><span class="p">(</span><span class="n">iCP2</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,:))</span>
-<span class="n">targnormscb</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">=</span><span class="n">targnormscb</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">iCP2</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">,</span><span class="nb">j</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">;</span>
-<span class="k">end</span>
-<span class="n">targnormscb</span><span class="p">(</span><span class="n">k</span><span class="p">)/</span><span class="n">N</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_12.png" alt="" /></p>
+<p>Now we will change also the time horizon and we will incorporate a non-homogeneous non-linearity, we will just divide the non-linearity $G$ by $N^3$</p>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_13.png" alt="" /></p>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%%[a,b,c,d]=SLSD1doptimalnullcontrol(N,1/(N^2),G/(N^2),N^2*T,beta,[0.5,0.8],y0);</span>
+</code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_14.png" alt="" /></p>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">);</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Free Dynamics'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_15.png" alt="" /></p>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Controlled Dynamics'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</code></pre></div></div>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">end</span>
-<span class="p">\</span><span class="c1">% Several ways to run</span>
-<span class="p">\</span><span class="c1">% GradientMethod(iCP1)</span>
-<span class="p">\</span><span class="c1">% GradientMethod(iCP1,'DescentParameters',DescentParameters)</span>
-<span class="p">\</span><span class="c1">% GradientMethod(iCP1,'DescentParameters',DescentParameters,'graphs',true)</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="nb">time</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">c</span><span class="o">.</span><span class="n">space</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Control'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y1</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y2</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y3</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'green'</span><span class="p">)</span>
+<span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
 </code></pre></div></div>
 
 

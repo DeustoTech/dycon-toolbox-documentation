@@ -140,7 +140,7 @@
           Tutorials
         </h1>
         <hr class="small">
-        <span class="subheading">transmitir estos resultados a otros investigadores no a especialistas en teoria de control, puede ser difícil. Incluso entre los expertos en el tema compartir software es complicado.Aquí hay una serie de tutoriales para la reproducción fiel y fácil de los resultados matemáticos.</span>
+        <span class="subheading">Transmitting the results to other researchers, not specialists in control theory, can be difficult. Even among experts on the subject of sharing software is complicated. Here is a series of tutorials for faithful and easy reproduction of mathematical results.</span>
         <hr>
       </div>
     </div>
@@ -158,14 +158,12 @@
           
         
           
-        
-          
               <div class="post-preview shadowbox">
                 <a href="/dycon-platform-documentation/tutorial/tp02/T0004" class="display-block">
-                  <h3 class="post-title"> Optimal control of a  graph evolving in discrete time </h3>
+                  <h3 class="post-title"> Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model </h3>
                 </a>
                   <p class="post-subtitle">
-                    blabla.
+                    This tutorial concerns the use of the DyCon toolbox for computing a null-control for the semilinear semi-discrete heat equation. The control will be found by means of a minimization of a functional, i.e. an Optimal Control problem. The control is computing by means of a gradient descent method. However, the functional might be not convex, therefore the control found could be only a local minima for the functional considered. Afterwards the same procedure will be applied to a dynamical system that shares the formal structure of a semilinear semi-discrete heat equation.
                   </p>
                   <small style="color:grey">
                     Author(s):
@@ -174,9 +172,73 @@
                     
                   </small>
                   <!--p>
-                    October 26, 2018
+                    December 18, 2018
                   </p-->
               </div>
+          
+        
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp02/T0001" class="display-block">
+                  <h3 class="post-title"> Simple application of ControlProblem MATLAB Object </h3>
+                </a>
+                  <p class="post-subtitle">
+                    In this tutorial we will see how to use the implementation for optimal control in the DyCon Toolbox
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Jesus Oroya
+                    
+                  </small>
+                  <!--p>
+                    December 12, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
           
         
           
@@ -240,6 +302,90 @@
     <h1>Control of parameter dependent problems</h1>
     <p>Given a parameter-dependent system, the controllability  of this system can be addressed from different perspectives. The classical is the simultaneous controllability that consists of controlling each specific realization. The averaged control consists of controlling the average of the states with respect to the parameter, rather than controlling each realization what can be very expensive.</p>
     <p>See our tutorials:</p>
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp03/T0002" class="display-block">
+                  <h3 class="post-title"> Average Control by Stochastic Gradient method </h3>
+                </a>
+                  <p class="post-subtitle">
+                    In this tutorial the main goal is to apply the stochastic gradient descent method to obtain the minimun of the same optimal control problem.
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Ana Navarro
+                    
+                      Enrique Zuazua
+                    
+                  </small>
+                  <!--p>
+                    November 13, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp03/T0001" class="display-block">
+                  <h3 class="post-title"> Average Control by classical gradient step method </h3>
+                </a>
+                  <p class="post-subtitle">
+                    In this work, we address the concept of optimal control of parameter-dependent systems.
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Ana Navarro
+                    
+                      Jesus Oroya
+                    
+                  </small>
+                  <!--p>
+                    July 21, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
         
           
         
@@ -344,6 +490,68 @@
           
         
           
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp04/T0001" class="display-block">
+                  <h3 class="post-title"> Rays propagation of a fractional Schrodinger Equation </h3>
+                </a>
+                  <p class="post-subtitle">
+                    Solution of a fractional Schordinger equation starting from a concentrated and highly oscillatory initial datum, and display of its propagation properties along the rays of geometric optics
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Umberto Biccari
+                    
+                  </small>
+                  <!--p>
+                    July 21, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
         
           
         
@@ -394,6 +602,108 @@
     <h1>Consensus Problems</h1>
     <p>Consensus problems are fundamental in control of multi-agent systems, that is, systems with different processes or nodes. The main goal is to reach an agreement among a number of agents. Notice that,  this agreement is defined as a subspace.</p>
     <p>See our tutorials:</p>
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp06/P0007-Domenec" class="display-block">
+                  <h3 class="post-title"> Stabilization of a collective behavior model </h3>
+                </a>
+                  <p class="post-subtitle">
+                    Summary of example objective The goal of this tutorial is to use LQR theory applied to a model of collective behavior. The model choosen shares a formal structure with the semidiscretization of the semilinear 1d heat equation.
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Domenec Ruiz
+                    
+                  </small>
+                  <!--p>
+                    October 28, 2018
+                  </p-->
+              </div>
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorial/tp06/P0001" class="display-block">
+                  <h3 class="post-title"> Optimal control of a  graph evolving in discrete time </h3>
+                </a>
+                  <p class="post-subtitle">
+                    Stabilizing the graph by minimizing a discrete LQR and driving it to a reference state.
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Alejandro Cunillera
+                    
+                  </small>
+                  <!--p>
+                    October 26, 2018
+                  </p-->
+              </div>
+          
+        
+          
+              <div class="post-preview shadowbox">
+                <a href="/dycon-platform-documentation/tutorials/tp06/P0004" class="display-block">
+                  <h3 class="post-title"> Synchronized Oscillators </h3>
+                </a>
+                  <p class="post-subtitle">
+                    Sincronization of coupled oscillator described by the Kuramoto model, using the Stochastic Conjugate Gradient Method
+                  </p>
+                  <small style="color:grey">
+                    Author(s):
+                    
+                      Ana Navarro
+                    
+                      Jesus Oroya
+                    
+                      Umberto Biccari
+                    
+                  </small>
+                  <!--p>
+                    October 19, 2018
+                  </p-->
+              </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
         
           
         

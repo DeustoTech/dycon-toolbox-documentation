@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Welcome to the web interface of DyCon Toolbox, the computational platform developed within the <a href='https://cmc.deusto.eus/dycon/' target='_blank'>ERC DyCon - Dynamic Control</a> project.">
+
+
+
+	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
+
+    <title>SLSD1doptimalnullcontrol - DyCon Platform</title>
+
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/SLSD1doptimalnullcontrol">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/clean-blog.css">
+
+	<!-- Adjust Colors -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/colorscheme.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Lusitana" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<!-- Math Jax -->
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']]
+    },
+		TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    /*CommonHTML: {
+      scale: 300
+    }*/
+	});
+	</script>
+
+	<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" type="text/javascript"></script>-->
+
+    <!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+    <script src="https://DeustoTech.github.io/dycon-platform-documentation/js/clean-blog.min.js "></script>
+    
+ 	<!-- 404  JavaScript -->
+     <script src="https://DeustoTech.github.io/dycon-platform-documentation/js/404ForCaseSensitiveURLs.js "></script>   
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/dycon-platform-documentation/">
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/dycon-platform-documentation/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/documentation">Documentation</a>
+                </li>
+                
+                
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/tutorials">Tutorials</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/Download">Downloads</a>
+                </li>
+                
+                <li>
+                        <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="container" style="padding-top: 70px;">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading" style="padding: 0px 0">
+                    <h1 class="post-title">SLSD1doptimalnullcontrol <small>Function</small></h1>
+                </div>
+
+                <p>This function computes an approximate null-control for the semilinear heat equation. Consider the semilinear heat equation in the interval $[0,1]$ with interior control, $$y_t-Dy_{xx}=G(y)+u\mathbb{1}_\omega$$ with 0 Dirichlet boundary conditions. The control is computed via an optimal control problem. WARNING the control might be non optimum with respect to the functional. It will depend on the non-linearity considered in the heat equation, the convexity of the functional has to be proven. Given the time horizon for the control $T>0$, the functional considered is $$J(y,u)=\|y(T)\|_{L^2(\Omega)}+\beta\int_0^T \|u(t)\|^2_{L^2(\Omega)}dt.$$ Computations are done with the DyCon toolbox considering a semi-discretization on space and integrating the ODE system.</p>
+                <h1>Input Parameters</h1>
+                <h4>Madatory</h4>
+				<table>
+					<tr>
+						<th>Name</th>
+                        <th>Class</th>
+                        <th>Dimension</th>
+                        <th>Description</th>
+
+					</tr>
+					
+					<tr>
+                        <th>N</th>
+                        <th>integer</th>
+                        <th>1</th>
+						<th>Number of interior points in the semi-discretization</th>
+					</tr>
+				
+					<tr>
+                        <th>D</th>
+                        <th>double</th>
+                        <th>1</th>
+						<th>Diffusivity constant</th>
+					</tr>
+				
+					<tr>
+                        <th>G</th>
+                        <th>symbolic expression</th>
+                        <th>1</th>
+						<th>Symbolic expression of the non-linearity</th>
+					</tr>
+				
+					<tr>
+                        <th>T</th>
+                        <th>double</th>
+                        <th>1</th>
+						<th>Time horizon</th>
+					</tr>
+				
+					<tr>
+                        <th>beta</th>
+                        <th>handle function</th>
+                        <th>1</th>
+						<th>handle function containing the initial data $y_0$</th>
+					</tr>
+				
+					<tr>
+                        <th>w</th>
+                        <th>double</th>
+                        <th>2</th>
+						<th>vector containing the borders of the interior control region</th>
+					</tr>
+				
+                </table>
+                
+                <h1>Output Parameters</h1>
+				<table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Dimension</th>
+                            <th>Description</th>
+    
+                        </tr>
+                        
+                        <tr>
+                            <th>freedynamics</th>
+                            <th>structure</th>
+                            <th>1x1</th>
+                            <th>the structure contains the necessary data for plotting the free dynamics i.e. the dynamics without control. <ul> <li>freedynamics.time is the time mesh</li> <li>freedynamics.space is the space mesh</li> <li>freedynamics.value is the values of the solution in the mesh</li> </ul></th>
+                        </tr>
+                    
+                        <tr>
+                            <th>controlleddynamics</th>
+                            <th>structure</th>
+                            <th>1x1</th>
+                            <th>the structure contains the necessary data for plotting the controlled dynamics i.e. the dynamics with the control computed via gradient descent over the functional. <ul> <li>controlleddynamics.time is the time mesh</li> <li>controlleddynamics.space is the space mesh</li> <li>controlleddynamics.value is the values of the solution in the mesh</li> </ul></th>
+                        </tr>
+                    
+                        <tr>
+                            <th>ucontrol</th>
+                            <th>structure</th>
+                            <th>1x1</th>
+                            <th>the structure contains the necessary data for plotting the computed control in the control region. <ul> <li>ucontrol.time is the time mesh</li> <li>ucontrol.space is the space mesh</li> <li>ucontrol.value is the values of the control in the mesh corresponding to the control region</li> </ul></th>
+                        </tr>
+                    
+                        <tr>
+                            <th>targetplusdynamicspluscontrol</th>
+                            <th>structure</th>
+                            <th>1x1</th>
+                            <th>the structure contains the necessary data for plotting the free dynamics at time $T$ the control dynamics at time $T$ and the desired target (the function 0). <ul> <li>targetplusdynamicspluscontrol.y1 is the target </li> <li>targetplusdynamicspluscontrol.y2 is the free dynamics at time $T$</li> <li>targetplusdynamicspluscontrol.y3 is the dynamics with control at time $T$. </li> </ul></th>
+                        </tr>
+                    
+                    </table>
+                <hr>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+    <!-- Footer -->
+<footer>
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center">
+          <li>
+            <img style="width: 200px;" src="/dycon-platform-documentation/img/logos/logo_DyCon.png " alt="">
+          </li>
+          <li>
+            <img style="width: 250px;" src="/dycon-platform-documentation/img/logos/logo_CCM_subDerecha_v002.png " alt="">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+
+</html>

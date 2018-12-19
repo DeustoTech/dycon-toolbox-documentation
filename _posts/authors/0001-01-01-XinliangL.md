@@ -1,5 +1,5 @@
 ---
 author: XinliangL
-layout: author
 categories: author
+layout: author
 ---
