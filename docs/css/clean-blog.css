@@ -7,7 +7,7 @@
   padding-bottom: 20px;
 }
 .intro-header .site-heading .subheading {
-  padding: 20px 0 20px;
+  padding: 0px 0 20px;
 }
 .post-title {
   text-align: center;
@@ -15,11 +15,11 @@
 }
 .title {
   color: black;
-  padding-top: 50px;
+  padding-top: 40px;
 }
 body {
 font-family: 'Lusitana', serif;
-  font-size: 17px;
+  font-size: 15px;
   color: #404040;
 }
 p {
@@ -107,7 +107,7 @@ hr.small {
 }
 /* Documentation Page */
 .doc-header-title {
-  padding: 40px 0 0 0;
+  padding: 0px 0 0 0;
   text-align: center;
 }
 /* Index page */
@@ -200,7 +200,7 @@ hr.small {
 @media only screen and (min-width: 768px) {
   .intro-header .site-heading h1,
   .intro-header .page-heading h1 {
-    font-size: 60px;
+    font-size: 55px;
   }
 }
 .intro-header .site-heading,
@@ -209,7 +209,7 @@ hr.small {
 }
 .intro-header .site-heading .subheading,
 .intro-header .page-heading .subheading {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1.1;
   display: block;
   font-family: 'Lusitana', serif;
@@ -229,21 +229,21 @@ hr.small {
   color:black;
   font-family: 'Lusitana', serif;
   font-size: 24px;
-  margin: 10px 0 30px;
+  margin: 0px 0 30px;
   font-weight: 600;
 }
 .intro-header .post-heading .meta {
   font-family: 'Lora', 'Times New Roman', serif;
   font-style: italic;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 15px;
 }
 .intro-header .post-heading .meta a {
   color: rgb(43, 74, 173);
 }
 @media only screen and (min-width: 768px) {
   .intro-header .post-heading h1 {
-    font-size: 55px;
+    font-size: 45px;
   }
   .intro-header .post-heading .subheading {
     font-size: 30px;
@@ -469,7 +469,7 @@ th {
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
   border-collapse: collapse;
-  padding: 10px
+  padding: 6px
 }
 
 div.float-right{
@@ -516,8 +516,8 @@ hr.style-one {
 
 
 .shadowbox{
-  padding: 1px 20px 20px 20px;
-  margin: 20px 0 40px 0;
+  padding: 10px 40px 20px 40px;
+  margin: 20px 0 10px 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 4px;
 }

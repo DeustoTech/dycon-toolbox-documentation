@@ -30,11 +30,11 @@ description: "Releases of the DyCon Toolbox"
   Giving the install button, it must be installed.
   </div>
   <div class="get-started">
-    <h2>Getting Started</h2>
-    <hr>
+    <h3>Getting Started</h3>
+    <p>
     Once the DyCon toolbox is installed, we can start exploring the
-    tutorials  that we have on <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> this page</a>.
-    <hr>
+    tutorials  that we have on <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> this page</a>. 
+    </p>
 
   </div>
 </div>

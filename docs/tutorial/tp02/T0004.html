@@ -71,7 +71,6 @@
     <script src="https://DeustoTech.github.io/dycon-platform-documentation/js/clean-blog.min.js "></script>
     
  	<!-- 404  JavaScript -->
-     <script src="https://DeustoTech.github.io/dycon-platform-documentation/js/404ForCaseSensitiveURLs.js "></script>   
 
 </head>
 
@@ -137,6 +136,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
+                    <h2><small>MATLAB tutorial:</small></h2>
                     <h1>Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model</h1>
 
 					<span class="meta">Posted by:
@@ -222,9 +222,9 @@ img:active{
 
 <p>where $N^2A$ is the discretization of the Laplacian in 1d in $N$ nodes. We are looking for a control that after time $T$ steers the system near zero. In order to do so we will frame the problem as a minimization of a functional and we will apply gradient descent to find it. Note that the convexity of the fuctional is not proven, therefore, we will obtain a local minima for the functional. The functional considered will be:</p>
 
-<script type="math/tex; mode=display">J(\boldsymbol{y},\boldsymbol{u})=/vert\boldsymbol{y}(t)/vert_{L^2}^2+\int_0^T `\boldsymbol{u}(t)`_{L^2}^2 dt</script>
+<script type="math/tex; mode=display">J(\boldsymbol{y},\boldsymbol{u})=\vert\boldsymbol{y}(t)\vert_{L^2}^2+\int_0^T `\boldsymbol{u}(t)`_{L^2}^2 dt</script>
 
-<p>where by $/vert\cdot/vert_{L^2}$ we understand the discrete $L^2$ norm.</p>
+<p>where by $\vert\cdot\vert_{L^2}$ we understand the discrete $L^2$ norm.</p>
 
 <p>Once this control is computed for a certain N, we will think on a dynamical system that models an opinion dynamics with $N$ agents communicating through a chain.</p>
 
@@ -236,7 +236,7 @@ img:active{
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">syms</span> <span class="n">t</span>
 <span class="c1">%% Discretization of the space</span>
-<span class="n">N</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">11</span><span class="p">;</span>
 <span class="n">xi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">xf</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="n">xline</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">xf</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
 </code></pre></div></div>
@@ -343,7 +343,7 @@ G(x) =
 
 <p>We solve the equation and we plot the free solution applying solve to odeEqn and we plot the free solution.</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%%solve(odeEqn)</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">solve</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
@@ -351,7 +351,7 @@ G(x) =
 <span class="nb">time</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
 <span class="n">space</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
 <span class="p">[</span><span class="n">TIME</span><span class="p">,</span><span class="n">SPACE</span><span class="p">]</span><span class="o">=</span><span class="nb">meshgrid</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span><span class="n">space</span><span class="p">);</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">TIME</span><span class="s1">',SPACE'</span><span class="p">,</span><span class="n">odeEqn</span><span class="o">.</span><span class="n">Y</span><span class="p">);</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">TIME</span><span class="s1">',SPACE'</span><span class="p">,</span><span class="n">odeEqn</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">);</span>
 <span class="nb">title</span><span class="p">(</span><span class="s1">'Free Dynamics'</span><span class="p">)</span>
 <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
@@ -370,7 +370,7 @@ G(x) =
 <span class="n">maxiter</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
 <span class="n">DescentParameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'MiddleStepControl'</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="s1">'InitialLengthStep'</span><span class="p">,</span><span class="mf">4.0</span><span class="p">};</span>
 <span class="n">GradientParameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'tol'</span><span class="p">,</span><span class="n">tol</span><span class="p">,</span><span class="s1">'DescentParameters'</span><span class="p">,</span><span class="n">DescentParameters</span><span class="p">,</span><span class="s1">'maxiter'</span><span class="p">,</span><span class="n">maxiter</span><span class="p">};</span>
-<span class="c1">%%GradientMethod(iCP1,GradientParameters{:})</span>
+<span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">,</span><span class="n">GradientParameters</span><span class="p">{:})</span>
 </code></pre></div></div>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
@@ -378,7 +378,7 @@ G(x) =
 <span class="nb">time</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
 <span class="n">space</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
 <span class="p">[</span><span class="n">TIME</span><span class="p">,</span><span class="n">SPACE</span><span class="p">]</span><span class="o">=</span><span class="nb">meshgrid</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span><span class="n">space</span><span class="p">);</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">TIME</span><span class="s1">',SPACE'</span><span class="p">,</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">TIME</span><span class="s1">',SPACE'</span><span class="p">,</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
 <span class="nb">title</span><span class="p">(</span><span class="s1">'Controlled Dynamics'</span><span class="p">)</span>
 <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
@@ -386,13 +386,14 @@ G(x) =
 
 <p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_02.png" alt="" /></p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%%The control function inside the control region</span>
-<span class="nb">figure</span><span class="p">;</span>
+<p>The control function inside the control region</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="n">SIZ</span><span class="o">=</span><span class="nb">size</span><span class="p">(</span><span class="n">iCP1</span><span class="o">.</span><span class="n">UOptimal</span><span class="p">);</span>
 <span class="nb">time</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
 <span class="n">space</span><span class="o">=</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 <span class="p">[</span><span class="n">TIME</span><span class="p">,</span><span class="n">SPACE</span><span class="p">]</span><span class="o">=</span><span class="nb">meshgrid</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span><span class="n">space</span><span class="p">);</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">TIME</span><span class="s1">',SPACE'</span><span class="p">,</span><span class="n">iCP1</span><span class="o">.</span><span class="n">UOptimal</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">TIME</span><span class="s1">',SPACE'</span><span class="p">,</span><span class="n">iCP1</span><span class="o">.</span><span class="n">UOptimal</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
 <span class="nb">title</span><span class="p">(</span><span class="s1">'Control'</span><span class="p">)</span>
 <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
@@ -407,12 +408,7 @@ G(x) =
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Subscript indices must either be real positive integers or logicals.
-
-Error in ./imgs-matlab/copiaRM (line 171)
-line(xline,odeEqn.Y(end,:),'Color','blue')
-
-</code></pre></div></div>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_04.png" alt="" /></p>
 
 <p>Now we apply the same procedure for the collective behavior dynamics.</p>
 
@@ -434,41 +430,10 @@ line(xline,odeEqn.Y(end,:),'Color','blue')
 
 <p>For the simulation of the model in collective behavior we will employ a diffusivity $D=\frac{1}{N^3}$.</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%%[a,b,c,d]=SLSD1doptimalnullcontrol(N,1/(N^3),G,T,beta,[0.5,0.8],y0);</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]</span><span class="o">=</span><span class="n">SLSD1doptimalnullcontrol</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">/(</span><span class="n">N</span><span class="o">^</span><span class="mi">3</span><span class="p">),</span><span class="n">G</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="nb">beta</span><span class="p">,[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.8</span><span class="p">],</span><span class="n">y0</span><span class="p">);</span>
 </code></pre></div></div>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">);</span>
-<span class="nb">title</span><span class="p">(</span><span class="s1">'Free Dynamics'</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-<span class="nb">title</span><span class="p">(</span><span class="s1">'Controlled Dynamics'</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
-<span class="nb">surf</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
-<span class="nb">title</span><span class="p">(</span><span class="s1">'Control'</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y1</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y2</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
-<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y3</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'green'</span><span class="p">)</span>
-<span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p>Now we will change also the time horizon and we will incorporate a non-homogeneous non-linearity, we will just divide the non-linearity $G$ by $N^3$</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%%[a,b,c,d]=SLSD1doptimalnullcontrol(N,1/(N^2),G/(N^2),N^2*T,beta,[0.5,0.8],y0);</span>
-</code></pre></div></div>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_05.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">);</span>
@@ -477,12 +442,59 @@ line(xline,odeEqn.Y(end,:),'Color','blue')
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_06.png" alt="" /></p>
+
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
 <span class="nb">title</span><span class="p">(</span><span class="s1">'Controlled Dynamics'</span><span class="p">)</span>
 <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_07.png" alt="" /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Control'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_08.png" alt="" /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y1</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y2</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
+<span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y3</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'green'</span><span class="p">)</span>
+<span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_09.png" alt="" /></p>
+
+<p>Now we will change also the time horizon and we will incorporate a non-homogeneous non-linearity, we will just divide the non-linearity $G$ by $N^3$</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]</span><span class="o">=</span><span class="n">SLSD1doptimalnullcontrol</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">/(</span><span class="n">N</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span><span class="n">G</span><span class="p">/(</span><span class="n">N</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span><span class="n">N</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">T</span><span class="p">,</span><span class="nb">beta</span><span class="p">,[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.8</span><span class="p">],</span><span class="n">y0</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_10.png" alt="" /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">);</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Free Dynamics'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_11.png" alt="" /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Controlled Dynamics'</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_12.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="nb">time</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">c</span><span class="o">.</span><span class="n">space</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
@@ -491,12 +503,16 @@ line(xline,odeEqn.Y(end,:),'Color','blue')
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_13.png" alt="" /></p>
+
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y1</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y2</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y3</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'green'</span><span class="p">)</span>
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0004/copiaRM_14.png" alt="" /></p>
 
 
 

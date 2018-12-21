@@ -1,19 +1,31 @@
 # TP01:
 #   name: PDE and ODE Simulations
 #   description: blabla
-TP02:
+Tp02:
   name: Optimal Control
+  little_description: In this section we compile the tutorials related to solving optimal control problems, by optimizing a functional constraint under a differential equation.
   description: The main objective in optimal control theory is to determine the best control for a given system. Optimal Control deals with the computation of this control by solving an optimization problem of the form $$\min_{u} J(x,u)$$  where $J(x,u)$ is the cost functional, that is, a function of state and control variables. Optimal control problems can be derived using Pontryagin's maximum principle or by solving the Hamilton–Jacobi–Bellman equation (a sufficient condition).
 
-TP03:
+Tp03:
   name: Control of parameter dependent problems
+  little_description: Compilation of tutorials related to the control of differential equations that have uncertain parameters.
   description: Given a parameter-dependent system, the controllability  of this system can be addressed from different perspectives. The classical is the simultaneous controllability that consists of controlling each specific realization. The averaged control consists of controlling the average of the states with respect to the parameter, rather than controlling each realization what can be very expensive.
 
-TP04:
+Tp04:
   name: Controllability
+  little_description: Tutorials on the problem of the controllability of the equations and their numerical aspects
   description: Umberto - Consensus problems are fundamental in control of multi-agent systems, that is, systems with different processes or nodes. The main goal is to reach an agreement among a number of agents. Notice that,  this agreement is defined as a subspace.
 
+# Tp05:
+#   name: Stabilization 
+#   little_description: Tutorials on the problem of the accounting of the equations and their numerical aspects
+#   description: Umberto - Consensus problems are fundamental in control of multi-agent systems, that is, systems with different processes or nodes. The main goal is to reach an agreement among a number of agents. Notice that,  this agreement is defined as a subspace.
 
-TP06:
+Tp06:
   name: Consensus Problems
+  little_description: Tutorials of control of multi-agent systems
   description: Consensus problems are fundamental in control of multi-agent systems, that is, systems with different processes or nodes. The main goal is to reach an agreement among a number of agents. Notice that,  this agreement is defined as a subspace.
+
+Tp07:
+  name: Other Topics
+  little_description: Examples of several numerical topics 

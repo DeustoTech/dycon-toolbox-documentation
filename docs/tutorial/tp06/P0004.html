@@ -14,7 +14,7 @@
 
     <title>Synchronized Oscillators - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/tutorials/tp06/P0004">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/tutorial/tp06/P0004">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -71,7 +71,6 @@
     <script src="https://DeustoTech.github.io/dycon-platform-documentation/js/clean-blog.min.js "></script>
     
  	<!-- 404  JavaScript -->
-     <script src="https://DeustoTech.github.io/dycon-platform-documentation/js/404ForCaseSensitiveURLs.js "></script>   
 
 </head>
 
@@ -137,6 +136,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
+                    <h2><small>MATLAB tutorial:</small></h2>
                     <h1>Synchronized Oscillators</h1>
 
 					<span class="meta">Posted by:
@@ -218,9 +218,7 @@ img:active{
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<h2 id="whats-a-consensus-problem">What’s a consensus problem?</h2>
-
-<p>We consider a population of N coupled-phase oscillators, $\theta_i(t)$, $i=1,\ldots,N$ and we want to compute a control such that in time $T$ we reach the state $\theta_i(T)=\ldots =\theta_N(T)=:\bar{\theta}$ in which all the oscillators are sincronized.</p>
+				<p>We consider a population of N coupled-phase oscillators, $\theta_i(t)$, $i=1,\ldots,N$ and we want to compute a control such that in time $T$ we reach the state $\theta_i(T)=\ldots =\theta_N(T)=:\bar{\theta}$ in which all the oscillators are sincronized.</p>
 
 <h2 id="the-mathematical-model">The mathematical model</h2>
 
@@ -296,20 +294,20 @@ A =
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 theta0 =
 
-   20.3206
-  -11.3219
-   -9.3685
-  -10.7385
-    3.5834
-   -2.1551
-   17.1415
+    9.4114
+  -11.4088
+    1.9686
+   -0.9997
+    7.8302
+    8.1204
+    8.0549
 
 
 </code></pre></div></div>
 
 <p>Now, choose initial control,</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">T</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">T</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">;</span>
 <span class="n">tspan</span> <span class="o">=</span> <span class="n">t0</span><span class="p">:</span><span class="n">dt</span><span class="p">:</span><span class="n">T</span><span class="p">;</span>
 <span class="n">u0</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">tspan</span><span class="p">),</span><span class="n">N</span><span class="p">);</span>
 </code></pre></div></div>
@@ -324,65 +322,65 @@ theta0 =
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig1</span> <span class="o">=</span> <span class="n">JPlotConvergence</span><span class="p">(</span><span class="n">Results_Stochastic</span><span class="p">,</span><span class="s1">'Convergence of Stochastic Method'</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p><img src="./../../assets/imgs/WP01/P0004/Synchronized_oscillators-md_01.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp06/P0004/copiaRM_01.png" alt="" /></p>
 
 <p>We can see the result obtained</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig2</span> <span class="o">=</span> <span class="n">LastThetaPlot</span><span class="p">(</span><span class="n">Results_Stochastic</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p><img src="./../../assets/imgs/WP01/P0004/Synchronized_oscillators-md_02.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp06/P0004/copiaRM_02.png" alt="" /></p>
 
 <h2 id="comparison-clasical-vs-stochastic">Comparison Clasical vs Stochastic</h2>
 
 <p>In this example, we show that stochastic method is faster than the classical descent in a small network.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Results_Classical</span> <span class="o">=</span> <span class="p">{};</span><span class="n">Results_Stochastic</span> <span class="o">=</span> <span class="p">{};</span>
-<span class="c1">%</span>
-<span class="n">maxN</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span> <span class="c1">% &lt;=== Maximal number of oscillator allowed in the model</span>
+<span class="c1">%%</span>
+<span class="n">maxN</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">%% &lt;=== Maximal number of oscillator allowed in the model</span>
 <span class="n">iter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="k">for</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">:</span><span class="n">maxN</span>
-    <span class="c1">% We solve the problem for each N</span>
+<span class="k">for</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="n">maxN</span>
+    <span class="c1">%% We solve the problem for each N</span>
     <span class="n">iter</span> <span class="o">=</span> <span class="n">iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="c1">% Definition of the linearized Kuramoto problem</span>
+    <span class="c1">%% Definition of the linearized Kuramoto problem</span>
     <span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">/</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
     <span class="k">for</span> <span class="nb">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">N</span>
         <span class="n">A</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="nb">i</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="k">end</span>
-    <span class="c1">% Initial state</span>
+    <span class="c1">%% Initial state</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span><span class="n">sigma</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
     <span class="n">theta0</span> <span class="o">=</span> <span class="n">normrnd</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-    <span class="c1">% Initial control</span>
+    <span class="c1">%% Initial control</span>
     <span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">T</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
     <span class="n">tspan</span> <span class="o">=</span> <span class="n">t0</span><span class="p">:</span><span class="n">dt</span><span class="p">:</span><span class="n">T</span><span class="p">;</span>
     <span class="n">u0</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">tspan</span><span class="p">),</span><span class="n">N</span><span class="p">);</span>
 
-    <span class="c1">% Classical Gradient Method</span>
+    <span class="c1">%% Classical Gradient Method</span>
     <span class="n">Results_Classical</span><span class="p">{</span><span class="n">iter</span><span class="p">}</span>  <span class="o">=</span>  <span class="n">ClassicalGradient</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">theta0</span><span class="p">,</span><span class="n">tspan</span><span class="p">,</span><span class="n">u0</span><span class="p">);</span>
-    <span class="c1">% Stochastic Gradient Method</span>
+    <span class="c1">%% Stochastic Gradient Method</span>
     <span class="n">Results_Stochastic</span><span class="p">{</span><span class="n">iter</span><span class="p">}</span> <span class="o">=</span>  <span class="n">StochasticGradient</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">theta0</span><span class="p">,</span><span class="n">tspan</span><span class="p">,</span><span class="n">u0</span><span class="p">);</span>
 <span class="k">end</span>
 </code></pre></div></div>
 
 <p>We can graphically see the following result. If the number of nodes increase we can see better the efectiveness of the stochastic gradient descent method with respect to the classical.</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% For the next step it is necessary to convert the cells into arrays</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%% For the next step it is necessary to convert the cells into arrays</span>
 <span class="n">Results_Classical</span>  <span class="o">=</span> <span class="p">[</span><span class="n">Results_Classical</span><span class="p">{:}];</span>
 <span class="n">Results_Stochastic</span> <span class="o">=</span> <span class="p">[</span><span class="n">Results_Stochastic</span><span class="p">{:}];</span>
-<span class="c1">%</span>
+<span class="c1">%%</span>
 <span class="n">fig2</span> <span class="o">=</span> <span class="nb">figure</span><span class="p">;</span> <span class="n">ax</span>  <span class="o">=</span> <span class="nb">axes</span><span class="p">;</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">FontSize</span> <span class="o">=</span> <span class="mi">17</span><span class="p">;</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">XLabel</span><span class="o">.</span><span class="n">String</span> <span class="o">=</span> <span class="s1">'Number of Oscillators'</span><span class="p">;</span> <span class="n">ax</span><span class="o">.</span><span class="n">YLabel</span><span class="o">.</span><span class="n">String</span> <span class="o">=</span> <span class="s1">'time(s)'</span><span class="p">;</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">XGrid</span> <span class="o">=</span> <span class="s1">'on'</span><span class="p">;</span> <span class="n">ax</span><span class="o">.</span><span class="n">YGrid</span> <span class="o">=</span> <span class="s1">'on'</span><span class="p">;</span>
-<span class="c1">%</span>
+<span class="c1">%%</span>
 <span class="nb">line</span><span class="p">([</span><span class="n">Results_Stochastic</span><span class="o">.</span><span class="n">N</span><span class="p">],[</span><span class="n">Results_Stochastic</span><span class="o">.</span><span class="n">t</span><span class="p">],</span><span class="s1">'Parent'</span><span class="p">,</span><span class="n">ax</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">,</span><span class="s1">'Marker'</span><span class="p">,</span><span class="s1">'s'</span><span class="p">)</span>
 <span class="nb">line</span><span class="p">([</span><span class="n">Results_Classical</span><span class="o">.</span><span class="n">N</span><span class="p">],[</span><span class="n">Results_Classical</span><span class="o">.</span><span class="n">t</span><span class="p">],</span><span class="s1">'Parent'</span><span class="p">,</span><span class="n">ax</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">,</span><span class="s1">'Marker'</span><span class="p">,</span><span class="s1">'s'</span><span class="p">)</span>
 <span class="nb">legend</span><span class="p">({</span><span class="s1">'Stochastic Gradient'</span><span class="p">,</span><span class="s1">'Classical Gradient'</span><span class="p">})</span>
 </code></pre></div></div>
 
-<p><img src="./../../assets/imgs/WP01/P0004/Synchronized_oscillators-md_03.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp06/P0004/copiaRM_03.png" alt="" /></p>
 
-<p>Altough in this example we are dealing with a small network, we have shown that stochastic method is faster than the classical descent. If the number of nodes increase we can see better the efectiveness of the stochastic gradient descent method with respect to the classical. <img src="../../assets/imgs/WP01/P0004/ClassicalVStochastic.png" alt="" /></p>
+<p>Altough in this example we are dealing with a small network, we have shown that stochastic method is faster than the classical descent. If the number of nodes increase we can see better the efectiveness of the stochastic gradient descent method with respect to the classical. <img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp06/P0004/ClassicalVStochastic.png" alt="" /></p>
 
 
 

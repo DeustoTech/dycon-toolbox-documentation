@@ -5,7 +5,7 @@ date: 2018-12-18
 author: [XinliangL]
 layout: tutorial
 matlab: P0002_Numerical homogenizaton_for_wave_equation
-categories: [tutorial,TP04]
+categories: [tutorial,Tp04]
 ---
 
 This work is regarding solving 1-d wave equation using RPS semi-discretization method and analysis corresponding dispersion relation.
