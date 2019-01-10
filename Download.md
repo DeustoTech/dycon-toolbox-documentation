@@ -7,8 +7,8 @@ description: "Releases of the DyCon Toolbox"
 <h1> First Method</h1>
 You can start using Dycon toolbox by simply copying the following lines into your MATLAB console
 ```matlab
-unzip('https://github.com/chebfun/chebfun/archive/master.zip')
-movefile('chebfun-master', 'chebfun'), addpath(fullfile(cd,'chebfun')), savepath
+unzip('https://github.com/DeustoTech/DyCon-Computational-Platform/archive/master.zip')
+movefile('DyCon-Computational-Platform-master', 'DyConToolBox'), addpath(genpath(fullfile(cd,'DyConToolBox'))), savepath
 ```
 Then go to the <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> tutorials</a> and choose the one you prefer
 
