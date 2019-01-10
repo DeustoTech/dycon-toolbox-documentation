@@ -33,7 +33,6 @@ data:
         default: iode.dt 
   Outputs:
     obj:
-        name: Control Prameter Dependent
         description: Control Prameter Dependent Class
 categories: [ documentation , MDL01 , ControlParameterDependent]
 class: ControlParameterDependent

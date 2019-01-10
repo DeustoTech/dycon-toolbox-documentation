@@ -12,9 +12,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>SLSD1doptimalnullcontrol - DyCon Platform</title>
+    <title>ConjugateGradientDescent - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/SLSD1doptimalnullcontrol">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/linearcontrol/ConjugateGradientDescent">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -89,7 +89,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-platform-documentation/">
-                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/logo_DyConToolbox_v001.png" >
             </a>
         </div>
 
@@ -136,106 +136,84 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">SLSD1doptimalnullcontrol <small>Function</small></h1>
+                    <h1 class="post-title">ConjugateGradientDescent<small> method</small></h1> 
+                    <h3 class="post-title"><a href="https://DeustoTech.github.io//dycon-platform-documentation/documentation/MDL01/ClassLinearControl">LinearControl</a><small> class</small></h3>
                 </div>
 
-                <p>This function computes an approximate null-control for the semilinear heat equation. Consider the semilinear heat equation in the interval $[0,1]$ with interior control, $$y_t-Dy_{xx}=G(y)+u\mathbb{1}_\omega$$ with 0 Dirichlet boundary conditions. The control is computed via an optimal control problem. WARNING the control might be non optimum with respect to the functional. It will depend on the non-linearity considered in the heat equation, the convexity of the functional has to be proven. Given the time horizon for the control $T>0$, the functional considered is $$J(y,u)=\|y(T)\|_{L^2(\Omega)}+\beta\int_0^T \|u(t)\|^2_{L^2(\Omega)}dt.$$ Computations are done with the DyCon toolbox considering a semi-discretization on space and integrating the ODE system.</p>
-                <h1>Input Parameters</h1>
-                <h4>Madatory</h4>
-				<table>
-					<tr>
-						<th>Name</th>
-                        <th>Class</th>
-                        <th>Dimension</th>
-                        <th>Description</th>
+                <!-- MANDATORY INPUTS  -->
+                <h2>Description</h2>
+                This method is able to update the value of the control by decreasing the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented in that direction, assuring the decrease by the adaptive step size.
+                <h2>Mandatory Input Parameters</h2>
 
-					</tr>
-					
-					<tr>
-                        <th>N</th>
-                        <th>integer</th>
-                        <th>1</th>
-						<th>Number of interior points in the semi-discretization</th>
-					</tr>
-				
-					<tr>
-                        <th>D</th>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>iCP</th>
+                        <th>Control Problem Object</th>
+                        <th>ControlProblem</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>UOld</th>
+                        <th>Control Vector in time</th>
                         <th>double</th>
-                        <th>1</th>
-						<th>Diffusivity constant</th>
-					</tr>
-				
-					<tr>
-                        <th>G</th>
-                        <th>symbolic expression</th>
-                        <th>1</th>
-						<th>Symbolic expression of the non-linearity</th>
-					</tr>
-				
-					<tr>
-                        <th>T</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>YOld</th>
+                        <th>State Vector in time</th>
                         <th>double</th>
-                        <th>1</th>
-						<th>Time horizon</th>
-					</tr>
-				
-					<tr>
-                        <th>beta</th>
-                        <th>handle function</th>
-                        <th>1</th>
-						<th>handle function containing the initial data $y_0$</th>
-					</tr>
-				
-					<tr>
-                        <th>w</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>JOld</th>
+                        <th>Value of functional J(Uold,Yold)</th>
                         <th>double</th>
-                        <th>2</th>
-						<th>vector containing the borders of the interior control region</th>
-					</tr>
-				
+                    </tr>
+                    
+
+                </table>
+
+                <!-- OPTIONAL INPUTS  -->
+
+                
+
+                <!--  OUTPUTS -->
+                
+                <h2>Output Parameters</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Unew</th>
+                        <th>Update of Control Vector</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Ynew</th>
+                        <th>Update of State Vector</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Jnew</th>
+                        <th>New Value of functional</th>
+                        <th>double</th>
+                    </tr>
+                    
                 </table>
                 
-                <h1>Output Parameters</h1>
-				<table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Class</th>
-                            <th>Dimension</th>
-                            <th>Description</th>
-    
-                        </tr>
-                        
-                        <tr>
-                            <th>freedynamics</th>
-                            <th>structure</th>
-                            <th>1x1</th>
-                            <th>the structure contains the necessary data for plotting the free dynamics i.e. the dynamics without control. <ul> <li>freedynamics.time is the time mesh</li> <li>freedynamics.space is the space mesh</li> <li>freedynamics.value is the values of the solution in the mesh</li> </ul></th>
-                        </tr>
-                    
-                        <tr>
-                            <th>controlleddynamics</th>
-                            <th>structure</th>
-                            <th>1x1</th>
-                            <th>the structure contains the necessary data for plotting the controlled dynamics i.e. the dynamics with the control computed via gradient descent over the functional. <ul> <li>controlleddynamics.time is the time mesh</li> <li>controlleddynamics.space is the space mesh</li> <li>controlleddynamics.value is the values of the solution in the mesh</li> </ul></th>
-                        </tr>
-                    
-                        <tr>
-                            <th>ucontrol</th>
-                            <th>structure</th>
-                            <th>1x1</th>
-                            <th>the structure contains the necessary data for plotting the computed control in the control region. <ul> <li>ucontrol.time is the time mesh</li> <li>ucontrol.space is the space mesh</li> <li>ucontrol.value is the values of the control in the mesh corresponding to the control region</li> </ul></th>
-                        </tr>
-                    
-                        <tr>
-                            <th>targetplusdynamicspluscontrol</th>
-                            <th>structure</th>
-                            <th>1x1</th>
-                            <th>the structure contains the necessary data for plotting the free dynamics at time $T$ the control dynamics at time $T$ and the desired target (the function 0). <ul> <li>targetplusdynamicspluscontrol.y1 is the target </li> <li>targetplusdynamicspluscontrol.y2 is the free dynamics at time $T$</li> <li>targetplusdynamicspluscontrol.y3 is the dynamics with control at time $T$. </li> </ul></th>
-                        </tr>
-                    
-                    </table>
-                <hr>
-                
+                                    <!--  -->
             </div>
         </div>
     </div>

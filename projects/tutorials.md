@@ -10,19 +10,24 @@ description: Transmitting the results to other researchers, not specialists in c
   At Dycon Toolbox we have developed some tutorials on the various topics investigated by the DyCon project. These tutorials have been classified for a better organization. Choose the one you prefer and explore.
 </p>
 
- <table>
+ <table style="text-align:center;">
     <tr>
       <th>Topic</th>
       <th>Description</th>
+      <th>Nº of Tutorials</th>
+
     </tr>
     {% for topic in site.data.topics %}
     <tr>
       <th>
           <a href="{{site.url}}{{site.baseurl}}/topic/{{topic[0]}}" class="display-block">
-              <h4 class="post-title"> {{ topic[1].name }} </h4>
+                {%- assign qposts = site.posts | where:"layout","tutorial" -%}
+                {%- assign qposts = qposts | where:"categories",topic[0] -%}
+              <h4 class="post-title">{{topic[1].name}}</h4>
           </a>  
       </th>
       <th>{{topic[1].little_description}}</th>
+      <th>[<small>{{ qposts | size }}</small>]</th>
     </tr>
     {% endfor %}
    <table>

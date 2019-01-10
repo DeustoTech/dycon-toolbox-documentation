@@ -1,46 +1,62 @@
 ---
-description: ANA Cambio - The Average Control class is able to calculate the average control given the matrices that depend on the parameter. It has as parameter the state where you want to take all the equations that depend on the parameters.
+description: The goal of this class is to solve optimal control problems where the states are defined via 
+              finite dimensional parameter-dependent systems of the form 
+              $$\dot{x}(t,\nu)=A(\nu)x(t,\nu)+B(\nu)u(t), \, t>T, \quad x(0)=x0,$$ 
+              being $\nu$ the parameter that can be discrete or continuous. 
+              Different iterative algorithms based on gradient descent methods are performed 
+              to reach this objective. For example, the classical gradient descent technique or stochastic 
+              gradient descent method, which has become important in the last years.   
+visible: true
 title: ControlParameterDependent
 categories: [documentation, MDL01]
 layout: class
 type: constructor
 properties:
    N: 
-      type: "Numeric value"
-      default: "none"
-      description: "Number of states of the system"
+        type: "Numeric value"
+        default: "none"
+        description: "Number of states of the system"
+      
    A: 
-      type: "Matrix"
-      default: "none"
-      description: $N\times N$ matrix governing the free dynamics of the system
+        type: "Matrix"
+        default: "none"
+        description: $N\times N$ matrix governing the free dynamics of the system
+      
    B: 
-      type: "Matrix"
-      default: "none"
-      description: $N\times M$ matrix. Control operator
+        type: "Matrix"
+        default: "none"
+        description: $N\times M$ matrix. Control operator
+      
    x0: 
-      type: "Vector"
-      default: "none"
-      description: "Vector with the initial states"
+        type: "Vector"
+        default: "none"
+        description: "Vector with the initial states"
+      
    u0: 
-      type: "Vector"
-      default: "none"
-      description: "Vector dimension initial value of the control"
+        type: "Vector"
+        default: "none"
+        description: "Vector dimension initial value of the control"
+      
    span: 
-      type: "Vector"
-      default: "none"
-      description: "Vector of time"
+        type: "Vector"
+        default: "none"
+        description: "Vector of time"
+      
    K: 
-      type: "Numerical value"
-      default: "none"
-      description: Length of the parameter $\nu$
+        type: "Numerical value"
+        default: "none"
+        description: Length of the parameter $\nu$
+      
    addata: 
-      type: "Numerical value"
-      default: "none"
-      description: "Aditional data of gradient methods. You can find the history "
+        type: "Numerical value"
+        default: "none"
+        description: "Aditional data of gradient methods. You can find the history "
+      
    u: 
-      type: "Numerical value"
-      default: "none"
-      description: "Control Obtain"
+        type: "Numerical value"
+        default: "none"
+        description: "Control Obtain"
+      
 methods:
    ControlParameterDependent:
         name: ControlParameterDependent
@@ -75,21 +91,18 @@ methods:
               default: iode.dt 
         Outputs:
           obj:
-              name: Control Prameter Dependent
               description: Control Prameter Dependent Class
         url: /documentation/mdl01/ControlParameterDependent/ControlParameterDependent
    AverageClassicalGradient:
-        description: The Average Control solve an optimal control problem which is constructed to
-          control the distance between the average of the states in the last time
-          and a given final target. The states are defined via a
-          parameter-dependent linear system of differential equations
-          $$\dot{x}(t,\nu)=A(\nu)x(t,\nu)+B(\nu)u(t)$$
-          The optimum is computed applying different iterative algorithms based
-          on gradient descent methods. This function solve a particular optimal control problem using
-          the classical gradient descent algorithm. The restriction of the optimization 
-          problem is a parameter-dependent finite dimensional linear system. Then, the 
-          resulting states depend on a certain parameter. Therefore, the functional is
-          constructed to control the average of the states with respect to this parameter.
+        description: The Average Classical Gradient solves an optimal control problem 
+              which is constructed to control the distance between the average of the states in the last time
+              and a given final target. This function solve a particular optimal control problem using
+              the classical gradient descent algorithm. The restriction of the optimization 
+              problem is a parameter-dependent finite dimensional linear system. Then, the 
+              resulting states depend on a certain parameter. Hence, the functional is
+              constructed to control the average of the states with respect to this parameter
+              $$ \frac{1}{\vert \mathcal{K} \vert} \sum_{\nu \in \mathcal{K}}x(T,\nu) = xt  $$.
+        little_description: The Average Classical Gradient solves an optimal control problem 
         autor: AnaN
         MandatoryInputs:   
           iCPD: 
@@ -97,30 +110,36 @@ methods:
            class: ControlParameterDependent
            dimension: [1x1]
           xt: 
-           description: The target vector where you want the system to go
+           description: The final target. The system will be controlled to starting in x0 ending in xt.
            class: double
            dimension: [iCPD.Nx1]
         OptionalInputs:
           tol:
-           description: tolerance of algorithm, this number is compare with $J(k)-J(k-1)$
+           description: tolerance of algorithm, this number is compare with the
+                          following error in order to stop the algorithm
+                          $$\frac{\vert \vert u_{k+1}-u_{k}\vert \vert}{\vert \vert u_{k+1}\vert
+                          \vert}$$
            class: double
            dimension: [1x1]
            default:   1e-5
           beta:
-           description: This number is the power of the control, is define by follow expresion $$J = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$ 
-           class: double
-           dimension: [1x1]
-           default:   1e-5
-          gamma:
-           description: Length Step of the gradient Method. The control is update as follow $$u_{k+1} = u_{k} + \gamma \nabla u_{k}$$
+           description: This value is applied to regularize the control in the optimal control problem
+                          $$ \min_{u \in L^2(0,T)} J(u)=\frac{1}{2} \left( \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - xt \right)^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$ 
            class: double
            dimension: [1x1]
            default:   1e-1
+          gamma0:
+           description: Initial step of the method. The control is update as follow
+                          $$u_{k+1} = u_{k} + \gamma_{k} \nabla J(u_{k}),$$
+                          where $\gamma_{k} = \gamma_0 * \frac{1}/{\sqrt{k}}$
+           class: double
+           dimension: [1x1]
+           default:   0.5
           MaxIter:
            description: Maximun of iterations of this method
            class: double
            dimension: [1x1]
-           default:   100
+           default:   1000
         url: /documentation/mdl01/ControlParameterDependent/AverageClassicalGradient
    AverageConjugateGradient:
         description: This function solve a particular optimal control problem using
@@ -129,6 +148,8 @@ methods:
           resulting states depend on a certain parameter. Therefore, the functional is
           constructed to control the average of the states with respect to this parameter.
           See Also in AverageClassicalGradient
+        little_description: This function solve a particular optimal control problem using
+                          the stochastic gradient descent algorithm.
         autor: AnaN
         MandatoryInputs:   
           iCPD: 
@@ -157,12 +178,15 @@ methods:
            default:   100
         url: /documentation/mdl01/ControlParameterDependent/AverageConjugateGradient
    AverageStochasticGradient:
-        description:  This function solve a particular optimal control problem using
-          the stochastic gradient descent algorithm. The restriction of the optimization 
-          problem is a parameter-dependent finite dimensional linear system. Then, the 
-          resulting states depend on a certain parameter. Therefore, the functional is
-          constructed to control the average of the states with respect to this parameter.
-          See Also in AverageClassicalGradient
+        description:  This function solves a particular optimal control problem using
+                      the stochastic gradient descent algorithm. The restriction of the optimization 
+                      problem is a parameter-dependent finite dimensional linear system. Then, the 
+                      resulting states depend on a certain parameter. Hence, the functional is
+                      constructed to control the average of the states with respect to this parameter
+                      $$ \frac{1}{\vert \mathcal{K} \vert} \sum_{\nu \in \mathcal{K}}x(T,\nu) = xt  $$
+                      See Also in AverageClassicalGradient
+        little_description: This function solves a particular optimal control problem using
+                              the stochastic gradient descent algorithm.
         autor: AnaN
         MandatoryInputs:   
           iCPD: 
@@ -170,30 +194,36 @@ methods:
            class: ControlParameterDependent
            dimension: [1x1]
           xt: 
-           description: The target vector where you want the system to go
+           description: The final target. The system will be controlled to starting in x0 ending in xt.
            class: double
            dimension: [iCPD.Nx1]
         OptionalInputs:
           tol:
-           description: tolerance of algorithm, this number is compare with $J(k)-J(k-1)$
+           description: tolerance of algorithm, this number is compare with the
+                          following error in order to stop the algorithm
+                          $$\frac{\vert \vert u_{k+1}-u_{k}\vert \vert}{\vert \vert u_{k+1}\vert
+                          \vert}$$
            class: double
            dimension: [1x1]
            default:   1e-5
           beta:
-           description: This number is the power of the control, is define by follow expresion $$J = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$ 
-           class: double
-           dimension: [1x1]
-           default:   1e-5
-          gamma0:
-           description: Length Step of the gradient Method. The control is update as follow $$u_{k+1} = u_{k} + \gamma \nabla u_{k}$$. In Stochastic method $\gamma_{k} = \gamma_0 * \frac{1}/{\sqrt{k}}$
+           description: This value is applied to regularize the control in the optimal control problem
+                          $$ \min_{u \in L^2(0,T)} J(u)=\frac{1}{2} \left( \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - xt \right)^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$ 
            class: double
            dimension: [1x1]
            default:   1e-1
+          gamma0:
+           description: Initial step of the method. The control is update as follow
+                          $$u_{k+1} = u_{k} + \gamma_{k} \nabla J_{i_{k}}(u_{k})(u_{k}),$$
+                          where $\gamma_{k} = \gamma_0 * \frac{1}/{\sqrt{k}}$
+           class: double
+           dimension: [1x1]
+           default:   0.5
           MaxIter:
            description: Maximun of iterations of this method
            class: double
            dimension: [1x1]
-           default:   100
+           default:   1000
         url: /documentation/mdl01/ControlParameterDependent/AverageStochasticGradient
    SimultaneousStochasticGradient:
         description:  This function solve a particular optimal control problem using
@@ -235,7 +265,10 @@ methods:
            default:   100
         url: /documentation/mdl01/ControlParameterDependent/SimultaneousStochasticGradient
    animation:
-        description: This method allows us to see an animation of the evolution of gradient methods, shows the controls in each iteration with a lapse of $dt=0.15s$
+        description: This method allows us to see an animation of the evolution of gradient methods, shows the controls
+                          in each iteration with a lapse of $dt=0.15s$
+        little_description: This method allows us to see an animation of the evolution of gradient methods, 
+                              shows the controls in each iteration with a lapse of $dt=0.15s$
         autor: JOroya
         MandatoryInputs:   
          iCPD: 
@@ -284,6 +317,7 @@ methods:
                      three graphs that represent the evolution of the different dimensions 
                      of the state variable, the optimal control that leads the average state 
                      to the desired target, in addition to the convergence of the process.
+        little_description: The plot function applied to a ControlParameterDepent object shows  the evolution of optimization
         autor: JOroya
         MandatoryInputs:   
           iAverageProblem: 
@@ -302,5 +336,109 @@ methods:
 
 ---
 
-Average Control Help
+The optimal control of the following functional is obtained applying the classical gradient descent algorithm
+
+
+$$ \begin{equation*} \min_{u \in L^2(0,T)} \mathcal{J}\left( u\right) = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ \end{equation*} $$
+
+
+Subject to the finite dimensional linear control system
+
+
+$$\begin{align*}  \left\{ \begin{array}{ll} x^\prime \left( t \right) = A \left( \nu \right) x \left( t \right) + B \left( \nu \right) u \left( t \right), \quad 0 < t <T, \\ x\left( 0 \right) = x^0. \end{array} \right. \end{align*}$$
+
+
+the goal is to apply the stochastic gradient descent method to obtain the minimun of the same optimal control problem.
+
+
+In this case, the iterative method is defined as
+
+
+$$\begin{equation*} u^{\left( k+1 \right)} = u^{\left( k \right)} - \gamma \left( \beta u^{\left( k \right)}- B^{\top}p \left( t,\nu_{i_k} \right) \right), \end{equation*} $$
+
+
+where $p \left( t,\nu_{i_k} \right)$ is solution of the following adjoint problem
+
+
+$$ \begin{align*} \left\{ \begin{array}{ll} p^\prime \left( t, \nu \right) = -A \left( \nu \right) p \left( t,\nu \right), \quad 0 < t <T, \\ \displaystyle p\left( T \right) = - \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]. \end{array} \right. \end{align*} $$
+
+
+The values of parameter $\nu_i$ are
+
+```matlab
+nu = 1:1:5;
+```
+
+
+And save in K, the number of values
+
+```matlab
+K = length(nu);
+```
+
+
+We can, define the initial state of all ODE's
+
+```matlab
+N = 2; % dimension of vector state
+x0 = ones(N, 1);
+```
+
+
+We take as final target
+
+```matlab
+xt = [0.5;0];
+```
+
+
+Also, we need to define a initial control, that will be evolve
+
+```matlab
+dt = 0.02; t0 = 0; T  = 1; span = (t0:dt:T);
+%
+u0 = zeros(length(span),1);
+```
+
+
+Moreover, we can define the matrix A's and B's, that determine the linear system
+
+```matlab
+Am = -triu(ones(N));
+```
+
+```matlab
+Bm = zeros(N, 1);
+Bm(N) = 1;
+```
+
+```matlab
+A = zeros(N,N,K);
+B = zeros(N,1,K);
+for index = 1:K
+    A(:,:,index) = Am + (nu(index) - 1 )*diag(diag(Am));
+    B(:,:,index) = Bm;
+end
+```
+
+
+Then, we solve the problem applying the stochastic gradient descent algorithm
+
+```matlab
+AverageProblemSG = ControlParameterDependent(A,B,x0,u0,span);
+```
+
+```matlab
+AverageStochasticGradient(AverageProblemSG,xt)
+```
+
+
+You can see the results
+
+```matlab
+plot(AverageProblemSG)
+```
+
+
+![]({{site.url}}/{{site.baseurl}}/assets/imgs/MDL01/class/main/ControlParameterDependent/copiaRM_01.png)
 

@@ -13,7 +13,7 @@ description: A wealth of information is available to help you understand, learn 
 <!-- TODO: Index of Content with links to scroll smoothly-->
 
 
-<h1 class="doc-header-title">Functions</h1>
+<!-- <h1 class="doc-header-title">Functions</h1>
 <p>
 List of functions developed within the framework of the DyCon project. Here below we can find the technical description of each function.
 </p>
@@ -34,7 +34,7 @@ List of functions developed within the framework of the DyCon project. Here belo
  </table>
 
 
-<h1 class="doc-header-title">Classes</h1>
+<h1 class="doc-header-title">Classes</h1> -->
 <p>
 Classes are abstract objects to facilitate the coding of algorithms, then a list of classes developed in the project
 </p>

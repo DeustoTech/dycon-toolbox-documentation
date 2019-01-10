@@ -26,6 +26,6 @@ Tp06:
   little_description: Tutorials of control of multi-agent systems
   description: Consensus problems are fundamental in control of multi-agent systems, that is, systems with different processes or nodes. The main goal is to reach an agreement among a number of agents. Notice that,  this agreement is defined as a subspace.
 
-Tp07:
-  name: Other Topics
-  little_description: Examples of several numerical topics 
+# Tp07:
+#   name: Other Topics
+#   little_description: Examples of several numerical topics 

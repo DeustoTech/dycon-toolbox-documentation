@@ -12,9 +12,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>plotT - DyCon Platform</title>
+    <title>GetAdjointProblem - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl00/ode/plotT">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/linearcontrol/GetAdjointProblem">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -89,7 +89,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-platform-documentation/">
-                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/logo_DyConToolbox_v001.png" >
             </a>
         </div>
 
@@ -136,19 +136,26 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">plotT </h1> 
-                    <h1 class="post-title"><small>ode</small></h1>
+                    <h1 class="post-title">GetAdjointProblem<small> method</small></h1> 
+                    <h3 class="post-title"><a href="https://DeustoTech.github.io//dycon-platform-documentation/documentation/MDL01/ClassLinearControl">LinearControl</a><small> class</small></h3>
                 </div>
 
                 <!-- MANDATORY INPUTS  -->
-                Metodo de Es
-                <h1>Mandatory Input Parameters</h1>
+                <h2>Description</h2>
+                Este metodo agrega el problema adjunto al objecto ControlProblem, dado que tenemos $$ \dot{\textbf{Y}} = f(\textbf{Y},t) $$ y el funcional $$ J = \Psi(\textbf{Y}(T)) + \int_{0}^T L(\textbf{Y},U,t)dt $$ podemos crear el Hamiltoniano $$ H = L + P*F $$ donde $\textbf{P} = [p_1 p_2 p_3 ... ]^T$ . Entonces segun el principio del maximo de pontriagin podemos calcular el problemas adjunto mediantes las formulas $$ \frac{d\textbf{P}}{dt} = \vec{\nabla}_{Y} H = (\frac{\partial H}{ \partial y_1},\frac{\partial H}{ \partial y_2},...)$$ con la condicion final $$ \textbf{P}(T) = (\frac{\partial \Psi}{ \partial y_1},\frac{\partial \Psi}{ \partial y_2},...)$$
+                <h2>Mandatory Input Parameters</h2>
 
                 <table>
                     <tr>
                         <th>Name</th>
                         <th>Description</th>
                         <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>iCP</th>
+                        <th>Control problem object</th>
+                        <th>ControlProblem</th>
                     </tr>
                     
 
@@ -159,6 +166,22 @@
                 
 
                 <!--  OUTPUTS -->
+                
+                <h2>Output Parameters</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>iCP</th>
+                        <th>Control problem object</th>
+                        <th>ControlProblem</th>
+                    </tr>
+                    
+                </table>
                 
                                     <!--  -->
             </div>

@@ -4,11 +4,19 @@ title: Downloads
 description: "Releases of the DyCon Toolbox"
 ---
 
+<h1> First Method</h1>
+You can start using Dycon toolbox by simply copying the following lines into your MATLAB console
+```matlab
+unzip('https://github.com/chebfun/chebfun/archive/master.zip')
+movefile('chebfun-master', 'chebfun'), addpath(fullfile(cd,'chebfun')), savepath
+```
+Then go to the <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> tutorials</a> and choose the one you prefer
+
 {::nomarkdown}
 <div>
 
   <div class="inst-guide">
-    <h2>Installation Guide</h2>
+    <h1> Second Method </h1>
     For the installation of the toolbox you must download the following file:
     <hr>
 
@@ -30,12 +38,11 @@ description: "Releases of the DyCon Toolbox"
   Giving the install button, it must be installed.
   </div>
   <div class="get-started">
-    <h3>Getting Started</h3>
     <p>
     Once the DyCon toolbox is installed, we can start exploring the
     tutorials  that we have on <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> this page</a>. 
     </p>
-
   </div>
 </div>
 {:/nomarkdown}
+

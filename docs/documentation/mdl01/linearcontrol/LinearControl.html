@@ -12,9 +12,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>ODEsolver - DyCon Platform</title>
+    <title>LinearControl - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl00/ODEsolver">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/linearcontrol/LinearControl">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -89,7 +89,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-platform-documentation/">
-                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/logo_DyConToolbox_v001.png" >
             </a>
         </div>
 
@@ -136,99 +136,82 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">ODEsolver <small>Function</small></h1>
+                    <h1 class="post-title">LinearControl<small> method</small></h1> 
+                    <h3 class="post-title"><a href="https://DeustoTech.github.io//dycon-platform-documentation/documentation/MDL01/ClassLinearControl">LinearControl</a><small> class</small></h3>
                 </div>
 
-                <p>This is a odesolver using mid-point rule for $$M(d^2u/dt^2)=Ku+f$$</p>
-                <h1>Input Parameters</h1>
-                <h4>Madatory</h4>
-				<table>
-					<tr>
-						<th>Name</th>
-                        <th>Class</th>
-                        <th>Dimension</th>
-                        <th>Description</th>
+                <!-- MANDATORY INPUTS  -->
+                <h2>Description</h2>
+                
+                <h2>Mandatory Input Parameters</h2>
 
-					</tr>
-					
-					<tr>
-                        <th>M0</th>
-                        <th>double</th>
-                        <th>nxn</th>
-						<th>massive matrix</th>
-					</tr>
-				
-					<tr>
-                        <th>K0</th>
-                        <th>double</th>
-                        <th>nxn</th>
-						<th>stiffness matrix</th>
-					</tr>
-				
-					<tr>
-                        <th>ui</th>
-                        <th>double</th>
-                        <th>nx1</th>
-						<th>initial value of u</th>
-					</tr>
-				
-					<tr>
-                        <th>uti</th>
-                        <th>double</th>
-                        <th>nx1</th>
-						<th>initial value of ut</th>
-					</tr>
-				
-					<tr>
-                        <th>f</th>
-                        <th>double</th>
-                        <th>nx1</th>
-						<th>source term</th>
-					</tr>
-				
-					<tr>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>iode</th>
+                        <th>Ordinary Differential Equation represent the constrain to minimization the functional</th>
+                        <th>LinearODE</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Jfun</th>
+                        <th>Cost function to obtain the optimal control</th>
+                        <th>Functional</th>
+                    </tr>
+                    
+
+                </table>
+
+                <!-- OPTIONAL INPUTS  -->
+
+                
+                <h2>Optional Input Parameters</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
                         <th>T</th>
+                        <th>This parameter represent the final time of simulation.</th>
                         <th>double</th>
-                        <th>1x1</th>
-						<th>time interval</th>
-					</tr>
-				
-					<tr>
-                        <th>J</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>dt</th>
+                        <th>This parameter represent is the interval to interpolate the control, $u$, and state, $y$, to obtain the functional $J$ and the gradient $dH/du$</th>
                         <th>double</th>
-                        <th>1x1</th>
-						<th>number of time step</th>
-					</tr>
-				
+                    </tr>
+                    
                 </table>
                 
-                <h1>Output Parameters</h1>
-				<table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Class</th>
-                            <th>Dimension</th>
-                            <th>Description</th>
-    
-                        </tr>
-                        
-                        <tr>
-                            <th>u</th>
-                            <th>double</th>
-                            <th>nx1</th>
-                            <th>solution</th>
-                        </tr>
-                    
-                        <tr>
-                            <th>ut</th>
-                            <th>double</th>
-                            <th>nx1</th>
-                            <th>derivative of solution u</th>
-                        </tr>
-                    
-                    </table>
-                <hr>
+
+                <!--  OUTPUTS -->
                 
+                <h2>Output Parameters</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>obj</th>
+                        <th>ControlProblem MATLAB class</th>
+                        <th>ControlProblem</th>
+                    </tr>
+                    
+                </table>
+                
+                                    <!--  -->
             </div>
         </div>
     </div>

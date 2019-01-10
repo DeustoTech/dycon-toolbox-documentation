@@ -9,9 +9,14 @@ layout: default
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
                     <h1 class="post-title">{{ page.title }} <small>Class</small></h1>
-                </div>
-
+				</div>
+				
+				<h2>Description</h2>
 				{{page.description}}
+
+                <h2>Example</h2>
+				{{content}}
+
 
 				<h1>Properties</h1>
 				<table>
@@ -88,27 +93,24 @@ layout: default
 					</table>
 				{% endif %}
 
+
 				<h1>Methods</h1>
-
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
 					{% for method in page.methods %}
-  					{% unless method[0] contains page.title %}
-    					<div class="shadowbox">
-    						<h3>{{method[0]}}</h3>
-							<p>{{method[1].description}}</p>
-							{% for post in site.posts %}
-							{% if post.layout contains 'method' and post.title contains method[0] and post.class contains page.title %}
-								<a href="{{ post.url | prepend: site.baseurl }}">
-									<span>See more...</span>
-								</a>
-							{% endif %}
-							{% endfor %}
-
-    					</div>
-  					{% endunless %}
+					  {% unless method[0] contains page.title %}
+						<tr>
+							<th><a href="{{ method[1].url | prepend: site.baseurl }}">{{ method[0] }}</a></th>
+							<th>{{ method[1].little_description }}</th>
+						</tr>
+					  {% endunless %}
 					{% endfor %}
+				</table>
 
-                <h2>Example</h2>
-                {{content}}
+
             </div>
         </div>
     </div>

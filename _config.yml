@@ -2,6 +2,7 @@
 title: DyCon Platform
 description: Welcome to the web interface of DyCon Toolbox, the computational platform developed within the <a href='https://cmc.deusto.eus/dycon/' target='_blank'>ERC DyCon - Dynamic Control</a> project.
 
+dev: true
 # command to ignore docs(must be run inside 'docs' folder): git ls-files | tr '\n' ' ' | xargs git update-index --assume-unchanged
 # command to STOP ignoring docs(must be run inside 'docs' folder): git ls-files | tr '\n' ' ' | xargs git update-index --no-assume-unchanged
 
@@ -18,7 +19,7 @@ url: "https://DeustoTech.github.io" # the base hostname & protocol for your site
 destination: docs
 header-img: img/home-bg.gif
 headercolor: "black"
-logo: img/logos/logo_DyCon.png
+logo: assets/logo_DyConToolbox_v001.png
 
 # Tertiary Parameters
 github_username:  DeustoTech

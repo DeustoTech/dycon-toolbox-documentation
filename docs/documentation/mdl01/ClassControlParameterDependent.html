@@ -89,7 +89,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-platform-documentation/">
-                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/logo_DyConToolbox_v001.png" >
             </a>
         </div>
 
@@ -137,9 +137,94 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
                     <h1 class="post-title">ControlParameterDependent <small>Class</small></h1>
-                </div>
+				</div>
+				
+				<h2>Description</h2>
+				The goal of this class is to solve optimal control problems where the states are defined via finite dimensional parameter-dependent systems of the form $$\dot{x}(t,\nu)=A(\nu)x(t,\nu)+B(\nu)u(t), \, t>T, \quad x(0)=x0,$$ being $\nu$ the parameter that can be discrete or continuous. Different iterative algorithms based on gradient descent methods are performed to reach this objective. For example, the classical gradient descent technique or stochastic gradient descent method, which has become important in the last years.
 
-				ANA Cambio - The Average Control class is able to calculate the average control given the matrices that depend on the parameter. It has as parameter the state where you want to take all the equations that depend on the parameters.
+                <h2>Example</h2>
+				<p>The optimal control of the following functional is obtained applying the classical gradient descent algorithm</p>
+
+<script type="math/tex; mode=display">\begin{equation*} \min_{u \in L^2(0,T)} \mathcal{J}\left( u\right) = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ \end{equation*}</script>
+
+<p>Subject to the finite dimensional linear control system</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}  \left\{ \begin{array}{ll} x^\prime \left( t \right) = A \left( \nu \right) x \left( t \right) + B \left( \nu \right) u \left( t \right), \quad 0 < t <T, \\ x\left( 0 \right) = x^0. \end{array} \right. \end{align*} %]]></script>
+
+<p>the goal is to apply the stochastic gradient descent method to obtain the minimun of the same optimal control problem.</p>
+
+<p>In this case, the iterative method is defined as</p>
+
+<script type="math/tex; mode=display">\begin{equation*} u^{\left( k+1 \right)} = u^{\left( k \right)} - \gamma \left( \beta u^{\left( k \right)}- B^{\top}p \left( t,\nu_{i_k} \right) \right), \end{equation*}</script>
+
+<p>where $p \left( t,\nu_{i_k} \right)$ is solution of the following adjoint problem</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*} \left\{ \begin{array}{ll} p^\prime \left( t, \nu \right) = -A \left( \nu \right) p \left( t,\nu \right), \quad 0 < t <T, \\ \displaystyle p\left( T \right) = - \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]. \end{array} \right. \end{align*} %]]></script>
+
+<p>The values of parameter $\nu_i$ are</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nu</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>And save in K, the number of values</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">K</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="n">nu</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>We can, define the initial state of all ODE’s</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">N</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">% dimension of vector state</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>We take as final target</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xt</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>Also, we need to define a initial control, that will be evolve</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">;</span> <span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">T</span>  <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">span</span> <span class="o">=</span> <span class="p">(</span><span class="n">t0</span><span class="p">:</span><span class="n">dt</span><span class="p">:</span><span class="n">T</span><span class="p">);</span>
+<span class="c1">%</span>
+<span class="n">u0</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">span</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Moreover, we can define the matrix A’s and B’s, that determine the linear system</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Am</span> <span class="o">=</span> <span class="o">-</span><span class="nb">triu</span><span class="p">(</span><span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">));</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Bm</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">Bm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">K</span><span class="p">);</span>
+<span class="n">B</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">K</span><span class="p">);</span>
+<span class="k">for</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">K</span>
+    <span class="n">A</span><span class="p">(:,:,</span><span class="n">index</span><span class="p">)</span> <span class="o">=</span> <span class="n">Am</span> <span class="o">+</span> <span class="p">(</span><span class="n">nu</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">)</span><span class="o">*</span><span class="nb">diag</span><span class="p">(</span><span class="nb">diag</span><span class="p">(</span><span class="n">Am</span><span class="p">));</span>
+    <span class="n">B</span><span class="p">(:,:,</span><span class="n">index</span><span class="p">)</span> <span class="o">=</span> <span class="n">Bm</span><span class="p">;</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then, we solve the problem applying the stochastic gradient descent algorithm</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AverageProblemSG</span> <span class="o">=</span> <span class="n">ControlParameterDependent</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">u0</span><span class="p">,</span><span class="n">span</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AverageStochasticGradient</span><span class="p">(</span><span class="n">AverageProblemSG</span><span class="p">,</span><span class="n">xt</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>You can see the results</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">plot</span><span class="p">(</span><span class="n">AverageProblemSG</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/MDL01/class/main/ControlParameterDependent/copiaRM_01.png" alt="" /></p>
+
+
+
 
 				<h1>Properties</h1>
 				<table>
@@ -284,824 +369,59 @@
 					</table>
 				
 
+
 				<h1>Methods</h1>
-
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
 					
-  					
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>AverageClassicalGradient</h3>
-							<p>The Average Control solve an optimal control problem which is constructed to control the distance between the average of the states in the last time and a given final target. The states are defined via a parameter-dependent linear system of differential equations $$\dot{x}(t,\nu)=A(\nu)x(t,\nu)+B(\nu)u(t)$$ The optimum is computed applying different iterative algorithms based on gradient descent methods. This function solve a particular optimal control problem using the classical gradient descent algorithm. The restriction of the optimization problem is a parameter-dependent finite dimensional linear system. Then, the resulting states depend on a certain parameter. Therefore, the functional is constructed to control the average of the states with respect to this parameter.</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/AverageClassicalGradient">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlParameterDependent/AverageClassicalGradient">AverageClassicalGradient</a></th>
+							<th>The Average Classical Gradient solves an optimal control problem</th>
+						</tr>
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>AverageConjugateGradient</h3>
-							<p>This function solve a particular optimal control problem using the stochastic gradient descent algorithm. The restriction of the optimization problem is a parameter-dependent finite dimensional linear system. Then, the resulting states depend on a certain parameter. Therefore, the functional is constructed to control the average of the states with respect to this parameter. See Also in AverageClassicalGradient</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/AverageConjugateGradient">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlParameterDependent/AverageConjugateGradient">AverageConjugateGradient</a></th>
+							<th>This function solve a particular optimal control problem using the stochastic gradient descent algorithm.</th>
+						</tr>
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>AverageStochasticGradient</h3>
-							<p>This function solve a particular optimal control problem using the stochastic gradient descent algorithm. The restriction of the optimization problem is a parameter-dependent finite dimensional linear system. Then, the resulting states depend on a certain parameter. Therefore, the functional is constructed to control the average of the states with respect to this parameter. See Also in AverageClassicalGradient</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/AverageStochasticGradient">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlParameterDependent/AverageStochasticGradient">AverageStochasticGradient</a></th>
+							<th>This function solves a particular optimal control problem using the stochastic gradient descent algorithm.</th>
+						</tr>
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>SimultaneousStochasticGradient</h3>
-							<p>This function solve a particular optimal control problem using the stochastic gradient descent algorithm. The restriction of the optimization problem is a parameter-dependent finite dimensional linear system. Then, the resulting states depend on a certain parameter. Therefore, the functional is constructed to control the average of the states with respect to this parameter. See Also in AverageClassicalGradient</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/SimultaneousStochasticGradient">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlParameterDependent/SimultaneousStochasticGradient">SimultaneousStochasticGradient</a></th>
+							<th></th>
+						</tr>
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>animation</h3>
-							<p>This method allows us to see an animation of the evolution of gradient methods, shows the controls in each iteration with a lapse of $dt=0.15s$</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/animation">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlParameterDependent/animation">animation</a></th>
+							<th>This method allows us to see an animation of the evolution of gradient methods, shows the controls in each iteration with a lapse of $dt=0.15s$</th>
+						</tr>
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>plot</h3>
-							<p>The plot function applied to a ControlParameterDepent object shows three graphs that represent the evolution of the different dimensions of the state variable, the optimal control that leads the average state to the desired target, in addition to the convergence of the process.</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/plot">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlParameterDependent/plot">plot</a></th>
+							<th>The plot function applied to a ControlParameterDepent object shows  the evolution of optimization</th>
+						</tr>
+					  
 					
-
-                <h2>Example</h2>
-                <p>Average Control Help</p>
+				</table>
 
 
             </div>

@@ -89,7 +89,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-platform-documentation/">
-                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/logo_DyConToolbox_v001.png" >
             </a>
         </div>
 
@@ -136,13 +136,14 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">GradientMethod </h1> 
-                    <h1 class="post-title"><small>ControlProblem</small></h1>
+                    <h1 class="post-title">GradientMethod<small> method</small></h1> 
+                    <h3 class="post-title"><a href="https://DeustoTech.github.io//dycon-platform-documentation/documentation/MDL01/ClassControlProblem">ControlProblem</a><small> class</small></h3>
                 </div>
 
                 <!-- MANDATORY INPUTS  -->
-                Metodo de Es
-                <h1>Mandatory Input Parameters</h1>
+                <h2>Description</h2>
+                The gradient method is able to optimize the given functional, going down the gradient.
+                <h2>Mandatory Input Parameters</h2>
 
                 <table>
                     <tr>
@@ -163,7 +164,7 @@
                 <!-- OPTIONAL INPUTS  -->
 
                 
-                <h1>Optional Input Parameters</h1>
+                <h2>Optional Input Parameters</h2>
                 <table>
                     <tr>
                         <th>Name</th>
@@ -174,6 +175,48 @@
                     <tr>
                         <th>U0</th>
                         <th>matrix</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>MaxIter</th>
+                        <th>matrix</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>tol</th>
+                        <th>matrix</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>DescentParameters</th>
+                        <th>Parmater of Descent Method</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Graphs</th>
+                        <th>Parameter that indicate if the method must plot the optimization, while is calculate</th>
+                        <th>logical</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>TypeGraphs</th>
+                        <th>Type of graphs. This parameter can be 'ODE' or 'PDE'</th>
+                        <th>string</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>SaveGif</th>
+                        <th>matrix</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>restart</th>
+                        <th>The optimization start with U0 = iCP.UOptimal</th>
                         <th>double</th>
                     </tr>
                     

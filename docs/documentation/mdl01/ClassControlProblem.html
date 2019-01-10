@@ -89,7 +89,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-platform-documentation/">
-                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/logo_DyConToolbox_v001.png" >
             </a>
         </div>
 
@@ -137,9 +137,85 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
                     <h1 class="post-title">ControlProblem <small>Class</small></h1>
-                </div>
+				</div>
+				
+				<h2>Description</h2>
+				This class is able to solve optimization problems of a function restricted to an ordinary equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. <strong>ControlProblem</strong> class has methods that help us find optimal control as well as obtaining the attached problem and it's derivative form, in both symbolic and numerical versions.
 
-				This class is able to solve optimization problems of a function restricted to an ordinary differential equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. <strong>ControlProblem</strong> class has methods that help us find optimal control as well as obtaining the attached problem and it's derivative form, in both symbolic and numerical versions.
+                <h2>Example</h2>
+				<p>First define the vectors</p>
+
+<script type="math/tex; mode=display">symY = \left( \begin{matrix}   y1 \\                                   y2                  \end{matrix} \right)    symU = \left( \begin{matrix}   u1 \\                                   u2                   \end{matrix} \right)</script>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span><span class="p">;</span>
+<span class="n">syms</span> <span class="n">t</span>
+<span class="n">symY</span> <span class="o">=</span> <span class="n">SymsVector</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">symU</span> <span class="o">=</span> <span class="n">SymsVector</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Cost Functional</strong></p>
+
+<script type="math/tex; mode=display">J = \Psi(Y(T),t) + \int_0^T L(Y(t,U),U(t),t) dt</script>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="n">symPsi</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">symL</span>    <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="p">(</span><span class="n">symU</span><span class="o">.'*</span><span class="n">symU</span><span class="p">)</span> <span class="o">+</span> <span class="n">symY</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Jfun</span> <span class="o">=</span> <span class="n">Functional</span><span class="p">(</span><span class="n">symPsi</span><span class="p">,</span><span class="n">symL</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Ordinary differential equation</strong></p>
+
+<p>In this case we will define the following differential equation</p>
+
+<script type="math/tex; mode=display">\left( \begin{matrix}   \dot{S} \\                            \dot{I}                  \end{matrix} \right)    =       \left( \begin{matrix}   \lambda - \beta S I - \sigma_1 S \\                               \beta S I - u_1 I - \sigma_2 I                   \end{matrix} \right)</script>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Lambda</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="nb">beta</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+<span class="n">sigma1</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span><span class="n">sigma2</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
+
+<span class="n">S</span> <span class="o">=</span> <span class="n">symY</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="n">I</span> <span class="o">=</span> <span class="n">symY</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">Fsym</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="o">=</span> <span class="n">Lambda</span> <span class="o">-</span> <span class="nb">beta</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">I</span> <span class="o">-</span>  <span class="n">sigma1</span><span class="o">*</span><span class="n">S</span><span class="p">;</span>
+<span class="n">Fsym</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="o">=</span> <span class="nb">beta</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">I</span> <span class="o">-</span> <span class="n">symU</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">I</span> <span class="o">-</span> <span class="n">sigma2</span><span class="o">*</span><span class="n">I</span> <span class="p">;</span>
+<span class="c1">%</span>
+<span class="n">Fsym</span> <span class="o">=</span> <span class="n">Fsym</span><span class="o">.'</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 
+Fsym =
+ 
+     1 - (y1*y2)/2 - y1/10
+ (y1*y2)/2 - u1*y2 - y2/10
+ 
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="n">S0</span> <span class="o">=</span> <span class="mi">100</span> <span class="p">;</span><span class="n">I0</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+<span class="n">Y0</span> <span class="o">=</span> <span class="p">[</span> <span class="n">S0</span> <span class="p">;</span> <span class="n">I0</span><span class="p">];</span>
+<span class="n">odeEqn</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fsym</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">,</span><span class="s1">'Y0'</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="s1">'T'</span><span class="p">,</span><span class="n">T</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Now, We can create the control problem</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iCP1</span> <span class="o">=</span> <span class="n">ControlProblem</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">,</span><span class="n">Jfun</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>and solve by Classical Gradient Method</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DescentParameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'MiddleStepControl'</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="s1">'InitialLengthStep'</span><span class="p">,</span><span class="mf">1e-5</span><span class="p">,</span><span class="s1">'MinLengthStep'</span><span class="p">,</span><span class="mf">1e-10</span><span class="p">};</span>
+<span class="n">Gradient_Parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'maxiter'</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="s1">'DescentParameters'</span><span class="p">,</span><span class="n">DescentParameters</span><span class="p">};</span>
+<span class="c1">%</span>
+<span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">,</span><span class="n">Gradient_Parameters</span><span class="p">{:})</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">plot</span><span class="p">(</span><span class="n">iCP1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/MDL01/class/main/ControlProblem/copiaRM_01.png" alt="" /></p>
+
+
+
 
 				<h1>Properties</h1>
 				<table>
@@ -245,7 +321,7 @@
 							<th>time</th>
 							<th>double</th>
 							<th>none</th>
-							<th>Tiempo que ha tardado el algoritmo de optimizaci�n en ejecutarse.</th>
+							<th>Time it took the optimization algorithm to execute.</th>
 						</tr>
 					
 				</table>
@@ -319,903 +395,66 @@
 					</table>
 				
 
+
 				<h1>Methods</h1>
-
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
 					
-  					
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>ClassicalDescent</h3>
-							<p>This method is able to update the value of the control by decreasing the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented in that direction, assuring the decrease by the adaptive step size.</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlproblem/ClassicalDescent">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/ClassicalDescent">ClassicalDescent</a></th>
+							<th>This method is able to update the value of the control by decreasing the value of the functional.</th>
+						</tr>
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>GetAdjointProblem</h3>
-							<p>Este metodo agrega el problema adjunto al objecto ControlProblem, dado que tenemos $$ \dot{\textbf{Y}} = f(\textbf{Y},t) $$ y el funcional $$ J = \Psi(\textbf{Y}(T)) + \int_{0}^T L(\textbf{Y},U,t)dt $$ podemos crear el Hamiltoniano $$ H = L + P*F $$ donde $\textbf{P} = [p_1 p_2 p_3 ... ]^T$ . Entonces segun el principio del maximo de pontriagin podemos calcular el problemas adjunto mediantes las formulas $$ \frac{d\textbf{P}}{dt} = \vec{\nabla}_{Y} H = (\frac{\partial H}{ \partial y_1},\frac{\partial H}{ \partial y_2},...)$$ con la condicion final $$ \textbf{P}(T) = (\frac{\partial \Psi}{ \partial y_1},\frac{\partial \Psi}{ \partial y_2},...)$$</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlproblem/GetAdjointProblem">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/GetAdjointProblem">GetAdjointProblem</a></th>
+							<th>Method capable of obtaining the attached problem and its final condition.</th>
+						</tr>
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>GetFunctional</h3>
-							<p>Metodo de Es</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlproblem/GetFunctional">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/GetFunctional">GetFunctional</a></th>
+							<th>Method capable of calculating the value of the functional defined in the control problem.</th>
+						</tr>
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>GetGradient</h3>
-							<p>Metodo de Es</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlproblem/GetGradient">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/GetGradient">GetGradient</a></th>
+							<th></th>
+						</tr>
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>GradientMethod</h3>
-							<p>Metodo de Es</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlproblem/GradientMethod">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/GradientMethod">GradientMethod</a></th>
+							<th>The gradient method is able to optimize the given functional, going down the gradient.</th>
+						</tr>
+					  
 					
-  					
-    					<div class="shadowbox">
-    						<h3>plot</h3>
-							<p>Metodo de Es</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-								<a href="/dycon-platform-documentation/documentation/mdl01/controlproblem/plot">
-									<span>See more...</span>
-								</a>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-
-    					</div>
-  					
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/plot">plot</a></th>
+							<th>shows how the dynamics, the control and the functional in the optimization evolve.</th>
+						</tr>
+					  
 					
-
-                <h2>Example</h2>
-                <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>first define symbolics vectors:</p>
-
-<script type="math/tex; mode=display">symY = \left( \begin{matrix}   y1 \\                                   y2                  \end{matrix} \right)</script>
-
-<script type="math/tex; mode=display">symU = \left( \begin{matrix}   u1 \\                                   u2                   \end{matrix} \right)</script>
-
-<p>We will use symbolic variables to define them.</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">syms</span> <span class="n">t</span>
-<span class="n">symY</span> <span class="o">=</span> <span class="n">SymsVector</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
-<span class="n">symU</span> <span class="o">=</span> <span class="n">SymsVector</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>In this case we will define the following differential equation</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Y0</span> <span class="o">=</span> <span class="p">[</span>  <span class="mi">0</span><span class="p">;</span> <span class="k">...</span>
-        <span class="mi">1</span> <span class="p">]</span> <span class="p">;</span>
-<span class="c1">%</span>
-<span class="n">A</span> <span class="o">=</span> <span class="p">[</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">1</span>  <span class="p">;</span>  <span class="k">...</span>
-       <span class="mi">0</span> <span class="o">-</span><span class="mi">2</span> <span class="p">];</span>
-<span class="c1">%</span>
-<span class="n">B</span> <span class="o">=</span> <span class="p">[</span>  <span class="mi">1</span> <span class="mi">0</span><span class="p">;</span> <span class="k">...</span>
-       <span class="mi">0</span> <span class="mi">1</span> <span class="p">];</span>
-</code></pre></div></div>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Fsym</span>  <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">symY</span> <span class="o">+</span> <span class="n">B</span><span class="o">*</span><span class="n">symU</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>To do this, we create an object differential equation. We can do it with the ODE constructor, in the following way:</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">odeEqn</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fsym</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">,</span><span class="n">Y0</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>Create the Funcional</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">YT</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">;</span> <span class="k">...</span>
-       <span class="mi">4</span><span class="p">];</span>
-
-<span class="n">symPsi</span>  <span class="o">=</span> <span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">symY</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">symY</span><span class="p">);</span>
-<span class="n">symL</span>    <span class="o">=</span> <span class="mf">0.0001</span><span class="o">*</span><span class="p">(</span><span class="n">symU</span><span class="o">.'*</span><span class="n">symU</span><span class="p">);</span>
-
-<span class="n">Jfun</span> <span class="o">=</span> <span class="n">Functional</span><span class="p">(</span><span class="n">symPsi</span><span class="p">,</span><span class="n">symL</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>Now can create the object ControlProblem</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iCP1</span> <span class="o">=</span> <span class="n">ControlProblem</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">,</span><span class="n">Jfun</span><span class="p">);</span>
-<span class="n">iCP1</span>
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-iCP1 = 
-
-  ControlProblem with properties:
-
-         Jfun: [1x1 Functional]
-          ode: [1x1 ode]
-            T: 1
-           dt: 0.1000
-     UOptimal: []
-    precision: []
-            P: [1x2 sym]
-      adjoint: [1x1 struct]
-        dH_du: @(t,Y,P,U)fcn(t,Y(1),Y(2),P(1),P(2),U(1),U(2))
-     Jhistory: []
-     Yhistory: []
-     Uhistory: []
-         iter: []
-         time: []
-
-
-</code></pre></div></div>
-
-<p>Solve Gradient</p>
-
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">)</span>
-</code></pre></div></div>
+					  
+						<tr>
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/ControlProblem/resume">resume</a></th>
+							<th></th>
+						</tr>
+					  
+					
+				</table>
 
 
             </div>

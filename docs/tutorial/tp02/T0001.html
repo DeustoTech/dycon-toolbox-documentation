@@ -89,7 +89,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-platform-documentation/">
-                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/img/logos/logo_DyCon.png" >
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/logo_DyConToolbox_v001.png" >
             </a>
         </div>
 
@@ -135,8 +135,7 @@
     <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading" style="padding: 0px 0">
-                    <h2><small>MATLAB tutorial:</small></h2>
+                <div class="post-heading" style="padding: 0px 0"><h2><small>MATLAB tutorial of <a href="https://DeustoTech.github.io//dycon-platform-documentation/topic/Tp02">Optimal Control</a> :</small></h2>
                     <h1>Simple application of ControlProblem MATLAB Object</h1>
 
 					<span class="meta">Posted by:
@@ -255,7 +254,7 @@ img:active{
 <p>To do this, we create an object differential equation. We can do it with the ODE constructor, in the following way.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-<span class="n">odeEqn</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fsym</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="s1">'T'</span><span class="p">,</span><span class="n">T</span><span class="p">);</span>
+<span class="n">odeEqn</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fsym</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">,</span><span class="s1">'Y0'</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="s1">'T'</span><span class="p">,</span><span class="n">T</span><span class="p">);</span>
 </code></pre></div></div>
 
 <h2 id="cost-functional">Cost Functional</h2>
@@ -270,14 +269,14 @@ img:active{
 
 <p>Then,</p>
 
-<script type="math/tex; mode=display">\Psi(Y,t) = \abs{Y(T) - Y(t)}^2</script>
+<script type="math/tex; mode=display">\Psi(Y,t) = \vert Y(T) - Y(t) \vert^2</script>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">symPsi</span>  <span class="o">=</span> <span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">symY</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">symY</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>and</p>
 
-<script type="math/tex; mode=display">L(Y(t,U),U(t),t) = \beta \abs{U(t)}^2</script>
+<script type="math/tex; mode=display">L(Y(t,U),U(t),t) = \beta \vert U(t)\vert^2</script>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">symL</span>    <span class="o">=</span> <span class="mf">0.0001</span><span class="o">*</span><span class="p">(</span><span class="n">symU</span><span class="o">.'*</span><span class="n">symU</span><span class="p">);</span>
 </code></pre></div></div>
@@ -287,20 +286,21 @@ img:active{
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Jfun</span> <span class="o">=</span> <span class="n">Functional</span><span class="p">(</span><span class="n">symPsi</span><span class="p">,</span><span class="n">symL</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">);</span>
 </code></pre></div></div>
 
-<h2 id="creamos-problema-de-control">Creamos Problema de Control</h2>
+<p>Creta the control Problem</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iCP1</span> <span class="o">=</span> <span class="n">ControlProblem</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">,</span><span class="n">Jfun</span><span class="p">);</span>
 </code></pre></div></div>
 
-<h2 id="solve-gradient">Solve Gradient</h2>
+<p>Solve Gradient</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0001/081472.gif" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp02/T0001/081472.gif" alt="" /></p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%% Resolvemos la ecuacion sin controlfree dynamics</span>
-<span class="n">solve</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">)</span>
+<p>We solve the equation without control</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">solve</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">)</span>
 <span class="c1">%%</span>
 <span class="nb">figure</span>
 <span class="nb">plot</span><span class="p">(</span><span class="n">odeEqn</span><span class="o">.</span><span class="n">tline</span><span class="s1">',odeEqn.Y(:,1),'</span><span class="n">Color</span><span class="s1">','</span><span class="n">red</span><span class="o">'</span><span class="p">)</span>
@@ -308,9 +308,9 @@ img:active{
 <span class="nb">legend</span><span class="p">({</span><span class="s1">'Y_1'</span><span class="p">,</span><span class="s1">'Y_2'</span><span class="p">})</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0001/copiaRM_01.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp02/T0001/copiaRM_01.png" alt="" /></p>
 
-<p>La solucion obtenida en el metodo del gradiente es:</p>
+<p>The solution obtained in the gradient method is:</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">odec</span> <span class="o">=</span> <span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="p">;</span>
 <span class="nb">figure</span>
@@ -319,7 +319,7 @@ img:active{
 <span class="nb">legend</span><span class="p">({</span><span class="s1">'Y_1'</span><span class="p">,</span><span class="s1">'Y_2'</span><span class="p">})</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/TP02/T0001/copiaRM_02.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp02/T0001/copiaRM_02.png" alt="" /></p>
 
 
 

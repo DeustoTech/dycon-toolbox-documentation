@@ -1,7 +1,10 @@
 ---
 title: animation
 data: 
-  description: This method allows us to see an animation of the evolution of gradient methods, shows the controls in each iteration with a lapse of $dt=0.15s$
+  description: This method allows us to see an animation of the evolution of gradient methods, shows the controls
+                    in each iteration with a lapse of $dt=0.15s$
+  little_description: This method allows us to see an animation of the evolution of gradient methods, 
+                        shows the controls in each iteration with a lapse of $dt=0.15s$
   autor: JOroya
   MandatoryInputs:   
    iCPD: 
