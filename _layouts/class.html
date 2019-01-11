@@ -100,11 +100,13 @@ layout: default
 						<th>Name</th>
 						<th>Description</th>
 					</tr>
-					{% for method in page.methods %}
-					  {% unless method[0] contains page.title %}
+					{% for imethod in page.methods %}
+					  {% unless imethod[0] contains page.title %}
 						<tr>
-							<th><a href="{{ method[1].url | prepend: site.baseurl }}">{{ method[0] }}</a></th>
-							<th>{{ method[1].little_description }}</th>
+							{% assign qposts = site.posts | where:"layout","method" |where:"class",page.title | where: "title",imethod[0] %}
+							
+							<th><a href="{{ qposts[0].url | prepend: site.baseurl }}">{{ imethod[0] }}</a></th>
+							<th>{{ imethod[1].little_description }}</th>
 						</tr>
 					  {% endunless %}
 					{% endfor %}
