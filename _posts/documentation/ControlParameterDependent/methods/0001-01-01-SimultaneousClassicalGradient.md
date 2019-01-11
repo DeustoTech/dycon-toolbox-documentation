@@ -1,17 +1,18 @@
 ---
-title: SimultaneousStochasticGradient
+title: SimultaneousClassicalGradient
 data: 
-  description:  The Simultaneous Stochastic Gradient solves an optimal control problem 
-            which is constructed to control each statein the last time
-            and a given final target. This function solve a particular optimal control problem using
-            the classical gradient descent algorithm. The restriction of the optimization 
-            problem is a parameter-dependent finite dimensional linear system. Then, the 
-            resulting states depend on a certain parameter. Hence, the functional is
-            constructed to control each state with respect to this parameter
-            $$ x(T,\nu) = xt \quad \forall \nu \in \mathcal{K}  $$.
-  little_description: The Simultaneous Stochastic Gradient solves an optimal control problem 
+  description:  The Simultaneous Classical Gradient solves an optimal control problem 
                 which is constructed to control each statein the last time
-                 and a given final target.
+                and a given final target. This function solve a particular optimal control problem using
+                the classical gradient descent algorithm. The restriction of the optimization 
+                problem is a parameter-dependent finite dimensional linear system. Then, the 
+                resulting states depend on a certain parameter. Hence, the functional is
+                constructed to control each state with respect to this parameter
+                $$ x(T,\nu) = xt \quad \forall \nu \in \mathcal{K}  $$.
+                See Also in AverageClassicalGradient
+  little_description: The Simultaneous Classical Gradient solves an optimal control problem 
+                        which is constructed to control each statein the last time
+                        and a given final target.
   autor: AnaN
   MandatoryInputs:   
     iCPD: 
@@ -24,7 +25,7 @@ data:
      dimension: [iCPD.Nx1]
   OptionalInputs:
     tol:
-     description: tolerance of algorithm, this number is compare with the
+     description:  tolerance of algorithm, this number is compare with the
                     following error in order to stop the algorithm
                     $$\frac{\vert \vert u_{k+1}-u_{k}\vert \vert}{\vert \vert u_{k+1}\vert
                     \vert}$$
@@ -40,7 +41,7 @@ data:
     gamma0:
      description: Initial step of the method. The control is update as follow
                     $$u_{k+1} = u_{k} + \gamma_{k} \nabla J(u_{k}),$$
-                     where $\gamma_{k} = \gamma_0 * \frac{1}/{\sqrt{k}}$
+                    where $\gamma_{k} = \gamma_0 * \frac{1}/{\sqrt{k}}$
      class: double
      dimension: [1x1]
      default:   0.5

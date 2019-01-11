@@ -142,14 +142,15 @@ methods:
            default:   1000
         url: /documentation/mdl01/ControlParameterDependent/AverageClassicalGradient
    AverageConjugateGradient:
-        description: This function solve a particular optimal control problem using
-          the stochastic gradient descent algorithm. The restriction of the optimization 
-          problem is a parameter-dependent finite dimensional linear system. Then, the 
-          resulting states depend on a certain parameter. Therefore, the functional is
-          constructed to control the average of the states with respect to this parameter.
-          See Also in AverageClassicalGradient
+        description: The Average Conjugate Gradient solves an optimal control problem 
+                      which is constructed to control the distance between the average of the states in the last time
+                      and a given final target. This function solve a particular optimal control problem using
+                      the classical gradient descent algorithm. The restriction of the optimization 
+                      problem is a parameter-dependent finite dimensional linear system. Then, the 
+                      resulting states depend on a certain parameter. 
+                      See Also in AverageClassicalGradient
         little_description: This function solve a particular optimal control problem using
-                          the stochastic gradient descent algorithm.
+                          the Conjugate gradient descent algorithm.
         autor: AnaN
         MandatoryInputs:   
           iCPD: 
@@ -225,45 +226,6 @@ methods:
            dimension: [1x1]
            default:   1000
         url: /documentation/mdl01/ControlParameterDependent/AverageStochasticGradient
-   SimultaneousStochasticGradient:
-        description:  This function solve a particular optimal control problem using
-          the stochastic gradient descent algorithm. The restriction of the optimization 
-          problem is a parameter-dependent finite dimensional linear system. Then, the 
-          resulting states depend on a certain parameter. Therefore, the functional is
-          constructed to control the average of the states with respect to this parameter.
-          See Also in AverageClassicalGradient
-        autor: AnaN
-        MandatoryInputs:   
-          iCPD: 
-           description: Control Parameter Dependent Problem 
-           class: ControlParameterDependent
-           dimension: [1x1]
-          xt: 
-           description: The target vector where you want the system to go
-           class: double
-           dimension: [iCPD.Nx1]
-        OptionalInputs:
-          tol:
-           description: tolerance of algorithm, this number is compare with $J(k)-J(k-1)$
-           class: double
-           dimension: [1x1]
-           default:   1e-5
-          beta:
-           description: This number is the power of the control, is define by follow expresion $$J = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$ 
-           class: double
-           dimension: [1x1]
-           default:   1e-1
-          gamma0:
-           description: Length Step of the gradient Method. The control is update as follow $$u_{k+1} = u_{k} + \gamma \nabla u_{k}$$. In Stochastic method $\gamma_{k} = \gamma_0 * \frac{1}/{\sqrt{k}}$
-           class: double
-           dimension: [1x1]
-           default:   1e-1
-          MaxIter:
-           description: Maximun of iterations of this method
-           class: double
-           dimension: [1x1]
-           default:   100
-        url: /documentation/mdl01/ControlParameterDependent/SimultaneousStochasticGradient
    animation:
         description: This method allows us to see an animation of the evolution of gradient methods, shows the controls
                           in each iteration with a lapse of $dt=0.15s$
@@ -333,6 +295,107 @@ methods:
            dimension: [length(iCP.tline)]
            default:   empty
         url: /documentation/mdl01/ControlParameterDependent/plot
+   SimultaneousClassicalGradient:
+        description:  The Simultaneous Classical Gradient solves an optimal control problem 
+                      which is constructed to control each statein the last time
+                      and a given final target. This function solve a particular optimal control problem using
+                      the classical gradient descent algorithm. The restriction of the optimization 
+                      problem is a parameter-dependent finite dimensional linear system. Then, the 
+                      resulting states depend on a certain parameter. Hence, the functional is
+                      constructed to control each state with respect to this parameter
+                      $$ x(T,\nu) = xt \quad \forall \nu \in \mathcal{K}  $$.
+                      See Also in AverageClassicalGradient
+        little_description: The Simultaneous Classical Gradient solves an optimal control problem 
+                              which is constructed to control each statein the last time
+                              and a given final target.
+        autor: AnaN
+        MandatoryInputs:   
+          iCPD: 
+           description: Control Parameter Dependent Problem 
+           class: ControlParameterDependent
+           dimension: [1x1]
+          xt: 
+           description: The final target. The system will be controlled to starting in x0 ending in xt.
+           class: double
+           dimension: [iCPD.Nx1]
+        OptionalInputs:
+          tol:
+           description:  tolerance of algorithm, this number is compare with the
+                          following error in order to stop the algorithm
+                          $$\frac{\vert \vert u_{k+1}-u_{k}\vert \vert}{\vert \vert u_{k+1}\vert
+                          \vert}$$
+           class: double
+           dimension: [1x1]
+           default:   1e-5
+          beta:
+           description: This value is applied to regularize the control in the optimal control problem
+                          $$ \min_{u \in L^2(0,T)} J(u)=\frac{1}{2}  \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}}\left( x \left( T, \nu \right) - xt \right)^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$ 
+           class: double
+           dimension: [1x1]
+           default:   1e-1
+          gamma0:
+           description: Initial step of the method. The control is update as follow
+                          $$u_{k+1} = u_{k} + \gamma_{k} \nabla J(u_{k}),$$
+                          where $\gamma_{k} = \gamma_0 * \frac{1}/{\sqrt{k}}$
+           class: double
+           dimension: [1x1]
+           default:   0.5
+          MaxIter:
+           description: Maximun of iterations of this method
+           class: double
+           dimension: [1x1]
+           default:   1000
+        url: /documentation/mdl01/ControlParameterDependent/SimultaneousClassicalGradient
+   SimultaneousStochasticGradient:
+        description:  The Simultaneous Stochastic Gradient solves an optimal control problem 
+                  which is constructed to control each statein the last time
+                  and a given final target. This function solve a particular optimal control problem using
+                  the classical gradient descent algorithm. The restriction of the optimization 
+                  problem is a parameter-dependent finite dimensional linear system. Then, the 
+                  resulting states depend on a certain parameter. Hence, the functional is
+                  constructed to control each state with respect to this parameter
+                  $$ x(T,\nu) = xt \quad \forall \nu \in \mathcal{K}  $$.
+        little_description: The Simultaneous Stochastic Gradient solves an optimal control problem 
+                      which is constructed to control each statein the last time
+                       and a given final target.
+        autor: AnaN
+        MandatoryInputs:   
+          iCPD: 
+           description: Control Parameter Dependent Problem 
+           class: ControlParameterDependent
+           dimension: [1x1]
+          xt: 
+           description: The final target. The system will be controlled to starting in x0 ending in xt.
+           class: double
+           dimension: [iCPD.Nx1]
+        OptionalInputs:
+          tol:
+           description: tolerance of algorithm, this number is compare with the
+                          following error in order to stop the algorithm
+                          $$\frac{\vert \vert u_{k+1}-u_{k}\vert \vert}{\vert \vert u_{k+1}\vert
+                          \vert}$$
+           class: double
+           dimension: [1x1]
+           default:   1e-5
+          beta:
+           description: This value is applied to regularize the control in the optimal control problem
+                          $$ \min_{u \in L^2(0,T)} J(u)=\frac{1}{2}  \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}}\left( x \left( T, \nu \right) - xt \right)^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$ 
+           class: double
+           dimension: [1x1]
+           default:   1e-1
+          gamma0:
+           description: Initial step of the method. The control is update as follow
+                          $$u_{k+1} = u_{k} + \gamma_{k} \nabla J(u_{k}),$$
+                           where $\gamma_{k} = \gamma_0 * \frac{1}/{\sqrt{k}}$
+           class: double
+           dimension: [1x1]
+           default:   0.5
+          MaxIter:
+           description: Maximun of iterations of this method
+           class: double
+           dimension: [1x1]
+           default:   1000
+        url: /documentation/mdl01/ControlParameterDependent/SimultaneousStochasticGradient
 
 ---
 
@@ -342,13 +405,7 @@ The optimal control of the following functional is obtained applying the classic
 $$ \begin{equation*} \min_{u \in L^2(0,T)} \mathcal{J}\left( u\right) = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ \end{equation*} $$
 
 
-Subject to the finite dimensional linear control system
-
-
-$$\begin{align*}  \left\{ \begin{array}{ll} x^\prime \left( t \right) = A \left( \nu \right) x \left( t \right) + B \left( \nu \right) u \left( t \right), \quad 0 < t <T, \\ x\left( 0 \right) = x^0. \end{array} \right. \end{align*}$$
-
-
-the goal is to apply the stochastic gradient descent method to obtain the minimun of the same optimal control problem.
+Subject to the finite dimensional linear control system mentioned before, the goal is to apply the stochastic gradient descent method to obtain the minimun of the same optimal control problem.
 
 
 In this case, the iterative method is defined as

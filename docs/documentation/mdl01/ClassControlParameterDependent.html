@@ -147,12 +147,7 @@
 
 <script type="math/tex; mode=display">\begin{equation*} \min_{u \in L^2(0,T)} \mathcal{J}\left( u\right) = \min_{u \in L^2(0,T)} \frac{1}{2} \left[ \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}} x \left( T, \nu \right) - \bar{x} \right]^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ \end{equation*}</script>
 
-<p>Subject to the finite dimensional linear control system</p>
-
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{align*}  \left\{ \begin{array}{ll} x^\prime \left( t \right) = A \left( \nu \right) x \left( t \right) + B \left( \nu \right) u \left( t \right), \quad 0 < t <T, \\ x\left( 0 \right) = x^0. \end{array} \right. \end{align*} %]]></script>
-
-<p>the goal is to apply the stochastic gradient descent method to obtain the minimun of the same optimal control problem.</p>
+<p>Subject to the finite dimensional linear control system mentioned before, the goal is to apply the stochastic gradient descent method to obtain the minimun of the same optimal control problem.</p>
 
 <p>In this case, the iterative method is defined as</p>
 
@@ -393,7 +388,7 @@
 							
 							
 							<th><a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/AverageConjugateGradient">AverageConjugateGradient</a></th>
-							<th>This function solve a particular optimal control problem using the stochastic gradient descent algorithm.</th>
+							<th>This function solve a particular optimal control problem using the Conjugate gradient descent algorithm.</th>
 						</tr>
 					  
 					
@@ -403,15 +398,6 @@
 							
 							<th><a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/AverageStochasticGradient">AverageStochasticGradient</a></th>
 							<th>This function solves a particular optimal control problem using the stochastic gradient descent algorithm.</th>
-						</tr>
-					  
-					
-					  
-						<tr>
-							
-							
-							<th><a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/SimultaneousStochasticGradient">SimultaneousStochasticGradient</a></th>
-							<th></th>
 						</tr>
 					  
 					
@@ -430,6 +416,24 @@
 							
 							<th><a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/plot">plot</a></th>
 							<th>The plot function applied to a ControlParameterDepent object shows  the evolution of optimization</th>
+						</tr>
+					  
+					
+					  
+						<tr>
+							
+							
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/SimultaneousClassicalGradient">SimultaneousClassicalGradient</a></th>
+							<th>The Simultaneous Classical Gradient solves an optimal control problem which is constructed to control each statein the last time and a given final target.</th>
+						</tr>
+					  
+					
+					  
+						<tr>
+							
+							
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/SimultaneousStochasticGradient">SimultaneousStochasticGradient</a></th>
+							<th>The Simultaneous Stochastic Gradient solves an optimal control problem which is constructed to control each statein the last time and a given final target.</th>
 						</tr>
 					  
 					

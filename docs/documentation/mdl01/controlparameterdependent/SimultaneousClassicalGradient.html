@@ -12,9 +12,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>DyCon Platform</title>
+    <title>SimultaneousClassicalGradient - DyCon Platform</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/page5/">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/controlparameterdependent/SimultaneousClassicalGradient">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -130,39 +130,89 @@
 </nav>
 
 
-    <header class="intro-header">
-  <div class="container">
-    <div class="col-md-10 col-md-offset-1">
-      <div class="site-heading">
-        <img style="padding-top: 100px;"src="https://DeustoTech.github.io//dycon-platform-documentation/assets/logo_DyConToolbox_v001.png" width="40%" alt="" srcset="">
-        <hr class="small">
-        <span class="subheading">Welcome to the web interface of DyCon Toolbox, the computational platform developed within the <a href='https://cmc.deusto.eus/dycon/' target='_blank'>ERC DyCon - Dynamic Control</a> project.</span>
-        <hr>
-      </div>
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="container" style="padding-top: 70px;">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading" style="padding: 0px 0">
+                    <h1 class="post-title">SimultaneousClassicalGradient<small> method</small></h1> 
+                    <h3 class="post-title"><a href="https://DeustoTech.github.io//dycon-platform-documentation/documentation/MDL01/ClassControlParameterDependent">ControlParameterDependent</a><small> class</small></h3>
+                </div>
+
+                <!-- MANDATORY INPUTS  -->
+                <h2>Description</h2>
+                The Simultaneous Classical Gradient solves an optimal control problem which is constructed to control each statein the last time and a given final target. This function solve a particular optimal control problem using the classical gradient descent algorithm. The restriction of the optimization problem is a parameter-dependent finite dimensional linear system. Then, the resulting states depend on a certain parameter. Hence, the functional is constructed to control each state with respect to this parameter $$ x(T,\nu) = xt \quad \forall \nu \in \mathcal{K}  $$. See Also in AverageClassicalGradient
+                <h2>Mandatory Input Parameters</h2>
+
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>iCPD</th>
+                        <th>Control Parameter Dependent Problem</th>
+                        <th>ControlParameterDependent</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>xt</th>
+                        <th>The final target. The system will be controlled to starting in x0 ending in xt.</th>
+                        <th>double</th>
+                    </tr>
+                    
+
+                </table>
+
+                <!-- OPTIONAL INPUTS  -->
+
+                
+                <h2>Optional Input Parameters</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>tol</th>
+                        <th>tolerance of algorithm, this number is compare with the following error in order to stop the algorithm $$\frac{\vert \vert u_{k+1}-u_{k}\vert \vert}{\vert \vert u_{k+1}\vert \vert}$$</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>beta</th>
+                        <th>This value is applied to regularize the control in the optimal control problem $$ \min_{u \in L^2(0,T)} J(u)=\frac{1}{2}  \frac{1}{|\mathcal{K}|} \sum_{\nu \in \mathcal{K}}\left( x \left( T, \nu \right) - xt \right)^2  + \frac{\beta}{2} \int_0^T u^2 \mathrm{d}t, \quad \beta \in \mathbb{R}^+ $$</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>gamma0</th>
+                        <th>Initial step of the method. The control is update as follow $$u_{k+1} = u_{k} + \gamma_{k} \nabla J(u_{k}),$$ where $\gamma_{k} = \gamma_0 * \frac{1}/{\sqrt{k}}$</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>MaxIter</th>
+                        <th>Maximun of iterations of this method</th>
+                        <th>double</th>
+                    </tr>
+                    
+                </table>
+                
+
+                <!--  OUTPUTS -->
+                
+                                    <!--  -->
+            </div>
+        </div>
     </div>
-  </div>
 </header>
 
-
-<div class="container">
-    <div class="col-md-10 col-md-offset-1">
-    <p class="index-p">
-      DyCon Toolbox is a package for MATLAB dedicated to the resolution of control problems. This toolbox uses the
-      symbolic syntax of MATLAB to define the functional cost and the dynamics of the problem, which makes it very versatile. 
-      It also has some optimization methods implemented.
-    </p>
-    <p class="index-p">
-      This Toolbox is a container of different optimization algorithms, where new methods can be developed within a structure 
-      already built and with reusable functions, for the comparison of results.
-    </p>
-    <p class="index-p">
-        Continue here, and watch our <a href="https://DeustoTech.github.io//dycon-platform-documentationprojects/tutorials">tutorials</a>.
-    </p>
-    <p class="index-p">
-        <small>The DyCon MATLAB toolkit is developed primarily by the Chair of Computational Mathematics, at DeustoTech. However, we welcome any improvement in the computational platform. Contact the DyCon Toolbox developer team dycon-dev-group@deusto.es for more information.</small>  
-      </p>
-  </div>
-</div>
 
 
     <!-- Footer -->
