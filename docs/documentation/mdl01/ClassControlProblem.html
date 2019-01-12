@@ -201,6 +201,11 @@ Fsym =
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iCP1</span> <span class="o">=</span> <span class="n">ControlProblem</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">,</span><span class="n">Jfun</span><span class="p">);</span>
 </code></pre></div></div>
 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: The parameter T (final time), is different in Jfunction and ODE
+problem. We use ODE.T for all. 
+
+</code></pre></div></div>
+
 <p>and solve by Classical Gradient Method</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DescentParameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'MiddleStepControl'</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="s1">'InitialLengthStep'</span><span class="p">,</span><span class="mf">1e-5</span><span class="p">,</span><span class="s1">'MinLengthStep'</span><span class="p">,</span><span class="mf">1e-10</span><span class="p">};</span>
@@ -437,7 +442,7 @@ Fsym =
 							
 							
 							<th><a href="/dycon-platform-documentation/documentation/mdl01/controlproblem/GetGradient">GetGradient</a></th>
-							<th></th>
+							<th>Creates the iCP.dH_du property that contains a numeric function that returns the value of the gradient given the dynamics solution, $Y$ and the associated control, $U$.</th>
 						</tr>
 					  
 					
@@ -464,7 +469,7 @@ Fsym =
 							
 							
 							<th><a href="/dycon-platform-documentation/documentation/mdl01/controlproblem/resume">resume</a></th>
-							<th></th>
+							<th>show the most importants parameters of the control problem</th>
 						</tr>
 					  
 					

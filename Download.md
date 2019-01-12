@@ -23,7 +23,7 @@ Then go to the <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> tutor
 
     <ul>
       <li>
-        <a href="{{site.url}}/{{site.baseurl}}/assets/DyCon-Computational-Platform.mltbx">
+        <a href="{{site.url}}/{{site.baseurl}}/assets/DyConToolBox.mltbx">
         DyCon-toolbox-1.0.0</a> [24,9 MB]
         <span class="rel_date">20.12.2018</span>
         <span class="sha256">sha256: d2e5889028f8eccb5c32c381c0035788bdb312e3a791d1252a186688338c2262</span>

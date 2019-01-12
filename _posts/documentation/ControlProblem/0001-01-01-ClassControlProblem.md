@@ -222,7 +222,12 @@ methods:
            dimension: [1x1]
         url: /documentation/mdl01/ControlProblem/GetFunctional
    GetGradient:
-        description: Metodo de Es
+        description: Creates the iCP.dH_du property that contains a numeric function that 
+                      returns the value of the gradient given the dynamics solution, 
+                      $Y$ and the associated control, $U$.
+        little_description: Creates the iCP.dH_du property that contains a numeric function that 
+                      returns the value of the gradient given the dynamics solution, 
+                      $Y$ and the associated control, $U$. 
         autor: JOroya
         MandatoryInputs:   
          iCP: 
@@ -230,13 +235,6 @@ methods:
            description: 
            class: ControlProblem
            dimension: [1x1]
-        OptionalInputs:
-         U0:
-           name: Initial Control 
-           description: matrix 
-           class: double
-           dimension: [length(iCP.tline)]
-           default:   empty
         url: /documentation/mdl01/ControlProblem/GetGradient
    GradientMethod:
         name: GradientMethod
@@ -326,13 +324,14 @@ methods:
               default: false
         url: /documentation/mdl01/ControlProblem/plot
    resume:
-         description: show the most importants parameters of the control problem
-         autor: JOroya
-         MandatoryInputs:   
+        description: show the most importants parameters of the control problem
+        little_description: show the most importants parameters of the control problem
+        autor: JOroya
+        MandatoryInputs:   
            iCP: 
                description: Control Problem Object
                type: ControlProblem
-         url: /documentation/mdl01/ControlProblem/resume
+        url: /documentation/mdl01/ControlProblem/resume
 
 ---
 
@@ -407,6 +406,13 @@ Now, We can create the control problem
 
 ```matlab
 iCP1 = ControlProblem(odeEqn,Jfun);
+```
+
+
+```
+Warning: The parameter T (final time), is different in Jfunction and ODE
+problem. We use ODE.T for all. 
+
 ```
 
 
