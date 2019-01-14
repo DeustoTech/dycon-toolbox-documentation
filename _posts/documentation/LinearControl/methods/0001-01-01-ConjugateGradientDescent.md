@@ -2,8 +2,9 @@
 title: ConjugateGradientDescent
 data: 
    description: This method is able to update the value of the control by decreasing 
-                the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented 
-                in that direction, assuring the decrease by the adaptive step size. 
+                the value of the functional. By calculating the congugate gradient, $ \frac{dH}{du}$.
+   little_description: This method is able to update the value of the control by decreasing 
+                the value of the functional.
    autor: UmbertoB
    MandatoryInputs:   
      iCP: 

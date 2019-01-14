@@ -141,8 +141,6 @@ title('finemesh solution')
 ```
 
 
-![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_02.png)
-
 ![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_03.png)
 
 Solve the wave equation on coarsemesh using RPS method
