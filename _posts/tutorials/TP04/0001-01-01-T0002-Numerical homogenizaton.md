@@ -20,16 +20,16 @@ $$ \begin{equation} 	\begin{cases} 	&u_{tt}- u_{xx} =0,  0\leq x\leq 1, t\in[0,T
 When $(u_0,u_1) \in H_0^1(0,1)\times L^2(0,1)$, it admits a unique solution $u(x,t) \in C^0([0,T],H_0^1(0,1)) \cap C^1([0,T],L^2(0,1))$. 	The energy of solution to \eqref{wave} $E(t)$
 
 
-$$ \begin{equation} 	E(t)=\frac{1}{2}\int_{0}^{1}\vert u_x(x,t) `^2+` u_t(x,t)\vert^2 dx, 	\end{equation} $$
+$$ \begin{equation} 	E(t)=\frac{1}{2}\int_{0}^{1} \vert u_x(x,t) \vert^2+ \vert u_t(x,t)\vert^2 dx, 	\end{equation} $$
 
 
 is time conserved .
 
 
-With Hilbert Uniqueness Method, the exact controllability of \eqref{control} is  equal to the observability of the adjoint \eqref{wave}, Observability of \eqref{wave} reads as: Given $T\geq 2$, there exist a positive constant $C(T)\geq 0$ such that
+With Hilbert Uniqueness Method, the exact controllability of \eqref{wave} is  equal to the observability of the adjoint \eqref{wave}, Observability of \eqref{wave} reads as: Given $T\geq 2$, there exist a positive constant $C(T)\geq 0$ such that
 
 
-$$ \begin{equation}       E(0)\leq C(T) \int_{0}^{T} `u_x(1,t)`^2 dt. \end{equation} $$
+$$ \begin{equation}       E(0)\leq C(T) \int_{0}^{T} \vert u_x(1,t) \vert ^2 dt. \end{equation} $$
 
 
 holds for every solution $u(x,t)$ to adjoint system \eqref{wave}
@@ -143,6 +143,8 @@ title('finemesh solution')
 
 ![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_02.png)
 
+![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_03.png)
+
 Solve the wave equation on coarsemesh using RPS method
 
 ```matlab
@@ -157,7 +159,7 @@ title('coarsemesh solution with rps basis')
 ```
 
 
-![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_03.png)
+![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_04.png)
 
 Solve the wave equation on coarsemesh using p1 fem
 
@@ -169,7 +171,7 @@ title('coarsemesh solution with linear basis')
 ```
 
 
-![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_04.png)
+![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_05.png)
 
 **Plot the disperation relation of RPS-semi descretization**
 
@@ -246,7 +248,7 @@ legend('RPS','P1 FEM','FDM')
 ```
 
 
-![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_05.png)
+![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_06.png)
 
 Plot the numerical group velocity for sinusoidal solution and compare it with the ones for FDM and FEM
 
@@ -274,7 +276,7 @@ legend('RPS','P1 FEM','FDM','exact')
 ```
 
 
-![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_06.png)
+![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_07.png)
 
 Plot the numerical disperation relation Disperation relation for RPS semi-discretizaton
 
@@ -301,5 +303,5 @@ legend('RPS','P1 FEM','FDM','exact')
 ```
 
 
-![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_07.png)
+![]({{site.url}}/{{site.baseurl}}/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_08.png)
 

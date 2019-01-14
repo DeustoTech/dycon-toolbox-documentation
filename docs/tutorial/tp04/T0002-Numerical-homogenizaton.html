@@ -222,13 +222,13 @@ img:active{
 
 <p>When $(u_0,u_1) \in H_0^1(0,1)\times L^2(0,1)$, it admits a unique solution $u(x,t) \in C^0([0,T],H_0^1(0,1)) \cap C^1([0,T],L^2(0,1))$. 	The energy of solution to \eqref{wave} $E(t)$</p>
 
-<script type="math/tex; mode=display">\begin{equation} 	E(t)=\frac{1}{2}\int_{0}^{1}\vert u_x(x,t) `^2+` u_t(x,t)\vert^2 dx, 	\end{equation}</script>
+<script type="math/tex; mode=display">\begin{equation} 	E(t)=\frac{1}{2}\int_{0}^{1} \vert u_x(x,t) \vert^2+ \vert u_t(x,t)\vert^2 dx, 	\end{equation}</script>
 
 <p>is time conserved .</p>
 
-<p>With Hilbert Uniqueness Method, the exact controllability of \eqref{control} is  equal to the observability of the adjoint \eqref{wave}, Observability of \eqref{wave} reads as: Given $T\geq 2$, there exist a positive constant $C(T)\geq 0$ such that</p>
+<p>With Hilbert Uniqueness Method, the exact controllability of \eqref{wave} is  equal to the observability of the adjoint \eqref{wave}, Observability of \eqref{wave} reads as: Given $T\geq 2$, there exist a positive constant $C(T)\geq 0$ such that</p>
 
-<script type="math/tex; mode=display">\begin{equation}       E(0)\leq C(T) \int_{0}^{T} `u_x(1,t)`^2 dt. \end{equation}</script>
+<script type="math/tex; mode=display">\begin{equation}       E(0)\leq C(T) \int_{0}^{T} \vert u_x(1,t) \vert ^2 dt. \end{equation}</script>
 
 <p>holds for every solution $u(x,t)$ to adjoint system \eqref{wave}</p>
 
@@ -317,6 +317,8 @@ img:active{
 
 <p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_02.png" alt="" /></p>
 
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_03.png" alt="" /></p>
+
 <p>Solve the wave equation on coarsemesh using RPS method</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xc</span><span class="o">=</span><span class="n">x</span><span class="p">(</span><span class="n">H</span><span class="p">/</span><span class="n">h</span><span class="o">*</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Nbasis</span><span class="p">]);</span>
@@ -329,7 +331,7 @@ img:active{
 <span class="nb">title</span><span class="p">(</span><span class="s1">'coarsemesh solution with rps basis'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_03.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_04.png" alt="" /></p>
 
 <p>Solve the wave equation on coarsemesh using p1 fem</p>
 
@@ -339,7 +341,7 @@ img:active{
 <span class="nb">title</span><span class="p">(</span><span class="s1">'coarsemesh solution with linear basis'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_04.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_05.png" alt="" /></p>
 
 <p><strong>Plot the disperation relation of RPS-semi descretization</strong></p>
 
@@ -401,7 +403,7 @@ img:active{
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'RPS'</span><span class="p">,</span><span class="s1">'P1 FEM'</span><span class="p">,</span><span class="s1">'FDM'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_05.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_06.png" alt="" /></p>
 
 <p>Plot the numerical group velocity for sinusoidal solution and compare it with the ones for FDM and FEM</p>
 
@@ -427,7 +429,7 @@ img:active{
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'RPS'</span><span class="p">,</span><span class="s1">'P1 FEM'</span><span class="p">,</span><span class="s1">'FDM'</span><span class="p">,</span><span class="s1">'exact'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_06.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_07.png" alt="" /></p>
 
 <p>Plot the numerical disperation relation Disperation relation for RPS semi-discretizaton</p>
 
@@ -451,7 +453,7 @@ img:active{
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'RPS'</span><span class="p">,</span><span class="s1">'P1 FEM'</span><span class="p">,</span><span class="s1">'FDM'</span><span class="p">,</span><span class="s1">'exact'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_07.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp04/T0002-Numerical homogenizaton/copiaRM_08.png" alt="" /></p>
 
 
 
