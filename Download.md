@@ -9,7 +9,7 @@ You can start using Dycon toolbox by simply copying the following lines into you
 ```matlab
 unzip('https://github.com/DeustoTech/DyCon-Computational-Platform/archive/master.zip')
 movefile('DyCon-Computational-Platform-master', 'DyConToolBox')
-addpath(genpath(fullfile(cd,'DyConToolBox'))), savepath
+addpath(genpath(fullfile(cd,'DyConToolBox')))
 ```
 Then go to the <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> tutorials</a> and choose the one you prefer
 
@@ -18,7 +18,7 @@ Then go to the <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> tutor
 
   <div class="inst-guide">
     <h1> Second Method </h1>
-    For the installation of the toolbox you must download the following file:
+    For the installation of the toolbox you can download the following file:
     <hr>
 
     <ul>
