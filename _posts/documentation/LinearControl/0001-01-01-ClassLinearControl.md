@@ -5,6 +5,7 @@ description: LinearControl is a subclass of the ControlProblem class, so it is a
               computational cost and some functions such as GetAdjointProblem.
 visible: true
 title: LinearControl
+number: 1
 categories: [documentation, MDL01]
 layout: class
 type: constructor

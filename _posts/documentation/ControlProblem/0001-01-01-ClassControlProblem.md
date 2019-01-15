@@ -4,6 +4,7 @@ description: This class is able to solve optimization problems of a function res
               in both symbolic and numerical versions.
 visible: true
 title: ControlProblem
+number: 2
 categories: [documentation, MDL01]
 layout: class
 type: constructor

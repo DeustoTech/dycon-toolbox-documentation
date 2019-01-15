@@ -191,8 +191,8 @@ Classes are abstract objects to facilitate the coding of algorithms, then a list
     </tr>
     
         <tr>
-          <th><a href="/dycon-platform-documentation/documentation/mdl01/ClassControlParameterDependent">ControlParameterDependent</a></th>
-          <th>The goal of this class is to solve optimal control problems where the states are defined via finite dimensional parameter-dependent systems of the form $$\dot{x}(t,\nu)=A(\nu)x(t,\nu)+B(\nu)u(t), \, t>T, \quad x(0)=x0,$$ being $\nu$ the parameter that can be discrete or continuous. Different iterative algorithms based on gradient descent methods are performed to reach this objective. For example, the classical gradient descent technique or stochastic gradient descent method, which has become important in the last years.</th>
+          <th><a href="/dycon-platform-documentation/documentation/mdl01/ClassLinearControl">LinearControl</a></th>
+          <th>LinearControl is a subclass of the ControlProblem class, so it is also a control problem. However, we assume that the differential equation we want to control is linear. This gives us access to new functions such as the conjugate gradient. In addition, it lightens the computational cost and some functions such as GetAdjointProblem.</th>
         </tr>
     
         <tr>
@@ -201,8 +201,8 @@ Classes are abstract objects to facilitate the coding of algorithms, then a list
         </tr>
     
         <tr>
-          <th><a href="/dycon-platform-documentation/documentation/mdl01/ClassLinearControl">LinearControl</a></th>
-          <th>LinearControl is a subclass of the ControlProblem class, so it is also a control problem. However, we assume that the differential equation we want to control is linear. This gives us access to new functions such as the conjugate gradient. In addition, it lightens the computational cost and some functions such as GetAdjointProblem.</th>
+          <th><a href="/dycon-platform-documentation/documentation/mdl01/ClassControlParameterDependent">ControlParameterDependent</a></th>
+          <th>The goal of this class is to solve optimal control problems where the states are defined via finite dimensional parameter-dependent systems of the form $$\dot{x}(t,\nu)=A(\nu)x(t,\nu)+B(\nu)u(t), \, t>T, \quad x(0)=x0,$$ being $\nu$ the parameter that can be discrete or continuous. Different iterative algorithms based on gradient descent methods are performed to reach this objective. For example, the classical gradient descent technique or stochastic gradient descent method, which has become important in the last years.</th>
         </tr>
     
  </table>

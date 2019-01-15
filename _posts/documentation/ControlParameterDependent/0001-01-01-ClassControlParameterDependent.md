@@ -7,6 +7,7 @@ description: The goal of this class is to solve optimal control problems where t
               to reach this objective. For example, the classical gradient descent technique or stochastic 
               gradient descent method, which has become important in the last years.   
 visible: true
+number: 3
 title: ControlParameterDependent
 categories: [documentation, MDL01]
 layout: class

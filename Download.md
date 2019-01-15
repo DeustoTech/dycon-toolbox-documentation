@@ -4,23 +4,19 @@ title: Downloads
 description: "Releases of the DyCon Toolbox"
 ---
 
-<h1> First Method</h1>
+<!-- <h1> First installation method</h1> -->
 You can start using Dycon toolbox by simply copying the following lines into your MATLAB console
 ```matlab
 unzip('https://github.com/DeustoTech/DyCon-Computational-Platform/archive/master.zip')
 movefile('DyCon-Computational-Platform-master', 'DyConToolBox')
 addpath(genpath(fullfile(cd,'DyConToolBox')))
 ```
-Then go to the <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> tutorials</a> and choose the one you prefer
-
-{::nomarkdown}
+Then go to the <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> tutorials</a> and choose the topic you prefer.
 <div>
 
-  <div class="inst-guide">
-    <h1> Second Method </h1>
+  <!-- <div class="inst-guide">
+    <h1> Second installation method</h1>
     For the installation of the toolbox you can download the following file:
-    <hr>
-
     <ul>
       <li>
         <a href="{{site.url}}/{{site.baseurl}}/assets/DyConToolBox.mltbx">
@@ -30,8 +26,6 @@ Then go to the <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> tutor
       </li>
     </ul>
     <hr>
-
-
     The file you have downloaded is a toolbox installer in MATLAB, if you open this file the following window will appear
     <div style="padding:10px">
       <img src= "{{site.url}}/{{site.baseurl}}/assets/DyConInstall.png">
@@ -44,6 +38,5 @@ Then go to the <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> tutor
     tutorials  that we have on <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> this page</a>. 
     </p>
   </div>
-</div>
-{:/nomarkdown}
+</div> -->
 

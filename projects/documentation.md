@@ -39,7 +39,7 @@ List of functions developed within the framework of the DyCon project. Here belo
 Classes are abstract objects to facilitate the coding of algorithms, then a list of classes developed in the project
 </p>
 
-{% assign qposts = site.posts | where:"layout","class"|sort %}
+{% assign qposts = site.posts | where:"layout","class"|sort: 'number'%}
 
  <table>
     <tr>
