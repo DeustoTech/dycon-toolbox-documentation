@@ -102,7 +102,7 @@ hr.small {
 }
 /* MathJax CSS */
 .MathJax {
-  font-size: 2em !important;
+  font-size: 2.25em !important;
 }
 
 /* Downloads Page */
@@ -121,7 +121,7 @@ hr.small {
   padding-top: 20px;
   text-align: left;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
   .navbar-custom {
     background: transparent;
     border-bottom: 1px solid transparent;
@@ -203,7 +203,7 @@ hr.small {
 .front-page-start-container {
   padding-top: 20px;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
   .intro-header .site-heading h1,
   .intro-header .page-heading h1 {
     font-size: 55px;
@@ -247,7 +247,7 @@ hr.small {
 .intro-header .post-heading .meta a {
   color: rgb(43, 74, 173);
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
   .intro-header .post-heading h1 {
     font-size: 45px;
   }
@@ -288,7 +288,7 @@ hr.small {
   color: #0085a1;
   text-decoration: underline;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
   .post-preview > a > .post-title {
     font-size: 20px;
   }
@@ -404,7 +404,7 @@ form .row:first-child .floating-label-form-group {
   background-color: white;
   border-radius: 0;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
   .pager li > a,
   .pager li > span {
     font-size: 14px;

@@ -12,7 +12,7 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>Documentation - DyCon Platform</title>
+    <title>Documentation - DyCon Toolbox</title>
 
     <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/projects/documentation">
 
@@ -169,11 +169,6 @@ List of functions developed within the framework of the DyCon project. Here belo
       <th>Description</th>
     </tr>
     
-        <tr>
-          <th><a href="/dycon-platform-documentation/documentation/mdl02/FractionalLaplacian">FractionalLaplacian</a></th>
-          <th>Compute the rigidity matrix for solving the Poisson problem $$(-\Delta)^s u = F  \ \in (-L,L)$$ where $u=0, \in R(-L,L)$ using linear finite elements on a mesh of N points</th>
-        </tr>
-    
  </table>
 
 
@@ -191,18 +186,13 @@ Classes are abstract objects to facilitate the coding of algorithms, then a list
     </tr>
     
         <tr>
-          <th><a href="/dycon-platform-documentation/documentation/mdl01/ClassLinearControl">LinearControl</a></th>
-          <th>LinearControl is a subclass of the ControlProblem class, so it is also a control problem. However, we assume that the differential equation we want to control is linear. This gives us access to new functions such as the conjugate gradient. In addition, it lightens the computational cost and some functions such as GetAdjointProblem.</th>
+          <th><a href="/dycon-platform-documentation/documentation/mdl00/Classode">ode</a></th>
+          <th>The class ode structure the idea of an ordinary differential equation, so that in this way you can create different methods on the same matlab structure. Given that matlab leaves a freedom to define the representation of an equation, we chose to create a matlab class with the most important properties of an ODE.</th>
         </tr>
     
         <tr>
-          <th><a href="/dycon-platform-documentation/documentation/mdl01/ClassControlProblem">ControlProblem</a></th>
-          <th>This class is able to solve optimization problems of a function restricted to an ordinary equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. <strong>ControlProblem</strong> class has methods that help us find optimal control as well as obtaining the attached problem and it's derivative form, in both symbolic and numerical versions.</th>
-        </tr>
-    
-        <tr>
-          <th><a href="/dycon-platform-documentation/documentation/mdl01/ClassControlParameterDependent">ControlParameterDependent</a></th>
-          <th>The goal of this class is to solve optimal control problems where the states are defined via finite dimensional parameter-dependent systems of the form $$\dot{x}(t,\nu)=A(\nu)x(t,\nu)+B(\nu)u(t), \, t>T, \quad x(0)=x0,$$ being $\nu$ the parameter that can be discrete or continuous. Different iterative algorithms based on gradient descent methods are performed to reach this objective. For example, the classical gradient descent technique or stochastic gradient descent method, which has become important in the last years.</th>
+          <th><a href="/dycon-platform-documentation/documentation/mdl01/ClassOptimalControl">OptimalControl</a></th>
+          <th></th>
         </tr>
     
  </table>
@@ -235,48 +225,6 @@ Classes are abstract objects to facilitate the coding of algorithms, then a list
 
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class="post-preview shadowbox doc-preview-box">
-      <a href="/dycon-platform-documentation/documentation/mdl02/FractionalLaplacian">
-        <h3 class="post-preview-title">
-          FractionalLaplacian(...)
-        </h3>
-      </a>
-      <p>
-        Compute the rigidity matrix for solving the Poisson problem $$(-\Delta)^s u = F  \ \in (-L,L)$$ where $u=0, \in R(-L,L)$ using linear finite elements on a mesh of N points
-      </p>
-      <a href="/dycon-platform-documentation/documentation/mdl02/FractionalLaplacian">
-        <span>See more...</span>
-      </a>
-    </div>
   
 
   
@@ -394,30 +342,16 @@ Classes are abstract objects to facilitate the coding of algorithms, then a list
   
 
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
     <div class="post-preview shadowbox doc-preview-box">
-      <a href="/dycon-platform-documentation/documentation/mdl01/ClassLinearControl">
+      <a href="/dycon-platform-documentation/documentation/mdl00/Classode">
         <h3 class="post-preview-title">
-          LinearControl
+          ode
         </h3>
       </a>
       <p>
-        LinearControl is a subclass of the ControlProblem class, so it is also a control problem. However, we assume that the differential equation we want to control is linear. This gives us access to new functions such as the conjugate gradient. In addition, it lightens the computational cost and some functions such as GetAdjointProblem.
+        The class ode structure the idea of an ordinary differential equation, so that in this way you can create different methods on the same matlab structure. Given that matlab leaves a freedom to define the representation of an equation, we chose to create a matlab class with the most important properties of an ODE.
       </p>
-      <a href="/dycon-platform-documentation/documentation/mdl01/ClassLinearControl">
+      <a href="/dycon-platform-documentation/documentation/mdl00/Classode">
         <span>See more...</span>
       </a>
     </div>
@@ -444,48 +378,20 @@ Classes are abstract objects to facilitate the coding of algorithms, then a list
   
 
   
-    <div class="post-preview shadowbox doc-preview-box">
-      <a href="/dycon-platform-documentation/documentation/mdl01/ClassControlProblem">
-        <h3 class="post-preview-title">
-          ControlProblem
-        </h3>
-      </a>
-      <p>
-        This class is able to solve optimization problems of a function restricted to an ordinary equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. <strong>ControlProblem</strong> class has methods that help us find optimal control as well as obtaining the attached problem and it's derivative form, in both symbolic and numerical versions.
-      </p>
-      <a href="/dycon-platform-documentation/documentation/mdl01/ClassControlProblem">
-        <span>See more...</span>
-      </a>
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
   
     <div class="post-preview shadowbox doc-preview-box">
-      <a href="/dycon-platform-documentation/documentation/mdl01/ClassControlParameterDependent">
+      <a href="/dycon-platform-documentation/documentation/mdl01/ClassOptimalControl">
         <h3 class="post-preview-title">
-          ControlParameterDependent
+          OptimalControl
         </h3>
       </a>
       <p>
-        The goal of this class is to solve optimal control problems where the states are defined via finite dimensional parameter-dependent systems of the form $$\dot{x}(t,\nu)=A(\nu)x(t,\nu)+B(\nu)u(t), \, t>T, \quad x(0)=x0,$$ being $\nu$ the parameter that can be discrete or continuous. Different iterative algorithms based on gradient descent methods are performed to reach this objective. For example, the classical gradient descent technique or stochastic gradient descent method, which has become important in the last years.
+        
       </p>
-      <a href="/dycon-platform-documentation/documentation/mdl01/ClassControlParameterDependent">
+      <a href="/dycon-platform-documentation/documentation/mdl01/ClassOptimalControl">
         <span>See more...</span>
       </a>
     </div>

@@ -37,6 +37,9 @@ layout: default
 				</table>
         <!-- CONSTRUCTOR  -->
 				<h1>Contructor</h1>
+				{{ page.methods[page.title].description }}
+				{% if page.methods[page.title].MandatoryInputs %}
+
 				<h3>Mandatory Input Parameters</h3>
 				<table>
 					<tr>
@@ -53,6 +56,7 @@ layout: default
 					{% endfor %}
 
 				</table>
+				{% endif %}
 
 				<!-- OPTIONAL INPUTS  -->
 

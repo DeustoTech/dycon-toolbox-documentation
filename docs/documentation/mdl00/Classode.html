@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Welcome to the web interface of DyCon Toolbox, the computational platform developed within the <a href='https://cmc.deusto.eus/dycon/' target='_blank'>ERC DyCon - Dynamic Control</a> project.">
+
+
+
+	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
+
+    <title>ode - DyCon Toolbox</title>
+
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl00/Classode">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/clean-blog.css">
+
+	<!-- Adjust Colors -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/colorscheme.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Lusitana" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<!-- Math Jax -->
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']]
+    },
+		TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    /*CommonHTML: {
+      scale: 300
+    }*/
+	});
+	</script>
+
+	<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" type="text/javascript"></script>-->
+
+    <!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+    <script src="https://DeustoTech.github.io/dycon-platform-documentation/js/clean-blog.min.js "></script>
+    
+ 	<!-- 404  JavaScript -->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/dycon-platform-documentation/">
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/logo_DyConToolbox_v001.png" >
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/dycon-platform-documentation/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/documentation">Documentation</a>
+                </li>
+                
+                
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/tutorials">Tutorials</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/Download">Downloads</a>
+                </li>
+                
+                <li>
+                        <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="container" style="padding-top: 70px;">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading" style="padding: 0px 0">
+                    <h1 class="post-title">ode <small>Class</small></h1>
+				</div>
+				
+				<h2>Description</h2>
+				The class ode structure the idea of an ordinary differential equation, so that in this way you can create different methods on the same matlab structure. Given that matlab leaves a freedom to define the representation of an equation, we chose to create a matlab class with the most important properties of an ODE.
+
+                <h2>Example</h2>
+				<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Define the simbolic</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]);</span> <span class="n">U</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]);</span>
+<span class="c1">% define your wierd dynamics</span>
+<span class="n">F</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">sin</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="nb">cos</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">U</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="k">...</span>
+      <span class="nb">sin</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="nb">cos</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">U</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">]</span> <span class="p">;</span>
+<span class="n">dynamics</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">U</span><span class="p">);</span>
+<span class="n">dynamics</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">'FinalCondition'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">solve</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/MDL00/class/main/ode/copiaRM_01.png" alt="" /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dynamics</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">'InitialCondition'</span><span class="p">;</span>
+<span class="n">solve</span><span class="p">(</span><span class="n">dynamics</span><span class="p">,</span><span class="s1">'RungeKuttaMethod'</span><span class="p">,</span><span class="o">@</span><span class="nb">ode23</span><span class="p">)</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/MDL00/class/main/ode/copiaRM_02.png" alt="" /></p>
+
+<p>Lineal</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="p">[</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="p">;</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="p">;</span> <span class="mi">1</span><span class="p">];</span>
+
+<span class="n">lode</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="s1">'A'</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
+<span class="n">solve</span><span class="p">(</span><span class="n">lode</span><span class="p">)</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">lode</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+lode = 
+
+  ode with properties:
+
+    VectorState: [1x1 struct]
+        Control: [1x1 struct]
+        Dynamic: [1x1 struct]
+      Condition: [2x1 double]
+           Type: 'InitialCondition'
+      FinalTime: 1
+             dt: 0.1000
+          tspan: [1x11 double]
+           Udim: 1
+
+
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/MDL00/class/main/ode/copiaRM_03.png" alt="" /></p>
+
+
+
+
+				<h1>Properties</h1>
+				<table>
+					<tr>
+						<th>Name</th>
+            <th>Type</th>
+            <th>Default Value</th>
+            <th>Description</th>
+					</tr>
+					
+						<tr>
+							<th>VectorState</th>
+							<th>Struct</th>
+							<th>none</th>
+							<th>MATLAB Structure that contain the two properties <ul> <li> Symbolic - Symbolic Vector State [y1 y2 ...] </li> <li> Numeric  - Numeric solution of the equation. The numeric property only is aviable if previus solve the equation. </li> </ul></th>
+						</tr>
+					
+						<tr>
+							<th>Control</th>
+							<th>Struct</th>
+							<th>none</th>
+							<th>MATLAB Structure that contain the two properties <ul> <li> Symbolic - Symbolic Vector State [u1 u2 ...] </li> <li> Numeric  - matrix Numeric control to solve the equation. $$\dot{Y} = f(t,\dot{Y},U)$$ </li> </ul></th>
+						</tr>
+					
+						<tr>
+							<th>Dynamic</th>
+							<th>Struct</th>
+							<th>none</th>
+							<th>MATLAB Structure that contain the two properties <ul> <li> Symbolic - symbolic function of dynamics equation </li> <li> Numeric  - function_handle of dynamics equation. </li> </ul></th>
+						</tr>
+					
+						<tr>
+							<th>Condition</th>
+							<th>double</th>
+							<th>[0 0 0 ...]</th>
+							<th>Initial State or Final State dependent of property Type</th>
+						</tr>
+					
+						<tr>
+							<th>Type</th>
+							<th>double</th>
+							<th>InitialCondition</th>
+							<th>The equation can be InitialCondition  or FinalCondition problems.</th>
+						</tr>
+					
+						<tr>
+							<th>FinalTime</th>
+							<th>double</th>
+							<th>1</th>
+							<th>Time final of simulation</th>
+						</tr>
+					
+						<tr>
+							<th>dt</th>
+							<th>double</th>
+							<th>none</th>
+							<th>Time interval of plots. ATTENTION - the solution of ode is obtain by ode45, with adatative step</th>
+						</tr>
+					
+						<tr>
+							<th>A</th>
+							<th>double</th>
+							<th>none</th>
+							<th>A matrix of lineal problems. If this property is empty, so the ode is not lineal. $$ \dot{Y} = \textbf{A}Y + BU $$</th>
+						</tr>
+					
+						<tr>
+							<th>B</th>
+							<th>double</th>
+							<th>none</th>
+							<th>B matrix of lineal problems. If this property is empty, so the ode is not lineal. $$ \dot{Y} = AY + \textbf{B}U $$</th>
+						</tr>
+					
+						<tr>
+							<th>lineal</th>
+							<th>logical</th>
+							<th>false</th>
+							<th>This indicator represent the lineal or non-lineal.</th>
+						</tr>
+					
+						<tr>
+							<th>symt</th>
+							<th>Symbolic</th>
+							<th>t</th>
+							<th>Represent the symbolic time</th>
+						</tr>
+					
+						<tr>
+							<th>tspan</th>
+							<th>double</th>
+							<th>none</th>
+							<th>Time grid to plot the solution, and interpolate the control</th>
+						</tr>
+					
+						<tr>
+							<th>Yend</th>
+							<th>double</th>
+							<th>none</th>
+							<th>the vector state in final time.</th>
+						</tr>
+					
+						<tr>
+							<th>Udim</th>
+							<th>double</th>
+							<th>none</th>
+							<th>Dimension of Control Vector</th>
+						</tr>
+					
+				</table>
+        <!-- CONSTRUCTOR  -->
+				<h1>Contructor</h1>
+				The ode class, if only de organization of ode. The solve of this class is the RK family.
+				
+
+				<!-- OPTIONAL INPUTS  -->
+
+				
+					<h3>Optional Input Parameters</h3>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>class</th>
+						</tr>
+						
+							<tr>
+								<th>DynamicEquation</th>
+								<th>simbolic expresion</th>
+								<th>Symbolic</th>
+							</tr>
+						
+							<tr>
+								<th>VectorState</th>
+								<th>VectorState</th>
+								<th>Symbolic</th>
+							</tr>
+						
+							<tr>
+								<th>Control</th>
+								<th>simbolic expresion</th>
+								<th>Symbolic</th>
+							</tr>
+						
+							<tr>
+								<th>A</th>
+								<th>simbolic expresion</th>
+								<th>matrix</th>
+							</tr>
+						
+							<tr>
+								<th>B</th>
+								<th>simbolic expresion</th>
+								<th>matrix</th>
+							</tr>
+						
+							<tr>
+								<th>InitialControl</th>
+								<th>matrix</th>
+								<th>double</th>
+							</tr>
+						
+					</table>
+				
+
+				<!--  OUTPUTS -->
+				
+
+
+				<h1>Methods</h1>
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					
+					  
+					
+					  
+						<tr>
+							
+							
+							<th><a href="/dycon-platform-documentation/documentation/mdl00/ode/animation">animation</a></th>
+							<th></th>
+						</tr>
+					  
+					
+					  
+						<tr>
+							
+							
+							<th><a href="/dycon-platform-documentation/documentation/mdl00/ode/plot">plot</a></th>
+							<th></th>
+						</tr>
+					  
+					
+					  
+						<tr>
+							
+							
+							<th><a href="/dycon-platform-documentation/documentation/mdl00/ode/plotT">plotT</a></th>
+							<th></th>
+						</tr>
+					  
+					
+					  
+						<tr>
+							
+							
+							<th><a href="/dycon-platform-documentation/documentation/mdl00/ode/resume">resume</a></th>
+							<th></th>
+						</tr>
+					  
+					
+					  
+						<tr>
+							
+							
+							<th><a href="/dycon-platform-documentation/documentation/mdl00/ode/solve">solve</a></th>
+							<th></th>
+						</tr>
+					  
+					
+				</table>
+
+
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <!-- Footer -->
+<footer>
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <ul class="list-inline text-center">
+          <li>
+            <img style="width: 200px;" src="/dycon-platform-documentation/img/logos/logo_DyCon.png " alt="">
+          </li>
+          <li>
+            <img style="width: 250px;" src="/dycon-platform-documentation/img/logos/logo_CCM_subDerecha_v002.png " alt="">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+
+</html>
