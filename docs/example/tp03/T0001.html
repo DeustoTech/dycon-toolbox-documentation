@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Welcome to the web interface of DyCon Toolbox, the computational platform developed within the <a href='https://cmc.deusto.eus/dycon/' target='_blank'>ERC DyCon - Dynamic Control</a> project.">
+
+
+
+	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
+
+    <title>average - DyCon Toolbox</title>
+
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/example/tp03/T0001">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/clean-blog.css">
+
+	<!-- Adjust Colors -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/colorscheme.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Lusitana" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<!-- Math Jax -->
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']]
+    },
+		TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    /*CommonHTML: {
+      scale: 300
+    }*/
+	});
+	</script>
+
+	<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" type="text/javascript"></script>-->
+
+    <!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+    <script src="https://DeustoTech.github.io/dycon-platform-documentation/js/clean-blog.min.js "></script>
+    
+ 	<!-- 404  JavaScript -->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/dycon-platform-documentation/">
+                 <img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/logo_DyConToolbox_v001.png" >
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/dycon-platform-documentation/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/01-documentation">Documentation</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/02-tutorials">Tutorials</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/03-examples">Examples</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/04-download">Downloads</a>
+                </li>
+                
+                
+                
+                <li>
+                        <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="container" style="padding-top: 70px;">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading" style="padding: 0px 0"><h2><small>MATLAB tutorial of <a href="https://DeustoTech.github.io//dycon-platform-documentation/topic/Tp03"></a> :</small></h2>
+                    <h1>average</h1>
+
+					<span class="meta">Posted by:
+					
+						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="https://DeustoTech.github.io/dycon-platform-documentation/author/JOroya"></a></span></span>
+					
+					</span>
+					<div class="shadowbox">
+						<p>To start this tutorial, write the following command in the MATLAB console
+							<pre class="highlight"><code><span class="nb">open T0006_average</span></code></pre>
+						</p>
+					</div>
+
+
+                </div>
+            </div>
+		</div>
+
+
+	</div>
+</header>
+
+
+<!-- Post Content -->
+<style>
+img {
+	display:block;
+	max-width:  100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@media only screen and (min-width: 1000px) {
+img {
+	-moz-transition:-moz-transform 0.5s ease-in; 
+	-webkit-transition:-webkit-transform 0.5s ease-in; 
+	-o-transition:-o-transform 0.5s ease-in;
+}
+img:active{
+	-moz-transform:scale(1.2); 
+	-webkit-transform:scale(1.2);
+	-o-transform:scale(1.2);
+}
+}
+
+@media only screen and (min-width: 1250px) {
+img {
+	-moz-transition:-moz-transform 0.5s ease-in; 
+	-webkit-transition:-webkit-transform 0.5s ease-in; 
+	-o-transition:-o-transform 0.5s ease-in;
+}
+img:active{
+	-moz-transform:scale(1.5); 
+	-webkit-transform:scale(1.5);
+	-o-transform:scale(1.5);
+}
+}
+
+@media only screen and (min-width: 1500px) {
+img {
+	-moz-transition:-moz-transform 0.5s ease-in; 
+	-webkit-transition:-webkit-transform 0.5s ease-in; 
+	-o-transition:-o-transform 0.5s ease-in;
+}
+img:active{
+	-moz-transform:scale(2); 
+	-webkit-transform:scale(2);
+	-o-transform:scale(2);
+}
+}
+</style>
+
+<article>
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="c1">%% System matrices A, B</span>
+<span class="c1">%% zdiff = A*z + B*u</span>
+<span class="c1">%% dz/dt = A*z + B*u</span>
+<span class="c1">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="c1">%% Length of vector nu (number of parameters)</span>
+<span class="c1">%% Vector of parameters</span>
+<span class="n">nu</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">6</span><span class="p">;</span>
+<span class="c1">%% Size of state vector</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="n">M</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="n">nu</span><span class="p">);</span>
+
+<span class="n">Am</span> <span class="o">=</span> <span class="nb">eye</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">);</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">N</span>
+    <span class="k">for</span> <span class="nb">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">N</span>
+        <span class="k">if</span> <span class="nb">j</span> <span class="o">&gt;</span> <span class="nb">i</span>
+            <span class="n">Am</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span> <span class="nb">j</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+<span class="n">Am</span> <span class="o">=</span> <span class="o">-</span><span class="n">Am</span><span class="p">;</span>
+
+<span class="n">Bm</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">Bm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="o">*</span><span class="n">N</span><span class="p">);</span>
+<span class="n">B</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">for</span> <span class="nb">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">M</span>
+    <span class="n">Ainit</span> <span class="o">=</span> <span class="n">N</span><span class="o">*</span><span class="p">(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">Aend</span>  <span class="o">=</span> <span class="n">N</span><span class="o">*</span><span class="nb">j</span><span class="p">;</span>
+
+    <span class="n">A</span><span class="p">(</span><span class="n">Ainit</span><span class="p">:</span><span class="n">Aend</span><span class="p">,</span><span class="n">Ainit</span><span class="p">:</span><span class="n">Aend</span><span class="p">)</span> <span class="o">=</span> <span class="n">Am</span> <span class="o">+</span> <span class="p">(</span><span class="n">nu</span><span class="p">(</span><span class="nb">j</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">)</span><span class="o">*</span><span class="nb">diag</span><span class="p">(</span><span class="nb">diag</span><span class="p">(</span><span class="n">Am</span><span class="p">));</span>
+    <span class="n">B</span><span class="p">(</span><span class="n">Ainit</span><span class="p">:</span><span class="n">Aend</span><span class="p">,</span> <span class="p">:)</span> <span class="o">=</span> <span class="n">Bm</span><span class="p">;</span>
+<span class="k">end</span>
+<span class="c1">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="c1">%% Initial condition</span>
+<span class="n">z0</span> <span class="o">=</span> <span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+<span class="n">iode</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="s1">'A'</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="n">B</span><span class="p">);</span>
+<span class="n">iode</span><span class="o">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="nb">repmat</span><span class="p">(</span><span class="n">z0</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">iode</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">;</span>
+<span class="c1">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="n">solve</span><span class="p">(</span><span class="n">iode</span><span class="p">)</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">iode</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp03/T0001/copiaRM_01.png" alt="" /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ys</span> <span class="o">=</span> <span class="n">iode</span><span class="o">.</span><span class="n">VectorState</span><span class="o">.</span><span class="n">Symbolic</span><span class="p">;</span>
+<span class="n">u</span>  <span class="o">=</span> <span class="n">iode</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">Symbolic</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ysm</span> <span class="o">=</span> <span class="nb">arrayfun</span><span class="p">(</span><span class="o">@</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="nb">mean</span><span class="p">(</span><span class="n">ys</span><span class="p">(</span><span class="n">index</span><span class="p">:</span><span class="n">M</span><span class="p">:</span><span class="n">N</span><span class="o">*</span><span class="n">M</span><span class="p">)),</span><span class="mi">1</span><span class="p">:</span><span class="n">M</span><span class="p">)</span><span class="o">.'</span><span class="p">;</span>
+<span class="n">yt</span> <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">Psi</span> <span class="o">=</span> <span class="p">(</span><span class="n">ysm</span> <span class="o">-</span> <span class="n">yt</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">ysm</span> <span class="o">-</span> <span class="n">yt</span><span class="p">);</span>
+<span class="nb">beta</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">;</span>
+<span class="n">L</span>   <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="nb">beta</span><span class="o">*</span><span class="n">u</span><span class="o">.'*</span><span class="n">u</span><span class="p">;</span>
+
+<span class="n">iCP1</span> <span class="o">=</span> <span class="n">OptimalControl</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">Psi</span><span class="p">,</span><span class="n">L</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Solve</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    Solve with presicion: 
+
+        We obtain: J(u) = 2.590703E-03
+
+        mean(||dJ_i||) = 5.154781E-05
+
+    With 5 iterations,     In 7.8327 seconds
+
+
+</code></pre></div></div>
+
+<p>Solution</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">plot</span><span class="p">(</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp03/T0001/copiaRM_02.png" alt="" /></p>
+
+<p>See average free</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cellstate</span> <span class="o">=</span> <span class="nb">arrayfun</span><span class="p">(</span><span class="o">@</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="nb">mean</span><span class="p">(</span><span class="n">iode</span><span class="o">.</span><span class="n">VectorState</span><span class="o">.</span><span class="n">Numeric</span><span class="p">(:,</span><span class="n">index</span><span class="p">:</span><span class="n">M</span><span class="p">:</span><span class="n">N</span><span class="o">*</span><span class="n">M</span><span class="p">),</span><span class="mi">2</span><span class="p">),</span><span class="mi">1</span><span class="p">:</span><span class="n">M</span><span class="p">,</span><span class="s1">'UniformOutput'</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">meanvector</span> <span class="o">=</span> <span class="p">[</span><span class="n">cellstate</span><span class="p">{:}];</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">meanvector</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp03/T0001/copiaRM_03.png" alt="" /></p>
+
+<p>Average Control</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cellstate</span> <span class="o">=</span> <span class="nb">arrayfun</span><span class="p">(</span><span class="o">@</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="nb">mean</span><span class="p">(</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">VectorState</span><span class="o">.</span><span class="n">Numeric</span><span class="p">(:,</span><span class="n">index</span><span class="p">:</span><span class="n">M</span><span class="p">:</span><span class="n">N</span><span class="o">*</span><span class="n">M</span><span class="p">),</span><span class="mi">2</span><span class="p">),</span><span class="mi">1</span><span class="p">:</span><span class="n">M</span><span class="p">,</span><span class="s1">'UniformOutput'</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">meanvector</span> <span class="o">=</span> <span class="p">[</span><span class="n">cellstate</span><span class="p">{:}];</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">meanvector</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp03/T0001/copiaRM_04.png" alt="" /></p>
+
+
+
+                <hr>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <ul class="list-inline text-center">
+          <li>
+            <img style="width: 200px;" src="/dycon-platform-documentation/img/logos/logo_DyCon.png " alt="">
+          </li>
+          <li>
+            <img style="width: 250px;" src="/dycon-platform-documentation/img/logos/logo_CCM_subDerecha_v002.png " alt="">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+
+</html>

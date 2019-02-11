@@ -14,7 +14,7 @@ data:
      name: Initial Control 
      description: matrix 
      class: double
-     dimension: [length(iCP.tline)]
+     dimension: [length(iCP.tspan)]
      default:   empty
 categories: [ documentation , MDL00 , ode]
 class: ode

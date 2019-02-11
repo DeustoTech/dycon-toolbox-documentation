@@ -16,6 +16,10 @@ baseurl: "/dycon-platform-documentation" # the subpath of your site, e.g. /blog
 url: "https://DeustoTech.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 #
 
+gems: [jekyll-mermaid]
+mermaid:
+  src: 'https://unpkg.com/mermaid@7.1.0/dist/mermaid.js'
+
 destination: docs
 header-img: img/home-bg.gif
 headercolor: "black"

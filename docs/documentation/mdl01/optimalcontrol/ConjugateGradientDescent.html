@@ -102,22 +102,28 @@
                 
                 
                 <li>
-                    <a href="/dycon-platform-documentation/projects/documentation">Documentation</a>
-                </li>
-                
-                
-                
-                
-                
-                <li>
-                    <a href="/dycon-platform-documentation/projects/tutorials">Tutorials</a>
+                    <a href="/dycon-platform-documentation/projects/01-documentation">Documentation</a>
                 </li>
                 
                 
                 
                 <li>
-                    <a href="/dycon-platform-documentation/Download">Downloads</a>
+                    <a href="/dycon-platform-documentation/projects/02-tutorials">Tutorials</a>
                 </li>
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/03-examples">Examples</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/04-download">Downloads</a>
+                </li>
+                
+                
                 
                 <li>
                         <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>
@@ -181,6 +187,34 @@
 
                 <!-- OPTIONAL INPUTS  -->
 
+                
+                <h2>Optional Input Parameters</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>InitialLengthStep</th>
+                        <th>This parameter is the step size if the MiddleStepControl option is false. If the option MiddleStepControl is activated then this parameter is the initial step of the methodo but then the step is doubled in the case where the functional iteration decreases and is divided by two its the functional one grows.</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>MinLengthStep</th>
+                        <th>It may happen that although we divide the step of the descenco many times, we continue to obtain an update that increases the value of the functional. In this case, it is necessary to have a minimum step size to avoid infinite loops. This parameter is responsible for this.</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>MiddleStepControl</th>
+                        <th>If this parameter is enabled, it allows the algorithm to search for different step-logitudes, provided that the control update decrements the functional value. If it is deactivated, the descent of the gradient will be constant.</th>
+                        <th>double</th>
+                    </tr>
+                    
+                </table>
                 
 
                 <!--  OUTPUTS -->

@@ -2,8 +2,12 @@
 title: GradientMethod
 data: 
   name: GradientMethod
-  description: The gradient method is able to optimize the given functional, going down the gradient.
   little_description: The gradient method is able to optimize the given functional, going down the gradient.
+  description: "The gradient method is able to optimize the given
+                        functional, going down the gradient. El calculo del gradiente puede
+                        ser de varios tipo. Por defecto la direccion y el modulo de descenso
+                        se calcula con el gradiente conjugado
+                        http://web.mit.edu/mitter/www/publications/2_conjugate_grad_IEEEAC.pdf"
   autor: JOroya
   MandatoryInputs:   
     iCP: 

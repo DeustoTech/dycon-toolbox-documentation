@@ -1,5 +1,22 @@
 ---
-
+description: "This class is able to solve optimization problems of a function restricted to an ordinary equation.
+              This scheme is used to solve optimal control problems in which the functional derivative is calculated. 
+              <strong>OptimalControl</strong> class has methods that help us find optimal control as well as obtaining 
+              the attached problem and it's derivative form, 
+              in both Symbolic and numerical versions."
+long: "This class is able to solve optimization problems of a function restricted to an ordinary equation.
+              This scheme is used to solve optimal control problems in which the functional derivative is calculated. 
+              <strong>OptimalControl</strong> class has methods that help us find optimal control as well as obtaining 
+              the attached problem and it's derivative form, 
+              in both Symbolic and numerical versions. Este problema se
+              aborda con el metodo del gradiente. Dado que la informacion
+              del problema esta en simbolico, podemos calcular el
+              gradiente y el problema adjunto mediante el principio de
+              pontryagin. Se ha implementado el metodo del gradiente,
+              de forma que el calculo de descenso sea un parametro. Por
+              defecto, este descenso se calcula con el metodo del
+              gradiente conjugado.
+              http://web.mit.edu/mitter/www/publications/2_conjugate_grad_IEEEAC.pdf"
 title: OptimalControl
 categories: [documentation, MDL01]
 layout: class
@@ -188,7 +205,7 @@ methods:
                class: double
                dimension: [1x1]
          url: /documentation/mdl01/OptimalControl/ClassicalDescent
-   ClassicalDescentUpdateControl:
+   ConjugateGradientDescent:
          description: This method is able to update the value of the control by decreasing 
                       the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented 
                       in that direction, assuring the decrease by the adaptive step size. 
@@ -241,42 +258,6 @@ methods:
                description: Update of State Vector 
                class: double
                dimension: [length(iCP.tspan)]
-           Jnew:
-               description: New Value of functional 
-               class: double
-               dimension: [1x1]
-         url: /documentation/mdl01/OptimalControl/ClassicalDescentUpdateControl
-   ConjugateGradientDescent:
-         description: This method is able to update the value of the control by decreasing 
-                      the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented 
-                      in that direction, assuring the decrease by the adaptive step size. 
-         autor: UmbertoB
-         MandatoryInputs:   
-           iCP: 
-               description: Control Problem Object
-               class: ControlProblem
-               dimension: [1x1]
-           UOld: 
-               description: Control Vector in time  
-               class: double
-               dimension: [M,iCP.tline]
-           YOld: 
-               description: State Vector in time 
-               class: double
-               dimension: [length(iCP.ode.Y0),iCP.tline]
-           JOld: 
-               description: Value of functional J(Uold,Yold)
-               class: double
-               dimension: [length(iCP.ode.Y0),iCP.tline]
-         Outputs:
-           Unew:
-               description: Update of Control Vector  
-               class: double
-               dimension: [Mxlength(iCP.tline)]
-           Ynew:
-               description: Update of State Vector 
-               class: double
-               dimension: [length(iCP.tline)]
            Jnew:
                description: New Value of functional 
                class: double
@@ -369,10 +350,72 @@ methods:
            class: ControlProblem
            dimension: [1x1]
         url: /documentation/mdl01/OptimalControl/GetGradient
+   GetNumericalGradient:
+         description: This method is able to update the value of the control by decreasing 
+                      the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented 
+                      in that direction, assuring the decrease by the adaptive step size. 
+         little_description: This method is able to update the value of the control by decreasing the value of the functional. 
+         autor: JOroya
+         MandatoryInputs:   
+           iCP: 
+               description: Control Problem Object
+               class: ControlProblem
+               dimension: [1x1]
+           UOld: 
+               description: Control Vector in time  
+               class: double
+               dimension: [M,iCP.tspan]
+           YOld: 
+               description: State Vector in time 
+               class: double
+               dimension: [length(iCP.ode.Y0),iCP.tspan]
+           JOld: 
+               description: Value of functional J(Uold,Yold)
+               class: double
+               dimension: [length(iCP.ode.Y0),iCP.tspan]
+         OptionalInputs:
+           InitialLengthStep: 
+               description: This parameter is the step size if the MiddleStepControl option is false. 
+                              If the option MiddleStepControl is activated then this parameter is the initial step
+                              of the methodo but then the step is doubled in the case where the functional iteration 
+                              decreases and is divided by two its the functional one grows.
+               class: double
+               dimension: [1x1]
+           MinLengthStep: 
+               description: It may happen that although we divide the step of the descenco many times,
+                              we continue to obtain an update that increases the value of the functional. In this case,
+                              it is necessary to have a minimum step size to avoid infinite loops. This parameter is
+                              responsible for this.
+               class: double
+               dimension: [1x1]
+           MiddleStepControl: 
+               description: If this parameter is enabled, it allows the algorithm to search for different 
+                              step-logitudes, provided that the control update decrements the functional value. If it is
+                              deactivated, the descent of the gradient will be constant.
+               class: double
+               dimension: [length(iCP.ode.Y0),iCP.tspan]
+         Outputs:
+           Unew:
+               description: Update of Control Vector  
+               class: double
+               dimension: [Mxlength(iCP.tspan)]
+           Ynew:
+               description: Update of State Vector 
+               class: double
+               dimension: [length(iCP.tspan)]
+           Jnew:
+               description: New Value of functional 
+               class: double
+               dimension: [1x1]
+         url: /documentation/mdl01/OptimalControl/GetNumericalGradient
    GradientMethod:
         name: GradientMethod
-        description: The gradient method is able to optimize the given functional, going down the gradient.
         little_description: The gradient method is able to optimize the given functional, going down the gradient.
+        description: "The gradient method is able to optimize the given
+                              functional, going down the gradient. El calculo del gradiente puede
+                              ser de varios tipo. Por defecto la direccion y el modulo de descenso
+                              se calcula con el gradiente conjugado
+                              http://web.mit.edu/mitter/www/publications/2_conjugate_grad_IEEEAC.pdf"
         autor: JOroya
         MandatoryInputs:   
           iCP: 
@@ -477,14 +520,8 @@ $$ symY = \left( \begin{matrix}   y1 \\                                   y2    
 clear;
 syms t
 symY = sym('y',[2 1]);
-symU = sym('u',[2 1]);
+symU = sym('u',[1 1]);
 ```
-
-
-**Cost Functional**
-
-
-$$ J = \Psi(Y(T),t) + \int_0^T L(Y(t,U),U(t),t) dt$$
 
 
 **Ordinary differential equation**
@@ -502,27 +539,26 @@ sigma1 = 0.1;sigma2 = 0.1;
 S = symY(1);I = symY(2);
 Fsym(1)  = Lambda - beta*S*I -  sigma1*S;
 Fsym(2)  = beta*S*I - symU(1)*I - sigma2*I ;
-%
-Fsym = Fsym.'
-```
-
-
-```
- 
-Fsym =
- 
-     1 - (y1*y2)/2 - y1/10
- (y1*y2)/2 - u1*y2 - y2/10
- 
-
 ```
 
 ```matlab
 FinalTime = 5;
 S0 = 100 ;I0 = 15;
 Y0 = [ S0 ; I0];
-Dynamics = ode(Fsym,symY,symU,'Condition',Y0,'FinalTime',FinalTime);
+Dynamics = ode(Fsym.',symY,symU,'Condition',Y0,'FinalTime',FinalTime);
 ```
+
+
+**Cost Functional**
+
+
+$$ J = \Psi(Y(T),t) + \int_0^T L(Y(t,U),U(t),t) dt$$
+
+
+In this case,
+
+
+$$ J = A \int_0^T (\vert U \vert^2 + I) dt$$
 
 
 Now, We can create the control problem
@@ -530,7 +566,7 @@ Now, We can create the control problem
 ```matlab
 A = 1;
 symPsi  = sym(0);
-symL    = A*(symU.'*symU) + symY(2);
+symL    = A*(symU.'*symU) + I;
 %
 iCP1 = OptimalControl(Dynamics,symPsi,symL);
 ```
@@ -539,23 +575,19 @@ iCP1 = OptimalControl(Dynamics,symPsi,symL);
 and solve by Classical Gradient Method
 
 ```matlab
-DescentParameters = {'InitialLengthStep',1e-10,'MinLengthStep',1e-15};
-Gradient_Parameters = {'Graphs',false,'maxiter',20,'DescentParameters',DescentParameters,'tol',0.1};
-%
-GradientMethod(iCP1,Gradient_Parameters{:})
+GradientMethod(iCP1)
 ```
 
 
 ```
-Warning: Max iteration number reached!! 
 
     Solve with presicion: 
 
-        We obtain: J(u) = 4.428460E+02
+        We obtain: J(u) = 4.414871E+01
 
-        mean(||dJ_i||^2) = 5.055185E+02
+        mean(||dJ_i||) = 4.801581E-02
 
-    With 20 iterations,     In 2.9066 seconds
+    With 7 iterations,     In 6.9807 seconds
 
 
 ```

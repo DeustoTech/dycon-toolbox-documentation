@@ -18,7 +18,6 @@
   padding-top: 40px;
 }
 body {
-font-family: 'Lusitana', serif;
   font-size: 15px;
   color: #404040;
 }
@@ -41,7 +40,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Lusitana', serif;
   font-weight: 800;
 }
 a {
@@ -82,7 +80,6 @@ hr.small {
   left: 0;
   width: 100%;
   z-index: 3;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .navbar-custom .navbar-brand {
   font-weight: 800;
@@ -121,7 +118,7 @@ hr.small {
   padding-top: 20px;
   text-align: left;
 }
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 1200px) {
   .navbar-custom {
     background: transparent;
     border-bottom: 1px solid transparent;
@@ -143,7 +140,7 @@ hr.small {
     color: #005BC2;
   }
 }
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 1200px) {
   .navbar-custom {
     -webkit-transition: background-color 0.3s;
     -moz-transition: background-color 0.3s;
@@ -218,7 +215,6 @@ hr.small {
   font-size: 20px;
   line-height: 1.1;
   display: block;
-  font-family: 'Lusitana', serif;
   font-weight: 300;
   margin: 20px 0 0;
 }
@@ -233,13 +229,11 @@ hr.small {
 }
 .intro-header .post-heading .subheading {
   color:black;
-  font-family: 'Lusitana', serif;
   font-size: 24px;
   margin: 0px 0 30px;
   font-weight: 600;
 }
 .intro-header .post-heading .meta {
-  font-family: 'Lora', 'Times New Roman', serif;
   font-style: italic;
   font-weight: 300;
   font-size: 15px;
@@ -371,7 +365,6 @@ form .row:first-child .floating-label-form-group {
   border-top: 1px solid #eeeeee;
 }
 .btn {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 800;
@@ -395,7 +388,6 @@ form .row:first-child .floating-label-form-group {
 }
 .pager li > a,
 .pager li > span {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 800;

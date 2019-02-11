@@ -2,7 +2,7 @@
 layout: default
 ---
 <!-- Extraemos el json topic segun el titulo de post, para de esta forma tener todas las propiedades de topic -->
-{% assign topic = site.data.topics[page.title] %}
+{% assign topic = site.data.examples[page.title] %}
 
 <header class="intro-header">
     <div class="container" style="padding-top: 70px;">
@@ -31,7 +31,7 @@ layout: default
                 {{topic.description}}
                 <p>See our tutorials:</p>
                 <!-- Realizamos la query  -->
-                {% assign qposts = site.posts | where:"layout","tutorial"|where:"categories",page.title |sort%}
+                {% assign qposts = site.posts | where:"layout","example"|where:"categories",page.title |sort%}
                 {% for post in qposts %}
                     <div class="post-preview shadowbox">
                         <a href="{{ post.url | prepend: site.baseurl }}" class="display-block">

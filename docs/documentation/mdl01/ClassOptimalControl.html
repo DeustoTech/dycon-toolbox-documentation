@@ -102,22 +102,28 @@
                 
                 
                 <li>
-                    <a href="/dycon-platform-documentation/projects/documentation">Documentation</a>
-                </li>
-                
-                
-                
-                
-                
-                <li>
-                    <a href="/dycon-platform-documentation/projects/tutorials">Tutorials</a>
+                    <a href="/dycon-platform-documentation/projects/01-documentation">Documentation</a>
                 </li>
                 
                 
                 
                 <li>
-                    <a href="/dycon-platform-documentation/Download">Downloads</a>
+                    <a href="/dycon-platform-documentation/projects/02-tutorials">Tutorials</a>
                 </li>
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/03-examples">Examples</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/dycon-platform-documentation/projects/04-download">Downloads</a>
+                </li>
+                
+                
                 
                 <li>
                         <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>
@@ -141,21 +147,19 @@
 				
 				<h2>Description</h2>
 				
+				 	This class is able to solve optimization problems of a function restricted to an ordinary equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. <strong>OptimalControl</strong> class has methods that help us find optimal control as well as obtaining the attached problem and it's derivative form, in both Symbolic and numerical versions. Este problema se aborda con el metodo del gradiente. Dado que la informacion del problema esta en simbolico, podemos calcular el gradiente y el problema adjunto mediante el principio de pontryagin. Se ha implementado el metodo del gradiente, de forma que el calculo de descenso sea un parametro. Por defecto, este descenso se calcula con el metodo del gradiente conjugado. http://web.mit.edu/mitter/www/publications/2_conjugate_grad_IEEEAC.pdf
 
-                <h2>Example</h2>
-				<p>First define the vectors</p>
+				<h2>Example</h2>
+				
+				 	<p>First define the vectors</p>
 
 <script type="math/tex; mode=display">symY = \left( \begin{matrix}   y1 \\                                   y2                  \end{matrix} \right)    symU = \left( \begin{matrix}   u1 \\                                   u2                   \end{matrix} \right)</script>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span><span class="p">;</span>
 <span class="n">syms</span> <span class="n">t</span>
 <span class="n">symY</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]);</span>
-<span class="n">symU</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]);</span>
+<span class="n">symU</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,[</span><span class="mi">1</span> <span class="mi">1</span><span class="p">]);</span>
 </code></pre></div></div>
-
-<p><strong>Cost Functional</strong></p>
-
-<script type="math/tex; mode=display">J = \Psi(Y(T),t) + \int_0^T L(Y(t,U),U(t),t) dt</script>
 
 <p><strong>Ordinary differential equation</strong></p>
 
@@ -169,51 +173,44 @@
 <span class="n">S</span> <span class="o">=</span> <span class="n">symY</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="n">I</span> <span class="o">=</span> <span class="n">symY</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 <span class="n">Fsym</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="o">=</span> <span class="n">Lambda</span> <span class="o">-</span> <span class="nb">beta</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">I</span> <span class="o">-</span>  <span class="n">sigma1</span><span class="o">*</span><span class="n">S</span><span class="p">;</span>
 <span class="n">Fsym</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="o">=</span> <span class="nb">beta</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">I</span> <span class="o">-</span> <span class="n">symU</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">I</span> <span class="o">-</span> <span class="n">sigma2</span><span class="o">*</span><span class="n">I</span> <span class="p">;</span>
-<span class="c1">%</span>
-<span class="n">Fsym</span> <span class="o">=</span> <span class="n">Fsym</span><span class="o">.'</span>
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 
-Fsym =
- 
-     1 - (y1*y2)/2 - y1/10
- (y1*y2)/2 - u1*y2 - y2/10
- 
-
 </code></pre></div></div>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">FinalTime</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
 <span class="n">S0</span> <span class="o">=</span> <span class="mi">100</span> <span class="p">;</span><span class="n">I0</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
 <span class="n">Y0</span> <span class="o">=</span> <span class="p">[</span> <span class="n">S0</span> <span class="p">;</span> <span class="n">I0</span><span class="p">];</span>
-<span class="n">Dynamics</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fsym</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">,</span><span class="s1">'Condition'</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="s1">'FinalTime'</span><span class="p">,</span><span class="n">FinalTime</span><span class="p">);</span>
+<span class="n">Dynamics</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fsym</span><span class="o">.</span><span class="s1">',symY,symU,'</span><span class="n">Condition</span><span class="s1">',Y0,'</span><span class="n">FinalTime</span><span class="o">'</span><span class="p">,</span><span class="n">FinalTime</span><span class="p">);</span>
 </code></pre></div></div>
+
+<p><strong>Cost Functional</strong></p>
+
+<script type="math/tex; mode=display">J = \Psi(Y(T),t) + \int_0^T L(Y(t,U),U(t),t) dt</script>
+
+<p>In this case,</p>
+
+<script type="math/tex; mode=display">J = A \int_0^T (\vert U \vert^2 + I) dt</script>
 
 <p>Now, We can create the control problem</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="n">symPsi</span>  <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">symL</span>    <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="p">(</span><span class="n">symU</span><span class="o">.'*</span><span class="n">symU</span><span class="p">)</span> <span class="o">+</span> <span class="n">symY</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">symL</span>    <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="p">(</span><span class="n">symU</span><span class="o">.'*</span><span class="n">symU</span><span class="p">)</span> <span class="o">+</span> <span class="n">I</span><span class="p">;</span>
 <span class="c1">%</span>
 <span class="n">iCP1</span> <span class="o">=</span> <span class="n">OptimalControl</span><span class="p">(</span><span class="n">Dynamics</span><span class="p">,</span><span class="n">symPsi</span><span class="p">,</span><span class="n">symL</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>and solve by Classical Gradient Method</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DescentParameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'InitialLengthStep'</span><span class="p">,</span><span class="mf">1e-10</span><span class="p">,</span><span class="s1">'MinLengthStep'</span><span class="p">,</span><span class="mf">1e-15</span><span class="p">};</span>
-<span class="n">Gradient_Parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Graphs'</span><span class="p">,</span><span class="nb">false</span><span class="p">,</span><span class="s1">'maxiter'</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="s1">'DescentParameters'</span><span class="p">,</span><span class="n">DescentParameters</span><span class="p">,</span><span class="s1">'tol'</span><span class="p">,</span><span class="mf">0.1</span><span class="p">};</span>
-<span class="c1">%</span>
-<span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">,</span><span class="n">Gradient_Parameters</span><span class="p">{:})</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: Max iteration number reached!! 
-
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     Solve with presicion: 
 
-        We obtain: J(u) = 4.428460E+02
+        We obtain: J(u) = 4.414871E+01
 
-        mean(||dJ_i||^2) = 5.055185E+02
+        mean(||dJ_i||) = 4.801581E-02
 
-    With 20 iterations,     In 2.9066 seconds
+    With 7 iterations,     In 6.9807 seconds
 
 
 </code></pre></div></div>
@@ -391,17 +388,8 @@ Fsym =
 						<tr>
 							
 							
-							<th><a href="/dycon-platform-documentation/documentation/mdl01/optimalcontrol/ClassicalDescentUpdateControl">ClassicalDescentUpdateControl</a></th>
-							<th>This method is able to update the value of the control by decreasing the value of the functional.</th>
-						</tr>
-					  
-					
-					  
-						<tr>
-							
-							
 							<th><a href="/dycon-platform-documentation/documentation/mdl01/optimalcontrol/ConjugateGradientDescent">ConjugateGradientDescent</a></th>
-							<th></th>
+							<th>This method is able to update the value of the control by decreasing the value of the functional.</th>
 						</tr>
 					  
 					
@@ -438,6 +426,15 @@ Fsym =
 							
 							<th><a href="/dycon-platform-documentation/documentation/mdl01/optimalcontrol/GetGradient">GetGradient</a></th>
 							<th>Creates the iCP.dH_du property that contains a numeric function that returns the value of the gradient given the dynamics solution, $Y$ and the associated control, $U$.</th>
+						</tr>
+					  
+					
+					  
+						<tr>
+							
+							
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/optimalcontrol/GetNumericalGradient">GetNumericalGradient</a></th>
+							<th>This method is able to update the value of the control by decreasing the value of the functional.</th>
 						</tr>
 					  
 					
