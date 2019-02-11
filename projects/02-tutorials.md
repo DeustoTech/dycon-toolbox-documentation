@@ -15,7 +15,7 @@ description: Transmitting the results to other researchers, not specialists in c
     {% for topic in site.data.tutorials %}
 
       {%- assign qposts = site.posts | where:"layout","tutorial" -%}
-      {%- assign qposts = qposts | where:"categories",topic[0] -%}
+      {%- assign qposts = qposts | where:"categories",topic[0]|sort: 'number' -%}
         <h3 class="post-title">{{topic[1].name}}</h3>
         {{topic[1].little_description}}
 

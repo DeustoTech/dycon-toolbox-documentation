@@ -12,7 +12,7 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>First Example - DyCon Toolbox</title>
+    <title>Laplacian - DyCon Toolbox</title>
 
     <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/example/tp02/T0003">
 
@@ -142,7 +142,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0"><h2><small>MATLAB tutorial of <a href="https://DeustoTech.github.io//dycon-platform-documentation/topic/Tp02"></a> :</small></h2>
-                    <h1>First Example</h1>
+                    <h1>Laplacian</h1>
 
 					<span class="meta">Posted by:
 					
@@ -257,15 +257,25 @@ img:active{
 
 <h2 id="solve-gradient">Solve Gradient</h2>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-3</span>
-<span class="n">DescentParameters</span> <span class="o">=</span> <span class="p">{};</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">;</span>
 <span class="c1">%%</span>
-<span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">,</span><span class="s1">'MaxIter'</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="s1">'tol'</span><span class="p">,</span><span class="n">tol</span><span class="p">,</span><span class="s1">'DescentAlgorithm'</span><span class="p">,</span><span class="o">@</span><span class="n">ConjugateGradientDescent</span><span class="p">)</span>
+<span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">,</span><span class="s1">'tol'</span><span class="p">,</span><span class="n">tol</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    Solve with presicion: 
+
+        We obtain: J(u) = 1.187033E-05
+
+        mean(||dJ_i||) = 7.106341E-04
+
+    With 2 iterations,     In 16.4605 seconds
 
 
-<span class="n">dynamics</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s1">'Free'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dynamics</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s1">'Free'</span><span class="p">;</span>
 <span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s1">'with Control'</span><span class="p">;</span>
-
 <span class="n">solve</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
 
 <span class="n">plotT</span><span class="p">([</span><span class="n">iCP1</span><span class="o">.</span><span class="n">ode</span> <span class="n">dynamics</span><span class="p">])</span>
@@ -277,7 +287,11 @@ img:active{
 <span class="c1">%% GradientMethod(iCP1,'DescentParameters',DescentParameters,'graphs',true)</span>
 
 <span class="c1">%% iCP1.ode</span>
-<span class="k">function</span> <span class="p">[</span><span class="n">B</span><span class="p">]</span> <span class="o">=</span> <span class="n">construction_matrix_B</span><span class="p">(</span><span class="nb">mesh</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp02/T0003/copiaRM_01.png" alt="" /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="p">[</span><span class="n">B</span><span class="p">]</span> <span class="o">=</span> <span class="n">construction_matrix_B</span><span class="p">(</span><span class="nb">mesh</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
 
 <span class="n">N</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="nb">mesh</span><span class="p">);</span>
 <span class="n">B</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
@@ -287,25 +301,6 @@ img:active{
 
 <span class="k">end</span>
 </code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-tol =
-
-   1.0000e-03
-
-
-    Solve with presicion: 
-
-        We obtain: J(u) = 1.187033E-05
-
-        mean(||dJ_i||) = 7.106341E-04
-
-    With 2 iterations,     In 21.1991 seconds
-
-
-</code></pre></div></div>
-
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp02/T0003/copiaRM_01.png" alt="" /></p>
 
 
 
