@@ -441,12 +441,6 @@ G(x) =
 <span class="n">N</span><span class="o">=</span><span class="mi">11</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp02/T0007/copiaRM_05.png" alt="" /></p>
-
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp02/T0007/copiaRM_06.png" alt="" /></p>
-
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp02/T0007/copiaRM_07.png" alt="" /></p>
-
 <p>For the simulation of the model in collective behavior we will employ a diffusivity $D=\frac{1}{N^3}$.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]</span><span class="o">=</span><span class="n">SLSD1doptimalnullcontrol</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">/(</span><span class="n">N</span><span class="o">^</span><span class="mi">3</span><span class="p">),</span><span class="n">G</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="nb">beta</span><span class="p">,[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.8</span><span class="p">],</span><span class="n">y0</span><span class="p">);</span>
