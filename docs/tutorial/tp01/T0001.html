@@ -12,7 +12,7 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>First Example ODE - DyCon Toolbox</title>
+    <title>First Example of ODE class - DyCon Toolbox</title>
 
     <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/tutorial/tp01/T0001">
 
@@ -142,11 +142,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0"><h2><small>MATLAB tutorial of <a href="https://DeustoTech.github.io//dycon-platform-documentation/topic/Tp01"></a> :</small></h2>
-                    <h1>First Example ODE</h1>
+                    <h1>First Example of ODE class</h1>
 
 					<span class="meta">Posted by:
 					
-						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="https://DeustoTech.github.io/dycon-platform-documentation/author/JOroya"></a></span></span>
+						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="https://DeustoTech.github.io/dycon-platform-documentation/author/DognamK"></a></span></span>
 					
 					</span>
 					<div class="shadowbox">
@@ -219,13 +219,13 @@ img:active{
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<p>Veamos un ejemplo de utilizacion de la clase ode. Para ello resolveremos un ejemplo sencillo. Sea la ode:</p>
+				<p>In this example, we present the use of class ‘ode’. Here we solve the following simple system of ordinary differential equations:</p>
 
 <script type="math/tex; mode=display">\begin{bmatrix} \dot{y}_1 \\ \dot{y}_2 \end{bmatrix} = \left(\begin{array}{c} u_{1}+\sin\left(y_{1}\,y_{2}\right)+y_{1}\,y_{2}\\ u_{2}+y_{2}+\cos\left(y_{1}\,y_{2}\right) \end{array}\right)</script>
 
 <script type="math/tex; mode=display">y_1(1) = 1 / / y_2(1) = -1</script>
 
-<p>En Dycon Toolbox se opta por el uso de variables simb�licas para representaci�n de las ecuaciones de la dinamica. Es por ello que es necesario definir un vector simbolico que representara el estado</p>
+<p>In DyCon toolbox, the use of symbolic variables is chosen to represent the dynamic equations. We first define a symbolic vector representing the solution states.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Y</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">])</span>
 </code></pre></div></div>
@@ -239,7 +239,7 @@ Y =
 
 </code></pre></div></div>
 
-<p>Adem�s deberemos definir un vector simbolico para el control de la ecuacion</p>
+<p>In addition, we define a symbolic vector for the control functions of the equation.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">U</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">])</span>
 </code></pre></div></div>
@@ -253,16 +253,18 @@ U =
 
 </code></pre></div></div>
 
-<p>Gracias a estas dos variables, podemos definir la ecuaci�n de la dinamica de la siguietne forma</p>
+<p>Using these two variables, we can state the system by a symbolic expression of the vector field.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">F</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">sin</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span>    <span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">U</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>   <span class="p">;</span> <span class="k">...</span>
          <span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>        <span class="o">+</span> <span class="nb">cos</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">U</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">]</span> <span class="p">;</span>
 <span class="n">dynamics</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">U</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>Debemos notar que el la creacion del problema es muy parecido a la expresion matematica</p>
+<p>In this way, we defined ‘dynamics’ of the class ‘ode’ which represents the following equation of a matrix form:</p>
 
-<p>Veamos que es lo que hemos creado</p>
+<script type="math/tex; mode=display">\dot Y = F(Y,U).</script>
+
+<p>Let’s see what we have created</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dynamics</span>
 </code></pre></div></div>
@@ -289,7 +291,7 @@ dynamics =
 
 </code></pre></div></div>
 
-<p>Debido a que existe mucha infomacion para resolver una ecuacion diferencial DyCon toolbox toma muchos valores por defecto. Otra forma de ver la informaci�n dentro de este objecto es:</p>
+<p>DyCon toolbox creates a lot of default variables to represent the conditions of differential equations. We may see the information more heuristic way through the resume function:</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">resume</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
 </code></pre></div></div>
@@ -304,54 +306,55 @@ dynamics =
 
 </code></pre></div></div>
 
-<p>Por otro lado, que existan muchos parametros por defecto, esto no quiere decir que</p>
+<p>We also can directly modify its variables, for example, we may change the initial data:</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dynamics</span><span class="o">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+<span class="n">resume</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
 </code></pre></div></div>
 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+     Dynamics:
+
+          Y'(t,Y,U) = matrix([[u1 + sin(y1*y2) + y1*y2], [u2 + y2 + cos(y1*y2)]])
+
+          t in [0,1]  with condition: Y(0) = 1 -1
+
+
+</code></pre></div></div>
+
+<p>‘solve’ function solves the differential equation of ‘ode’. The values of ‘Y’ are calculated according to the timeline and initial data. The MATLAB built-in function ‘ode45’ works as a default to solve the ‘ode’.</p>
+
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">solve</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
-<span class="nb">plot</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>‘plot’ function plots the states of ‘Y’, the vector of states. Note that this produces errors if ‘solve’ function is not operated.</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">plot</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp01/T0001/copiaRM_01.png" alt="" /></p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dynamics</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">'InitialCondition'</span><span class="p">;</span>
-<span class="n">solve</span><span class="p">(</span><span class="n">dynamics</span><span class="p">,</span><span class="s1">'RKMethod'</span><span class="p">,</span><span class="o">@</span><span class="nb">ode23</span><span class="p">)</span>
+<p>We may modify the conditions of ‘ode’ and solve it again. Here we change the initial condition to be a final condition.</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dynamics</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">'FinalCondition'</span><span class="p">;</span>
+
+<span class="n">solve</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
 <span class="nb">plot</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp01/T0001/copiaRM_02.png" alt="" /></p>
 
-<p>Lineal</p>
+<p>If the system is linear, then we can create the ‘ode’ class using the matrix. Along with the notion of linear control problem, the following code represents the system:</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="p">[</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="p">;</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+<script type="math/tex; mode=display">\dot Y = AY + BU.</script>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">2</span> <span class="p">;</span> <span class="mi">2</span> <span class="mi">0</span><span class="p">];</span>
 <span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="p">;</span> <span class="mi">1</span><span class="p">];</span>
 
-<span class="n">lode</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="s1">'A'</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
-<span class="n">solve</span><span class="p">(</span><span class="n">lode</span><span class="p">)</span>
-<span class="nb">plot</span><span class="p">(</span><span class="n">lode</span><span class="p">)</span>
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-lode = 
-
-  ode with properties:
-
-     VectorState: [1x1 struct]
-         Control: [1x1 struct]
-         Dynamic: [1x1 struct]
-       Condition: [2x1 double]
-            Type: 'InitialCondition'
-       FinalTime: 1
-              dt: 0.1000
-           label: ''
-        RKMethod: @ode45
-    RKParameters: {}
-             PDE: 0
-           tspan: [1x11 double]
-            Udim: 1
-
-
+<span class="n">dynamics_linear</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="s1">'A'</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="n">B</span><span class="p">);</span>
+<span class="n">dynamics_linear</span><span class="o">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
+<span class="n">solve</span><span class="p">(</span><span class="n">dynamics_linear</span><span class="p">)</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">dynamics_linear</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp01/T0001/copiaRM_03.png" alt="" /></p>
