@@ -1,8 +1,7 @@
 Tp01:
-  name: ODE
-  little_description: In this section we compile the tutorials related to solving optimal control problems, by optimizing a functional constraint under a differential equation.
-  description: In DyCon toolbox, is used the MATLAB Classes. This class represent a ODE.
+  name: ODE Problems
+  little_description: DyCon toolbox uses object-oriented programming. That is why an ODE class has been defined. This allows to generalize other problems. Continue with our tutorials.
 
 Tp02:
-  name: Optimal Control
-  little_description: The main objective in optimal control theory is to determine the best control for a given system. Optimal Control deals with the computation of this control by solving an optimization problem of the form $$\min_{u} J(x,u)$$  where $J(x,u)$ is the cost functional, that is, a function of state and control variables. Optimal control problems can be derived using Pontryagin's maximum principle or by solving the Hamilton–Jacobi–Bellman equation (a sufficient condition).
+  name: Optimal Control Problems
+  little_description: DyCon Toolbox allows to solve problems of optimal control of type $$ \min_{u \in \Omega} [ \Psi(Y(T),t) + \int_0^T L(Y,U,t)dt]$$ This has a very friendly interface. Simply by writing the control problem in symbolic variables. Next we will show you how to do it.

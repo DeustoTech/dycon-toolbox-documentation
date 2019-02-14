@@ -1,17 +1,11 @@
 ---
 layout: project
 category: proyect
-title: Tutorials
-description: Transmitting the results to other researchers, not specialists in control theory, can be difficult. Even among experts on the subject of sharing software is complicated. Here is a series of tutorials for faithful and easy reproduction of mathematical results.
+title: First Steps
+description: Here you will find the first tutorials to understand the basic concepts of DyCon Toolbox.
 ---
  {::nomarkdown}
 
-<p>
-  At Dycon Toolbox we have developed some tutorials on the various topics investigated by the DyCon project. These tutorials have been classified for a better organization. Choose the one you prefer and explore.
-</p>
-
-
-  
     {% for topic in site.data.tutorials %}
 
       {%- assign qposts = site.posts | where:"layout","tutorial" -%}

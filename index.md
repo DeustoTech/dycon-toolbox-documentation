@@ -33,8 +33,8 @@ layout: index
   </li>
 
   <li>
-    <h3>No dizcretization in time</h3>
-      This Toolbox is a container of different optimization algorithms, where new methods can be developed within a structure already built and with reusable functions, for the comparison of results.
+    <h3>High order in time</h3>
+      RK methods vs Full Discretization IPOPT
   </li>
 
 </ul>
