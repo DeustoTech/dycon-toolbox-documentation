@@ -11,7 +11,7 @@ layout: index
             <img style="padding-top: 100px;"src="{{site.url}}/{{site.baseurl}}/assets/logo_DyConToolbox_v001.png" width="30%" alt="" srcset="">
             <hr class="small">
             <span class="subheading">
-              DyCon Toolbox contains tools for the calculation of non-linear control problems. With the help of the MATLAB symbolic engine, packages capable of addressing general control problems have been developed.
+              DyCon Toolbox contains tools for the calculation of non-linear control problems. 
             </span>
             <hr>
         </div>
@@ -21,7 +21,10 @@ layout: index
 
 {:/nomarkdown}
 
+DyCon Toolbox is developed under the paradigm of object-oriented programming. Define objects that represent control problems studied by the research team of computational mathematics. For each of these objects, different methods have been created for the resolution of problems. In this way, we can easily choose the type of algorithm to solve the problem. For more information, continue exploring in our <a href="{{site.url}}{{site.baseurl}}/projects/01-documentation">documentation.
+
 <h1>Main Features</h1>
+
 <ul>
   <li>
     <h3>Non-linear dynamics</h3>
@@ -29,12 +32,12 @@ layout: index
   </li>
   <li>
     <h3>Symbolic Interface</h3> 
-      The symbolic interface of matlab, makes the definition of problems easier.
+      The symbolic interface of matlab, makes the definition of problems easier. And in some case, the problem can be solve analytically.
   </li>
 
   <li>
     <h3>High order in time</h3>
-      RK methods vs Full Discretization IPOPT
+      In DyCon toolbox, the ODEs are solved by differents aproximations. You can choose the all Runge-Kutta solver of MATLAB  for example ode45,ode23,ode23tb. Alse you can create your own solvers. You can choose your aproximation.
   </li>
 
 </ul>

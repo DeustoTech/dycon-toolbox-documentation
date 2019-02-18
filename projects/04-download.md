@@ -4,38 +4,32 @@ title: Downloads
 description: "Releases of the DyCon Toolbox"
 ---
 
-<!-- <h1> First installation method</h1> -->
-You can start using Dycon toolbox by simply copying the following lines into your MATLAB console
+DyCon Toolbox is open source, compatible with MATLAB 9.3 (R2017b) or later, and is freely available on Github.
+
+### **Direct Download**
+* Download DyCon Toolbox (.zip)
+
+### **Download from MATLAB**
+Alternatively you can start using DyCon Toolbox by simply pasting the code below to your MATLAB command window
+
+
+
 ```matlab
 unzip('https://github.com/DeustoTech/DyCon-Computational-Platform/archive/master.zip')
 addpath(genpath(fullfile(cd,'DyCon-toolbox-master')))
 ```
-Then go to the <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> tutorials</a> and choose the topic you prefer.
-<div>
 
-  <!-- <div class="inst-guide">
-    <h1> Second installation method</h1>
-    For the installation of the toolbox you can download the following file:
-    <ul>
-      <li>
-        <a href="{{site.url}}/{{site.baseurl}}/assets/DyConToolBox.mltbx">
-        DyCon-toolbox-1.0.0</a> [24,9 MB]
-        <span class="rel_date">20.12.2018</span>
-        <span class="sha256">sha256: d2e5889028f8eccb5c32c381c0035788bdb312e3a791d1252a186688338c2262</span>
-      </li>
-    </ul>
-    <hr>
-    The file you have downloaded is a toolbox installer in MATLAB, if you open this file the following window will appear
-    <div style="padding:10px">
-      <img src= "{{site.url}}/{{site.baseurl}}/assets/DyConInstall.png">
-    </div>
-  Giving the install button, it must be installed.
-  </div>
-  <div class="get-started">
-    <p>
-    Once the DyCon toolbox is installed, we can start exploring the
-    tutorials  that we have on <a href="{{site.url}}/{{site.baseurl}}/projects/tutorials"> this page</a>. 
-    </p>
-  </div>
-</div> -->
+### **Download from Github**
+If you rather prefer to clone the repository directly from Github, you can do it by typing the following command at a terminal:
 
+
+```matlab
+git clone https://github.com/DeustoTech/DyCon-Computational-Platform.git
+```
+
+
+### **Give us your feedback**
+Please if you find any bug or have questions, do not hesitate to contact us. You can give us your feedback through this email address ([dycon-dev-group@deusto.es](mailto:dycon-dev-group@deusto.es)).
+
+### **Get started**
+To get started we encourage you to visit First Steps where the basic features of DyCon Toolbox are explained. Then we suggest you to check any of our [Tutorials](https://deustotech.github.io/dycon-platform-documentation/projects/02-tutorials).

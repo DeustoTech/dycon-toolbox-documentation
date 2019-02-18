@@ -12,7 +12,7 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>Gradient Method - DyCon Toolbox</title>
+    <title>Gradient Method and several descents - DyCon Toolbox</title>
 
     <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/tutorial/tp02/T0002">
 
@@ -142,7 +142,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0"><h2><small>MATLAB tutorial of <a href="https://DeustoTech.github.io//dycon-platform-documentation/topic/Tp02"></a> :</small></h2>
-                    <h1>Gradient Method</h1>
+                    <h1>Gradient Method and several descents</h1>
 
 					<span class="meta">Posted by:
 					
@@ -219,12 +219,24 @@ img:active{
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<h1 id="define-the-state-and-control">define the state and control</h1>
+				<p>En este tutorial mostraremos las tipos de descenso implementados para el metodos del gradiente para los problemas de control optimos</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">Y</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]);</span> <span class="n">U</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,[</span><span class="mi">1</span> <span class="mi">1</span><span class="p">]);</span>
+<p>Primero definiremos un problema para utilizarolo de ejemplo</p>
+
+<p>Sea el siguiente funcional</p>
+
+<script type="math/tex; mode=display">\int_0^2 (y_1-2)^2 + (y_2-4)^2 + u_1^2 + u_2^2 dt</script>
+
+<p>sujecto a</p>
+
+<script type="math/tex; mode=display">\left( \begin{matrix}       \dot{y_1} \\       \dot{y_2}     \end{matrix} \right)    =     \left( \begin{matrix}               y_2     \\               y_2      \end{matrix} \right)</script>
+
+<p>Creamos el objeto Optimal Control</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Y</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]);</span> <span class="n">U</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,[</span><span class="mi">1</span> <span class="mi">1</span><span class="p">]);</span>
 </code></pre></div></div>
 
-<p>define your wierd dynamics</p>
+<p>define dynamics</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">F</span> <span class="o">=</span> <span class="p">[</span> <span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>             <span class="p">;</span> <span class="k">...</span>
       <span class="o">-</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>      <span class="o">+</span> <span class="n">U</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">]</span> <span class="p">;</span>
@@ -232,66 +244,82 @@ img:active{
 <span class="n">dynamics</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">U</span><span class="p">);</span>
 <span class="n">dynamics</span><span class="o">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
 <span class="n">dynamics</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">;</span>
-<span class="c1">%% A = [ -10 1; 0 -0.01];</span>
-<span class="c1">%% B = [1 ; 1];</span>
-<span class="c1">%% dynamics = ode('A',A,'B',B);</span>
-<span class="c1">%% dynamics.Condition = [1;1];</span>
-<span class="c1">%% dynamics.dt = 0.01;</span>
-<span class="c1">%% %% define your functional</span>
-<span class="c1">%% U = dynamics.Control.Symbolic;</span>
-<span class="c1">%% Y = dynamics.VectorState.Symbolic;</span>
+</code></pre></div></div>
 
-<span class="n">YT</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">;</span><span class="mi">4</span><span class="p">]</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">YT</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">;</span><span class="mi">4</span><span class="p">];</span>
 <span class="n">Psi</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">L</span>   <span class="o">=</span> <span class="mf">0.005</span><span class="o">*</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="s1">'*U) +  Y.'</span><span class="o">*</span><span class="n">Y</span> <span class="p">;</span>
+<span class="n">L</span>   <span class="o">=</span><span class="mf">0.005</span><span class="o">*</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="s1">'*U) +  (Y-YT).'</span><span class="o">*</span><span class="p">(</span><span class="n">Y</span><span class="o">-</span><span class="n">YT</span><span class="p">)</span> <span class="p">;</span>
 <span class="c1">%% Creace de OptimalControl Object</span>
 <span class="n">iP</span> <span class="o">=</span> <span class="n">OptimalControl</span><span class="p">(</span><span class="n">dynamics</span><span class="p">,</span><span class="n">Psi</span><span class="p">,</span><span class="n">L</span><span class="p">);</span>
+</code></pre></div></div>
 
+<p>GradientMethod ha sido definido como un metodo iterativo que actualiza el control dada un control anterior. Esta actualizaci�n pretende mejorar el valor de $J(u)$ mediante un descenso del gradiente. Sin embargo se permite distintos tipos de descenso. Esta implementados tres tipos de descenso</p>
 
-<span class="c1">%% Solve</span>
-<span class="c1">%% GradientMethod(iP,'DescentParameters',{'MiddleStepControl',false,'InitialLengthStep',1e-10},'Graphs',true,'tol',1e-10,'MaxIter',500)</span>
-<span class="n">GradientMethod</span><span class="p">(</span><span class="n">iP</span><span class="p">)</span>
+<ul>
+  <li>
+    <p>ClassicalDescent: Se calcula el gradiente, $dJ$ dado un control y se                       actualiza el control de la siguiente forma:                       <script type="math/tex">u_{new} =  u_{old} + \alpha dJ</script> Siendo $\alpha$                       una constante que puede ser modificada</p>
+  </li>
+  <li>
+    <p>AdaptativeDescent: Se actualiza el control de la misma forma que en                       ClassicalDescent, sim embargo el par�metro $\alpha$ se multiplica por dos                       si el valor de J decrece, y se divide por dos si el valor de J crece. De                       esta forma, tenemos valores de $\alpha$ grande cuando el descenso nos lo                       permite, y valores de $alpha$, mas finos si estamos cerca de un m�nimo                       local. - ConjugateGradientDescent: Se actuliza siguiendo el m�todo de gradiente                             conjugado, porpuesto en [1]. Este actualiza                             el control siguiendo la direcci�n del                             gradiente. El paso optimos $\alpha$, es                             calculado mediante optimizaci�n numerica.                             Luego se actualiza el control con una                             combiancin lineal entre el gradiente en el                             punto actual y el gradiente en el punto                             anterior.</p>
+  </li>
+</ul>
+
+<p>Veamos la diferencias de los m�todos para un mismo problema</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GradientMethod</span><span class="p">(</span><span class="n">iP</span><span class="p">,</span><span class="s1">'DescentAlgorithm'</span><span class="p">,</span><span class="o">@</span><span class="n">ClassicalDescent</span><span class="p">)</span>
 <span class="nb">plot</span><span class="p">(</span><span class="n">iP</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-YT =
-
-     4
-     4
-
-
     Solve with presicion: 
 
-        We obtain: J(u) = 6.971327E-02
+        We obtain: J(u) = 3.655532E+00
 
-        mean(||dJ_i||) = 3.103674E-04
+        mean(||dJ_i||) = 1.182118E-06
 
-    With 8 iterations,     In 9.1484 seconds
+    With 197 iterations,     In 10.6433 seconds
 
 
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp02/T0002/copiaRM_01.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/tutorials/Tp02/T0002/copiaRM_01.png" alt="" /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GradientMethod</span><span class="p">(</span><span class="n">iP</span><span class="p">,</span><span class="s1">'DescentAlgorithm'</span><span class="p">,</span><span class="o">@</span><span class="n">AdaptativeDescent</span><span class="p">)</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">iP</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: Max iteration number reached!! 
+
+    Solve with presicion: 
+
+        We obtain: J(u) = 3.223334E+00
+
+        mean(||dJ_i||) = 1.377051E-04
+
+    With 200 iterations,     In 103.4033 seconds
+
+
+</code></pre></div></div>
+
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/tutorials/Tp02/T0002/copiaRM_02.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GradientMethod</span><span class="p">(</span><span class="n">iP</span><span class="p">,</span><span class="s1">'DescentAlgorithm'</span><span class="p">,</span><span class="o">@</span><span class="n">ConjugateGradientDescent</span><span class="p">)</span>
-
 <span class="nb">plot</span><span class="p">(</span><span class="n">iP</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     Solve with presicion: 
 
-        We obtain: J(u) = 6.971327E-02
+        We obtain: J(u) = 3.223243E+00
 
-        mean(||dJ_i||) = 3.103674E-04
+        mean(||dJ_i||) = 4.475831E-04
 
-    With 8 iterations,     In 11.2904 seconds
+    With 10 iterations,     In 11.7545 seconds
 
 
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/Tp02/T0002/copiaRM_02.png" alt="" /></p>
+<p><img src="https://DeustoTech.github.io//dycon-platform-documentation/assets/imgs/tutorials/Tp02/T0002/copiaRM_05.png" alt="" /></p>
 
 
 

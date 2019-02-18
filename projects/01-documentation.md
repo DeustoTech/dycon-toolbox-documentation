@@ -1,10 +1,10 @@
 ---
 layout: project
 title: "Documentation"
-description: A wealth of information is available to help you understand, learn and use the DyCon Toolbox.
+description: "Scheme under which control problems are developed."
 
 ---
-En DyCon Toolbox se ha creado un entorno bajo el paradigma de la programación orientada a objetos. Se ha optado en crear objectos para definir los problemas de optimo control. 
+En DyCon Toolbox se ha creado un entorno bajo el paradigma de la programación orientada a objetos. Se ha optado en crear objetos para definir los problemas  de control. 
 
 Podemos ver un ejemplo de ello, en el problema de control optimo. Este se define como:
 
@@ -15,7 +15,7 @@ sujeto a:
 $$ \dot{Y} = f(t,Y,U) \text{  where } Y(0) = Y_0$$
 
 
-En la representacion orientado a objetos este problema puede ser representado por el siguiente esquema
+En la representación orientado a objetos este problema puede ser representado por el siguiente esquema
 
 <div style="text-align: center;">
 {% mermaid %}
@@ -33,7 +33,7 @@ graph TB
 </div>
 {::nomarkdown}
 
-De esta forma podemos crear distintos algoritmos para resolver el problemas, siguiente siguiendo la misma esctrutura. 
+De esta forma podemos crear distintos algoritmos para resolver el problemas, siguiente siguiendo la misma estructura. 
 <div style="text-align: center;">
 {% mermaid %}
 graph TB
@@ -49,11 +49,10 @@ graph TB
 {% endmermaid %}
 </div>
 
-Dado que la solucion y la definición del problema tiene la misma estrutura se puede crear facilmente funciones que comparen la precisión de dos algoritmos distintos.
+Dado que la solución y la definición del problema tiene la misma estructura se puede crear fácilmente funciones que comparen la precisión de dos algoritmos distintos. 
 
-<p>
-Classes are abstract objects to facilitate the coding of algorithms, then a list of classes developed in the project
-</p>
+<h2> Classes </h2>
+
 
 {% assign qposts = site.posts | where:"layout","class"|sort: 'number'%}
 
