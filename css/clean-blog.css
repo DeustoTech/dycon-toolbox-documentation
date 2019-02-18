@@ -98,10 +98,10 @@ hr.small {
 .display-block {
   display: block;
 }
-/* MathJax CSS */
+/* MathJax CSS
 .MathJax {
   font-size: 2.25em !important;
-}
+} */
 
 /* Downloads Page */
 .inst-guide { padding-top: 25px;}
@@ -469,7 +469,8 @@ th {
 	border-bottom-width: 1px;
   border-collapse: collapse;
   padding: 6px;
-  vertical-align: center
+  vertical-align: center;
+  font-weight: normal;
 }
 
 div.float-right{
