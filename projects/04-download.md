@@ -7,7 +7,7 @@ description: "Releases of the DyCon Toolbox"
 DyCon Toolbox is open source, compatible with MATLAB 9.3 (R2017b) or later, and is freely available on Github.
 
 ### **Direct Download**
-* Download DyCon Toolbox (.zip)
+Download by following link: [DyCon Toolbox (.zip)](https://github.com/DeustoTech/DyCon-Computational-Platform/archive/master.zip)
 
 ### **Download from MATLAB**
 Alternatively you can start using DyCon Toolbox by simply pasting the code below to your MATLAB command window

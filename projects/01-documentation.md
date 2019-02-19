@@ -4,18 +4,16 @@ title: "Documentation"
 description: "Scheme under which control problems are developed."
 
 ---
-En DyCon Toolbox se ha creado un entorno bajo el paradigma de la programación orientada a objetos. Se ha optado en crear objetos para definir los problemas  de control. 
-
-Podemos ver un ejemplo de ello, en el problema de control optimo. Este se define como:
+Dycon Toolbox is an environment under the paradigm of object-oriented programming. We create objects to define control problems. We can see an example of this in a general optimal control problem: 
 
 $$ \min_{U \in \Omega} [ \Psi (Y(T),t) + \int_0^T L(Y,U,t)dt] $$
 
-sujeto a:
+subject to:
 
 $$ \dot{Y} = f(t,Y,U) \text{  where } Y(0) = Y_0$$
 
 
-En la representación orientado a objetos este problema puede ser representado por el siguiente esquema
+In object-oriented programming, this problem can be described through the following scheme:
 
 <div style="text-align: center;">
 {% mermaid %}
@@ -33,7 +31,8 @@ graph TB
 </div>
 {::nomarkdown}
 
-De esta forma podemos crear distintos algoritmos para resolver el problemas, siguiente siguiendo la misma estructura. 
+In this way, we can create algorithms to solve different problems following the same underneath structure, and the solutions of those problems are independent on the solver employed. 
+
 <div style="text-align: center;">
 {% mermaid %}
 graph TB
@@ -49,10 +48,10 @@ graph TB
 {% endmermaid %}
 </div>
 
-Dado que la solución y la definición del problema tiene la misma estructura se puede crear fácilmente funciones que comparen la precisión de dos algoritmos distintos. 
+Therefore, we can easily create functions able to compare the accuracy of distinct methods and algorithms.
 
 <h2> Classes </h2>
-
+Below we can see the classes defined within DyCon Toolbox.
 
 {% assign qposts = site.posts | where:"layout","class"|sort: 'number'%}
 

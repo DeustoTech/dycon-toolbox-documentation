@@ -4,14 +4,13 @@
   padding: 50px 0 0px;
 }
 .intro-header .site-heading > h1 {
-  padding-bottom: 20px;
+  padding-bottom: 5px;
 }
 .intro-header .site-heading .subheading {
-  padding: 20px;
+  padding: 5px;
 }
 .post-title {
-  text-align: center;
-  padding: 10px;
+  padding: 5px;
 }
 .title {
   color: black;
@@ -260,7 +259,7 @@ hr.small {
 }
 .post-preview > a > .post-title {
   font-size: 30px;
-  margin-top: 30px;
+  margin-top: 10px;
   margin-bottom: 0px;
 }
 .post-preview > a > .post-subtitle {

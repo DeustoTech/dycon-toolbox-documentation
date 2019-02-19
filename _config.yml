@@ -6,10 +6,6 @@ dev: true
 # command to ignore docs(must be run inside 'docs' folder): git ls-files | tr '\n' ' ' | xargs git update-index --assume-unchanged
 # command to STOP ignoring docs(must be run inside 'docs' folder): git ls-files | tr '\n' ' ' | xargs git update-index --no-assume-unchanged
 
-scholar:
-  style: apa
-  source: "_bibliography"
-
 
 # Secondary Parameters
 baseurl: "/dycon-platform-documentation" # the subpath of your site, e.g. /blog

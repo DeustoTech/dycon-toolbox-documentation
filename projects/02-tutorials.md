@@ -23,21 +23,3 @@ description: Here you will find the first tutorials to understand the basic conc
     {% endfor %}
 
 {:/nomarkdown} 
-
-
-
-
-
-
-<!-- Codigo Anterior -->
-<!-- {::nomarkdown}
-  {% for topic in site.data.topics %}
-    <div class="post-preview shadowbox">
-        <a href="{{site.url}}{{site.baseurl}}/topic/{{topic[0]}}" class="display-block">
-            <h3 class="post-title"> {{ topic[1].name }} </h3>
-        </a>     
-        <p>{{topic[1].little_description}}</p>
-    </div>
-
-  {% endfor %}
-{:/nomarkdown} -->
