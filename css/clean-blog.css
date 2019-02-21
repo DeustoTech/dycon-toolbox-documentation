@@ -40,8 +40,15 @@ h3,
 h4,
 h5,
 h6 {
+  font-size: 24px;
   font-weight: 800;
 }
+
+h6 {
+  font-size: 16px;
+  font-weight: 800;
+}
+
 a {
   color: #152fc2;
 }
@@ -203,7 +210,7 @@ hr.small {
 @media only screen and (min-width: 900px) {
   .intro-header .site-heading h1,
   .intro-header .page-heading h1 {
-    font-size: 55px;
+    font-size: 40px;
   }
 }
 .intro-header .site-heading,
@@ -212,7 +219,7 @@ hr.small {
 }
 .intro-header .site-heading .subheading,
 .intro-header .page-heading .subheading {
-  font-size: 20px;
+  font-size: 17px;
   line-height: 1.1;
   display: block;
   font-weight: 300;
@@ -220,7 +227,7 @@ hr.small {
 }
 
 .intro-header .post-heading h1 {
-  font-size: 35px;
+  font-size: 30px;
 }
 .intro-header .post-heading .subheading,
 .intro-header .post-heading .meta {
@@ -229,7 +236,7 @@ hr.small {
 }
 .intro-header .post-heading .subheading {
   color:black;
-  font-size: 24px;
+  font-size: 20px;
   margin: 0px 0 30px;
   font-weight: 600;
 }
@@ -516,7 +523,7 @@ hr.style-one {
 
 
 .shadowbox{
-  padding: 10px 40px 20px 40px;
+  padding: 10px 40px 15px 40px;
   margin: 20px 0 10px 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 4px;

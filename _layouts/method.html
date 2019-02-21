@@ -9,7 +9,7 @@ layout: default
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
                     <h1 class="post-title">{{ page.title }}<small> method</small></h1> 
-                    <h3 class="post-title"><a href="{{site.url}}/{{site.baseurl}}/documentation/{{page.categories[1]}}/Class{{page.class}}">{{ page.class }}</a><small> class</small></h3>
+                    <h3 class="post-title"><a href="{{site.url}}{{site.baseurl}}/documentation/{{page.categories[1] | downcase}}/Class{{page.class}}">{{ page.class }}</a><small> class</small></h3>
                 </div>
 
                 <!-- MANDATORY INPUTS  -->

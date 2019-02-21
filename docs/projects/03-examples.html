@@ -162,7 +162,7 @@
     
     <tr>
       <th>
-          <a href="https://DeustoTech.github.io/dycon-platform-documentation/example/Tp01" class="display-block"><h4 class="post-title">ODE</h4>
+          <a href="https://DeustoTech.github.io/dycon-platform-documentation/example/Tp01" class="display-block"><h6 class="post-title">Control of ODE</h6>
           </a>  
       </th>
       <th>Given the ODE \begin{array}{c} x'(t) = f(t, x(t), u(t)), \ \ t \in [0,T], \ x(0) = x_0, \end{array} with $x(t)$ and $u(t)$ being the state and control variables respectively. The main goal is to find the control $u(t)$ that optimizes a certain functional $J(x(t),u(t))$. Summarizing, control of ODEs is crucial when the main interest is not to find the solution $x(t)$ of the ODE, but instead to optimize a certain quantity $J(x(t),u(t))$ with respect to the control variable $u(t)$ and subject to the ODE.</th>
@@ -171,16 +171,16 @@
     
     <tr>
       <th>
-          <a href="https://DeustoTech.github.io/dycon-platform-documentation/example/Tp02" class="display-block"><h4 class="post-title">PDE</h4>
+          <a href="https://DeustoTech.github.io/dycon-platform-documentation/example/Tp02" class="display-block"><h6 class="post-title">Control of PDE</h6>
           </a>  
       </th>
       <th>Control of PDEs can be approached by the DyCon Toolbox for all evolutionary PDEs that can be written in a semidiscrete form leading                       to the following finite dimensional system $$ \begin{array}{c} \frac{\partial x(t)}{\partial t} = L(t, x(t), u(t)), \ \ t \in [0,T], \ x(0) = x_0, \end{array} $$ with $x(t)$ and $u(t)$ being the state and control variables respectively. The target is to find the control $u(t)$ that optimizes the functional $J(x(t),u(t))$ subject to the semidiscrete PDE.</th>
-      <th>[<small>1</small>]</th>
+      <th>[<small>2</small>]</th>
     </tr>
     
     <tr>
       <th>
-          <a href="https://DeustoTech.github.io/dycon-platform-documentation/example/Tp03" class="display-block"><h4 class="post-title">Parameter dependent problems</h4>
+          <a href="https://DeustoTech.github.io/dycon-platform-documentation/example/Tp03" class="display-block"><h6 class="post-title">Parameter dependent problems</h6>
           </a>  
       </th>
       <th>The goal of this section is to solve optimal control problems where the states are defined via finite dimensional parameter-dependent systems of the form $$\dot{x}(t,\nu)=A(\nu)x(t,\nu)+B(\nu)u(t), \, t>T, \quad x(0)=x0,$$ being $\nu$ the parameter that can be discrete or continuous. Different iterative algorithms based on gradient descent methods are performed to reach this objective. For example, the classical gradient descent technique or stochastic gradient descent method, which has become important in the last years.</th>

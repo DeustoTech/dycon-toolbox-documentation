@@ -27,16 +27,16 @@ DyCon Toolbox is developed under the paradigm of object-oriented programming. De
 
 <ul>
   <li>
-    <h3>Non-linear dynamics</h3>
-      Non-linear dynamics is the first implementation in the toolbox. Our idea is to cover very general problems in a few lines of code.
+    <h6>Non-linear dynamics</h6>
+    Non-linear dynamics is the first implementation in the toolbox. Our idea is to cover very general problems in a few lines of code.
   </li>
   <li>
-    <h3>Symbolic Interface</h3> 
+    <h6>Symbolic Interface</h6> 
       The symbolic interface of matlab, makes the definition of problems easier. And in some case, the problem can be solve analytically.
   </li>
 
   <li>
-    <h3>High order in time</h3>
+    <h6>High order in time</h6>
       In DyCon toolbox, the ODEs are solved by differents aproximations. You can choose the all Runge-Kutta solver of MATLAB  for example ode45,ode23,ode23tb. Alse you can create your own solvers. You can choose your aproximation.
   </li>
 

@@ -19,7 +19,7 @@ description: Here you can find some examples of using DyCon Toolbox
           <a href="{{site.url}}{{site.baseurl}}/example/{{topic[0]}}" class="display-block">
                 {%- assign qposts = site.posts | where:"layout","example" -%}
                 {%- assign qposts = qposts | where:"categories",topic[0] -%}
-              <h4 class="post-title">{{topic[1].name}}</h4>
+              <h6 class="post-title">{{topic[1].name}}</h6>
           </a>  
       </th>
       <th>{{topic[1].little_description}}</th>

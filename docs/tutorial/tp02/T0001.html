@@ -12,7 +12,7 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>First Example - DyCon Toolbox</title>
+    <title>First Example of Optimal Control Problems - DyCon Toolbox</title>
 
     <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/tutorial/tp02/T0001">
 
@@ -138,14 +138,9 @@
     <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading" style="padding: 0px 0"><h2><small>MATLAB tutorial of <a href="https://DeustoTech.github.io//dycon-platform-documentation/topic/Tp02"></a> :</small></h2>
-                    <h1>First Example</h1>
+                <div class="post-heading" style="padding: 0px 0"><h2><small>First Step</small></h2>
+                    <h1>First Example of Optimal Control Problems</h1>
 
-					<span class="meta">Posted by:
-					
-						• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="https://DeustoTech.github.io/dycon-platform-documentation/author/JOroya"></a></span></span>
-					
-					</span>
 					<div class="shadowbox">
 						<p>To start this tutorial, write the following command in the MATLAB console
 							<pre class="highlight"><code><span class="nb">open T0001_ControlProblemODE</span></code></pre>
@@ -216,27 +211,25 @@ img:active{
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<p>En DyCon toolbox se ha definido el problema de control optimo a traves de la minimizacion de un funcional. De esta forma podemos resolver problemas del tipo</p>
+				<p>DyCon toolbox adopts Pontryagin’s maximum principle to optimize the control function for each control problem. In this way we can solve problems of the form:</p>
 
-<script type="math/tex; mode=display">\min_{U \in \Omega } \Psi(t,Y(T)) + \int_0^T L(t,Y,U) dt</script>
+<script type="math/tex; mode=display">\min_{U \in \Omega } \Psi(t,Y(T)) + \int_0^T L(t,Y,U) dt,</script>
 
-<p>sujecto a</p>
+<p>subject to</p>
 
-<script type="math/tex; mode=display">\dot{Y} = f(t,Y,U)</script>
+<script type="math/tex; mode=display">\dot{Y} = f(t,Y,U).</script>
 
-<p>Se ha creado una interfaz simbolica para la definici�n de la dinamica. Por ello que deberemos definir un vector simbolico $Y$, que representara el estado de la dinamica, ademas de una vector simbolico $U$ que representara el vector de control.</p>
+<p>‘OptimalControl’ class uses symbolic interface to define a control problem as in ‘ode’ class. ‘OptimalControl’ class contains ‘ode’ class, the final cost, and running cost. As ‘ode’ class contains $ f $, the final cost $ \Psi $ and running cost $ L $ should be given by symbolic functions.</p>
 
-<p>Continuar�mos con un ejemplo para simplificar.</p>
+<p>Here we explain ‘OptimalControl’ class with a simple example: we want to minimize the objective function</p>
 
-<p>Supongamos que queremos encontrar el control que minimiza el funcional:</p>
+<script type="math/tex; mode=display">J (Y,U) := \int_0^2 (y_1^2 + y_2^2) + 0.005(u_1^2 + u_2^2) dt,</script>
 
-<p>$$ y_1^2 + y_2^2 + \int_0^2 u_1^2 + u_2^2 dt</p>
+<p>subject to</p>
 
-<p>sujeto a</p>
+<script type="math/tex; mode=display">\left( \begin{matrix}       \dot{y_1} \\       \dot{y_2}     \end{matrix} \right)    =     \left( \begin{matrix}               y_2     \\               -y_2+u_1      \end{matrix} \right)</script>
 
-<script type="math/tex; mode=display">\left( \begin{matrix}       \dot{y_1} \\       \dot{y_2}     \end{matrix} \right)    =     \left( \begin{matrix}               y_2     \\               y_2      \end{matrix} \right)</script>
-
-<p>Deberemos inicializar los vectores de control y de estado.</p>
+<p>%%%% The dynamics and cost functions are based on symbolic vectors $ Y $ and $ U $, which represent the state of the dynamics and control vector.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Y</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">])</span>
 </code></pre></div></div>
@@ -261,13 +254,13 @@ u1
 
 </code></pre></div></div>
 
-<p>Una vez definidos podemos crear un vector simbolico con las misma dimensiones que el vector de estado. Este vector representara la dinamica del problema. Sigiendo la notacion utilizada al principio este vector ser� $f(t,Y,U)$</p>
+<p>The dynamics of $ Y $ should be given by a symbolic vector with the same dimensions as the state vector. Following the notation at the beginning, this vector represents $ f (t, Y, U) $:</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">F</span> <span class="o">=</span> <span class="p">[</span> <span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>          <span class="p">;</span> <span class="k">...</span>
       <span class="o">-</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">U</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">]</span> <span class="p">;</span>
 </code></pre></div></div>
 
-<p>Utilizando el contructor de ‘ode’</p>
+<p>Using this dynamics vector, we construct an ‘ode’ class.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dynamics</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">U</span><span class="p">)</span>
 </code></pre></div></div>
@@ -294,26 +287,26 @@ dynamics =
 
 </code></pre></div></div>
 
-<p>Esta es una objecto que representa la ecuacion diferencial</p>
+<p>The printed information above shows the default setting of this ‘ode’ class. In order to construct the dynamics we want, we need to customize its parameters. In this case we change the initial condition for the dynamics and the sampling timestep.</p>
 
-<p>mochos de los par�metros que definen la ecuacion han sido tomados por defecto. Espro ello que deberemos personalizarlo. Para que representa la dinamica que queramos. En este caso cambiaremos la condicion inicial y el intervalo en el tiempo</p>
+<p>The time discretization is generated as a uniform mesh from the timestep $ dt $. It will be used not only for the sampling of the state vector $ Y $ but also to represent the control vector $ U $ and cost $ J $ in ‘OptimalControl’ class.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dynamics</span><span class="o">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
 <span class="n">dynamics</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>Un vez definido la dinamica podemos definir el funcional que minizaremos. Este funciona tendra que ser representado con las mismas variables con la que se ha definido la dinamica. Siguiendo la forma presentada en [1] deberemos definir las expresiones de $\Psi$ y $L$</p>
+<p>Next we need to define the functional $ J $ we want to minimize. Following the form presented in [1], we define the expressions of $ \ Psi $ and $ L $ in symbolic form:</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Psi</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">L</span>   <span class="o">=</span> <span class="mf">0.005</span><span class="o">*</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="s1">'*U) +  Y.'</span><span class="o">*</span><span class="n">Y</span> <span class="p">;</span>
+<span class="n">L</span>   <span class="o">=</span> <span class="mf">0.005</span><span class="o">*</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="s1">'*U)+Y.'</span><span class="o">*</span><span class="n">Y</span> <span class="p">;</span>
 </code></pre></div></div>
 
-<p>Ya habiendo creado la ecuacion diferencial y las expresiones para $\Psi$ y $L$, podemos definir el problemas de control optimo de la siguiente manera:</p>
+<p>We finally define the optimal control problem as a ‘OptimalControl’ class:</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iP</span> <span class="o">=</span> <span class="n">OptimalControl</span><span class="p">(</span><span class="n">dynamics</span><span class="p">,</span><span class="n">Psi</span><span class="p">,</span><span class="n">L</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>Este contiene informacion que puede ser de ayuda para la resolucion del problema. Es importante notar que no estamos resolviendo el problema. Simplemente lo estamos definiendo. Los solvers seran metodos que actuan sobre este objeto.</p>
+<p>This class contains information we need to find the optimal control vector $ U $. It is worth mentioning that until now we defined the problem but not solved it yet.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iP</span>
 </code></pre></div></div>
@@ -334,7 +327,9 @@ iP =
 
 </code></pre></div></div>
 
-<p>Uno de estos solver es el Gradient method. Este simplemnte calcula un gradiente con ayuda de la condiciones de optimalidad de primer orden extraida del principio del minimo de pontryagin. Para resolver el problema con este m�todo, simplemnte escribimos:</p>
+<p>DyCon toolbox uses the gradient methods to optimize the cost functional. This calculates the gradient of $ J $ along $ U $ from the first order approximation of the Hamiltonian and adjoint state vector in the Pontryagin principle.</p>
+
+<p>To solve the problem using the default gradient method, we simply write:</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GradientMethod</span><span class="p">(</span><span class="n">iP</span><span class="p">)</span>
 </code></pre></div></div>
@@ -342,16 +337,16 @@ iP =
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     Solve with presicion: 
 
-        We obtain: J(u) = 6.971327E-02
+        We obtain: J(u) = 6.968801E-02
 
-        mean(||dJ_i||) = 3.103674E-04
+        mean(||dJ_i||) = 7.781027E-05
 
-    With 8 iterations,     In 12.3172 seconds
+    With 10 iterations,     In 8.9069 seconds
 
 
 </code></pre></div></div>
 
-<p>Gradient Method crea un soluci�n para el problema.</p>
+<p>This command generates ‘solution’ in the ‘OptimalControl’ class, which contains the optimal control vector ‘UOptimal’ and its information, such as the cost, precision and time of computations.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iP</span><span class="o">.</span><span class="n">solution</span>
 </code></pre></div></div>
@@ -361,14 +356,14 @@ ans =
 
   CPSolution with properties:
 
-    precision: 3.1037e-04
-         iter: 8
-         time: 12.3172
-     Yhistory: {1x8 cell}
-     Uhistory: {1x8 cell}
-     Jhistory: [0.6004 0.1614 0.0881 0.0724 0.0716 0.0699 0.0699 0.0697]
-    dJhistory: {1x8 cell}
-     Ehistory: [0 0.0388 0.0087 0.0026 0.0182 0.0014 0.0052 3.1037e-04]
+    precision: 7.7810e-05
+         iter: 10
+         time: 8.9069
+     Yhistory: {1x10 cell}
+     Uhistory: {1x10 cell}
+     Jhistory: [1x10 double]
+    dJhistory: {1x10 cell}
+     Ehistory: [1x10 double]
      timeline: []
            du: []
      UOptimal: [101x1 double]
@@ -377,7 +372,7 @@ ans =
 
 </code></pre></div></div>
 
-<p>Gracias a que la estructura es unica independiente del solver, podemos implentar funciones de visualizaci�n para todos tipo de solver. Un ejemplo de esto es la funcion plot aplicado a los objetos OptimalControl</p>
+<p>This structure is independent of the solver, and we can see the results through visualization functions we want. One of the examples is ‘plot’ function which can be applied to ‘OptimalControl’ class.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">plot</span><span class="p">(</span><span class="n">iP</span><span class="p">)</span>
 </code></pre></div></div>
