@@ -1,49 +1,43 @@
 ---
 title: AdaptativeDescent
 data: 
-   description: This method is able to update the value of the control by decreasing 
-                the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented 
-                in that direction, assuring the decrease by the adaptive step size. 
-   little_description: This method is able to update the value of the control by decreasing the value of the functional. 
+   description: This method is used within the GradientMethod method. GradientMethod executes iteratively this rutine
+                in order to get one update of the control in each iteration. In the case of choosing AdaptativeDescent 
+                this function updates the control of the following way
+                  $$u_{old}=u_{new}-\alpha_k dJ$$
+                  where dJ is an approximation of the gradient of J that has been obtained considering the adjoint state of the optimality condition of Pontryagin principle. The optimal control problem is defined by
+                  $$\min J=\min\Psi (t,Y(T))+\int^T_0 L(t,Y,U)dt$$
+                  subject to
+                  $$\frac{d}{dt}Y=f(t,Y,U).$$
+                  The gradient of $$J$$ is
+                  $$dJ=\partial_u H=\partial_uL+p\partial_uf$$
+                  An approximation $$p$$ is computed using
+                  $$-\frac{d}{dt}p = f_Y (t,Y,U)p+L_Y(Y,U)$$
+                  $$ p(T)=\psi_Y(Y(T))$$
+                  Since one the expression of the gradient, we can start with an initial control, solve the adjoint problem and evaluate the gradient. Then one updates the initial control in the direction of the approximate gradient with a step size $$\alpha_k$$. $$\alpha_k$$ is determined by a small variation of the Armijo stepsize rule. In each iteration the algorithm multiplies the stepsize by to $$\alpha_k=2\alpha_{k-1}$$ and checks if $$J(y_k,u_k)<J(y_{k-1},u_{k-1})$$ in case to be true continues to the next iteration, in case to be false it devides by two the stepsize until the condition is fulfilled or the minimum stepsize is reached.
+                  In this routine the user has to choose the minimum step size.
+                  This routine will tell to GradientMethod to stop when the minimum tolerance of the derivative (or the relative error, user's choice) is reached. Moreover there is a maximum of iterations allowed.
+   little_description: This method is used within the GradientMethod method. GradientMethod executes iteratively this rutine
+                in order to get one update of the control in each iteration.
    autor: JOroya
    MandatoryInputs:   
      iCP: 
-         description: Control Problem Object
+         description: Control problem object, it carries all the information about the dynamics, the functional to be minimized and moreover the updates of the current best control find so far.
          class: ControlProblem
          dimension: [1x1]
-     UOld: 
-         description: Control Vector in time  
+     tol: 
+         description: the tolerance desired.  
          class: double
-         dimension: [M,iCP.tspan]
-     YOld: 
-         description: State Vector in time 
-         class: double
-         dimension: [length(iCP.ode.Y0),iCP.tspan]
-     JOld: 
-         description: Value of functional J(Uold,Yold)
-         class: double
-         dimension: [length(iCP.ode.Y0),iCP.tspan]
+         dimension: [1x1]
    OptionalInputs:
      InitialLengthStep: 
-         description: This parameter is the step size if the MiddleStepControl option is false. 
-                        If the option MiddleStepControl is activated then this parameter is the initial step
-                        of the methodo but then the step is doubled in the case where the functional iteration 
-                        decreases and is divided by two its the functional one grows.
+         description: This parameter is the length step of the gradient method that is going to be used at the begining of the process. By default, this is 0.1.
          class: double
          dimension: [1x1]
      MinLengthStep: 
-         description: It may happen that although we divide the step of the descenco many times,
-                        we continue to obtain an update that increases the value of the functional. In this case,
-                        it is necessary to have a minimum step size to avoid infinite loops. This parameter is
-                        responsible for this.
+         description: This paramter is the lower bound on the length step of the gradient method if the algorithm needs to have a step size lower than this size it will make the GradientMethod stop.
          class: double
          dimension: [1x1]
-     MiddleStepControl: 
-         description: If this parameter is enabled, it allows the algorithm to search for different 
-                        step-logitudes, provided that the control update decrements the functional value. If it is
-                        deactivated, the descent of the gradient will be constant.
-         class: double
-         dimension: [length(iCP.ode.Y0),iCP.tspan]
    Outputs:
      Unew:
          description: Update of Control Vector  
@@ -56,6 +50,18 @@ data:
      Jnew:
          description: New Value of functional 
          class: double
+         dimension: [1x1]
+     dJnew:
+         description: New Value of gradient 
+         class: double
+         dimension: [1x1]
+     error:
+         description: the error $\vert dJ \vert / \vert U \vert $  
+         class: double
+         dimension: [1x1]
+     stop:
+         description: New Value of functional 
+         class: logical
          dimension: [1x1]
 categories: [ documentation , MDL01 , OptimalControl]
 class: OptimalControl

@@ -200,14 +200,26 @@
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP1</span><span class="p">,</span><span class="s1">'DescentAlgorithm'</span><span class="p">,</span><span class="o">@</span><span class="n">ClassicalDescent</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error = 0
+error = 5
+error = 3.3322
+error = 3.3303
+error = 3.3249
+error = 3.3057
+error = 3.2306
+error = 2.9476
+error = 2.0529
+error = 0.51149
+error = 0.062916
+error = 0.0024618
+
     Solve with presicion: 
 
-        We obtain: J(u) = 4.422455E+01
+        We obtain: J(u) = 4.419742E+01
 
-        mean(||dJ_i||) = 5.586327E-04
+        mean(||dJ_i||) = 2.461753E-03
 
-    With 14 iterations,     In 0.98895 seconds
+    With 12 iterations,     In 1.0835 seconds
 
 
 </code></pre></div></div>
@@ -368,7 +380,7 @@
 							
 							
 							<th><a href="/dycon-platform-documentation/documentation/mdl01/optimalcontrol/AdaptativeDescent">AdaptativeDescent</a></th>
-							<th>This method is able to update the value of the control by decreasing the value of the functional.</th>
+							<th>This method is used within the GradientMethod method. GradientMethod executes iteratively this rutine in order to get one update of the control in each iteration.</th>
 						</tr>
 					  
 					
@@ -377,6 +389,15 @@
 							
 							
 							<th><a href="/dycon-platform-documentation/documentation/mdl01/optimalcontrol/ClassicalDescent">ClassicalDescent</a></th>
+							<th>GradientMethod executes iteratively this rutine in order to get one update of the control in each iteration. In the case of choosing ClassicalDescent this function updates the control</th>
+						</tr>
+					  
+					
+					  
+						<tr>
+							
+							
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/optimalcontrol/CoConjugateGradientDescent">CoConjugateGradientDescent</a></th>
 							<th>This method is able to update the value of the control by decreasing the value of the functional.</th>
 						</tr>
 					  
@@ -385,8 +406,17 @@
 						<tr>
 							
 							
+							<th><a href="/dycon-platform-documentation/documentation/mdl01/optimalcontrol/CoGradientMethod">CoGradientMethod</a></th>
+							<th>The gradient method is able to optimize the given functional, going down the gradient.</th>
+						</tr>
+					  
+					
+					  
+						<tr>
+							
+							
 							<th><a href="/dycon-platform-documentation/documentation/mdl01/optimalcontrol/ConjugateGradientDescent">ConjugateGradientDescent</a></th>
-							<th>This method is able to update the value of the control by decreasing the value of the functional.</th>
+							<th>This method is used within the GradientMethod method. GradientMethod executes iteratively this rutine in order to get one update of the control in each iteration.</th>
 						</tr>
 					  
 					

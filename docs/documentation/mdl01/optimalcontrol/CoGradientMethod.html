@@ -12,9 +12,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>GetAdjointProblem - DyCon Toolbox</title>
+    <title>CoGradientMethod - DyCon Toolbox</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/optimalcontrol/GetAdjointProblem">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/optimalcontrol/CoGradientMethod">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -139,13 +139,13 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">GetAdjointProblem<small> method</small></h1> 
+                    <h1 class="post-title">CoGradientMethod<small> method</small></h1> 
                     <h3 class="post-title"><a href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/ClassOptimalControl">OptimalControl</a><small> class</small></h3>
                 </div>
 
                 <!-- MANDATORY INPUTS  -->
                 <h2>Description</h2>
-                This method adds the problem adjoint to the Control Problem object, since we have $$ \\dot{\\textbf{Y}} = f(\\textbf{Y},t) $$ and the functional $$ J = \\Psi(\\textbf{Y}(T)) + \\int_{0}^T L(\\textbf{Y},U,t)dt $$ we can create the Hamiltonian $$ H = L + P*F $$ where $\\textbf{P} = [p_1 p_2 p_3 ... ]^T$ . So according to the principle of the maximum of pontriagin, we can calculate the attached problems through the formulas $$ \\frac{d\\textbf{P}}{dt} = \\vec{\\nabla}_{Y} H = (\\frac{\\partial H}{ \\partial y_1},\\frac{\\partial H}{ \\partial y_2},...)$$ with the final time condition $$ \\textbf{P}(T) = (\\frac{\\partial \\Psi}{ \\partial y_1},\\frac{\\partial \\Psi}{ \\partial y_2},...)$$
+                The gradient method is able to optimize the given functional, going down the gradient. El calculo del gradiente puede ser de varios tipo. Por defecto la direccion y el modulo de descenso se calcula con el gradiente conjugado http://web.mit.edu/mitter/www/publications/2_conjugate_grad_IEEEAC.pdf
                 <h2>Mandatory Input Parameters</h2>
 
                 <table>
@@ -157,7 +157,7 @@
                     
                     <tr>
                         <th>iCP</th>
-                        <th>Control problem object</th>
+                        <th></th>
                         <th>ControlProblem</th>
                     </tr>
                     
@@ -166,6 +166,64 @@
 
                 <!-- OPTIONAL INPUTS  -->
 
+                
+                <h2>Optional Input Parameters</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>U0</th>
+                        <th>matrix</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>MaxIter</th>
+                        <th>matrix</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>tol</th>
+                        <th>matrix</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>DescentParameters</th>
+                        <th>Parmater of Descent Method</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Graphs</th>
+                        <th>Parameter that indicate if the method must plot the optimization, while is calculate</th>
+                        <th>logical</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>TypeGraphs</th>
+                        <th>Type of graphs. This parameter can be 'ODE' or 'PDE'</th>
+                        <th>string</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>SaveGif</th>
+                        <th>matrix</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>restart</th>
+                        <th>The optimization start with U0 = iCP.UOptimal</th>
+                        <th>double</th>
+                    </tr>
+                    
+                </table>
                 
 
                 <!--  OUTPUTS -->

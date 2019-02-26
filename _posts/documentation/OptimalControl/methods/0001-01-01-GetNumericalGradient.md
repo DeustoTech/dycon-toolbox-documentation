@@ -2,7 +2,7 @@
 title: GetNumericalGradient
 data: 
    description: This method is able to update the value of the control by decreasing 
-                the value of the functional. By calculating the gradient, $ \frac{dH}{du}$. Also, it is decremented 
+                the value of the functional. By calculating the gradient, $ \\frac{dH}{du}$. Also, it is decremented 
                 in that direction, assuring the decrease by the adaptive step size. 
    little_description: This method is able to update the value of the control by decreasing the value of the functional. 
    autor: JOroya

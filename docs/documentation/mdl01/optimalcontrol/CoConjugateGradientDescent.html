@@ -12,9 +12,9 @@
 
 	<link rel='shortcut icon' type='image/png' href='/dycon-platform-documentation/favicon.png' />
 
-    <title>GetAdjointProblem - DyCon Toolbox</title>
+    <title>CoConjugateGradientDescent - DyCon Toolbox</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/optimalcontrol/GetAdjointProblem">
+    <link rel="canonical" href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/optimalcontrol/CoConjugateGradientDescent">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-platform-documentation/css/bootstrap.min.css">
@@ -139,13 +139,13 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">GetAdjointProblem<small> method</small></h1> 
+                    <h1 class="post-title">CoConjugateGradientDescent<small> method</small></h1> 
                     <h3 class="post-title"><a href="https://DeustoTech.github.io/dycon-platform-documentation/documentation/mdl01/ClassOptimalControl">OptimalControl</a><small> class</small></h3>
                 </div>
 
                 <!-- MANDATORY INPUTS  -->
                 <h2>Description</h2>
-                This method adds the problem adjoint to the Control Problem object, since we have $$ \\dot{\\textbf{Y}} = f(\\textbf{Y},t) $$ and the functional $$ J = \\Psi(\\textbf{Y}(T)) + \\int_{0}^T L(\\textbf{Y},U,t)dt $$ we can create the Hamiltonian $$ H = L + P*F $$ where $\\textbf{P} = [p_1 p_2 p_3 ... ]^T$ . So according to the principle of the maximum of pontriagin, we can calculate the attached problems through the formulas $$ \\frac{d\\textbf{P}}{dt} = \\vec{\\nabla}_{Y} H = (\\frac{\\partial H}{ \\partial y_1},\\frac{\\partial H}{ \\partial y_2},...)$$ with the final time condition $$ \\textbf{P}(T) = (\\frac{\\partial \\Psi}{ \\partial y_1},\\frac{\\partial \\Psi}{ \\partial y_2},...)$$
+                This method is used within the GradientMethod method. GradientMethod executes iteratively the algorithms that we give it. In the case of choosing ClassicalDescent this function updates the control of the following way $$ u_{old} = u_{new} + \\alpha dJ $$ where dJ has obtain with the optimality condition of pontryagin principle. The optimal control problem is define by $$ \\min J = \\min \\Psi(t,Y(T)) + \\int_0^T L(t,Y,U) dt $$ subject to $$ Y = f(t,Y,U) $$ following the Pontryagin principle $$ dJ = \\partial_u H = \\partial_u L + p \\partial_u f $$ Since we have the expression of the gradient, we can start with an initial control, solve the adjoint problem and evaluate the gradient. Then we will update the initial control with the gradient.
                 <h2>Mandatory Input Parameters</h2>
 
                 <table>
@@ -157,8 +157,14 @@
                     
                     <tr>
                         <th>iCP</th>
-                        <th>Control problem object</th>
+                        <th>Control Problem Object</th>
                         <th>ControlProblem</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>tol</th>
+                        <th>Control Vector in time</th>
+                        <th>double</th>
                     </tr>
                     
 
@@ -167,8 +173,70 @@
                 <!-- OPTIONAL INPUTS  -->
 
                 
+                <h2>Optional Input Parameters</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>LengthStep</th>
+                        <th>This paramter is the length step of the gradient method. By default, this is 0.1</th>
+                        <th>double</th>
+                    </tr>
+                    
+                </table>
+                
 
                 <!--  OUTPUTS -->
+                
+                <h2>Output Parameters</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>class</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Unew</th>
+                        <th>Update of Control Vector</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Ynew</th>
+                        <th>Update of State Vector</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Jnew</th>
+                        <th>New Value of functional</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>dJnew</th>
+                        <th>New Value of gradient</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>error</th>
+                        <th>the error $\\vert dJ \\vert / \\vert U \\vert $</th>
+                        <th>double</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>stop</th>
+                        <th>New Value of functional</th>
+                        <th>logical</th>
+                    </tr>
+                    
+                </table>
                 
                                     <!--  -->
             </div>
