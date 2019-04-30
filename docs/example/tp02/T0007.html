@@ -14,19 +14,19 @@
 
     <title>Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model - DyCon Toolbox</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-toolbox-documentation/example/tp02/T0007">
+    <link rel="canonical" href="http://localhost:4000/dycon-toolbox-documentation/example/tp02/T0007">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-toolbox-documentation/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/dycon-toolbox-documentation/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-toolbox-documentation/css/clean-blog.css">
+    <link rel="stylesheet" href="http://localhost:4000/dycon-toolbox-documentation/css/clean-blog.css">
 
 	<!-- Adjust Colors -->
-    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-toolbox-documentation/colorscheme.css">
+    <link rel="stylesheet" href="http://localhost:4000/dycon-toolbox-documentation/colorscheme.css">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-toolbox-documentation/css/syntax.css">
+    <link rel="stylesheet" href="http://localhost:4000/dycon-toolbox-documentation/css/syntax.css">
 
     <!-- Custom Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -65,9 +65,18 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 	<!-- Custom Theme JavaScript -->
-    <script src="https://DeustoTech.github.io/dycon-toolbox-documentation/js/clean-blog.min.js "></script>
-    
- 	<!-- 404  JavaScript -->
+    <script src="http://localhost:4000/dycon-toolbox-documentation/js/clean-blog.min.js "></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128123935-4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128123935-4');
+  </script>
+
 
 </head>
 
@@ -86,7 +95,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-toolbox-documentation/">
-                 <img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/logo_DyConToolbox_v001.png" >
+                 <img src="http://localhost:4000//dycon-toolbox-documentation/assets/logo_DyConToolbox_v001.png" >
             </a>
         </div>
 
@@ -138,7 +147,7 @@
     <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading" style="padding: 0px 0"><h2><small>Example of <a href="https://DeustoTech.github.io//dycon-toolbox-documentation/example/Tp02">Control of PDE</a> :</small></h2>
+                <div class="post-heading" style="padding: 0px 0"><h2><small>Example of <a href="http://localhost:4000//dycon-toolbox-documentation/example/Tp02">Control of PDE</a> :</small></h2>
                     <h1>Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model</h1>
 					</span>
 					<div class="shadowbox">
@@ -354,7 +363,7 @@ G(x) =
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_01.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_01.png" alt="" /></p>
 
 <p>We create the object that collects the formulation of an optimal control problem  by means of the object that describes the dynamics odeEqn, the functional to minimize Jfun and the time horizon T</p>
 
@@ -389,7 +398,7 @@ G(x) =
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_02.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_02.png" alt="" /></p>
 
 <p>The control function inside the control region</p>
 
@@ -404,7 +413,7 @@ G(x) =
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_03.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_03.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">YT</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
@@ -413,7 +422,7 @@ G(x) =
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_04.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_04.png" alt="" /></p>
 
 <p>Now we apply the same procedure for the collective behavior dynamics.</p>
 
@@ -457,7 +466,7 @@ G(x) =
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_09.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_09.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
@@ -466,7 +475,7 @@ G(x) =
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_10.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_10.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
@@ -475,7 +484,7 @@ G(x) =
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_11.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_11.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y1</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
@@ -484,7 +493,7 @@ G(x) =
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_12.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_12.png" alt="" /></p>
 
 <p>Now we will change also the time horizon and we will incorporate a non-homogeneous non-linearity, we will just divide the non-linearity $G$ by $N^3$</p>
 
@@ -510,7 +519,7 @@ G(x) =
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_33.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_33.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
@@ -519,7 +528,7 @@ G(x) =
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_34.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_34.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="nb">time</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">c</span><span class="o">.</span><span class="n">space</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">SIZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
@@ -528,7 +537,7 @@ G(x) =
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_35.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_35.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y1</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
@@ -537,7 +546,7 @@ G(x) =
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_36.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/Tp02/T0007/copiaRM_36.png" alt="" /></p>
 
 
 

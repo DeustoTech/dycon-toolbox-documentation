@@ -66,8 +66,17 @@
 
 	<!-- Custom Theme JavaScript -->
     <script src="https://DeustoTech.github.io/dycon-toolbox-documentation/js/clean-blog.min.js "></script>
-    
- 	<!-- 404  JavaScript -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128123935-4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128123935-4');
+  </script>
+
 
 </head>
 
@@ -207,13 +216,13 @@ Below we can see the classes defined within DyCon Toolbox.
     </tr>
     
         <tr>
-          <th><a href="/dycon-toolbox-documentation/documentation/mdl00/Classode">ode</a></th>
-          <th>The ode class is an object that will contain all the information to solve a differential equation. This can be the equation of the dynamics, initial condition, or the solution method itself. This class is necessary in order to generalize the optimal control methods used in other packages.</th>
+          <th><a href="/dycon-toolbox-documentation/documentation/mdl01/ClassOptimalControl">OptimalControl</a></th>
+          <th>This class is able to solve optimization problems of a function restricted to an ordinary equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. <strong>OptimalControl</strong> class has methods that help us find optimal control as well as obtaining the attached problem and it's derivative form, in both Symbolic and numerical versions.</th>
         </tr>
     
         <tr>
-          <th><a href="/dycon-toolbox-documentation/documentation/mdl01/ClassOptimalControl">OptimalControl</a></th>
-          <th>This class is able to solve optimization problems of a function restricted to an ordinary equation. This scheme is used to solve optimal control problems in which the functional derivative is calculated. <strong>OptimalControl</strong> class has methods that help us find optimal control as well as obtaining the attached problem and it's derivative form, in both Symbolic and numerical versions.</th>
+          <th><a href="/dycon-toolbox-documentation/documentation/mdl00/Classode">ode</a></th>
+          <th>The ode class is an object that will contain all the information to solve a differential equation. This can be the equation of the dynamics, initial condition, or the solution method itself. This class is necessary in order to generalize the optimal control methods used in other packages.</th>
         </tr>
     
  </table>

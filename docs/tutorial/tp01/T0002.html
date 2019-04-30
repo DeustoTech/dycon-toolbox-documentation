@@ -14,19 +14,19 @@
 
     <title>Runge Kutta Methods for class ODE - DyCon Toolbox</title>
 
-    <link rel="canonical" href="https://DeustoTech.github.io/dycon-toolbox-documentation/tutorial/tp01/T0002">
+    <link rel="canonical" href="http://localhost:4000/dycon-toolbox-documentation/tutorial/tp01/T0002">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-toolbox-documentation/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/dycon-toolbox-documentation/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-toolbox-documentation/css/clean-blog.css">
+    <link rel="stylesheet" href="http://localhost:4000/dycon-toolbox-documentation/css/clean-blog.css">
 
 	<!-- Adjust Colors -->
-    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-toolbox-documentation/colorscheme.css">
+    <link rel="stylesheet" href="http://localhost:4000/dycon-toolbox-documentation/colorscheme.css">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="https://DeustoTech.github.io/dycon-toolbox-documentation/css/syntax.css">
+    <link rel="stylesheet" href="http://localhost:4000/dycon-toolbox-documentation/css/syntax.css">
 
     <!-- Custom Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -65,9 +65,18 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 	<!-- Custom Theme JavaScript -->
-    <script src="https://DeustoTech.github.io/dycon-toolbox-documentation/js/clean-blog.min.js "></script>
-    
- 	<!-- 404  JavaScript -->
+    <script src="http://localhost:4000/dycon-toolbox-documentation/js/clean-blog.min.js "></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128123935-4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128123935-4');
+  </script>
+
 
 </head>
 
@@ -86,7 +95,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/dycon-toolbox-documentation/">
-                 <img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/logo_DyConToolbox_v001.png" >
+                 <img src="http://localhost:4000//dycon-toolbox-documentation/assets/logo_DyConToolbox_v001.png" >
             </a>
         </div>
 
@@ -231,7 +240,7 @@ img:active{
 <span class="nb">plot</span><span class="p">(</span><span class="n">dynamics_linear</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_01.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_01.png" alt="" /></p>
 
 <p>‘ode’ class contains the time-descrization information, but be careful: It does not affact the ‘ode45’ function which takes adaptive time method. They produce basically the same graph, and the tolerance of ‘ode45’ is fixed for any time-descritization.</p>
 
@@ -250,7 +259,7 @@ img:active{
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Y_1'</span><span class="p">,</span><span class="s1">'Y_2'</span><span class="p">,</span><span class="s1">'Y_1'</span><span class="p">,</span><span class="s1">'Y_2'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_02.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_02.png" alt="" /></p>
 
 <p>‘VectorState.Numeric’ and ‘tspan’ are manual methods to get the results of ‘solve’ function. Note that the values coincide though we gave them different time-steps.</p>
 
@@ -269,7 +278,7 @@ img:active{
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Y_1'</span><span class="p">,</span><span class="s1">'Y_2'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_03.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_03.png" alt="" /></p>
 
 <p>We may implement the ‘options’ feature on the ‘ode’ class, using the structure parameter ‘RKParameters’ of ‘ode’ class:</p>
 
@@ -284,7 +293,7 @@ img:active{
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Y_1'</span><span class="p">,</span><span class="s1">'Y_2'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_04.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_04.png" alt="" /></p>
 
 <p>Note that the difference of solutions are tiny since they use basically the same numerical methods.</p>
 
@@ -304,7 +313,7 @@ img:active{
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Y_1'</span><span class="p">,</span><span class="s1">'Y_2'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_05.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_05.png" alt="" /></p>
 
 <p>In the same way, we may implement a customized function. Here, we may define the first-order Euler method and use it for solving ‘ode’ classes.</p>
 
@@ -327,7 +336,7 @@ img:active{
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p><img src="https://DeustoTech.github.io//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_06.png" alt="" /></p>
+<p><img src="http://localhost:4000//dycon-toolbox-documentation/assets/imgs/tutorials/Tp01/T0002/copiaRM_06.png" alt="" /></p>
 
 
 
