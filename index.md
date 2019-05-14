@@ -31,7 +31,7 @@ layout: index
 <ul>
   <li>
     <h6>Non-linear dynamics</h6>
-    Non-linear dynamics is the first implementation in the toolbox. Our idea is to cover general problems in few lines of code.
+    Non-linear dynamics is the first implementation in the toolbox. Our idea is to cover general problems in few lines of code. 
   </li>
   <li>
     <h6>Symbolic Interface</h6>
