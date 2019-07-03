@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
   
-    <title>Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model - DyCon Toolbox</title>
+    <title>Control for a semilinear heat equation and analogies with a collective behavior model - DyCon Toolbox</title>
 
     
   
@@ -32,9 +32,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model | DyCon Toolbox</title>
+<title>Control for a semilinear heat equation and analogies with a collective behavior model | DyCon Toolbox</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model" />
+<meta property="og:title" content="Control for a semilinear heat equation and analogies with a collective behavior model" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="DyCon Toolbox Documentation" />
 <meta property="og:description" content="DyCon Toolbox Documentation" />
@@ -42,7 +42,7 @@
 <meta property="og:url" content="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0007_semilinear/" />
 <meta property="og:site_name" content="DyCon Toolbox" />
 <script type="application/ld+json">
-{"@type":"WebPage","headline":"Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model","url":"https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0007_semilinear/","description":"DyCon Toolbox Documentation","@context":"http://schema.org"}</script>
+{"@type":"WebPage","headline":"Control for a semilinear heat equation and analogies with a collective behavior model","url":"https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0007_semilinear/","description":"DyCon Toolbox Documentation","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -839,7 +839,7 @@
                           
                             
                               <li class="navigation-list-item  active">
-                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0007_semilinear/" class="navigation-list-link active">Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model</a>
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0007_semilinear/" class="navigation-list-link active">Control for a semilinear heat equation and analogies with a collective behavior model</a>
                               </li>
                             
                           
@@ -1167,13 +1167,19 @@
                   <li class="breadcrumb-nav-list-item"><a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/T06-Examples/">Examples</a></li>
                   <li class="breadcrumb-nav-list-item"><a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/061-PDE-Examples/">PDE Examples</a></li>
                 
-                <li class="breadcrumb-nav-list-item"><span>Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model</span></li>
+                <li class="breadcrumb-nav-list-item"><span>Control for a semilinear heat equation and analogies with a collective behavior model</span></li>
               </ol>
             </nav>
           
         
         <div id="main-content" class="page-content" role="main">
-          <h1>Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model</h1><h2 id="semi-linear-semi-discrete-heat-equation-and-collective-behavior">Semi-linear semi-discrete heat equation and collective behavior</h2>
+          
+          <h1>Control for a semilinear heat equation and analogies with a collective behavior model</h1>
+          <div class="shadowbox">
+						<p>To start this tutorial, write the following command in the MATLAB console
+							<pre class="highlight"><code><span class="nb">open T0007_semilinear</span></code></pre>
+						</p>
+					</div><h2 id="semi-linear-semi-discrete-heat-equation-and-collective-behavior">Semi-linear semi-discrete heat equation and collective behavior</h2>
 
 <p>In this tutorial we will apply the DyCon toolbox to find a control to the semi-discrete semi-linear heat equation.</p>
 
@@ -1181,17 +1187,9 @@
 
 <p>where $N^2A$ is the discretization of the Laplacian in 1d in $N$ nodes. We are looking for a control that after time $T$ steers the system near zero. In order to do so we will frame the problem as a minimization of a functional and we will apply gradient descent to find it. Note that the convexity of the fuctional is not proven, therefore, we will obtain a local minima for the functional. The functional considered will be:</p>
 
-<script type="math/tex; mode=display">J(\boldsymbol{y},\boldsymbol{u})=|\boldsymbol{y}(t)|_{L^2}^2+\int_0^T `\boldsymbol{u}(t)`_{L^2}^2 dt</script>
+<script type="math/tex; mode=display">J(\boldsymbol{y},\boldsymbol{u})= | \boldsymbol{y}(t) |*{L^2}^2+\int_0^T | \boldsymbol{u}(t) |*{L^2}^2 dt</script>
 
-<table>
-  <tbody>
-    <tr>
-      <td>where by $</td>
-      <td>\cdot</td>
-      <td>_{L^2}$ we understand the discrete $L^2$ norm.</td>
-    </tr>
-  </tbody>
-</table>
+<p>where by $| \cdot |_{L^2}$ we understand the discrete $L^2$ norm.</p>
 
 <p>Once this control is computed for a certain N, we will think on a dynamical system that models an opinion dynamics with $N$ agents communicating through a chain.</p>
 
@@ -1203,7 +1201,7 @@
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">syms</span> <span class="n">t</span>
 <span class="c1">%% Discretization of the space</span>
-<span class="n">N</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
 <span class="n">xi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">xf</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="n">xline</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">xf</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
 </code></pre></div></div>
@@ -1238,15 +1236,16 @@
 
 <span class="n">dx</span> <span class="o">=</span> <span class="n">xline</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">xline</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="nb">beta</span> <span class="o">=</span> <span class="n">dx</span><span class="o">^</span><span class="mi">4</span><span class="p">;</span>
-<span class="n">symPsi</span>  <span class="o">=</span> <span class="o">@</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">symY</span><span class="p">)(</span><span class="mi">1</span><span class="p">/</span><span class="nb">beta</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">symY</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">symY</span><span class="p">);</span>
-<span class="n">symL</span>    <span class="o">=@</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">)(</span><span class="n">symU</span><span class="o">.'*</span><span class="n">symU</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">w1</span><span class="o">-</span><span class="n">w2</span><span class="p">))/</span><span class="nb">count</span><span class="p">;</span>
+<span class="c1">%%</span>
+<span class="n">Psi</span>  <span class="o">=</span> <span class="o">@</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>   <span class="p">(</span><span class="mi">1</span><span class="p">/</span><span class="nb">beta</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">Y</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">YT</span> <span class="o">-</span> <span class="n">Y</span><span class="p">);</span>
+<span class="n">L</span>    <span class="o">=</span> <span class="o">@</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">U</span><span class="p">)</span> <span class="p">(</span><span class="n">U</span><span class="o">.'*</span><span class="n">U</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">w1</span><span class="o">-</span><span class="n">w2</span><span class="p">))/</span><span class="nb">count</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>We create the ODE object Our ODE object will have the semi-discretization of the semilinear heat equation. We set also initial conditions, define the non linearity and the interaction of the control to the dynamics.</p>
 
 <p>Initial condition</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Y0</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="nb">pi</span><span class="o">*</span><span class="n">xline</span><span class="p">);</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Y0</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="nb">pi</span><span class="o">*</span><span class="n">xline</span><span class="o">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>Diffusion part: the discretization of the 1d Laplacian</p>
@@ -1307,27 +1306,14 @@ G(x) =
 <p>We create the ODE-object and we change the resolution to $dt=0.01$ in order to see the variation in a small time scale. We will get the values of the solution in steps of size odeEqn.dt, if we do not care about modifying this parameter in the object, we might get the solution in certain time steps that will hide part of the dynamics.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">odeEqn</span> <span class="o">=</span> <span class="n">pde</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">symY</span><span class="p">,</span><span class="n">symU</span><span class="p">,</span><span class="s1">'InitialCondition'</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="s1">'FinalTime'</span><span class="p">,</span><span class="n">T</span><span class="p">);</span>
-<span class="n">odeEqn</span><span class="o">.</span><span class="n">Nt</span><span class="o">=</span><span class="mi">100</span><span class="p">;</span>
+<span class="n">odeEqn</span><span class="o">.</span><span class="nb">mesh</span> <span class="o">=</span> <span class="n">xline</span><span class="p">;</span>
+<span class="n">odeEqn</span><span class="o">.</span><span class="n">Nt</span><span class="o">=</span><span class="mi">30</span><span class="p">;</span>
 <span class="n">odeEqn</span><span class="o">.</span><span class="n">Solver</span> <span class="o">=</span> <span class="o">@</span><span class="nb">ode23tb</span><span class="p">;</span>
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error using ode/set.InitialCondition (line 353)
-The Initial Condition must be a matrix: [50x1]
-
-Error in ode (line 264)
-             obj.InitialCondition = p.Results.InitialCondition;
-
-Error in pde (line 1)
-classdef pde &lt; ode
-
-Error in tp1f2196ec_d2de_4a75_aab8_e2284f0fd8dd (line 122)
-odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
-
 </code></pre></div></div>
 
 <p>We solve the equation and we plot the free solution applying solve to odeEqn and we plot the free solution.</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">solve</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">)</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">solve</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">);</span>
 </code></pre></div></div>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
@@ -1341,17 +1327,42 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_01.png" alt="" /></p>
+
 <p>We create the object that collects the formulation of an optimal control problem  by means of the object that describes the dynamics odeEqn, the functional to minimize Jfun and the time horizon T</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iCP1</span> <span class="o">=</span> <span class="n">Pontryagin</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">,</span><span class="n">symPsi</span><span class="p">,</span><span class="n">symL</span><span class="p">);</span>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iCP1</span> <span class="o">=</span> <span class="n">Pontryagin</span><span class="p">(</span><span class="n">odeEqn</span><span class="p">,</span><span class="n">Psi</span><span class="p">,</span><span class="n">L</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>We apply the steepest descent method to obtain a local minimum (our functional might not be convex).</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">U0</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">iCP1</span><span class="o">.</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">tspan</span><span class="p">),</span><span class="n">iCP1</span><span class="o">.</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">ControlDimension</span><span class="p">);</span>
-<span class="c1">%%GradientMethod(iCP1,U0,'display','all','DescentAlgorithm',@AdaptativeDescent)</span>
 <span class="n">options</span> <span class="o">=</span> <span class="n">optimoptions</span><span class="p">(</span><span class="o">@</span><span class="n">fminunc</span><span class="p">,</span><span class="s1">'SpecifyObjectiveGradient'</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="s1">'display'</span><span class="p">,</span><span class="s1">'iter'</span><span class="p">);</span>
-<span class="n">fminunc</span><span class="p">(</span><span class="o">@</span><span class="p">(</span><span class="n">U</span><span class="p">)</span> <span class="n">Control2Functional</span><span class="p">(</span><span class="n">iCP1</span><span class="p">,</span><span class="n">U</span><span class="p">),</span><span class="n">U0</span><span class="p">,</span><span class="n">options</span><span class="p">)</span>
+<span class="n">fminunc</span><span class="p">(</span><span class="o">@</span><span class="p">(</span><span class="n">U</span><span class="p">)</span> <span class="n">Control2Functional</span><span class="p">(</span><span class="n">iCP1</span><span class="p">,</span><span class="n">U</span><span class="p">),</span><span class="n">U0</span><span class="p">,</span><span class="n">options</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+     0           1      1.59301e+06                      5.18e+05
+     1           2           911870    1.92945e-06       3.88e+05  
+     2           5          12468.3           0.25       3.34e+04  
+     3           7          6697.37            0.5       3.43e+04  
+     4          11          5536.69         1.6639       3.33e+04  
+     5          14          4537.42      0.0974533       3.06e+04  
+     6          16          1484.09       0.396227        1.7e+04  
+     7          18          1074.29       0.311396       1.63e+04  
+     8          20          640.583       0.374707        1.3e+04  
+     9          21          445.574              1       1.25e+04  
+    10          23          398.673        0.34088       1.15e+04  
+    11          25          368.836       0.289496       1.06e+04  
+    12          54          361.771      0.0318763       1.03e+04  
+
+Local minimum possible.
+
+fminunc stopped because it cannot decrease the objective function
+along the current search direction.
+
+
 </code></pre></div></div>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
@@ -1364,6 +1375,8 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_02.png" alt="" /></p>
 
 <p>The control function inside the control region</p>
 
@@ -1378,12 +1391,16 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_03.png" alt="" /></p>
+
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">YT</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">odeEqn</span><span class="o">.</span><span class="n">StateVector</span><span class="o">.</span><span class="n">Numeric</span><span class="p">(</span><span class="k">end</span><span class="p">,:),</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">)</span>
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">iCP1</span><span class="o">.</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">StateVector</span><span class="o">.</span><span class="n">Numeric</span><span class="p">(</span><span class="k">end</span><span class="p">,:),</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'green'</span><span class="p">)</span>
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_04.png" alt="" /></p>
 
 <p>Now we apply the same procedure for the collective behavior dynamics.</p>
 
@@ -1400,13 +1417,60 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="n">U</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">=-</span><span class="mi">5</span><span class="o">*</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">);</span>
 <span class="n">G</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">=</span><span class="nb">diff</span><span class="p">(</span><span class="n">U</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
 <span class="n">T</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-<span class="n">N</span><span class="o">=</span><span class="mi">50</span><span class="p">;</span>
+<span class="n">N</span><span class="o">=</span><span class="mi">30</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>For the simulation of the model in collective behavior we will employ a diffusivity $D=\frac{1}{N^3}$.</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]</span><span class="o">=</span><span class="n">SLSD1doptimalnullcontrol_T007_semilinear</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">/(</span><span class="n">N</span><span class="o">^</span><span class="mi">3</span><span class="p">),</span><span class="n">G</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="nb">beta</span><span class="p">,[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.8</span><span class="p">],</span><span class="n">y0</span><span class="p">);</span>
 </code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+     0           1          128.678                         0.149
+     1           3          111.576             10          0.111  
+     2           4          99.9261              1         0.0807  
+     3           5          89.1847              1         0.0379  
+     4           7          87.0984       0.274087         0.0189  
+     5           9          86.9148            0.5        0.00721  
+     6          10          86.8984              1        0.00217  
+     7          11          86.8968              1        0.00102  
+     8          13          86.8955         3.8579        0.00113  
+     9          14          86.8824              1        0.00763  
+    10          16          86.8738       0.700036        0.00824  
+    11          18          86.8605       0.644337         0.0122  
+    12          19          86.8393              1        0.00537  
+    13          21          86.8378            0.1        0.00829  
+    14          22          86.8317              1        0.00828  
+    15          23          86.8297              1        0.00272  
+    16          25          86.8275            0.5        0.00429  
+    17          27          86.8264       0.406898         0.0141  
+    18          28          86.8238              1        0.00306  
+    19          29          86.8212              1        0.00647  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+    20          32            86.82       0.301714         0.0162  
+    21          33          86.8156              1        0.00621  
+    22          35          86.8143       0.491468         0.0197  
+    23          37          86.8116       0.417456        0.00915  
+    24          39          86.8098       0.672266         0.0111  
+    25          41           86.805       0.481882         0.0247  
+    26          43          86.8045       0.115993        0.00627  
+    27          44          86.8016              1        0.00698  
+    28          46          86.8014       0.433276         0.0415  
+    29          48          86.8013            0.5         0.0543  
+    30          51          86.7972       0.339269         0.0228  
+    31          66          86.7952            0.1         0.0493  
+
+Local minimum possible.
+
+fminunc stopped because it cannot decrease the objective function
+along the current search direction.
+
+
+</code></pre></div></div>
+
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_05.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">);</span>
@@ -1415,6 +1479,8 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_06.png" alt="" /></p>
+
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
 <span class="nb">title</span><span class="p">(</span><span class="s1">'Controlled Dynamics'</span><span class="p">)</span>
@@ -1422,12 +1488,16 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_07.png" alt="" /></p>
+
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
 <span class="nb">title</span><span class="p">(</span><span class="s1">'Control'</span><span class="p">)</span>
 <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_08.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xline</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">xf</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
 <span class="nb">figure</span><span class="p">;</span>
@@ -1437,10 +1507,37 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
 </code></pre></div></div>
 
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_09.png" alt="" /></p>
+
 <p>Now we will change also the time horizon and we will incorporate a non-homogeneous non-linearity, we will just divide the non-linearity $G$ by $N^3$</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]</span><span class="o">=</span><span class="n">SLSD1doptimalnullcontrol_T007_semilinear</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">/(</span><span class="n">N</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span><span class="n">G</span><span class="p">/(</span><span class="n">N</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span><span class="n">N</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">T</span><span class="p">,</span><span class="nb">beta</span><span class="p">,[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.8</span><span class="p">],</span><span class="n">y0</span><span class="p">);</span>
 </code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+     0           1          2.25231                          22.7
+     1           5         0.270365    0.000118533           7.78  
+     2           7        0.0182406       0.363002           1.62  
+     3           8         0.015664              1           2.02  
+     4           9        0.0147025              1           2.33  
+     5          11        0.0132603       0.268426           2.21  
+     6          12       0.00897682              1           1.95  
+     7          13       0.00272977              1           1.11  
+     8          14       0.00138325              1          0.709  
+     9          15       0.00121058              1          0.341  
+    10          16      0.000860606              1          0.439  
+    11          17       0.00082607              1          0.641  
+
+Local minimum possible.
+
+fminunc stopped because it cannot decrease the objective function
+along the current search direction.
+
+
+</code></pre></div></div>
+
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_10.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">);</span>
@@ -1450,6 +1547,8 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_11.png" alt="" /></p>
+
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
 <span class="nb">shading</span> <span class="n">interp</span><span class="p">;</span> <span class="nb">colormap</span> <span class="nb">jet</span>
@@ -1457,6 +1556,8 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'space discretization'</span><span class="p">)</span>
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_12.png" alt="" /></p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="nb">surf</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="nb">time</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s1">'EdgeColor'</span><span class="p">,</span><span class="s1">'none'</span><span class="p">)</span>
@@ -1466,6 +1567,8 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
 </code></pre></div></div>
 
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_13.png" alt="" /></p>
+
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">figure</span><span class="p">;</span>
 <span class="n">xline</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">xf</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y1</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">)</span>
@@ -1473,6 +1576,8 @@ odeEqn = pde(F,symY,symU,'InitialCondition',Y0,'FinalTime',T);
 <span class="nb">line</span><span class="p">(</span><span class="n">xline</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y3</span><span class="p">,</span><span class="s1">'Color'</span><span class="p">,</span><span class="s1">'green'</span><span class="p">)</span>
 <span class="nb">legend</span><span class="p">(</span><span class="s1">'Target'</span><span class="p">,</span><span class="s1">'Free Dynamics'</span><span class="p">,</span><span class="s1">'controlled dynamics'</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p><img src="https://deustotech.github.io//dycon-toolbox-documentation/assets/imgs/PDE/T0007/copiaRM_14.png" alt="" /></p>
 
 
           <p></p>

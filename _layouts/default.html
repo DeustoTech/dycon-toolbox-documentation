@@ -62,7 +62,10 @@
           {% endif %}
         {% endunless %}
         <div id="main-content" class="page-content" role="main">
+          {% unless page.title == "Home" %}
           <h1>{{page.title}}</h1>
+          {% endunless %}
+
           {%- if page.MATLAB -%}
           <div class="shadowbox">
 						<p>To start this tutorial, write the following command in the MATLAB console

@@ -4,7 +4,7 @@ title: Home
 nav_order: 1
 ---
 
-A MATLAB library which serves for the calculation of non-linear control problems.
+# A MATLAB library which serves for the calculation of non-linear control problems.
 ---
 <h4> Table of Contents</h4>
 - [Symbolic Interface](#1)
