@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  
+    <title>ode - DyCon Toolbox</title>
+
+    
+    <meta name="Description" content="The ode class is an object that will contain all the information to solve a differential equation. This can be the equation of the dynamics, initial condition, or the solution method itself. This class is necessary in order to generalize the optimal control methods used in other packages.">
+    
+  
+
+  <link rel="shortcut icon" href="https://deustotech.github.io/dycon-toolbox-documentation/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://deustotech.github.io/dycon-toolbox-documentation/assets/css/just-the-docs.css">
+
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-2709176-10', 'https://deustotech.github.io');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+  
+
+  
+    <script type="text/javascript" src="https://deustotech.github.io/dycon-toolbox-documentation/assets/js/vendor/lunr.min.js"></script>
+  
+  <script type="text/javascript" src="https://deustotech.github.io/dycon-toolbox-documentation/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>ode | DyCon Toolbox</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="ode" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The ode class is an object that will contain all the information to solve a differential equation. This can be the equation of the dynamics, initial condition, or the solution method itself. This class is necessary in order to generalize the optimal control methods used in other packages." />
+<meta property="og:description" content="The ode class is an object that will contain all the information to solve a differential equation. This can be the equation of the dynamics, initial condition, or the solution method itself. This class is necessary in order to generalize the optimal control methods used in other packages." />
+<link rel="canonical" href="https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/classes/ode/0001-01-01-Classode/" />
+<meta property="og:url" content="https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/classes/ode/0001-01-01-Classode/" />
+<meta property="og:site_name" content="DyCon Toolbox" />
+<script type="application/ld+json">
+{"@type":"WebPage","headline":"ode","url":"https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/classes/ode/0001-01-01-Classode/","description":"The ode class is an object that will contain all the information to solve a differential equation. This can be the equation of the dynamics, initial condition, or the solution method itself. This class is necessary in order to generalize the optimal control methods used in other packages.","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    },
+		TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      },
+      extensions: ["AMSmath.js", "AMSsymbols.js"],
+      Macros:{
+        Y: "\\textbf{Y}",
+        dY: "\\dot{\\textbf{Y}}",
+        U: "\\textbf{U}",
+      }
+    },
+    CommonHTML: {
+      styles: {
+        "@font-face /* vec */ ": {
+          "font-family": "MJX-VEC",
+          src: [
+            "url(data:application/x-font-woff;charset=utf-8;base64,",
+            "d09GRgABAAAAAARMAA0AAAAABiQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAEMAAAABwA",
+            "AAAccRGLqUdERUYAAAQMAAAAJAAAACgANAAmT1MvMgAAAaAAAABJAAAAYFc5gfFjbWFwAAACAAAA",
+            "AEYAAAFKQxjlbWdhc3AAAAQEAAAACAAAAAj//wADZ2x5ZgAAAlQAAACUAAAAlIQU9HBoZWFkAAAB",
+            "MAAAADAAAAA2C748e2hoZWEAAAFgAAAAHgAAACQFXQDqaG10eAAAAewAAAAUAAAAFAYvAE9sb2Nh",
+            "AAACSAAAAAwAAAAMACgAcm1heHAAAAGAAAAAHQAAACAASQAmbmFtZQAAAugAAADxAAAB5uwlD0hw",
+            "b3N0AAAD3AAAACgAAAA34M9aEXjaY2BkYGAA4uOfgq7G89t8ZeBmfgEUYbga+icNTssClVxnOgXk",
+            "cjAwgUQBdqEMW3jaY2BkYGBu+feBgYHxCwMQMF5nYGRABawAcaQESgAAeNpjYGRgYGBlUGZgYgAB",
+            "EMnIABJzAPMZAAZZAHAAAAB42mNgYSxn/MLAysDA1MW0h4GBoQdCMz5gMGRkAooysDEzwAAjECvA",
+            "OAFprikMBxgUFCcxt/z7wMDA3MIoAFUDAwoMjACD8Qv5AAAAAfQAMgAAAAABTQAAAPoAAAH0AB14",
+            "2mNgYGBmgGAZBkYGEHAB8hjBfBYGDSDNBqQZGZgYFBQn/f8P5IPp/4/vFUHVAwEjGwOcw8gEJJgY",
+            "UAEjxIrhDACLGwmnAAAAAAAUABQAFAAUAEoAAgAyAAABwgIVAAMABwAAMxEhESUhESEyAZD+ogEs",
+            "/tQCFf3rMgGxAAEAHQIEAdcCygAiAAABNDYzMhcWFxYXFhUUBgcGBw4DIyImNTQ3IycmNTQ3ISYB",
+            "eQsJBwUFBQofCwYLKyACBwMGBAcNL6urDQ0BZxgCtggMBQQPJRQHCwkGBhYpAgkCAgsJEygBCQoH",
+            "DSYAeNqVjrGKwkAURe/EGBBUrG12CishMrFQcDuLsAi26YMOmsIMxAh+hN8i+CF+gd+y4B3zttjC",
+            "woHhncu7774HoI8rFP5eIKzQw5dwgAjfwi2McBEO6bkLtzHAr3CEnhrTqcKOpDasMCQ1HKCLWLiF",
+            "HyyFQ3puwm1oPIQjDFXfR62Ro8YeK9YzMlhsqB0qtvJ6v8rPmd3Uzkv2tihwwoHCbosTa0pryYH0",
+            "NbKjRWPB/z626Se8dsY/hSHPGeTKOnXVzuqF/reYOoln8dQk80+u9b0KR97rD9Rc4xdNXtVQI7PV",
+            "sXClNiaZGGP0B+FPMN1KMAAAAHjaY2BiAIP/zQxGDNgAKxAzMjAxMDMycSUWFeWXF2WmZ5QAAGh5",
+            "BhgAAAAB//8AAnjaY2BkYGDgA2IJBgUgycTAyMDMwAIkWcA8BgZGCAYACgIAWwAAAAEAAAAAxmW3",
+            "ygAAAADVVeemAAAAANVV7Dg=) format('woff')"
+          ].join('')
+        },
+        ".MJX-VEC": {
+          "font-family": "MJX-VEC"
+        }
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function () {
+    var MML = MathJax.ElementJax.mml;
+    var fixCombiningChar = MML.mo.prototype.CHTMLfixCombiningChar;
+    MML.mo.Augment({
+      CHTMLfixCombiningChar: function (node) {
+        if (node.textContent === '\u20D7') {
+          //
+          //  Safari makes combining characters into non-combining ones when
+          //  they don't have anything to combine with; replace \vec arrow
+          //  with a non-combining one so all browsers get the same thing
+          //
+          node = node.firstChild;
+          node.firstChild.nodeValue = "\u2192";
+          node.className = "mjx-char MJX-VEC";
+          node.style.marginLeft = "-.5em";
+          node.style.paddingTop = ".45em";
+        } else {
+          fixCombiningChar.call(this,node);
+        }
+      }
+    });
+  });
+	</script>
+</head>
+
+<body>
+
+  <div class="page-wrap">
+    <div class="side-bar">
+          <center>
+              <a href="https://deustotech.github.io/dycon-toolbox-documentation/" class="site-title fs-6 lh-tight">
+                <img src="https://deustotech.github.io/dycon-toolbox-documentation/assets/images/logo.png" width="70%"></img>
+              </a>
+          </center>
+      <span class="fs-3"><button class="js-main-nav-trigger navigation-list-toggle btn btn-outline" type="button" data-text-toggle="Hide">Menu</button></span>
+      <div class="navigation main-nav js-main-nav">
+        <nav role="navigation" aria-label="Main navigation">
+  <ul class="navigation-list">
+    
+    
+      
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/" class="navigation-list-link">Home</a>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/02-Download/" class="navigation-list-link">Download</a>
+            
+          </li>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/025-GettingStarted/" class="navigation-list-link">Getting Started</a>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/03-DynamicsInterface/T03_DynamicsInterface/" class="navigation-list-link">Interface for Dynamics (ODEs)</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/03-DynamicsInterface/T031_BasicExample/" class="navigation-list-link">Basic example of dynamics objects</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/03-DynamicsInterface/T032_SeveralSolvers/" class="navigation-list-link">Choose a differents solvers</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-PontryaginProblems/T04_PontryaginProblems/" class="navigation-list-link">Pontryagin Problems</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-PontryaginProblems/T041_BasicExample/" class="navigation-list-link">Basic example of Pontryagin Problems</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-PontryaginProblems/T042_IndirectMethods/" class="navigation-list-link">Indirect Methods</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-PontryaginProblems/T043_DirectMethod/" class="navigation-list-link">Dircet Methods</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-PontryaginProblems/T044_TunelSolvers/" class="navigation-list-link">Tunel for Other Solvers</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-SpecializedTools/T05-SpecializedTools/" class="navigation-list-link">Specialized Tools</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-SpecializedTools/T051-LQR/" class="navigation-list-link">Lineal Quadratic Regulator</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-SpecializedTools/T052-LsNorm/" class="navigation-list-link">Ls norm</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-SpecializedTools/T053_HUM/" class="navigation-list-link">HUM</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-SpecializedTools/T054-InverseProblems/" class="navigation-list-link">Inverse Problems</a>
+                      
+                        
+                        <ul class="navigation-list-child-list">
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                        </ul>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/T06-Examples/" class="navigation-list-link">Examples</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/061-ODE-Examples/" class="navigation-list-link">ODE Examples</a>
+                      
+                        
+                        <ul class="navigation-list-child-list">
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0001_robot/" class="navigation-list-link">Robot</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0002_spin/" class="navigation-list-link">Rotor Control</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0003_timeOptimization/" class="navigation-list-link">Time Optimization in Guidance by replusion</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0004_Kuramoto/" class="navigation-list-link">The Optimal control on the Kuramoto adaptative coupling model</a>
+                              </li>
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                        </ul>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/061-PDE-Examples/" class="navigation-list-link">PDE Examples</a>
+                      
+                        
+                        <ul class="navigation-list-child-list">
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0003_Laplacian/" class="navigation-list-link">Control of Heat Equation</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0004_FractionalLaplacian/" class="navigation-list-link">Control of Fractional Heat Equation</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0007_semilinear/" class="navigation-list-link">Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0008_NormInf/" class="navigation-list-link">Infinite Norm</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0009_2dHeat/" class="navigation-list-link">Heat Equation 2D</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0010_sl_constraints/" class="navigation-list-link">Population Dynamics</a>
+                              </li>
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                        </ul>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item active">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/07-API-docs/" class="navigation-list-link">API docs</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item  active">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/classes/classes/" class="navigation-list-link">classes</a>
+                      
+                        
+                        <ul class="navigation-list-child-list">
+                          
+                            
+                              <li class="navigation-list-item  active">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/classes/ode/0001-01-01-Classode/" class="navigation-list-link active">ode</a>
+                              </li>
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                        </ul>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+  </ul>
+</nav>
+
+      </div>
+      <footer role="contentinfo" class="site-footer">
+        <p class="text-small text-grey-dk-000 mb-0">
+            The DyCon Toolbox is developed primarily by the <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>, at <a href="http://deustotech.deusto.es/">DeustoTech</a>. Contact the DyCon Toolbox developer team <a href="mailto:dycon-dev-group@deusto.es">dycon-dev-group@deusto.es</a> for more information.
+        </p>
+      </footer>
+    </div>
+    <div class="main-content-wrap js-main-content" tabindex="0">
+      <div class="page-header">
+        <div class="main-content">
+          
+          <div class="search js-search">
+            <div class="search-input-wrap">
+              <input type="text" class="js-search-input search-input" tabindex="0" placeholder="Search DyCon Toolbox" aria-label="Search DyCon Toolbox" autocomplete="off">
+              <svg width="14" height="14" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" class="search-icon"><title>Search</title><g fill-rule="nonzero"><path d="M17.332 20.735c-5.537 0-10-4.6-10-10.247 0-5.646 4.463-10.247 10-10.247 5.536 0 10 4.601 10 10.247s-4.464 10.247-10 10.247zm0-4c3.3 0 6-2.783 6-6.247 0-3.463-2.7-6.247-6-6.247s-6 2.784-6 6.247c0 3.464 2.7 6.247 6 6.247z"/><path d="M11.672 13.791L.192 25.271 3.02 28.1 14.5 16.62z"/></g></svg>
+            </div>
+            <div class="js-search-results search-results-wrap"></div>
+          </div>
+          
+            <ul class="list-style-none text-small mt-md-1 mb-md-1 pb-4 pb-md-0 js-aux-nav aux-nav">
+                <li class="d-inline-block">
+                      <div align="right">
+                          Visit ↠  <a href="https://cmc.deusto.eus/">
+                          Chair of Computational Mathematics
+                        </a>
+
+                        </div>
+                </li>
+            </ul>
+        </div>
+      </div>
+      <div class="main-content">
+        
+          
+            <nav class="breadcrumb-nav">
+              <ol class="breadcrumb-nav-list">
+                
+                  <li class="breadcrumb-nav-list-item"><a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/07-API-docs/">API docs</a></li>
+                  <li class="breadcrumb-nav-list-item"><a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/classes/classes/">classes</a></li>
+                
+                <li class="breadcrumb-nav-list-item"><span>ode</span></li>
+              </ol>
+            </nav>
+          
+        
+        <div id="main-content" class="page-content" role="main">
+          <h1>ode</h1><hr>
+The ode class is an object that will contain all the information to solve a differential equation. This can be the equation of the dynamics, initial condition, or the solution method itself. This class is necessary in order to generalize the optimal control methods used in other packages.
+<p></p>
+<h1> Example </h1>
+<hr>
+<p>Let’s see an example of using class ode. For this we will solve a simple example.</p>
+
+<script type="math/tex; mode=display">\begin{bmatrix} \dot{y}_1 \\ \dot{y}_2 \end{bmatrix} = \left(\begin{array}{c} u_{1}+\sin\left(y_{1}\,y_{2}\right)+y_{1}\,y_{2}\\ u_{2}+y_{2}+\cos\left(y_{1}\,y_{2}\right) \end{array}\right)</script>
+
+<script type="math/tex; mode=display">y_1(1) = 1 / / y_2(1) = -1</script>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Y</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]);</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>with these two variables, we can define the equation of the dynamics of the following form</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">F</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">sin</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span>    <span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">U</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>   <span class="p">;</span> <span class="k">...</span>
+         <span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>        <span class="o">+</span> <span class="nb">cos</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">U</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">]</span> <span class="p">;</span>
+<span class="c1">%</span>
+<span class="n">dynamics</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">U</span><span class="p">);</span>
+<span class="n">dynamics</span><span class="o">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+<span class="n">dynamics</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error using ode (line 212)
+The value of 'DynamicEquation' is invalid. The Dynamic Equation must be function handle.For Example:
+          DynamicEquation = @(t,Y,U,Params) A*Y + B*U + t
+
+Error in tpe25ae5f3_9560_4180_a9c5_2f798e3cce54 (line 20)
+dynamics = ode(F,Y,U);
+
+</code></pre></div></div>
+
+<p>You can solve the equations with a single sentence</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">solve</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
+<span class="n">resume</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">plot</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
+</code></pre></div></div>
+
+
+<h1> Properties </h1>
+<hr>
+
+
+  <h3 style="color: #942947">StateVector</h3>
+  <p>MATLAB Structure that contain the two properties <ul> <li> Symbolic - Symbolic Vector State [y1 y2 ...] </li> <li> Numeric  - Numeric solution of the equation. The numeric property only is aviable if previus solve the equation. </li> </ul></p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>Struct</td>
+      <td>none</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">Control</h3>
+  <p>MATLAB Structure that contain the two properties <ul> <li> Symbolic - Symbolic Vector State [u1 u2 ...] </li> <li> Numeric  - matrix Numeric control to solve the equation. $$\dot{Y} = f(t,\dot{Y},U)$$ </li> </ul></p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>Struct</td>
+      <td>none</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">DynamicEquation</h3>
+  <p>MATLAB Structure that contain the two properties <ul> <li> Symbolic - symbolic function of dynamics equation </li> <li> Numeric  - function_handle of dynamics equation. </li> </ul></p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>Struct</td>
+      <td>none</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">Params</h3>
+  <p>Initial State or Final State dependent of property Type</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>[0 0 0 ...]</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">Derivatives</h3>
+  <p>Initial State or Final State dependent of property Type</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>[0 0 0 ...]</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">InitialCondition</h3>
+  <p>Initial State or Final State dependent of property Type</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>[0 0 0 ...]</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">FinalTime</h3>
+  <p>Time final of simulation</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>1</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">Nt</h3>
+  <p>Time interval of plots. ATTENTION - the solution of ode is obtain by ode45, with adatative step</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>none</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">MassMatrix</h3>
+  <p>Initial State or Final State dependent of property Type</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>[0 0 0 ...]</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">label</h3>
+  <p>Initial State or Final State dependent of property Type</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>[0 0 0 ...]</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">Solver</h3>
+  <p>Initial State or Final State dependent of property Type</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>[0 0 0 ...]</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">SolverParameters</h3>
+  <p>Initial State or Final State dependent of property Type</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>[0 0 0 ...]</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">FixedNt</h3>
+  <p></p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">A</h3>
+  <p>A matrix of lineal problems. If this property is empty, so the ode is not lineal. $$ \dot{Y} = \textbf{A}Y + BU $$</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>none</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">B</h3>
+  <p>B matrix of lineal problems. If this property is empty, so the ode is not lineal. $$ \dot{Y} = AY + \textbf{B}U $$</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>none</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">C</h3>
+  <p>B matrix of lineal problems. If this property is empty, so the ode is not lineal. $$ \dot{Y} = AY + \textbf{B}U $$</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>none</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">lineal</h3>
+  <p>This indicator represent the lineal or non-lineal.</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>logical</td>
+      <td>false</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">symt</h3>
+  <p>Represent the symbolic time</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>Symbolic</td>
+      <td>t</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">tspan</h3>
+  <p>Time grid to plot the solution, and interpolate the control</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>none</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">ControlDimension</h3>
+  <p>Dimension of Control Vector</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>none</td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">StateDimension</h3>
+  <p></p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+
+  <h3 style="color: #942947">dt</h3>
+  <p></p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+
+<hr>
+
+<h1> Methods </h1>
+<hr>
+
+
+<h3 style="color: #942947">ode</h3>
+<p>It is a constructor of the class 'ode', which allows to create an object compatible with all the functionalities of Dycon Toolbox. Example - ```matlab Y = sym('y',[1 2]) _n U = sym('u',[1 2]) F = @()Y + U; iode = ode(F,Y,U); ```</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>Function Handle that give a double with dimension of StateVEctor return the values of the dynamics.</td>
+                    <td>function_handle</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>Symbolic State Vector. This can be every simbolical vector.</td>
+                    <td>sym</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>Symbolic Control Vector. This can be every symbolical vector, but must be different from sym of VectorState</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>Matrix dynamics. Creating linear problems through this input will make the symbolic calculations faster, in addition to having access to the solver @euleri.</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+      <h4>Optional Input Parameters</h4>
+
+      <table>
+          <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>class</th>
+          </tr>
+          
+          <tr>
+              <td>obj</td>
+              <td>object ode</td>
+              <td>ode</td>
+          </tr>
+          
+
+      </table>
+      
+
+<h3 style="color: #942947">eulere</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">euleri</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">GetSymbolicalDerivativeControl</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">GetSymbolicalDerivativeState</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">GetSymbolicalDynamics</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">GetSymCrossDerivatives</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">ode113</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">ode23</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">ode23tb</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">ode45</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">plot</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">plotT</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">resume</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">rk4</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+<h3 style="color: #942947">solve</h3>
+<p>The ode class, if only de organization of ode. The solve of this class is the RK family.</p>
+
+      <!-- MANDATORY INPUTS  -->
+      
+      <!-- OPTIONAL INPUTS  -->
+            
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                
+                <tr>
+                    <td>DynamicEquation</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>StateVector</td>
+                    <td>StateVector</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>Control</td>
+                    <td>simbolic expresion</td>
+                    <td>Symbolic</td>
+                </tr>
+                
+                <tr>
+                    <td>A</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>B</td>
+                    <td>simbolic expresion</td>
+                    <td>matrix</td>
+                </tr>
+                
+                <tr>
+                    <td>InitialControl</td>
+                    <td>matrix</td>
+                    <td>double</td>
+                </tr>
+                
+      
+            </table>
+            
+      <!-- OUTPUTS INPUTS  -->
+      
+
+          <p></p>
+          <hr></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

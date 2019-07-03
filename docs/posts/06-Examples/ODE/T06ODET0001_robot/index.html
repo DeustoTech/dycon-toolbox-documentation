@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  
+    <title>Robot - DyCon Toolbox</title>
+
+    
+  
+
+  <link rel="shortcut icon" href="https://deustotech.github.io/dycon-toolbox-documentation/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://deustotech.github.io/dycon-toolbox-documentation/assets/css/just-the-docs.css">
+
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-2709176-10', 'https://deustotech.github.io');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+  
+
+  
+    <script type="text/javascript" src="https://deustotech.github.io/dycon-toolbox-documentation/assets/js/vendor/lunr.min.js"></script>
+  
+  <script type="text/javascript" src="https://deustotech.github.io/dycon-toolbox-documentation/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Robot | DyCon Toolbox</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Robot" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="DyCon Toolbox Documentation" />
+<meta property="og:description" content="DyCon Toolbox Documentation" />
+<link rel="canonical" href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0001_robot/" />
+<meta property="og:url" content="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0001_robot/" />
+<meta property="og:site_name" content="DyCon Toolbox" />
+<script type="application/ld+json">
+{"@type":"WebPage","headline":"Robot","url":"https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0001_robot/","description":"DyCon Toolbox Documentation","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    },
+		TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      },
+      extensions: ["AMSmath.js", "AMSsymbols.js"],
+      Macros:{
+        Y: "\\textbf{Y}",
+        dY: "\\dot{\\textbf{Y}}",
+        U: "\\textbf{U}",
+      }
+    },
+    CommonHTML: {
+      styles: {
+        "@font-face /* vec */ ": {
+          "font-family": "MJX-VEC",
+          src: [
+            "url(data:application/x-font-woff;charset=utf-8;base64,",
+            "d09GRgABAAAAAARMAA0AAAAABiQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAEMAAAABwA",
+            "AAAccRGLqUdERUYAAAQMAAAAJAAAACgANAAmT1MvMgAAAaAAAABJAAAAYFc5gfFjbWFwAAACAAAA",
+            "AEYAAAFKQxjlbWdhc3AAAAQEAAAACAAAAAj//wADZ2x5ZgAAAlQAAACUAAAAlIQU9HBoZWFkAAAB",
+            "MAAAADAAAAA2C748e2hoZWEAAAFgAAAAHgAAACQFXQDqaG10eAAAAewAAAAUAAAAFAYvAE9sb2Nh",
+            "AAACSAAAAAwAAAAMACgAcm1heHAAAAGAAAAAHQAAACAASQAmbmFtZQAAAugAAADxAAAB5uwlD0hw",
+            "b3N0AAAD3AAAACgAAAA34M9aEXjaY2BkYGAA4uOfgq7G89t8ZeBmfgEUYbga+icNTssClVxnOgXk",
+            "cjAwgUQBdqEMW3jaY2BkYGBu+feBgYHxCwMQMF5nYGRABawAcaQESgAAeNpjYGRgYGBlUGZgYgAB",
+            "EMnIABJzAPMZAAZZAHAAAAB42mNgYSxn/MLAysDA1MW0h4GBoQdCMz5gMGRkAooysDEzwAAjECvA",
+            "OAFprikMBxgUFCcxt/z7wMDA3MIoAFUDAwoMjACD8Qv5AAAAAfQAMgAAAAABTQAAAPoAAAH0AB14",
+            "2mNgYGBmgGAZBkYGEHAB8hjBfBYGDSDNBqQZGZgYFBQn/f8P5IPp/4/vFUHVAwEjGwOcw8gEJJgY",
+            "UAEjxIrhDACLGwmnAAAAAAAUABQAFAAUAEoAAgAyAAABwgIVAAMABwAAMxEhESUhESEyAZD+ogEs",
+            "/tQCFf3rMgGxAAEAHQIEAdcCygAiAAABNDYzMhcWFxYXFhUUBgcGBw4DIyImNTQ3IycmNTQ3ISYB",
+            "eQsJBwUFBQofCwYLKyACBwMGBAcNL6urDQ0BZxgCtggMBQQPJRQHCwkGBhYpAgkCAgsJEygBCQoH",
+            "DSYAeNqVjrGKwkAURe/EGBBUrG12CishMrFQcDuLsAi26YMOmsIMxAh+hN8i+CF+gd+y4B3zttjC",
+            "woHhncu7774HoI8rFP5eIKzQw5dwgAjfwi2McBEO6bkLtzHAr3CEnhrTqcKOpDasMCQ1HKCLWLiF",
+            "HyyFQ3puwm1oPIQjDFXfR62Ro8YeK9YzMlhsqB0qtvJ6v8rPmd3Uzkv2tihwwoHCbosTa0pryYH0",
+            "NbKjRWPB/z626Se8dsY/hSHPGeTKOnXVzuqF/reYOoln8dQk80+u9b0KR97rD9Rc4xdNXtVQI7PV",
+            "sXClNiaZGGP0B+FPMN1KMAAAAHjaY2BiAIP/zQxGDNgAKxAzMjAxMDMycSUWFeWXF2WmZ5QAAGh5",
+            "BhgAAAAB//8AAnjaY2BkYGDgA2IJBgUgycTAyMDMwAIkWcA8BgZGCAYACgIAWwAAAAEAAAAAxmW3",
+            "ygAAAADVVeemAAAAANVV7Dg=) format('woff')"
+          ].join('')
+        },
+        ".MJX-VEC": {
+          "font-family": "MJX-VEC"
+        }
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function () {
+    var MML = MathJax.ElementJax.mml;
+    var fixCombiningChar = MML.mo.prototype.CHTMLfixCombiningChar;
+    MML.mo.Augment({
+      CHTMLfixCombiningChar: function (node) {
+        if (node.textContent === '\u20D7') {
+          //
+          //  Safari makes combining characters into non-combining ones when
+          //  they don't have anything to combine with; replace \vec arrow
+          //  with a non-combining one so all browsers get the same thing
+          //
+          node = node.firstChild;
+          node.firstChild.nodeValue = "\u2192";
+          node.className = "mjx-char MJX-VEC";
+          node.style.marginLeft = "-.5em";
+          node.style.paddingTop = ".45em";
+        } else {
+          fixCombiningChar.call(this,node);
+        }
+      }
+    });
+  });
+	</script>
+</head>
+
+<body>
+
+  <div class="page-wrap">
+    <div class="side-bar">
+          <center>
+              <a href="https://deustotech.github.io/dycon-toolbox-documentation/" class="site-title fs-6 lh-tight">
+                <img src="https://deustotech.github.io/dycon-toolbox-documentation/assets/images/logo.png" width="70%"></img>
+              </a>
+          </center>
+      <span class="fs-3"><button class="js-main-nav-trigger navigation-list-toggle btn btn-outline" type="button" data-text-toggle="Hide">Menu</button></span>
+      <div class="navigation main-nav js-main-nav">
+        <nav role="navigation" aria-label="Main navigation">
+  <ul class="navigation-list">
+    
+    
+      
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/" class="navigation-list-link">Home</a>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/02-Download/" class="navigation-list-link">Download</a>
+            
+          </li>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/025-GettingStarted/" class="navigation-list-link">Getting Started</a>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/03-DynamicsInterface/T03_DynamicsInterface/" class="navigation-list-link">Interface for Dynamics (ODEs)</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/03-DynamicsInterface/T031_BasicExample/" class="navigation-list-link">Basic example of dynamics objects</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/03-DynamicsInterface/T032_SeveralSolvers/" class="navigation-list-link">Choose a differents solvers</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-PontryaginProblems/T04_PontryaginProblems/" class="navigation-list-link">Pontryagin Problems</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-PontryaginProblems/T041_BasicExample/" class="navigation-list-link">Basic example of Pontryagin Problems</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-PontryaginProblems/T042_IndirectMethods/" class="navigation-list-link">Indirect Methods</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-PontryaginProblems/T043_DirectMethod/" class="navigation-list-link">Dircet Methods</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-PontryaginProblems/T044_TunelSolvers/" class="navigation-list-link">Tunel for Other Solvers</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-SpecializedTools/T05-SpecializedTools/" class="navigation-list-link">Specialized Tools</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-SpecializedTools/T051-LQR/" class="navigation-list-link">Lineal Quadratic Regulator</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-SpecializedTools/T052-LsNorm/" class="navigation-list-link">Ls norm</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-SpecializedTools/T053_HUM/" class="navigation-list-link">HUM</a>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-SpecializedTools/T054-InverseProblems/" class="navigation-list-link">Inverse Problems</a>
+                      
+                        
+                        <ul class="navigation-list-child-list">
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                        </ul>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item active">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/T06-Examples/" class="navigation-list-link">Examples</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item  active">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/061-ODE-Examples/" class="navigation-list-link">ODE Examples</a>
+                      
+                        
+                        <ul class="navigation-list-child-list">
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                              <li class="navigation-list-item  active">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0001_robot/" class="navigation-list-link active">Robot</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0002_spin/" class="navigation-list-link">Rotor Control</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0003_timeOptimization/" class="navigation-list-link">Time Optimization in Guidance by replusion</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/T06ODET0004_Kuramoto/" class="navigation-list-link">The Optimal control on the Kuramoto adaptative coupling model</a>
+                              </li>
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                        </ul>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/061-PDE-Examples/" class="navigation-list-link">PDE Examples</a>
+                      
+                        
+                        <ul class="navigation-list-child-list">
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0003_Laplacian/" class="navigation-list-link">Control of Heat Equation</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0004_FractionalLaplacian/" class="navigation-list-link">Control of Fractional Heat Equation</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0007_semilinear/" class="navigation-list-link">Computation of a control for a semilinear semi-discrete heat equation and analogies with a collective behavior model</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0008_NormInf/" class="navigation-list-link">Infinite Norm</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0009_2dHeat/" class="navigation-list-link">Heat Equation 2D</a>
+                              </li>
+                            
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/PDE/T0010_sl_constraints/" class="navigation-list-link">Population Dynamics</a>
+                              </li>
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                        </ul>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/07-API-docs/" class="navigation-list-link">API docs</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    <li class="navigation-list-item ">
+                      
+                      <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/classes/classes/" class="navigation-list-link">classes</a>
+                      
+                        
+                        <ul class="navigation-list-child-list">
+                          
+                            
+                              <li class="navigation-list-item ">
+                                <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/07-API-docs/classes/ode/0001-01-01-Classode/" class="navigation-list-link">ode</a>
+                              </li>
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                            
+                          
+                        </ul>
+                      
+                    </li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+  </ul>
+</nav>
+
+      </div>
+      <footer role="contentinfo" class="site-footer">
+        <p class="text-small text-grey-dk-000 mb-0">
+            The DyCon Toolbox is developed primarily by the <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>, at <a href="http://deustotech.deusto.es/">DeustoTech</a>. Contact the DyCon Toolbox developer team <a href="mailto:dycon-dev-group@deusto.es">dycon-dev-group@deusto.es</a> for more information.
+        </p>
+      </footer>
+    </div>
+    <div class="main-content-wrap js-main-content" tabindex="0">
+      <div class="page-header">
+        <div class="main-content">
+          
+          <div class="search js-search">
+            <div class="search-input-wrap">
+              <input type="text" class="js-search-input search-input" tabindex="0" placeholder="Search DyCon Toolbox" aria-label="Search DyCon Toolbox" autocomplete="off">
+              <svg width="14" height="14" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" class="search-icon"><title>Search</title><g fill-rule="nonzero"><path d="M17.332 20.735c-5.537 0-10-4.6-10-10.247 0-5.646 4.463-10.247 10-10.247 5.536 0 10 4.601 10 10.247s-4.464 10.247-10 10.247zm0-4c3.3 0 6-2.783 6-6.247 0-3.463-2.7-6.247-6-6.247s-6 2.784-6 6.247c0 3.464 2.7 6.247 6 6.247z"/><path d="M11.672 13.791L.192 25.271 3.02 28.1 14.5 16.62z"/></g></svg>
+            </div>
+            <div class="js-search-results search-results-wrap"></div>
+          </div>
+          
+            <ul class="list-style-none text-small mt-md-1 mb-md-1 pb-4 pb-md-0 js-aux-nav aux-nav">
+                <li class="d-inline-block">
+                      <div align="right">
+                          Visit ↠  <a href="https://cmc.deusto.eus/">
+                          Chair of Computational Mathematics
+                        </a>
+
+                        </div>
+                </li>
+            </ul>
+        </div>
+      </div>
+      <div class="main-content">
+        
+          
+            <nav class="breadcrumb-nav">
+              <ol class="breadcrumb-nav-list">
+                
+                  <li class="breadcrumb-nav-list-item"><a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/T06-Examples/">Examples</a></li>
+                  <li class="breadcrumb-nav-list-item"><a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/06-Examples/ODE/061-ODE-Examples/">ODE Examples</a></li>
+                
+                <li class="breadcrumb-nav-list-item"><span>Robot</span></li>
+              </ol>
+            </nav>
+          
+        
+        <div id="main-content" class="page-content" role="main">
+          <h1>Robot</h1><div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span>
+<span class="n">syms</span> <span class="n">x1</span> <span class="n">x2</span> <span class="n">theta</span> <span class="n">nu1</span> <span class="n">nu2</span> <span class="n">omega</span> <span class="n">t</span>
+
+<span class="n">syms</span> <span class="n">u1</span> <span class="n">u2</span>
+
+
+<span class="nb">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span>
+
+
+<span class="n">dynamics</span> <span class="o">=</span> <span class="p">[</span> <span class="n">nu1</span><span class="p">;</span>   <span class="k">...</span>
+             <span class="n">nu2</span><span class="p">;</span>   <span class="k">...</span>
+             <span class="n">omega</span><span class="p">;</span> <span class="k">...</span>
+             <span class="p">(</span><span class="n">u1</span> <span class="o">+</span> <span class="n">u2</span><span class="p">)</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span> <span class="k">...</span>
+             <span class="p">(</span><span class="n">u1</span> <span class="o">+</span> <span class="n">u2</span><span class="p">)</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span> <span class="k">...</span>
+             <span class="nb">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">u1</span><span class="o">-</span><span class="n">u2</span><span class="p">)];</span>
+
+
+ <span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="n">x1</span><span class="p">;</span> <span class="n">x2</span><span class="p">;</span> <span class="n">theta</span><span class="p">;</span> <span class="n">nu1</span><span class="p">;</span> <span class="n">nu2</span><span class="p">;</span> <span class="n">omega</span><span class="p">];</span>
+ <span class="n">U</span> <span class="o">=</span> <span class="p">[</span><span class="n">u1</span><span class="p">;</span> <span class="n">u2</span><span class="p">];</span>
+
+<span class="n">Params</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="nb">empty</span><span class="p">;</span>
+<span class="n">dynFcn</span> <span class="o">=</span> <span class="n">matlabFunction</span><span class="p">(</span><span class="n">dynamics</span><span class="p">,</span><span class="s1">'Vars'</span><span class="p">,{</span><span class="n">t</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">U</span><span class="p">,</span><span class="n">Params</span><span class="p">});</span>
+<span class="n">iode</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">dynFcn</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">U</span><span class="p">);</span>
+<span class="n">iode</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">;</span><span class="o">-</span><span class="mi">10</span><span class="p">;</span><span class="mf">0.5</span><span class="o">*</span><span class="nb">pi</span><span class="p">;</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+<span class="n">iode</span><span class="o">.</span><span class="n">FinalTime</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+<span class="n">iode</span><span class="o">.</span><span class="n">Solver</span> <span class="o">=</span> <span class="o">@</span><span class="n">eulere</span><span class="p">;</span>
+<span class="n">iode</span><span class="o">.</span><span class="n">Nt</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+
+<span class="n">YT</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="n">delta</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nb">gamma</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">Psi</span> <span class="o">=</span> <span class="o">@</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span><span class="mf">0.5</span><span class="o">*</span><span class="n">delta</span><span class="o">*</span><span class="p">(</span><span class="n">Y</span><span class="o">-</span><span class="n">YT</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">Y</span><span class="o">-</span><span class="n">YT</span><span class="p">);</span>
+<span class="n">L</span>   <span class="o">=</span> <span class="o">@</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">U</span><span class="p">)</span> <span class="nb">gamma</span><span class="o">*</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="p">(</span><span class="mi">2</span><span class="p">)));</span>
+<span class="c1">%%L   = gamma*((u1)^2 + u2^2);</span>
+
+<span class="n">iCP</span> <span class="o">=</span> <span class="n">Pontryagin</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">Psi</span><span class="p">,</span><span class="n">L</span><span class="p">);</span>
+
+<span class="n">U0</span> <span class="o">=</span> <span class="n">iode</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">Numeric</span><span class="p">;</span>
+<span class="n">options</span> <span class="o">=</span> <span class="n">optimoptions</span><span class="p">(</span><span class="o">@</span><span class="n">fminunc</span><span class="p">,</span><span class="s1">'display'</span><span class="p">,</span><span class="s1">'iter'</span><span class="p">,</span><span class="s1">'SpecifyObjectiveGradient'</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
+<span class="n">fminunc</span><span class="p">(</span><span class="o">@</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="n">Control2Functional</span><span class="p">(</span><span class="n">iCP</span><span class="p">,</span><span class="n">U</span><span class="p">),</span><span class="n">U0</span><span class="p">,</span><span class="n">options</span><span class="p">)</span>
+
+<span class="c1">%%iCP.constraints.Umax = 0.2;</span>
+<span class="c1">%%iCP.constraints.Umin = -0.2;</span>
+
+
+<span class="n">GradientMethod</span><span class="p">(</span><span class="n">iCP</span><span class="p">,</span><span class="n">U0</span><span class="p">,</span><span class="s1">'Graphs'</span><span class="p">,</span><span class="nb">false</span><span class="p">,</span><span class="s1">'DescentAlgorithm'</span><span class="p">,</span><span class="o">@</span><span class="n">AdaptativeDescent</span><span class="p">,</span><span class="s1">'display'</span><span class="p">,</span><span class="s1">'functional'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+     0           1          101.234                          14.9
+     1           3          52.4337     0.00722767           7.55  
+     2           5           14.979             10           3.84  
+     3           6           11.977              1           2.45  
+     4           7          9.33402              1           3.46  
+     5           8           7.8145              1           2.38  
+     6           9          6.67916              1           1.09  
+     7          10          5.76381              1           1.15  
+     8          11          5.59566              1          0.319  
+     9          12          5.54735              1          0.187  
+    10          13          5.51659              1          0.209  
+    11          14          5.49817              1          0.212  
+    12          15          5.43404              1          0.246  
+    13          16          5.38239              1          0.235  
+    14          17          5.30905              1          0.214  
+    15          18          5.23902              1          0.196  
+    16          19          5.21087              1          0.272  
+    17          20          5.18388              1          0.329  
+    18          21           5.1739              1          0.234  
+    19          22          5.15348              1          0.299  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+    20          23           5.1368              1          0.419  
+    21          24          5.09742              1          0.521  
+    22          25          5.02427              1          0.557  
+    23          26          4.97467              1           0.28  
+    24          27            4.958              1          0.217  
+    25          28          4.95672              1          0.294  
+    26          29          4.93798              1          0.272  
+    27          30          4.93289              1          0.259  
+    28          31           4.9085              1          0.243  
+    29          33           4.8861       0.459573          0.229  
+    30          34          4.85723              1           0.22  
+    31          35          4.81695              1          0.228  
+    32          36          4.80482              1          0.209  
+    33          37          4.79748              1          0.209  
+    34          38          4.77836              1          0.175  
+    35          39          4.75255              1          0.192  
+    36          40          4.74595              1          0.224  
+    37          41           4.7339              1           0.21  
+    38          42          4.72691              1          0.185  
+    39          43           4.7158              1          0.187  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+    40          45          4.70234       0.441589          0.206  
+    41          46          4.69119              1          0.198  
+    42          47          4.67727              1          0.195  
+    43          48          4.67119              1          0.177  
+    44          49          4.67039              1           0.21  
+    45          50          4.65806              1          0.212  
+    46          51          4.64995              1          0.205  
+    47          52          4.64272              1          0.191  
+    48          53          4.63889              1          0.207  
+    49          54          4.62756              1          0.195  
+    50          56          4.62409       0.332825            0.2  
+    51          57          4.61913              1          0.199  
+    52          58          4.61158              1          0.231  
+    53          59          4.60801              1          0.218  
+    54          60          4.60006              1          0.218  
+    55          61          4.59663              1          0.226  
+    56          62          4.58766              1           0.21  
+    57          63          4.58525              1          0.212  
+    58          64          4.57547              1          0.209  
+    59          65           4.5696              1          0.219  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+    60          66           4.5649              1          0.214  
+    61          67          4.56453              1          0.236  
+    62          68          4.55713              1          0.213  
+    63          70          4.55474       0.434617          0.197  
+    64          71          4.55039              1          0.202  
+    65          73          4.54802       0.365766          0.229  
+    66          74          4.54061              1           0.21  
+    67          75          4.54029              1          0.221  
+    68          76          4.53295              1           0.22  
+    69          78          4.52909       0.342799          0.203  
+    70          79          4.52815              1          0.221  
+    71          80          4.52156              1          0.208  
+    72          82          4.51838       0.349296          0.222  
+    73          83          4.51498              1          0.224  
+    74          84          4.50948              1          0.222  
+    75          85          4.50272              1          0.204  
+    76          86          4.50022              1          0.207  
+    77          87          4.49813              1          0.215  
+    78          88          4.49475              1          0.215  
+    79          89          4.49329              1          0.218  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+    80          90          4.48755              1           0.22  
+    81          92          4.48491       0.294752          0.219  
+    82          93          4.48252              1          0.218  
+    83          94          4.47761              1          0.227  
+    84          95          4.47498              1          0.228  
+    85          96          4.47118              1          0.213  
+    86          98           4.4688       0.305058           0.22  
+    87         100          4.46709       0.363838          0.221  
+    88         101          4.46403              1          0.226  
+    89         102          4.46077              1          0.229  
+    90         103          4.45764              1          0.215  
+    91         104          4.45421              1          0.229  
+    92         106          4.45306       0.353946          0.228  
+    93         107          4.45047              1          0.225  
+    94         108          4.44554              1          0.222  
+    95         110          4.44224       0.391256          0.221  
+    96         112          4.44039       0.353649           0.22  
+    97         113          4.43851              1           0.22  
+    98         114          4.43521              1          0.218  
+    99         115          4.43004              1          0.231  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+   100         117          4.42868       0.268258           0.22  
+   101         118          4.42765              1          0.222  
+   102         119          4.42493              1          0.233  
+   103         120          4.42462              1          0.214  
+   104         121          4.42206              1          0.212  
+   105         122          4.42026              1          0.233  
+   106         123          4.41556              1          0.234  
+   107         125          4.41298        0.39408          0.233  
+   108         127          4.41079       0.435178          0.231  
+   109         129          4.40954       0.353267          0.227  
+   110         130           4.4061              1          0.233  
+   111         131          4.40165              1          0.225  
+   112         132          4.39975              1          0.228  
+   113         133          4.39693              1          0.232  
+   114         134          4.39545              1          0.237  
+   115         135          4.39169              1          0.231  
+   116         136          4.38981              1          0.218  
+   117         137          4.38699              1          0.223  
+   118         138          4.38634              1          0.234  
+   119         139          4.38519              1          0.218  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+   120         140           4.3819              1          0.214  
+   121         142          4.38045       0.309101          0.217  
+   122         144          4.37955       0.293748          0.214  
+   123         146          4.37871       0.299874          0.203  
+   124         148          4.37794       0.255554          0.193  
+   125         150          4.37699       0.356212          0.215  
+   126         152          4.37574        0.29611          0.217  
+   127         154          4.37467       0.355463          0.242  
+   128         155          4.37326              1          0.242  
+   129         156          4.36767              1          0.239  
+   130         157          4.36554              1          0.246  
+   131         158          4.36182              1          0.219  
+   132         159           4.3615              1          0.224  
+   133         160          4.35755              1          0.238  
+   134         162          4.35633       0.350306          0.223  
+   135         164          4.35511       0.389728          0.225  
+   136         166          4.35416       0.369472           0.22  
+   137         167          4.35386              1          0.231  
+   138         168          4.35161              1          0.216  
+   139         170          4.35028       0.332924           0.23  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+   140         172          4.34864       0.356916          0.234  
+   141         174          4.34732       0.384108          0.237  
+   142         175          4.34636              1          0.249  
+   143         176          4.34326              1          0.242  
+   144         177          4.34155              1          0.207  
+   145         178          4.33876              1           0.23  
+   146         180          4.33722       0.308422          0.229  
+   147         182           4.3357       0.395934          0.231  
+   148         184          4.33486       0.287821          0.236  
+   149         186          4.33356       0.360049          0.233  
+   150         188           4.3326       0.286105          0.251  
+   151         190          4.33118       0.341143          0.247  
+   152         192          4.32968       0.257889          0.234  
+   153         194          4.32915       0.281197           0.23  
+   154         195            4.326              1          0.213  
+   155         197          4.32558       0.350012          0.275  
+   156         198          4.32332              1          0.238  
+   157         199          4.32069              1           0.21  
+   158         200           4.3186              1          0.221  
+   159         201          4.31834              1          0.212  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+   160         202          4.31611              1          0.211  
+   161         204          4.31491       0.344304          0.216  
+   162         206          4.31426       0.303393          0.211  
+   163         208          4.31332        0.31805          0.213  
+   164         209          4.31294              1          0.243  
+   165         211          4.31152       0.417058           0.24  
+   166         213          4.30962       0.384102          0.213  
+   167         215          4.30819       0.392437          0.195  
+   168         217          4.30768        0.21585          0.209  
+   169         219            4.307       0.297521          0.191  
+   170         221           4.3066       0.183449          0.192  
+   171         223          4.30636       0.194779          0.217  
+   172         225           4.3061       0.183438          0.216  
+   173         227          4.30591       0.181378          0.222  
+   174         229           4.3057       0.205283          0.221  
+   175         231          4.30552       0.186746          0.235  
+   176         233          4.30486       0.322404          0.211  
+   177         235          4.30401       0.391065          0.225  
+   178         237            4.303       0.286748          0.225  
+   179         239          4.30247       0.292402          0.225  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+   180         241          4.30161       0.374693           0.22  
+   181         242          4.30092              1          0.225  
+   182         243          4.29884              1          0.217  
+   183         244          4.29774              1          0.253  
+   184         245          4.29281              1          0.251  
+   185         247          4.29164       0.359634          0.245  
+   186         248          4.28899              1          0.224  
+   187         249          4.28767              1          0.201  
+   188         251          4.28684       0.446632          0.201  
+   189         253          4.28643       0.153864          0.217  
+   190         255          4.28628       0.147726          0.219  
+   191         257          4.28622       0.130097          0.208  
+   192         259           4.2861       0.124167          0.249  
+   193         261          4.28578       0.188011          0.235  
+   194         263          4.28517       0.297436          0.217  
+   195         265          4.28443       0.280375          0.209  
+   196         267          4.28386       0.306423          0.214  
+   197         269          4.28357       0.247805          0.198  
+   198         271          4.28309       0.261222          0.226  
+   199         273          4.28284       0.183475          0.226  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+   200         275           4.2823        0.30328          0.231  
+   201         277          4.28122       0.339864           0.21  
+   202         279          4.28023       0.357603          0.229  
+   203         280          4.27895              1          0.258  
+   204         281          4.27565              1          0.227  
+   205         282          4.27447              1          0.235  
+   206         284          4.27277       0.330736          0.237  
+   207         285          4.27098              1          0.221  
+   208         286          4.26978              1           0.21  
+   209         287          4.26897              1          0.203  
+   210         288          4.26854              1          0.199  
+   211         290          4.26794       0.357026          0.207  
+   212         292          4.26722        0.38164          0.237  
+   213         294          4.26634       0.384552          0.221  
+   214         295          4.26542              1          0.223  
+   215         297          4.26477        0.41259          0.215  
+   216         299          4.26433       0.310162          0.214  
+   217         301          4.26382       0.295028          0.211  
+   218         303           4.2632       0.262245          0.206  
+   219         305          4.26317       0.256123          0.218  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+   220         307          4.26245       0.318075          0.213  
+   221         309          4.26153       0.354784          0.219  
+   222         311          4.26092       0.254704          0.223  
+   223         312          4.25961              1           0.22  
+   224         313          4.25808              1          0.228  
+   225         315          4.25769       0.200088          0.206  
+   226         317          4.25759       0.183431          0.215  
+   227         319          4.25721       0.203172          0.205  
+   228         321          4.25714       0.169849          0.219  
+   229         323          4.25681       0.212747           0.22  
+   230         325           4.2565       0.268578          0.221  
+   231         326          4.25642              1           0.22  
+   232         327          4.25585              1           0.21  
+   233         329          4.25568       0.218988          0.214  
+   234         331          4.25522       0.273454          0.194  
+   235         333          4.25483       0.234139          0.216  
+   236         335          4.25467       0.241327          0.222  
+   237         337          4.25412       0.363903          0.227  
+   238         339          4.25348       0.338638          0.243  
+   239         340          4.25271              1           0.23  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+   240         341          4.25065              1          0.228  
+   241         343          4.24993       0.339973          0.244  
+   242         345          4.24953       0.204895          0.242  
+   243         347          4.24946        0.16831           0.24  
+   244         349          4.24911        0.17318          0.237  
+   245         351          4.24897       0.154066          0.235  
+   246         353          4.24853       0.199195          0.233  
+   247         356          4.24849      0.0484894          0.232  
+   248         358          4.24837       0.130169          0.223  
+   249         360          4.24822       0.241594          0.223  
+   250         362          4.24805       0.187829          0.206  
+   251         364          4.24772        0.30483          0.207  
+   252         366          4.24746       0.224257          0.215  
+   253         368          4.24721       0.184613          0.222  
+   254         370          4.24705       0.207362          0.213  
+   255         372          4.24679       0.254363           0.21  
+   256         374          4.24677       0.152248           0.22  
+   257         376          4.24668       0.158624          0.184  
+   258         378          4.24662       0.155793          0.223  
+   259         380          4.24661       0.144996          0.226  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+   260         383          4.24657       0.045718          0.214  
+   261         386          4.24655      0.0257495          0.206  
+   262         389          4.24649      0.0423954          0.226  
+   263         392          4.24641       0.032474          0.211  
+   264         395          4.24636       0.056488           0.21  
+   265         398          4.24626      0.0592432          0.214  
+   266         401          4.24617      0.0511466          0.225  
+   267         404          4.24604      0.0715316          0.225  
+   268         406          4.24594       0.201917          0.218  
+   269         408          4.24573        0.21816          0.225  
+   270         411          4.24554      0.0622265          0.227  
+   271         413          4.24531       0.255816          0.215  
+   272         415          4.24487        0.31785          0.229  
+   273         416          4.24475              1          0.234  
+   274         417          4.24151              1          0.228  
+   275         419          4.24002       0.158508          0.228  
+   276         446          4.23997    0.000728938          0.228  
+
+Local minimum possible.
+
+fminunc stopped because it cannot decrease the objective function
+along the current search direction.
+
+
+ans =
+
+   -1.2451    1.4459
+   -1.0352    1.1444
+   -0.7751    0.8975
+   -0.4734    0.6980
+   -0.1389    0.5394
+   -0.0048    0.4161
+   -0.0016    0.3225
+   -0.0000    0.2526
+   -0.0022    0.2016
+    0.0004    0.1655
+   -0.0000    0.1410
+   -0.0008    0.1253
+   -0.0033    0.1164
+    0.0003    0.1124
+   -0.0005    0.1119
+    0.0005    0.1135
+   -0.0006    0.1161
+   -0.0001    0.1190
+    0.0008    0.1211
+   -0.0001    0.1217
+    0.0004    0.1199
+    0.0014    0.1153
+   -0.0019    0.1071
+   -0.0023    0.0948
+   -0.0003    0.0777
+    0.0001    0.0557
+   -0.0001    0.0283
+    0.0008    0.0033
+    0.0001    0.0151
+    0.0015    0.0174
+    0.1047    0.0117
+    0.2646    0.0002
+    0.3999    0.0008
+    0.5226   -0.0006
+    0.6260    0.0000
+    0.7100    0.0008
+    0.7745    0.0029
+    0.8200    0.0004
+    0.8469    0.0037
+    0.8558   -0.0009
+    0.8475    0.0013
+    0.8226    0.0004
+    0.7821    0.0015
+    0.7267   -0.0012
+    0.6575    0.0019
+    0.5752    0.0027
+    0.4808    0.0021
+    0.3751   -0.0001
+    0.2592    0.0001
+    0.1338    0.0003
+   -0.0000    0.0008
+   -0.0008   -0.0003
+    0.0006    0.0008
+   -0.0004   -0.0003
+    0.0009    0.0004
+    0.0003    0.0016
+    0.0004    0.0000
+    0.0010    0.0010
+   -0.0011    0.0001
+   -0.0004    0.0002
+    0.0037   -0.0001
+    0.0009   -0.0003
+    0.0001   -0.0004
+    0.0001    0.0005
+   -0.0001    0.0012
+    0.0018   -0.0003
+   -0.0001   -0.0021
+    0.0004   -0.0001
+    0.0002    0.0010
+   -0.0002    0.0011
+    0.0004   -0.0035
+    0.0008    0.0007
+    0.0017    0.0014
+   -0.0006   -0.0005
+    0.0005    0.0010
+   -0.0011   -0.0000
+   -0.0001    0.0003
+   -0.0013   -0.0006
+    0.0015   -0.0008
+    0.0002    0.0001
+   -0.0001   -0.0011
+   -0.0012   -0.0006
+   -0.0003    0.0004
+    0.0011   -0.0018
+   -0.0003   -0.0002
+   -0.0004   -0.0005
+   -0.0007   -0.0005
+   -0.0005   -0.0001
+   -0.0002   -0.0008
+   -0.0009   -0.0007
+   -0.0014   -0.0023
+   -0.0006   -0.0009
+   -0.0011   -0.0004
+   -0.0211   -0.1481
+   -0.1785   -0.2683
+   -0.3323   -0.3836
+   -0.4737   -0.5103
+   -0.6176   -0.6411
+   -0.7555   -0.7765
+   -0.8884   -0.9192
+
+    "error = 1.005244e+03 | Functional = 1.850987e+01 | iter = 5"
+
+    "error = 1.139948e+03 | Functional = 1.141083e+01 | iter = 10"
+
+    "error = 2.244633e+02 | Functional = 6.519377e+00 | iter = 15"
+
+    "error = 2.177653e+02 | Functional = 6.211565e+00 | iter = 20"
+
+    "error = 1.365387e+02 | Functional = 6.000884e+00 | iter = 25"
+
+    "error = 1.892368e+02 | Functional = 5.884484e+00 | iter = 30"
+
+    "error = 1.246172e+02 | Functional = 5.750719e+00 | iter = 35"
+
+    "error = 1.608027e+02 | Functional = 5.657873e+00 | iter = 40"
+
+    "error = 1.042390e+02 | Functional = 5.562087e+00 | iter = 45"
+
+    "error = 1.322020e+02 | Functional = 5.491833e+00 | iter = 50"
+
+    "error = 1.284707e+02 | Functional = 5.447743e+00 | iter = 55"
+
+    "error = 1.364064e+02 | Functional = 5.379586e+00 | iter = 60"
+
+    "error = 9.613141e+01 | Functional = 5.322684e+00 | iter = 65"
+
+    "error = 1.169179e+02 | Functional = 5.276693e+00 | iter = 70"
+
+    "error = 7.361652e+01 | Functional = 5.229219e+00 | iter = 75"
+
+    "error = 9.726044e+01 | Functional = 5.196285e+00 | iter = 80"
+
+    "error = 8.050981e+01 | Functional = 5.164752e+00 | iter = 85"
+
+    "error = 8.172370e+01 | Functional = 5.128156e+00 | iter = 90"
+
+    "error = 6.345933e+01 | Functional = 5.100091e+00 | iter = 95"
+
+    "error = 6.079191e+01 | Functional = 5.070295e+00 | iter = 100"
+
+    "error = 4.940798e+01 | Functional = 5.046450e+00 | iter = 105"
+
+    "error = 8.145600e+01 | Functional = 5.031879e+00 | iter = 110"
+
+    "error = 4.601062e+01 | Functional = 5.003967e+00 | iter = 115"
+
+    "error = 5.980054e+01 | Functional = 4.983998e+00 | iter = 120"
+
+    "error = 5.364437e+01 | Functional = 4.968552e+00 | iter = 125"
+
+    "error = 6.657950e+01 | Functional = 4.952430e+00 | iter = 130"
+
+    "error = 4.254647e+01 | Functional = 4.932031e+00 | iter = 135"
+
+    "error = 6.127275e+01 | Functional = 4.919426e+00 | iter = 140"
+
+    "error = 4.293082e+01 | Functional = 4.902091e+00 | iter = 145"
+
+    "error = 5.017294e+01 | Functional = 4.887549e+00 | iter = 150"
+
+    "error = 4.344976e+01 | Functional = 4.875504e+00 | iter = 155"
+
+    "error = 5.393721e+01 | Functional = 4.863534e+00 | iter = 160"
+
+    "error = 3.329496e+01 | Functional = 4.848678e+00 | iter = 165"
+
+    "error = 5.471524e+01 | Functional = 4.841301e+00 | iter = 170"
+
+    "error = 3.335528e+01 | Functional = 4.826431e+00 | iter = 175"
+
+    "error = 4.453753e+01 | Functional = 4.817760e+00 | iter = 180"
+
+    "error = 3.474774e+01 | Functional = 4.805997e+00 | iter = 185"
+
+    "error = 4.342833e+01 | Functional = 4.798590e+00 | iter = 190"
+
+    "error = 2.929702e+01 | Functional = 4.787199e+00 | iter = 195"
+
+    "error = 3.248410e+01 | Functional = 4.778304e+00 | iter = 200"
+
+    "error = 4.354951e+01 | Functional = 4.775655e+00 | iter = 205"
+
+    "error = 3.221835e+01 | Functional = 4.761501e+00 | iter = 210"
+
+    "error = 2.772482e+01 | Functional = 4.754671e+00 | iter = 215"
+
+    "error = 2.800687e+01 | Functional = 4.747860e+00 | iter = 220"
+
+    "error = 2.802194e+01 | Functional = 4.740138e+00 | iter = 225"
+
+    "error = 3.249248e+01 | Functional = 4.733635e+00 | iter = 230"
+
+    "error = 2.706983e+01 | Functional = 4.726558e+00 | iter = 235"
+
+    "error = 3.756718e+01 | Functional = 4.722190e+00 | iter = 240"
+
+    "error = 2.550670e+01 | Functional = 4.714624e+00 | iter = 245"
+
+    "error = 2.868742e+01 | Functional = 4.708595e+00 | iter = 250"
+
+    "error = 2.605845e+01 | Functional = 4.703523e+00 | iter = 255"
+
+    "error = 2.753240e+01 | Functional = 4.697667e+00 | iter = 260"
+
+    "error = 2.396693e+01 | Functional = 4.692455e+00 | iter = 265"
+
+    "error = 2.519339e+01 | Functional = 4.686114e+00 | iter = 270"
+
+    "error = 2.432048e+01 | Functional = 4.681650e+00 | iter = 275"
+
+    "error = 3.297474e+01 | Functional = 4.677168e+00 | iter = 280"
+
+    "error = 2.788985e+01 | Functional = 4.671055e+00 | iter = 285"
+
+    "error = 2.424451e+01 | Functional = 4.666434e+00 | iter = 290"
+
+    "error = 2.269089e+01 | Functional = 4.659949e+00 | iter = 295"
+
+    "error = 1.983120e+01 | Functional = 4.654906e+00 | iter = 300"
+
+    "error = 2.425867e+01 | Functional = 4.652711e+00 | iter = 305"
+
+    "error = 2.453026e+01 | Functional = 4.649823e+00 | iter = 310"
+
+    "error = 2.547934e+01 | Functional = 4.643754e+00 | iter = 315"
+
+    "error = 2.262112e+01 | Functional = 4.640231e+00 | iter = 320"
+
+    "error = 2.235094e+01 | Functional = 4.637370e+00 | iter = 325"
+
+    "error = 2.089899e+01 | Functional = 4.632249e+00 | iter = 330"
+
+    "error = 2.106159e+01 | Functional = 4.628279e+00 | iter = 335"
+
+    "error = 2.023899e+01 | Functional = 4.625449e+00 | iter = 340"
+
+    "error = 2.083025e+01 | Functional = 4.623400e+00 | iter = 345"
+
+    "error = 1.976558e+01 | Functional = 4.620335e+00 | iter = 350"
+
+    "error = 2.294529e+01 | Functional = 4.617899e+00 | iter = 355"
+
+    "error = 2.177703e+01 | Functional = 4.614685e+00 | iter = 360"
+
+    "error = 2.033178e+01 | Functional = 4.611674e+00 | iter = 365"
+
+    "error = 1.947603e+01 | Functional = 4.610291e+00 | iter = 370"
+
+    "error = 2.137808e+01 | Functional = 4.609092e+00 | iter = 375"
+
+    "error = 2.186906e+01 | Functional = 4.606780e+00 | iter = 380"
+
+    "error = 2.072906e+01 | Functional = 4.603998e+00 | iter = 385"
+
+    "error = 1.869274e+01 | Functional = 4.600464e+00 | iter = 390"
+
+    "error = 2.129419e+01 | Functional = 4.597497e+00 | iter = 395"
+
+    "error = 2.030009e+01 | Functional = 4.594619e+00 | iter = 400"
+
+    "error = 2.103725e+01 | Functional = 4.593097e+00 | iter = 405"
+
+    "error = 1.924746e+01 | Functional = 4.590765e+00 | iter = 410"
+
+    "error = 2.035563e+01 | Functional = 4.588912e+00 | iter = 415"
+
+    "error = 1.990808e+01 | Functional = 4.586606e+00 | iter = 420"
+
+    "error = 1.923491e+01 | Functional = 4.585613e+00 | iter = 425"
+
+    "error = 2.347188e+01 | Functional = 4.583268e+00 | iter = 430"
+
+    "error = 2.251211e+01 | Functional = 4.579444e+00 | iter = 435"
+
+    "error = 1.904697e+01 | Functional = 4.575380e+00 | iter = 440"
+
+    "error = 2.024084e+01 | Functional = 4.573387e+00 | iter = 445"
+
+    "error = 1.831073e+01 | Functional = 4.570505e+00 | iter = 450"
+
+    "error = 1.940949e+01 | Functional = 4.567838e+00 | iter = 455"
+
+    "error = 1.978288e+01 | Functional = 4.564630e+00 | iter = 460"
+
+    "error = 1.834917e+01 | Functional = 4.562854e+00 | iter = 465"
+
+    "error = 1.949798e+01 | Functional = 4.561811e+00 | iter = 470"
+
+    "error = 1.875324e+01 | Functional = 4.560760e+00 | iter = 475"
+
+    "error = 1.918711e+01 | Functional = 4.559298e+00 | iter = 480"
+
+    "error = 1.869055e+01 | Functional = 4.557222e+00 | iter = 485"
+
+    "error = 1.877616e+01 | Functional = 4.555928e+00 | iter = 490"
+
+    "error = 2.009688e+01 | Functional = 4.554805e+00 | iter = 495"
+
+    "error = 1.905599e+01 | Functional = 4.553437e+00 | iter = 500"
+
+
+    Solve with precision: 
+
+        We obtain: J(u) = 4.553437E+00
+
+        error = 1.905599E+01
+
+    With 500 iterations,     In 12.7726 seconds
+
+
+</code></pre></div></div>
+
+
+          <p></p>
+          <hr></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

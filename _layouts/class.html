@@ -1,125 +1,97 @@
 ---
 layout: default
 ---
+<hr>
+{{page.description}}
+<p></p>
+<h1> Example </h1>
+<hr>
+{{content}}
+<h1> Properties </h1>
+<hr>
 
-<!-- Post Header -->
-<header class="intro-header">
-    <div class="container" style="padding-top: 70px;">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading" style="padding: 0px 0">
-                    <h1 class="post-title">{{ page.title }} <small>Class</small></h1>
-				</div>
-				
-				<h2>Description</h2>
-				
-				 	{{page.long}}
+{% for iprop in page.properties %}
+  <h3 style="color: #942947">{{iprop[0]}}</h3>
+  <p>{{iprop[1].description}}</p>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+    <tr>
+      <td>{{iprop[1].type}}</td>
+      <td>{{iprop[1].default}}</td>
+    </tr>
+  </table>
 
-				<h2>Example</h2>
-				
-				 	{{content}}
+{% endfor %}
+<hr>
 
+<h1> Methods </h1>
+<hr>
 
-				<h1>Properties</h1>
-				<table>
-					<tr>
-						<th>Name</th>
-            <th>Type</th>
-            <th>Default Value</th>
-            <th>Description</th>
-					</tr>
-					{% for vars in page.properties %}
-						<tr>
-							<th>{{vars[0]}}</th>
-							<th>{{vars[1].type}}</th>
-							<th>{{vars[1].default}}</th>
-							<th>{{vars[1].description}}</th>
-						</tr>
-					{% endfor %}
-				</table>
-        <!-- CONSTRUCTOR  -->
-				<h1>Contructor</h1>
-				{{ page.methods[page.title].description }}
-				{% if page.methods[page.title].MandatoryInputs %}
+{% for imethod in page.methods %}
+<h3 style="color: #942947">{{imethod[0]}}</h3>
+<p>{{imethod[1].description}}</p>
 
-				<h3>Mandatory Input Parameters</h3>
-				<table>
-					<tr>
-						<th>Name</th>
-						<th>Description</th>
-						<th>class</th>
-					</tr>
-					{% for var in page.methods[page.title].MandatoryInputs %}
-						<tr>
-							<th>{{var[0]}}</th>
-							<th>{{var[1].description}}</th>
-							<th>{{var[1].class}}</th>
-						</tr>
-					{% endfor %}
+      <!-- MANDATORY INPUTS  -->
+      {% if imethod[1].MandatoryInputs %}
+      <h4>Mandatory Input Parameters</h4>
 
-				</table>
-				{% endif %}
+      <table>
+          <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>class</th>
+          </tr>
+          {% for var in imethod[1].MandatoryInputs %}
+          <tr>
+              <td>{{var[0]}}</td>
+              <td>{{var[1].description}}</td>
+              <td>{{var[1].class}}</td>
+          </tr>
+          {% endfor %}
 
-				<!-- OPTIONAL INPUTS  -->
+      </table>
+      {% endif %}
+      <!-- OPTIONAL INPUTS  -->
+            {% if imethod[1].OptionalInputs %}
+            <h4>Optional Input Parameters</h4>
+      
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>class</th>
+                </tr>
+                {% for var in imethod[1].OptionalInputs %}
+                <tr>
+                    <td>{{var[0]}}</td>
+                    <td>{{var[1].description}}</td>
+                    <td>{{var[1].class}}</td>
+                </tr>
+                {% endfor %}
+      
+            </table>
+            {% endif %}
+      <!-- OUTPUTS INPUTS  -->
+      {% if imethod[1].Outputs %}
+      <h4>Optional Input Parameters</h4>
 
-				{% if page.methods[page.title].OptionalInputs %}
-					<h3>Optional Input Parameters</h3>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						{% for var in page.methods[page.title].OptionalInputs %}
-							<tr>
-								<th>{{var[0]}}</th>
-								<th>{{var[1].description}}</th>
-								<th>{{var[1].class}}</th>
-							</tr>
-						{% endfor %}
-					</table>
-				{% endif %}
+      <table>
+          <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>class</th>
+          </tr>
+          {% for var in imethod[1].Outputs %}
+          <tr>
+              <td>{{var[0]}}</td>
+              <td>{{var[1].description}}</td>
+              <td>{{var[1].class}}</td>
+          </tr>
+          {% endfor %}
 
-				<!--  OUTPUTS -->
-				{% if page.methods[page.title].Outputs %}
-					<h3>Output Parameters</h3>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>class</th>
-						</tr>
-						{% for var in page.methods[page.title].Outputs %}
-						<tr>
-							<th>{{var[0]}}</th>
-							<th>{{var[1].description}}</th>
-							<th>{{var[1].class}}</th>
-						</tr>
-						{% endfor %}
-					</table>
-				{% endif %}
-
-
-				<h1>Methods</h1>
-				<table>
-					<tr>
-						<th>Name</th>
-						<th>Description</th>
-					</tr>
-					{% for imethod in page.methods %}
-					  {% unless imethod[0] contains page.title %}
-						<tr>
-							{% assign qposts = site.posts | where:"layout","method" |where:"class",page.title | where: "title",imethod[0] %}
-							
-							<th><a href="{{ qposts[0].url | prepend: site.baseurl }}">{{ imethod[0] }}</a></th>
-							<th>{{ imethod[1].little_description }}</th>
-						</tr>
-					  {% endunless %}
-					{% endfor %}
-				</table>
-
-
-            </div>
-        </div>
-    </div>
-</header>
+      </table>
+      {% endif %}
+{% endfor %}

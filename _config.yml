@@ -1,47 +1,45 @@
-# Site settings
-title: DyCon Toolbox
-description: Welcome to the web interface of DyCon Toolbox, the computational platform developed within the <a href='https://cmc.deusto.eus/dycon/' target='_blank'>ERC DyCon - Dynamic Control</a> project.
-
-dev: true
-# command to ignore docs(must be run inside 'docs' folder): git ls-files | tr '\n' ' ' | xargs git update-index --assume-unchanged
-# command to STOP ignoring docs(must be run inside 'docs' folder): git ls-files | tr '\n' ' ' | xargs git update-index --no-assume-unchanged
-
-
-# Secondary Parameters
-baseurl: "/dycon-toolbox-documentation" # the subpath of your site, e.g. /blog
-url: "https://DeustoTech.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+# Welcome to Jekyll!
 #
+# This config file is meant for settings that affect your whole site, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing these this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
 
-gems: [jekyll-mermaid]
-mermaid:
-  src: 'https://unpkg.com/mermaid@7.1.0/dist/mermaid.js'
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.github_repo }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: DyCon Toolbox
+description: DyCon Toolbox Documentation
+baseurl: "/dycon-toolbox-documentation" # the subpath of your site, e.g. /blog
+url: "https://deustotech.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+
+permalink: pretty
+exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "package-lock.json",  "script/", "LICENSE.txt", "lib/", "bin/", "README.md", "Rakefile"]
+
+# Enable or disable the site search
+search_enabled: true
+
+# Aux links for the upper right navigation
+chair:
+  name: Chair of Computational Mathematics
+  url: https://cmc.deusto.eus/
+  img: assets/images/CCM.png
+
+# Color scheme currently only supports "dark" or nil (default)
+color_scheme: nil
+
+# Google Analytics Tracking (optional)
+# e.g, UA-1234567-89
+ga_tracking: UA-2709176-10
+
+plugins:
+  - jekyll-seo-tag
+
+footer: The DyCon Toolbox is developed primarily by the <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>, at <a href="http://deustotech.deusto.es/">DeustoTech</a>. Contact the DyCon Toolbox developer team <a href="mailto:dycon-dev-group@deusto.es">dycon-dev-group@deusto.es</a> for more information.
 
 destination: docs
-header-img: img/home-bg.gif
-headercolor: "black"
-logo: assets/logo_DyConToolbox_v001.png
-
-# Tertiary Parameters
-github_username:  DeustoTech
-project_repository: dycon-platform
-disqus_shortname: dycon-platform
-g-analytics:
-altmetric: true
-
-# Build settings
-markdown: kramdown
-highlighter: rouge
-permalink: /:categories/:title
-paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
-
-# Jekyll Settings
-
-defaults:
-  -
-    scope:
-      path: "projects"
-      type: "pages"
-    values:
-      layout: "project"
-      header-img: "img/home-bg.gif"

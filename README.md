@@ -1,1 +1,10 @@
-# DyCon Platform Web Documentation
+
+# Install all dependences
+```
+bundle install
+```
+
+# Execution
+```
+bundle exec jekyll server
+```
