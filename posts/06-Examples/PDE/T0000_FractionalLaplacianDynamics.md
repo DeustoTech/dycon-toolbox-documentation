@@ -1,7 +1,7 @@
 ---
-title: Fractional Laplacian Dynamics
+title: Laplacian fractional dynamics
 author: JOroya
-description: Fractional Laplacian Dynamics
+description: Laplacian fractional dynamics
 date: 2019-09-12
 nav_order: 1
 grand_parent: Examples
