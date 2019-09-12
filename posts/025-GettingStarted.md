@@ -12,8 +12,8 @@ subject to:
 $$ \dot{Y} = f(t,Y,U) \text{  where } Y(0) = Y_0$$
 
 
-In object-oriented programming, this problem can be described through the following scheme:
+DyCon Toolbox tries to solve this problem from different known methods. To be able to easily compare them and choose the most appropriate method for each type of problem. In this way control problems are objects and resolution algorithms are methods associated with these objects.
 
+The idea is that the different algorithms produce the same solution structure so that other methods of visualization and comparison can be used independent of the resolution algorithm.
 
-In this way, we can create algorithms to solve different problems following the same underneath structure, and the solutions of those problems are independent on the solver employed. 
 
