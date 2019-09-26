@@ -14,7 +14,7 @@ nav_order: 1
   
 ---
 
- For each of these objects, we create different methods for the resolution of problems. </p> 
+ For each of these objects, we create different methods for the resolution of problems.
 
 <p>The general formulation of these problems are: </p>
 
