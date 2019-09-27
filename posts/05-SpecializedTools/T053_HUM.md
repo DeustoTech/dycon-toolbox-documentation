@@ -3,6 +3,8 @@ layout: default
 title: HUM
 nav_order: 3
 parent: Specialized Tools
+MATLAB: T053_HUM
+
 ---
 ```matlab
 Nx = 100;
@@ -20,7 +22,7 @@ B =  BInterior(xline,-0.3,0.8,'Mass',true);
 idyn            = pde('A',A,'B',B);
 idyn.FinalTime  = 0.5;
 idyn.Nt         = 100;
-idyn.mesh       = xline;
+idyn.mesh{1}    = xline;
 idyn.MassMatrix = MassMatrix(xline);
 %%
 idyn.InitialCondition = sin(pi*xline');

@@ -3,6 +3,8 @@ layout: default
 title: Basic example of Pontryagin Problems 
 nav_order: 1
 parent: Pontryagin Problems 
+MATLAB: T041_BasicExample
+
 ---
 
 DyCon toolbox adopts Pontryagin's maximum principle to optimize the control function for each control problem. In this way we can solve problems of the form:
@@ -122,16 +124,16 @@ iP =
 
   Pontryagin with properties:
 
-             Target: []
-         Functional: [1x1 PontryaginFunctional]
-           Dynamics: [1x1 ode]
-            Adjoint: [1x1 struct]
-        Hamiltonian: []
-    ControlGradient: [1x1 SymNumFun]
-            Hessian: [1x1 SymNumFun]
-    Adjoint2Control: [1x1 SymNumFun]
-           Solution: []
-        Constraints: [1x1 constraints]
+               Target: []
+           Functional: [1x1 PontryaginFunctional]
+             Dynamics: [1x1 ode]
+              Adjoint: [1x1 struct]
+          Hamiltonian: [1x1 SymNumFun]
+      ControlGradient: [1x1 SymNumFun]
+              Hessian: [1x1 SymNumFun]
+    AnalyticalControl: [1x1 SymNumFun]
+             Solution: []
+          Constraints: [1x1 constraints]
 
 
 ```
@@ -149,16 +151,14 @@ GradientMethod(iP,U0);
 
 
 ```
-Warning:  Length Step =9.3035e-11
- The Min Length Step of the Adaptative Descent has been achieve 
 
     Solve with precision: 
 
-        We obtain: J(u) = 1.148656E-03
+        We obtain: J(u) = 1.148222E-03
 
-        error = 1.196911E-03
+        error = 2.000023E-03
 
-    With 16 iterations,     In 0.70939 seconds
+    With 3 iterations,     In 0.083441 seconds
 
 
 ```
@@ -177,18 +177,18 @@ ans =
 
   solution with properties:
 
-         precision: 0.0012
-              iter: 16
-              time: 0.7094
+         precision: 0.0020
+              iter: 3
+              time: 0.0834
          Y0history: []
-          Yhistory: {1x16 cell}
-    ControlHistory: {1x16 cell}
-          Jhistory: [1x16 double]
-          Phistory: {1x16 cell}
-         dJhistory: {1x16 cell}
+          Yhistory: {[10x2 double]  [10x2 double]  [10x2 double]}
+    ControlHistory: {[10x2 double]  [10x2 double]  [10x2 double]}
+          Jhistory: [0.1200 0.0011 0.0011]
+          Phistory: {[10x2 double]  [10x2 double]  [10x2 double]}
+         dJhistory: {[10x2 double]  [10x2 double]  [10x2 double]}
           fhistory: []
          dfhistory: []
-          Ehistory: [1x16 double]
+          Ehistory: [0 0.0020 0.0020]
           timeline: []
                 du: []
           UOptimal: [10x2 double]
