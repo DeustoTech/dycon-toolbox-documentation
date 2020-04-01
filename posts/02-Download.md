@@ -15,8 +15,8 @@ Alternatively you can start using DyCon Toolbox by simply pasting the code below
 
 
 ```matlab
-unzip('https://github.com/DeustoTech/DyCon-Computational-Platform/archive/master.zip')
-addpath(genpath(fullfile(cd,'DyCon-toolbox-master')))
+>> unzip('https://github.com/DeustoTech/DyCon-Computational-Platform/archive/master.zip')
+>> addpath(genpath(fullfile(cd,'DyCon-toolbox-master')))
 ```
 
 ### **Download from Github**

@@ -1,99 +1,44 @@
 ---
 layout: default
-title: Interface for Dynamics (ODEs)
+title: Dynamics definition
 nav_order: 3
 has_children: true
 ---
 
-DyCon Toolbox aims to group all the problems studied by the research team of the chair of mathematics. That is why it is necessary to create a common interface for you dissolve studied equations. To get an idea of the variety of equations involved we will name some:
+<h3> Example of dynamic </h3>
+In dynamics, the Van der Pol oscillator is a non-conservative oscillator with non-linear damping. It evolves in time according to the second-order differential equation:
 
+$${\displaystyle {d^{2}x \over dt^{2}}-\mu (1-x^{2}){dx \over dt}+x=u}$$
 
-- Heat Equation
+In vectorial form :
 
-
-- Population Dynamics
-
-
-- Collective Behavior
-
-
-- Schrodinger Equation
-
-
-- Burgers Equation
-
-
-- Waves Equation
-
-
-Since these equations can be solved in different ways, we have opted to create a communication interface with external programs. All the equations that are defined in DyCon toolbox they will be represented by programming classes. So that the classes defined are compatible with the entire system must meet the following requirements.
-
-
-- They must have a property InitialCondition, which will be a vector double   of $[n \times 1]$  dimensions
-- They must have a tspan property, indicating the integration intervals.   This must be a vector double  $[1 \times Nt]$ , where  Nt  is the number   of points in time.
-- They must have a method 'solve', which resumes the dynamics for that initial   condition and for that interval 'tspan', This method must accept an optional   parameter 'Control', which allows solving the dynamics dependent on a function   over time. This optional parameter must be an array of dimensions  $[m \times Nt]$,   where  m  is the dimension of the control vector
-
-
-These simple requirements allow to make conenxiones to other specialized programs in the resolution of the different types of equations, previously mentioned. Dycon Toolbox has already implemented a general version to define ODEs. If we wanted to define the following ODE:
-
-$$ \begin{bmatrix} \dot{y}_1 \\ \dot{y}_2 \end{bmatrix} =    \left(\begin{array}{c}                           u_{1}+\sin\left(y_{1}\,y_{2}\right)+y_{1}\,y_{2}\\                           u_{2}+y_{2}+\cos\left(y_{1}\,y_{2}\right)            \end{array}\right) $$
-
-
-We could define as follows:
-
-
-Symbolic State and Control Vectors
+$$ \frac{d}{dt} \begin{bmatrix} x \\ v                      \end{bmatrix} = 
+                \begin{bmatrix} v \\ \mu(1-x^2)v  - x + u   \end{bmatrix}$$
 
 ```matlab
-Y = sym('y',[2 1]); U = sym('u',[2 1]);
-%% Dynamics Definition
-F = @(t,Y,U,Params) [ U(1) + sin(Y(1)*Y(2)) +   (Y(1)*Y(2))     ; ...
-                      U(2) +      Y(2)      +  cos(Y(1)*Y(2)) ] ;
-
-dynamics = ode(F,Y,U);
+>> import casadi.*
+>> x = SX.sym('x',[1 1]);
+>> v = SX.sym('x',[1 1]);
+>> u = SX.sym('u',[1 1]);
+>> t = SX.sym('t');
+>> mu = 10;
+>> f = casadi.Function('f',{t,[x;v],u},{ [             v            ; ...
+>>                                           mu*(1-x^2)*v - x + u   ] });
 ```
-
-
-The class  ode  allows you to store all the information related to the dynamics, and meets all requirements. If we look inside this function
-
+We can define the  `ode` command to build a MATLAB object 
 ```matlab
-dynamics
+>> T  = 5;
+>> Nt = 100;
+>> tspan = linspace(0,T,Nt);
+>> % Build a ode object
+>> idyn = ode(f,[x;v],u,tspan);
+>> idyn.InitialCondition = [2,4]';
 ```
+Inside this object, we have a lot information of dynamics
 
 
-```
-
-dynamics = 
-
-  ode with properties:
-
-         StateVector: [1x1 struct]
-             Control: [1x1 struct]
-     DynamicEquation: [1x1 SymNumFun]
-              Params: [0x0 param]
-         Derivatives: [1x1 odeDerivatives]
-    InitialCondition: [2x1 double]
-           FinalTime: 1
-                  Nt: 10
-          MassMatrix: [2x2 double]
-               label: ''
-              Solver: @eulere
-    SolverParameters: {}
-               tspan: [1x10 double]
-    ControlDimension: 2
-      StateDimension: 2
-                  dt: 0.1000
-
-
-```
-
-
-You can see the InitialCondition property.
-
-
-There is also the solver method that allows solving the dynamics.
-
+Solve dynamics with zeros control
 ```matlab
-[tspan,solution] = solve(dynamics);
+>> u0 = ZerosControl(idyn);
+>> wt = solve(idyn,u0)
 ```
-

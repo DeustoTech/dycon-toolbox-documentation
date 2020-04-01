@@ -4,61 +4,71 @@ title: Home
 nav_order: 1
 ---
 
-# A MATLAB library which serves for the calculation of non-linear control problems.
----
-<h4> Table of Contents</h4>
-- [Symbolic Interface](#1)
-- [Modular Structure](#2)
-- [Direct and Indirect Methods](#3)
-- [Tunnel to other platforms](#4)
-  
----
+# A MATLAB library for non-linear optimal control problems
 
- For each of these objects, we create different methods for the resolution of problems.
+DyCon toolbox is a library for MATLAB for optimal non-linear control. This uses the automatic differentiation of <a href="https://web.casadi.org/">CasADi</a> to compute all the derivatives necessary for its resolution. 
+
+In this library you can use the two different approaches:
+
+- **Direct method**: This are to discretize state and control, and reduce the problem to a nonlinear optimization problem (nonlinear programming). In this case, DyCon Toolbox is able to solve the problem through optimization in <a href="https://en.wikipedia.org/wiki/IPOPT">IPOPT</a>.
+- **Indirect method**: This consists of solving the adjoint problem numerically backwards in time, and with this calculating the functional derivative of the problem. Then we can simply use methods based on gradient descent to obtain the optimal control.
+
+Although direct methods are more common in the control community, when the problem has a very large state dimension, indirect methods are more efficient. That is why at DyCon Toolbox we unify the definition of control problems so that they can be solved from the most convenient approach.
+
+### Features
+
+- **Sparse symbolic variables and automatic differentiation via <a href="https://web.casadi.org/">CasADi</a>**
+- **Direct method using <a href="https://coin-or.github.io/Ipopt/">Ipopt</a> Solver**
+- **Indirect methods implemented (<a href="https://en.wikipedia.org/wiki/Pontryagin%27s_maximum_principle">Pontryagin's maximum principle</a>)**
+- **Compatible with <a href="https://es.mathworks.com/products/pde.html">MATLAB PDE Toolbox</a>**
+- **Easy to implement a new optimal control problems**
+- **Many numerical schemes already implemented (<a href="https://en.wikipedia.org/wiki/List_of_Runge%E2%80%93Kutta_methods">Runge Kutta methods</a>)**
+
+### A simple example
+DyCon Toolbox is a framework to define a optimal control problems in easy way. 
 
 <p>The general formulation of these problems are: </p>
 
 $$
-\min_{u\in \Omega} J(y,u) \\
-\dot{y} = F(t,y,u) \\ 
-y(0) = y0
+\min_{u\in \Omega} \bigg[ \Psi(x(T)) + \int_0^T L(t,x,u) dt \bigg] \\
+\text{subject to:} \ 
+\begin{cases}
+\dot{x} = f(t,x,u) \\ 
+x(0) = x0
+\end{cases}
 $$
 
-<p>For each of these objects, we create different methods for problem resolution. In this way, we can easily choose the type of algorithm to solve the problem. For more information, continue exploring in our <a href="https://DeustoTech.github.io/dycon-toolbox-documentation/projects/01-documentation">documentation.</a></p>
-
-<h2 id="1">Symbolic Interface</h2>
-
-The symbolic interface of matlab makes the definition of problems easier. And in some cases, the problem can be solved analytically.
-
-For example, DyCon Toolbox able to define a continuous state equations
+In DyCon toolbox syntax the definition is very similar:
 ```matlab
-x = sym('x',[4 1]);
-u = sym('u',[4 1]);
-F = @(t,x,u) x + u;
+>> import casadi.*
+>> x = SX.sym('x',[2 1]);
+>> u = SX.sym('u',[2 1]);
+>> t = SX.sym('t');
+>> f = casadi.Function('f',{t,x,u},{x - x.^2 + u});
 ```
-With the **ode** class, we can create a structure with all information for solve an initial condition problem
+We can define the  `ode` command to build a MATLAB object 
+```matlab
+>> T  = 2;
+>> Nt = 100;
+>> tspan = linspace(0,T,Nt);
 ```
-idynamics = ode(F,x,u);
+Then we can set the solver and initial condition of the dynamic:
+
+```matlab
+>> % Build a ode object
+>> idyn = ode(f,x,u,tspan);
+>> SetIntegrator(idyn,'RK8')
+>> idyn.InitialCondition = [2,4]';
 ```
-<h2 id="2">Modular Structure</h2>
-
-DyCon Toolbox has been designed to easily accept different blocks of code. In this way, you can use another solver of the differential equations or other optimizers in any one programming language and taking advantage of all the interface already created. The first addition of de DyCon Toolbox is the acopling with the PDE Toolbox, native of MATLAB. In this way, we can use the mesh tool of the matlab to define and solve the PDE equation, and sovle de optimal control problem with DyCon Toolbox.
-
-<h2 id="3">Direct and Indirect Methods</h2>
-Main feature of DyCon Toolbox are the severals methods. The optimal control problems can be solve via full discretization or via resolve the optimal conditions.
-
-- **Full Discretization (Direct Method)**
- 
-$$ 
-    \vec{u}(t) \Rightarrow [ \vec{u}_1 ... \vec{u}_{N_t}] \\
-    \vec{y}(t) \Rightarrow [ \vec{y}_1 ... \vec{y}_{N_t}] 
-$$ 
-
-- **Optimal Conditions (Indirect Methods)**
-
-$$
-    dJ = 0
-$$
-
-<h2 id="4"> Tunnel to other platforms</h2>
-DyCon Toolbox is able to create a optimal control problem. The syntaxis of DyCon toolbox is very general and can be translate to other solver. For example, we have a translation of a AMPL/Ipopt.
+Then, With `ocp` command, we can define the optimal control problem in this way:
+```matlab
+>> psi = casadi.Function('psi' , {x}     , { x.'*x });
+>> L   = casadi.Function('L'   , {t,x,u} , { u.'*u });
+>> iocp = ocp(idyn,L,psi);
+```
+Finally, we can solve the problem using IPOPT
+```matlab
+>> % Choose a control initial guess
+>> u0 = ZerosControl(idyn);
+>> [uopt,xopt] = IpoptSolver(iocp,u0);
+```
