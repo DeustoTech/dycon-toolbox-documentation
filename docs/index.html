@@ -810,9 +810,13 @@
       <div class="main-content">
         
         <div id="main-content" class="page-content" role="main">
-          <h1 id="a-matlab-library-for-non-linear-optimal-control-problems">A MATLAB library for non-linear optimal control problems</h1>
+          <center>
+<h1 style="color:#942947"><b>DYCON TOOLBOX</b></h1>
+<h4> <b>MATLAB library for non-linear optimal control problems</b></h4>
 
-<p>DyCon toolbox is a library for MATLAB for optimal non-linear control. This uses the automatic differentiation of <a href="https://web.casadi.org/">CasADi</a> to compute all the derivatives necessary for its resolution.</p>
+<h5>DyCon toolbox is a library for MATLAB for optimal nonlinear control, which uses CasADi automatic differentiation to calculate all the derivatives necessary for its resolution. This library allows defining control problems at a high level to start solving control problems quickly. In addition, DyCon toolbox allows modifying the details of the algorithms to speed up the calculation adapting to the specific problem.</h5>
+</center>
+<hr />
 
 <p>In this library you can use the two different approaches:</p>
 
@@ -821,9 +825,9 @@
   <li><strong>Indirect method</strong>: This consists of solving the adjoint problem numerically backwards in time, and with this calculating the functional derivative of the problem. Then we can simply use methods based on gradient descent to obtain the optimal control.</li>
 </ul>
 
-<p>Although direct methods are more common in the control community, when the problem has a very large state dimension, indirect methods are more efficient. That is why at DyCon Toolbox we unify the definition of control problems so that they can be solved from the most convenient approach.</p>
+<p>Although direct methods are more common in the control community, when the problem has a very large state dimension, indirect methods are more efficient. DyCon Toolbox  unify the definition of control problems so that they can be solved from the most convenient approach.</p>
 
-<h3 id="features">Features</h3>
+<h2><b>FEATURES</b></h2>
 
 <ul>
   <li><strong>Sparse symbolic variables and automatic differentiation via <a href="https://web.casadi.org/">CasADi</a></strong></li>
@@ -835,46 +839,129 @@
 </ul>
 
 <h3 id="a-simple-example">A simple example</h3>
-<p>DyCon Toolbox is a framework to define a optimal control problems in easy way.</p>
 
-<p>The general formulation of these problems are: </p>
+<p>The simultaneous control problem is defined as:</p>
 
-<script type="math/tex; mode=display">\min_{u\in \Omega} \bigg[ \Psi(x(T)) + \int_0^T L(t,x,u) dt \bigg] \\
-\text{subject to:} \ 
-\begin{cases}
-\dot{x} = f(t,x,u) \\ 
-x(0) = x0
-\end{cases}</script>
+<script type="math/tex; mode=display">\min _{u \in L^2(0,T)} \mathcal{J}\left( u\right) = 
+\min _{u \in L^2(0,T)} \frac{1}{2}  \sum_{\nu \in \mathcal{K}}  || x\left( T, \nu \right) - x_T ||_{\mathbb{R}^ N}^2  + 
+\frac{\beta}{2} \int_0^T u^2 \mathrm{d}t \quad \beta \in \mathbb{R}^+</script>
 
-<p>In DyCon toolbox syntax the definition is very similar:</p>
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;</span> <span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
-<span class="o">&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'x'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]);</span>
-<span class="o">&gt;&gt;</span> <span class="n">u</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]);</span>
-<span class="o">&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'t'</span><span class="p">);</span>
-<span class="o">&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'f'</span><span class="p">,{</span><span class="n">t</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">u</span><span class="p">},{</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">u</span><span class="p">});</span>
-</code></pre></div></div>
-<p>We can define the  <code class="highlighter-rouge">ode</code> command to build a MATLAB object</p>
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;</span> <span class="n">T</span>  <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-<span class="o">&gt;&gt;</span> <span class="n">Nt</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
-<span class="o">&gt;&gt;</span> <span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Nt</span><span class="p">);</span>
-</code></pre></div></div>
-<p>Then we can set the solver and initial condition of the dynamic:</p>
+<p>subject to:</p>
 
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;</span> <span class="c1">% Build a ode object</span>
-<span class="o">&gt;&gt;</span> <span class="n">idyn</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
-<span class="o">&gt;&gt;</span> <span class="n">SetIntegrator</span><span class="p">(</span><span class="n">idyn</span><span class="p">,</span><span class="s1">'RK8'</span><span class="p">)</span>
-<span class="o">&gt;&gt;</span> <span class="n">idyn</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span><span class="o">'</span><span class="p">;</span>
+<script type="math/tex; mode=display">% <![CDATA[
+\left\{
+\begin{array}{ll}
+x^\prime \left( t \right) = A \left( \nu \right) x \left( t \right) + B \left( \nu \right) u \left( t \right), \quad 0 < t <T, \\
+x\left( 0 \right) = x^0.
+\end{array}
+\right. %]]></script>
+
+<p>where:</p>
+
+<script type="math/tex; mode=display">\mathcal{K}= \left\{ \nu_i \in \mathbb{R}, \enspace 1\leq i \leq K \right\}</script>
+
+<h3 id="numerical-implementation">Numerical Implementation</h3>
+
+<p>First we import the CasAdi library in order to create symbolic variables</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+<span class="n">M</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span> <span class="n">nu</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">M</span><span class="p">);</span>
 </code></pre></div></div>
-<p>Then, With <code class="highlighter-rouge">ocp</code> command, we can define the optimal control problem in this way:</p>
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;</span> <span class="nb">psi</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'psi'</span> <span class="p">,</span> <span class="p">{</span><span class="n">x</span><span class="p">}</span>     <span class="p">,</span> <span class="p">{</span> <span class="n">x</span><span class="o">.'*</span><span class="n">x</span> <span class="p">});</span>
-<span class="o">&gt;&gt;</span> <span class="n">L</span>   <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'L'</span>   <span class="p">,</span> <span class="p">{</span><span class="n">t</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">u</span><span class="p">}</span> <span class="p">,</span> <span class="p">{</span> <span class="n">u</span><span class="o">.'*</span><span class="n">u</span> <span class="p">});</span>
-<span class="o">&gt;&gt;</span> <span class="n">iocp</span> <span class="o">=</span> <span class="n">ocp</span><span class="p">(</span><span class="n">idyn</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="nb">psi</span><span class="p">);</span>
+<p>Then we create the matrices of linear dynamics.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+A_\nu = \begin{bmatrix}
+  -\nu & 1 \\
+  0    & -\nu
+\end{bmatrix} \ \ \ 
+B_\nu = \begin{bmatrix}
+0 \\
+1 
+\end{bmatrix} %]]></script>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">]</span> <span class="o">=</span> <span class="n">GenMatSim</span><span class="p">(</span><span class="n">nu</span><span class="p">);</span>
 </code></pre></div></div>
-<p>Finally, we can solve the problem using IPOPT</p>
-<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;</span> <span class="c1">% Choose a control initial guess</span>
-<span class="o">&gt;&gt;</span> <span class="n">u0</span> <span class="o">=</span> <span class="n">ZerosControl</span><span class="p">(</span><span class="n">idyn</span><span class="p">);</span>
-<span class="o">&gt;&gt;</span> <span class="p">[</span><span class="n">uopt</span><span class="p">,</span><span class="n">xopt</span><span class="p">]</span> <span class="o">=</span> <span class="n">IpoptSolver</span><span class="p">(</span><span class="n">iocp</span><span class="p">,</span><span class="n">u0</span><span class="p">);</span>
+
+<p>With these matrices we create the <code class="highlighter-rouge">ode</code> object</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% define the time span</span>
+<span class="n">Nt</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span><span class="n">T</span>  <span class="o">=</span> <span class="mf">0.8</span><span class="p">;</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Nt</span><span class="p">);</span>
+<span class="c1">% create linear dynamic object</span>
+<span class="n">iode</span> <span class="o">=</span> <span class="n">linearode</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+<span class="c1">% set initial condition</span>
+<span class="n">Y0</span> <span class="o">=</span> <span class="nb">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">iode</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="nb">repmat</span><span class="p">(</span><span class="n">Y0</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 </code></pre></div></div>
+
+<p>then we create the optimal control problem</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Get Symbolical variable</span>
+<span class="n">Ys</span>  <span class="o">=</span> <span class="n">iode</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="n">Us</span>  <span class="o">=</span> <span class="n">iode</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="n">ts</span>  <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'t'</span><span class="p">);</span> <span class="c1">%% &lt;= Create a symbolical time</span>
+<span class="c1">% Set Target</span>
+<span class="n">YT</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">M</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="c1">%</span>
+<span class="n">PathCost</span>  <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'L'</span>  <span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">Ys</span><span class="p">,</span><span class="n">Us</span><span class="p">},{</span> <span class="p">(</span><span class="mi">1</span><span class="p">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Us</span><span class="o">'*</span><span class="n">Us</span><span class="p">)</span>           <span class="p">});</span>
+<span class="n">FinalCost</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'Psi'</span><span class="p">,{</span><span class="n">Ys</span><span class="p">}</span>      <span class="p">,{</span>  <span class="mf">1e7</span><span class="o">*</span><span class="p">((</span><span class="n">Ys</span><span class="o">-</span><span class="n">YT</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">Ys</span><span class="o">-</span><span class="n">YT</span><span class="p">))</span> <span class="p">});</span>
+<span class="c1">% Create the optimal control</span>
+<span class="n">iocp</span> <span class="o">=</span> <span class="n">ocp</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">PathCost</span><span class="p">,</span><span class="n">FinalCost</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Solve Optimal Control Problem with Ipopt solver</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">U0</span> <span class="o">=</span> <span class="n">ZerosControl</span><span class="p">(</span><span class="n">iode</span><span class="p">);</span>    <span class="c1">% &lt;= Control initial guess</span>
+<span class="p">[</span><span class="n">Uopt</span> <span class="p">,</span><span class="n">Yopt</span><span class="p">]</span> <span class="o">=</span>  <span class="n">IpoptSolver</span><span class="p">(</span><span class="n">iocp</span><span class="p">,</span><span class="n">U0</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This is Ipopt version 3.12.3, running with linear solver mumps.
+NOTE: Other linear solvers might be more efficient (see Ipopt documentation).
+
+Number of nonzeros in equality constraint Jacobian...:   199700
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:      600
+
+Total number of variables............................:    50500
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  1.0000000e+09 1.12e-02 7.88e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  4.0934345e+06 1.26e-13 5.63e-09  -1.0 1.66e+02    -  1.00e+00 1.00e+00f  1
+
+Number of Iterations....: 1
+
+...
+
+EXIT: Optimal Solution Found.
+               t_proc [s]   t_wall [s]    n_eval
+       nlp_f     0.000381      0.00038         2
+       nlp_g       0.0042       0.0042         2
+  nlp_grad_f      0.00167      0.00167         3
+  nlp_hess_l      0.00331      0.00332         1
+   nlp_jac_g        0.026        0.026         3
+      solver         1.48         1.36         1
+Elapsed time is 3.853462 seconds.
+
+</code></pre></div></div>
+
+<p>We can compute the free solution</p>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Yfree</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">U0</span><span class="o">*</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">Yfree</span> <span class="o">=</span> <span class="nb">full</span><span class="p">(</span><span class="n">Yfree</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="visualization">Visualization</h3>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span> <span class="o">=</span> <span class="nb">figure</span><span class="p">();</span>
+<span class="c1">%%</span>
+<span class="n">plotSimu</span><span class="p">(</span><span class="n">tspan</span><span class="p">,</span><span class="n">Yfree</span><span class="p">,</span><span class="n">Yopt</span><span class="p">,</span><span class="n">Uopt</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://deustotech.github.io//DyCon-Blog/assets/imgs/WP01/P0009/copiaRM_01.png" /></p>
+<center><b>Figure 1. </b>The different colors represent the dynamic system under different parameters. It can be seen how the same control is obtained acting for all the dynamic systems is capable of driving the systems to the target.</center>
 
           <p></p>
           <hr></div>
