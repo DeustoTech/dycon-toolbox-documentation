@@ -814,18 +814,26 @@
 <h1 style="color:#942947"><b>DYCON TOOLBOX</b></h1>
 <h4> <b>MATLAB library for non-linear optimal control problems</b></h4>
 
-<h5>DyCon toolbox is a library for MATLAB for optimal nonlinear control, which uses CasADi automatic differentiation to calculate all the derivatives necessary for its resolution. This library allows defining control problems at a high level to start solving control problems quickly. In addition, DyCon toolbox allows modifying the details of the algorithms to speed up the calculation adapting to the specific problem.</h5>
+<h5>The DyCon Toolbox is a MATLAB library for analyzing both linear and non-linear optimal control problems. It uses <a href="https://web.casadi.org/">CasADi</a>-based automatic differentiation to compute all derivatives necessary for the optimization process.</h5>
+
+<h5>The DyCon Toolbox has a high-level syntax, which allows for an easy definition of the user’s control problem, and thus to its quick implementation. Moreover, the user may freely and easily tune the optimization algorithms in view of speeding-up the computation process.
+</h5>
+
 </center>
 <hr />
 
-<p>In this library you can use the two different approaches:</p>
+<p>The DyCon Toolbox provides two different approaches for tackling a control problem:</p>
 
 <ul>
-  <li><strong>Direct method</strong>: This are to discretize state and control, and reduce the problem to a nonlinear optimization problem (nonlinear programming). In this case, DyCon Toolbox is able to solve the problem through optimization in <a href="https://en.wikipedia.org/wiki/IPOPT">IPOPT</a>.</li>
-  <li><strong>Indirect method</strong>: This consists of solving the adjoint problem numerically backwards in time, and with this calculating the functional derivative of the problem. Then we can simply use methods based on gradient descent to obtain the optimal control.</li>
+  <li>
+    <p><strong>Direct method approach</strong>, which consists in discretizing both state and control. This reduces the original control problem to a nonlinear optimization problem (nonlinear programming). In this case, DyCon Toolbox provides a solution to the problem through optimization in <a href="https://coin-or.github.io/Ipopt/">IPOPT</a>.</p>
+  </li>
+  <li>
+    <p><strong>Indirect method approach</strong>, which consists in numerically solving the adjoint problem backwards in time, and computing the functional derivative of the problem. Gradient descent-based methods can then be used to obtain the optimal control.</p>
+  </li>
 </ul>
 
-<p>Although direct methods are more common in the control community, when the problem has a very large state dimension, indirect methods are more efficient. DyCon Toolbox  unify the definition of control problems so that they can be solved from the most convenient approach.</p>
+<p>Although direct methods are more common in the control community, when the problem is high dimensional, indirect methods are more efficient. The DyCon Toolbox unifies the definition of control problems so that they can be solved with the adequate method.</p>
 
 <h2><b>FEATURES</b></h2>
 
@@ -840,7 +848,7 @@
 
 <h3 id="a-simple-example">A simple example</h3>
 
-<p>The simultaneous control problem is defined as:</p>
+<p>The simultaneous optimal control problem is defined as:</p>
 
 <script type="math/tex; mode=display">\min _{u \in L^2(0,T)} \mathcal{J}\left( u\right) = 
 \min _{u \in L^2(0,T)} \frac{1}{2}  \sum_{\nu \in \mathcal{K}}  || x\left( T, \nu \right) - x_T ||_{\mathbb{R}^ N}^2  + 
@@ -862,7 +870,7 @@ x\left( 0 \right) = x^0.
 
 <h3 id="numerical-implementation">Numerical Implementation</h3>
 
-<p>First we import the CasAdi library in order to create symbolic variables</p>
+<p>We first import the CasAdi library in order to create symbolic variables</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
 <span class="n">M</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span> <span class="n">nu</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">M</span><span class="p">);</span>
@@ -909,7 +917,7 @@ B_\nu = \begin{bmatrix}
 <span class="n">iocp</span> <span class="o">=</span> <span class="n">ocp</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">PathCost</span><span class="p">,</span><span class="n">FinalCost</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>Solve Optimal Control Problem with Ipopt solver</p>
+<p>We solve the Optimal Control Problem with an Ipopt solver</p>
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">U0</span> <span class="o">=</span> <span class="n">ZerosControl</span><span class="p">(</span><span class="n">iode</span><span class="p">);</span>    <span class="c1">% &lt;= Control initial guess</span>
 <span class="p">[</span><span class="n">Uopt</span> <span class="p">,</span><span class="n">Yopt</span><span class="p">]</span> <span class="o">=</span>  <span class="n">IpoptSolver</span><span class="p">(</span><span class="n">iocp</span><span class="p">,</span><span class="n">U0</span><span class="p">);</span>

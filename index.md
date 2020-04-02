@@ -7,16 +7,21 @@ nav_order: 1
 <h1 style="color:#942947"><b>DYCON TOOLBOX</b></h1>
 <h4> <b>MATLAB library for non-linear optimal control problems</b></h4>
 
-<h5>DyCon toolbox is a library for MATLAB for optimal nonlinear control, which uses CasADi automatic differentiation to calculate all the derivatives necessary for its resolution. This library allows defining control problems at a high level to start solving control problems quickly. In addition, DyCon toolbox allows modifying the details of the algorithms to speed up the calculation adapting to the specific problem.</h5>
+<h5>The DyCon Toolbox is a MATLAB library for analyzing both linear and non-linear optimal control problems. It uses <a href="https://web.casadi.org/">CasADi</a>-based automatic differentiation to compute all derivatives necessary for the optimization process.</h5>
+
+<h5>The DyCon Toolbox has a high-level syntax, which allows for an easy definition of the user’s control problem, and thus to its quick implementation. Moreover, the user may freely and easily tune the optimization algorithms in view of speeding-up the computation process.
+</h5>
+
 </center>
 <hr>
 
-In this library you can use the two different approaches:
+The DyCon Toolbox provides two different approaches for tackling a control problem:
 
-- **Direct method**: This are to discretize state and control, and reduce the problem to a nonlinear optimization problem (nonlinear programming). In this case, DyCon Toolbox is able to solve the problem through optimization in <a href="https://en.wikipedia.org/wiki/IPOPT">IPOPT</a>.
-- **Indirect method**: This consists of solving the adjoint problem numerically backwards in time, and with this calculating the functional derivative of the problem. Then we can simply use methods based on gradient descent to obtain the optimal control.
+- **Direct method approach**, which consists in discretizing both state and control. This reduces the original control problem to a nonlinear optimization problem (nonlinear programming). In this case, DyCon Toolbox provides a solution to the problem through optimization in <a href="https://coin-or.github.io/Ipopt/">IPOPT</a>.
 
-Although direct methods are more common in the control community, when the problem has a very large state dimension, indirect methods are more efficient. DyCon Toolbox  unify the definition of control problems so that they can be solved from the most convenient approach.
+- **Indirect method approach**, which consists in numerically solving the adjoint problem backwards in time, and computing the functional derivative of the problem. Gradient descent-based methods can then be used to obtain the optimal control.
+
+Although direct methods are more common in the control community, when the problem is high dimensional, indirect methods are more efficient. The DyCon Toolbox unifies the definition of control problems so that they can be solved with the adequate method.
 
 <h2><b>FEATURES</b></h2>
 
@@ -29,7 +34,7 @@ Although direct methods are more common in the control community, when the probl
 
 ### A simple example
 
-The simultaneous control problem is defined as:
+The simultaneous optimal control problem is defined as:
 
 $$
 \min _{u \in L^2(0,T)} \mathcal{J}\left( u\right) = 
@@ -56,7 +61,7 @@ $$
 
 ### Numerical Implementation
 
-First we import the CasAdi library in order to create symbolic variables
+We first import the CasAdi library in order to create symbolic variables
 
 ```matlab
 import casadi.*
@@ -108,7 +113,7 @@ FinalCost = casadi.Function('Psi',{Ys}      ,{  1e7*((Ys-YT).'*(Ys-YT)) });
 iocp = ocp(iode,PathCost,FinalCost);
 ```
 
-Solve Optimal Control Problem with Ipopt solver
+We solve the Optimal Control Problem with an Ipopt solver
 
 ```matlab
 U0 = ZerosControl(iode);    % <= Control initial guess
