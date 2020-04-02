@@ -32,4 +32,4 @@ git clone https://github.com/DeustoTech/DyCon-Computational-Platform.git
 Please if you find any bug or have questions, do not hesitate to contact us. You can give us your feedback through this email address ([dycon-dev-group@deusto.es](mailto:dycon-dev-group@deusto.es)).
 
 ### **Get started**
-To get started we encourage you to visit First Steps where the basic features of DyCon Toolbox are explained. Then we suggest you to check any of our [Tutorials](https://deustotech.github.io/dycon-platform-documentation/projects/02-tutorials).
+To get started we encourage you to visit First Steps where the basic features of DyCon Toolbox are explained. Then we suggest you to check any of our [Tutorials](/posts/05-Examples/06-Examples/).
