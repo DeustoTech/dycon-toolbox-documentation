@@ -13,8 +13,8 @@ One of the great contributions of DyCon Toolbox are the examples provided by the
 {% for post in site.data.tutorials %}
 <center>
 
-<div class="card" style="width:80%;padding:11px">
-  <img width="50%" class="card-img" src="{{post[1].img}}" alt="Card image cap">
+<div class="card" style="width:90%;padding:11px">
+  <img width="40%" class="card-img" src="{{post[1].img}}" alt="Card image cap">
   <div class="card-body">
     <h3 class="card-title"><b>{{ post[1].name }}</b></h3>
     <p class="card-text">{{ post[1].description }}</p>
