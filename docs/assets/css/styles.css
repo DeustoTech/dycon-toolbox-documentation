@@ -1,0 +1,15 @@
+.card{
+    width: 43%;
+    float: left;
+    margin: 0px 13px;
+    height: auto;
+    min-height: 450px;
+}
+
+.card img{
+    height: 180px;
+}
+
+.separator{
+    clear:both;
+}
