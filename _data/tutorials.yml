@@ -20,3 +20,9 @@ T04:
   url: https://deustotech.github.io/DyCon-Blog/tutorial/wp06/P0008
   img: https://deustotech.github.io/DyCon-Blog/assets/imgs/WP06/P0008/copiaRM_01.png
   description: In this tutorial we will apply the DyCon toolbox to find a control to the semi-discrete semi-linear heat equation.
+
+T05:
+  name: Simulation of Fractional Heat Equation
+  description: In this tutorial, we show the simulation of heat fractional equation
+  url: https://deustotech.github.io/DyCon-Blog/tutorial/wp05/P0014
+  img: https://deustotech.github.io/DyCon-Blog/assets/imgs/WP05/P0014/twiterFractional.gif
