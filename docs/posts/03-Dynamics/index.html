@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  
+    <title>Dynamics definition - DyCon Toolbox</title>
+
+    
+  
+
+  <link rel="shortcut icon" href="https://deustotech.github.io/dycon-toolbox-documentation/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://deustotech.github.io/dycon-toolbox-documentation/assets/css/styles.css">
+  <link rel="stylesheet" href="https://deustotech.github.io/dycon-toolbox-documentation/assets/css/just-the-docs.css">
+
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-2709176-10', 'https://deustotech.github.io');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+  
+
+  
+    <script type="text/javascript" src="https://deustotech.github.io/dycon-toolbox-documentation/assets/js/vendor/lunr.min.js"></script>
+  
+  <script type="text/javascript" src="https://deustotech.github.io/dycon-toolbox-documentation/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Dynamics definition | DyCon Toolbox</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Dynamics definition" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="DyCon Toolbox Documentation" />
+<meta property="og:description" content="DyCon Toolbox Documentation" />
+<link rel="canonical" href="https://deustotech.github.io/dycon-toolbox-documentation/posts/03-Dynamics/" />
+<meta property="og:url" content="https://deustotech.github.io/dycon-toolbox-documentation/posts/03-Dynamics/" />
+<meta property="og:site_name" content="DyCon Toolbox" />
+<script type="application/ld+json">
+{"description":"DyCon Toolbox Documentation","@type":"WebPage","url":"https://deustotech.github.io/dycon-toolbox-documentation/posts/03-Dynamics/","headline":"Dynamics definition","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    },
+		TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      },
+      extensions: ["AMSmath.js", "AMSsymbols.js"],
+      Macros:{
+        Y: "\\textbf{Y}",
+        dY: "\\dot{\\textbf{Y}}",
+        U: "\\textbf{U}",
+      }
+    },
+    CommonHTML: {
+      styles: {
+        "@font-face /* vec */ ": {
+          "font-family": "MJX-VEC",
+          src: [
+            "url(data:application/x-font-woff;charset=utf-8;base64,",
+            "d09GRgABAAAAAARMAA0AAAAABiQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAEMAAAABwA",
+            "AAAccRGLqUdERUYAAAQMAAAAJAAAACgANAAmT1MvMgAAAaAAAABJAAAAYFc5gfFjbWFwAAACAAAA",
+            "AEYAAAFKQxjlbWdhc3AAAAQEAAAACAAAAAj//wADZ2x5ZgAAAlQAAACUAAAAlIQU9HBoZWFkAAAB",
+            "MAAAADAAAAA2C748e2hoZWEAAAFgAAAAHgAAACQFXQDqaG10eAAAAewAAAAUAAAAFAYvAE9sb2Nh",
+            "AAACSAAAAAwAAAAMACgAcm1heHAAAAGAAAAAHQAAACAASQAmbmFtZQAAAugAAADxAAAB5uwlD0hw",
+            "b3N0AAAD3AAAACgAAAA34M9aEXjaY2BkYGAA4uOfgq7G89t8ZeBmfgEUYbga+icNTssClVxnOgXk",
+            "cjAwgUQBdqEMW3jaY2BkYGBu+feBgYHxCwMQMF5nYGRABawAcaQESgAAeNpjYGRgYGBlUGZgYgAB",
+            "EMnIABJzAPMZAAZZAHAAAAB42mNgYSxn/MLAysDA1MW0h4GBoQdCMz5gMGRkAooysDEzwAAjECvA",
+            "OAFprikMBxgUFCcxt/z7wMDA3MIoAFUDAwoMjACD8Qv5AAAAAfQAMgAAAAABTQAAAPoAAAH0AB14",
+            "2mNgYGBmgGAZBkYGEHAB8hjBfBYGDSDNBqQZGZgYFBQn/f8P5IPp/4/vFUHVAwEjGwOcw8gEJJgY",
+            "UAEjxIrhDACLGwmnAAAAAAAUABQAFAAUAEoAAgAyAAABwgIVAAMABwAAMxEhESUhESEyAZD+ogEs",
+            "/tQCFf3rMgGxAAEAHQIEAdcCygAiAAABNDYzMhcWFxYXFhUUBgcGBw4DIyImNTQ3IycmNTQ3ISYB",
+            "eQsJBwUFBQofCwYLKyACBwMGBAcNL6urDQ0BZxgCtggMBQQPJRQHCwkGBhYpAgkCAgsJEygBCQoH",
+            "DSYAeNqVjrGKwkAURe/EGBBUrG12CishMrFQcDuLsAi26YMOmsIMxAh+hN8i+CF+gd+y4B3zttjC",
+            "woHhncu7774HoI8rFP5eIKzQw5dwgAjfwi2McBEO6bkLtzHAr3CEnhrTqcKOpDasMCQ1HKCLWLiF",
+            "HyyFQ3puwm1oPIQjDFXfR62Ro8YeK9YzMlhsqB0qtvJ6v8rPmd3Uzkv2tihwwoHCbosTa0pryYH0",
+            "NbKjRWPB/z626Se8dsY/hSHPGeTKOnXVzuqF/reYOoln8dQk80+u9b0KR97rD9Rc4xdNXtVQI7PV",
+            "sXClNiaZGGP0B+FPMN1KMAAAAHjaY2BiAIP/zQxGDNgAKxAzMjAxMDMycSUWFeWXF2WmZ5QAAGh5",
+            "BhgAAAAB//8AAnjaY2BkYGDgA2IJBgUgycTAyMDMwAIkWcA8BgZGCAYACgIAWwAAAAEAAAAAxmW3",
+            "ygAAAADVVeemAAAAANVV7Dg=) format('woff')"
+          ].join('')
+        },
+        ".MJX-VEC": {
+          "font-family": "MJX-VEC"
+        }
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function () {
+    var MML = MathJax.ElementJax.mml;
+    var fixCombiningChar = MML.mo.prototype.CHTMLfixCombiningChar;
+    MML.mo.Augment({
+      CHTMLfixCombiningChar: function (node) {
+        if (node.textContent === '\u20D7') {
+          //
+          //  Safari makes combining characters into non-combining ones when
+          //  they don't have anything to combine with; replace \vec arrow
+          //  with a non-combining one so all browsers get the same thing
+          //
+          node = node.firstChild;
+          node.firstChild.nodeValue = "\u2192";
+          node.className = "mjx-char MJX-VEC";
+          node.style.marginLeft = "-.5em";
+          node.style.paddingTop = ".45em";
+        } else {
+          fixCombiningChar.call(this,node);
+        }
+      }
+    });
+  });
+	</script>
+</head>
+
+<body>
+
+  <div class="page-wrap">
+    <div class="side-bar">
+          <center>
+              <a href="https://deustotech.github.io/dycon-toolbox-documentation/" class="site-title fs-6 lh-tight">
+                <img src="https://deustotech.github.io/dycon-toolbox-documentation/assets/images/logo.png" width="70%"></img>
+              </a>
+          </center>
+      <span class="fs-3"><button class="js-main-nav-trigger navigation-list-toggle btn btn-outline" type="button" data-text-toggle="Hide">Menu</button></span>
+      <div class="navigation main-nav js-main-nav">
+        <nav role="navigation" aria-label="Main navigation">
+  <ul class="navigation-list">
+    
+    
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/" class="navigation-list-link">Home</a>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/02-Download/" class="navigation-list-link">Download</a>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item active">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/03-Dynamics/" class="navigation-list-link active">Dynamics definition</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-OptimalControlProblems/" class="navigation-list-link">Optimal Control Problems</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-Examples/" class="navigation-list-link">Examples</a>
+            
+          </li>
+        
+      
+    
+  </ul>
+</nav>
+
+      </div>
+      <footer role="contentinfo" class="site-footer">
+        <p class="text-small text-grey-dk-000 mb-0">
+            The DyCon Toolbox is developed primarily by the <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>, at <a href="http://deustotech.deusto.es/">DeustoTech</a>. Contact the DyCon Toolbox developer team <a href="mailto:dycon-dev-group@deusto.es">dycon-dev-group@deusto.es</a> for more information.
+        </p>
+      </footer>
+    </div>
+    <div class="main-content-wrap js-main-content" tabindex="0">
+      <div class="page-header">
+        <div class="main-content">
+          
+          <div class="search js-search">
+            <div class="search-input-wrap">
+              <input type="text" class="js-search-input search-input" tabindex="0" placeholder="Search DyCon Toolbox" aria-label="Search DyCon Toolbox" autocomplete="off">
+              <svg width="14" height="14" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" class="search-icon"><title>Search</title><g fill-rule="nonzero"><path d="M17.332 20.735c-5.537 0-10-4.6-10-10.247 0-5.646 4.463-10.247 10-10.247 5.536 0 10 4.601 10 10.247s-4.464 10.247-10 10.247zm0-4c3.3 0 6-2.783 6-6.247 0-3.463-2.7-6.247-6-6.247s-6 2.784-6 6.247c0 3.464 2.7 6.247 6 6.247z"/><path d="M11.672 13.791L.192 25.271 3.02 28.1 14.5 16.62z"/></g></svg>
+            </div>
+            <div class="js-search-results search-results-wrap"></div>
+          </div>
+          
+            <ul class="list-style-none text-small mt-md-1 mb-md-1 pb-4 pb-md-0 js-aux-nav aux-nav">
+                <li class="d-inline-block">
+                      <div align="right">
+                          Visit ↠  <a href="https://cmc.deusto.eus/">
+                          Chair of Computational Mathematics
+                        </a>
+
+                        </div>
+                </li>
+            </ul>
+        </div>
+      </div>
+      <div class="main-content">
+        
+          
+        
+        <div id="main-content" class="page-content" role="main">
+          
+          <center>
+          <h1 style="color:#942947"><b>Dynamics definition</b></h1>
+        </center>
+
+          <h4 id="ToC">Table of Contents</h4  >
+<ol>
+
+    <li><b><a href="#ode">ode</a></b>. A object of class ode is a structure that contains a all information of a ordinary differential equation. This have a dynamic equation, initial condition, time span, etc.</li>
+    <h5>Methods</h5>
+    <ul>
+    
+        <li><a href="#odeode">ode</a></li>
+    
+        <li><a href="#odeSetIntegrator">SetIntegrator</a></li>
+    
+        <li><a href="#odesolve">solve</a></li>
+    
+        <li><a href="#odeZerosControl">ZerosControl</a></li>
+    
+    </ul>
+    <p> </p>
+
+    <li><b><a href="#pde1d">pde1d</a></b>. A object of class pde1d is a structure that contains a all information of a partial differential equation in one dimension. This have a dynamic equation, initial condition, time span, space span etc.</li>
+    <h5>Methods</h5>
+    <ul>
+    
+        <li><a href="#pde1dpde1d">pde1d</a></li>
+    
+    </ul>
+    <p> </p>
+
+    <li><b><a href="#pde2d">pde2d</a></b>. A object of class pde2d is a structure that contains a all information of a partial differential equation in two dimension. This have a dynamic equation, initial condition, time span, space span etc.</li>
+    <h5>Methods</h5>
+    <ul>
+    
+        <li><a href="#pde2dpde2d">pde2d</a></li>
+    
+    </ul>
+    <p> </p>
+
+    <li><b><a href="#pdefem">pdefem</a></b>. A object of class pdefem is a structure that contains a all information of a partial differential equation in two dimension in finite elements. This have a dynamic equation, initial condition, time span, space discretization, nodes and elements, etc.</li>
+    <h5>Methods</h5>
+    <ul>
+    
+        <li><a href="#pdefempdefem">pdefem</a></li>
+    
+    </ul>
+    <p> </p>
+
+    <li><b><a href="#linearode">linearode</a></b>. </li>
+    <h5>Methods</h5>
+    <ul>
+    
+    </ul>
+    <p> </p>
+
+    <li><b><a href="#linearpde">linearpde</a></b>. </li>
+    <h5>Methods</h5>
+    <ul>
+    
+    </ul>
+    <p> </p>
+
+</ol>
+
+
+    <hr>
+    <div style="border: 5px solid red;padding:10px">
+    <div id="ode"><h1><b style="color:red">Class:: </b><b>ode</b ></h1></div>
+    <p>A object of class ode is a structure that contains a all information of a ordinary differential equation. This have a dynamic equation, initial condition, time span, etc.</p>
+    <!-- BUCLE METHODS -->
+    
+        <div id="odeode" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>ode</b> of <b style="color:red">Class::</b><b>ode</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+                <li><code>
+                iode = ode(Fs,Xs,Us,tspan)
+                </code></li>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>Fs</td>
+                            <td><a href="https://web.casadi.org/docs/#function-objects">CasADi Function</a></td>           
+                            <td><p>This is a function $f:R^+\times\mathcal{X}\times\mathcal{U}$ that define the dynamics.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Xs</td>
+                            <td><a href="https://web.casadi.org/docs/#the-sx-symbolics">SX.sym</a></td>           
+                            <td><p>It is a symbolical state vector, $x \in \mathcal{X}$.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Us</td>
+                            <td><a href="https://web.casadi.org/docs/#the-sx-symbolics">SX.sym</a></td>           
+                            <td><p>it is a symbolical control vector, $u \in \mathcal{U}$</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>tspan</td>
+                            <td><a href="">double</a></td>           
+                            <td><p>The ode is a object that can be solved with the command “solve” but this need a time span to build a answer. The number of points in time is denote by $N_t$. It is $N_t = length(tspan)$</p>
+</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>iode</td>
+                            <td><a href="/dycon-toolbox-documentation/posts/03-Dynamics/#ode">ode</a></td>
+                            <td>ode object that contain all information of ode.</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+<p>Create a symbolical variable</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span>
+<span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'x'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">us</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'t'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Define a dynamic as casadi Function</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Fs</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'F'</span><span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">xs</span><span class="p">,</span><span class="n">us</span><span class="p">},{</span> <span class="o">-</span> <span class="n">xs</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">us</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                                      <span class="o">-</span> <span class="n">xs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">us</span><span class="p">(</span><span class="mi">2</span><span class="p">)});</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>And create a object ode</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iode</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fs</span><span class="p">,</span><span class="n">xs</span><span class="p">,</span><span class="n">us</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iode</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+iode = 
+
+  ode with properties:
+
+               tspan: [1x100 double]
+                  ts: [1x1 casadi.SX]
+          MassMatrix: [2x2 double]
+              method: []
+              solver: []
+          DynamicFcn: [1x1 casadi.Function]
+               State: [1x1 fun]
+             Control: [1x1 fun]
+    InitialCondition: [2x1 casadi.DM]
+                  Nt: 100
+
+
+</code></pre></div></div>
+
+
+    </div>
+    
+        <div id="odeSetIntegrator" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>SetIntegrator</b> of <b style="color:red">Class::</b><b>ode</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+                <li><code>
+                SetIntegrator(iode,method)
+                </code></li>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>idyn</td>
+                            <td><a href="/dycon-toolbox-documentation/posts/03-Dynamics/#ode">ode</a></td>           
+                            <td><p>dynamic object</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>method</td>
+                            <td><a href="">string</a></td>           
+                            <td><p>It is a string that can be {<code class="highlighter-rouge">BackwardEuler</code>,<code class="highlighter-rouge">RK4</code>,<code class="highlighter-rouge">RK8</code>,<code class="highlighter-rouge">casadi</code>}. This parameter define the numerical schema that it will use to solve the problem</p>
+</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+<p>Create a symbolical variable</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span>
+<span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'x'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">us</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'t'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Define a dynamic as casadi Function</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Fs</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'F'</span><span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">xs</span><span class="p">,</span><span class="n">us</span><span class="p">},{</span> <span class="p">[</span><span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">xs</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">us</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+                                      <span class="o">-</span> <span class="n">xs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">us</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>    <span class="p">});</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>And create a object ode</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iode</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fs</span><span class="p">,</span><span class="n">xs</span><span class="p">,</span><span class="n">us</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+<span class="n">iode</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">1</span><span class="p">];</span>
+<span class="n">u0</span> <span class="o">=</span> <span class="n">ZerosControl</span><span class="p">(</span><span class="n">iode</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iode</span><span class="o">.</span><span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
+<span class="n">SetIntegrator</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="s1">'RK4'</span><span class="p">)</span>
+<span class="n">xt_RK4</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">u0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+xt_RK4 = 
+
+@1=1, 
+[[@1, 0.897602, 0.805689, 0.723187, 0.649134, 0.582664, 0.523], 
+ [@1, 0.946689, 0.89622, 0.848441, 0.80321, 0.76039, 0.719853]]
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iode</span><span class="o">.</span><span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
+<span class="n">SetIntegrator</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="s1">'RK8'</span><span class="p">)</span>
+<span class="n">xt_RK8</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">u0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+xt_RK8 = 
+
+@1=1, 
+[[@1, 0.846482, 0.716531, 0.606531, 0.513417, 0.434598, 0.367879], 
+ [@1, 0.920044, 0.846482, 0.778801, 0.716531, 0.659241, 0.606531]]
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iode</span><span class="o">.</span><span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
+<span class="n">SetIntegrator</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="s1">'BackwardEuler'</span><span class="p">)</span>
+<span class="n">xt_BE</span>  <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">u0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+xt_BE = 
+
+@1=1, 
+[[@1, 0.833333, 0.694444, 0.578704, 0.482253, 0.401878, 0.334898], 
+ [@1, 0.916667, 0.840278, 0.770255, 0.706067, 0.647228, 0.593292]]
+
+</code></pre></div></div>
+
+
+    </div>
+    
+        <div id="odesolve" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>solve</b> of <b style="color:red">Class::</b><b>ode</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+                <li><code>
+                xt = solve(iode,u0)
+                </code></li>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>idyn</td>
+                            <td><a href="/dycon-toolbox-documentation/posts/03-Dynamics/#ode">ode</a></td>           
+                            <td><p>dynamic object</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>u0</td>
+                            <td><a href="https://web.casadi.org/docs/#dm">double or casadi.DM</a></td>           
+                            <td><p>control initial guess</p>
+</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>xt</td>
+                            <td><a href="https://web.casadi.org/docs/#dm">double or casadi.DM</a></td>
+                            <td>dynamic solution in tspan</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+<p>Create a symbolical variable</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span>
+<span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'x'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">us</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'t'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Define a dynamic as casadi Function</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Fs</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'F'</span><span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">xs</span><span class="p">,</span><span class="n">us</span><span class="p">},{</span> <span class="p">[</span><span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">xs</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">us</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+                                      <span class="o">-</span> <span class="n">xs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">us</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>    <span class="p">});</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>And create a object ode</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iode</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fs</span><span class="p">,</span><span class="n">xs</span><span class="p">,</span><span class="n">us</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+<span class="n">SetIntegrator</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="s1">'RK4'</span><span class="p">)</span>
+<span class="n">iode</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">1</span><span class="p">];</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">u0</span> <span class="o">=</span> <span class="n">ZerosControl</span><span class="p">(</span><span class="n">iode</span><span class="p">);</span>
+<span class="n">xt</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">u0</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+xt = 
+
+
+[[1, 0.867043, 0.751763, 0.65181, 0.565147, 0.490007, 0.424857, 0.368369, 0.319392, 0.276926], 
+ [1, 0.929876, 0.864669, 0.804035, 0.747653, 0.695225, 0.646473, 0.60114, 0.558985, 0.519787]]
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">class</span><span class="p">(</span><span class="n">xt</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ans =
+
+    'casadi.DM'
+
+
+</code></pre></div></div>
+
+
+    </div>
+    
+        <div id="odeZerosControl" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>ZerosControl</b> of <b style="color:red">Class::</b><b>ode</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+                <li><code>
+                u0 = ZerosControl(iode)
+                </code></li>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>idyn</td>
+                            <td><a href="/dycon-toolbox-documentation/posts/03-Dynamics/#ode">ode</a></td>           
+                            <td><p>dynamic object</p>
+</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>u0</td>
+                            <td><a href="https://web.casadi.org/docs/#dm">casadi.DM</a></td>
+                            <td>zero control</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+<p>Create a symbolical variable</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span>
+<span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'x'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">us</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'t'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Define a dynamic as casadi Function</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Fs</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'F'</span><span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">xs</span><span class="p">,</span><span class="n">us</span><span class="p">},{</span> <span class="p">[</span><span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">xs</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">us</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+                                      <span class="o">-</span> <span class="n">xs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">us</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>    <span class="p">});</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>And create a object ode</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iode</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">Fs</span><span class="p">,</span><span class="n">xs</span><span class="p">,</span><span class="n">us</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+<span class="n">SetIntegrator</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="s1">'RK4'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">u0</span> <span class="o">=</span> <span class="n">ZerosControl</span><span class="p">(</span><span class="n">iode</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">u0</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+u0 = 
+
+@1=0, 
+[[@1, @1, @1, @1, @1, @1, @1, @1, @1, @1], 
+ [@1, @1, @1, @1, @1, @1, @1, @1, @1, @1]]
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">class</span><span class="p">(</span><span class="n">u0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ans =
+
+    'casadi.SX'
+
+
+</code></pre></div></div>
+
+
+    </div>
+    
+    </div>
+    <hr>
+
+    <hr>
+    <div style="border: 5px solid red;padding:10px">
+    <div id="pde1d"><h1><b style="color:red">Class:: </b><b>pde1d</b ></h1></div>
+    <p>A object of class pde1d is a structure that contains a all information of a partial differential equation in one dimension. This have a dynamic equation, initial condition, time span, space span etc.</p>
+    <!-- BUCLE METHODS -->
+    
+        <div id="pde1dpde1d" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>pde1d</b> of <b style="color:red">Class::</b><b>pde1d</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+                <li><code>
+                ipde1d = pde1d(Fs,Xs,Us,tspan,xline)
+                </code></li>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>Fs</td>
+                            <td><a href="https://web.casadi.org/docs/#function-objects">CasADi Function</a></td>           
+                            <td><p>This is a function $f:R^+\times\mathcal{X}\times\mathcal{U}$ that define the dynamics.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Xs</td>
+                            <td><a href="https://web.casadi.org/docs/#the-sx-symbolics">SX.sym</a></td>           
+                            <td><p>It is a symbolical state vector, $x \in \mathcal{X}$.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Us</td>
+                            <td><a href="https://web.casadi.org/docs/#the-sx-symbolics">SX.sym</a></td>           
+                            <td><p>it is a symbolical control vector, $u \in \mathcal{U}$</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>tspan</td>
+                            <td><a href="">double</a></td>           
+                            <td><p>The ode is a object that can be solved with the command “solve” but this need a time span to build a answer. The number of points in time is denote by $N_t$. It is $N_t = length(tspan)$</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>xline</td>
+                            <td><a href="">double</a></td>           
+                            <td><p>The number of points in time is denote by $N_x$. It is $N_x = length(xline)$.</p>
+</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>ipde1d</td>
+                            <td><a href="/dycon-toolbox-documentation/posts/03-Dynamics/#pde1d">pde1d</a></td>
+                            <td>ode object that contain all information of pde 1d.</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+<p>Create a symbolical variable</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span>
+<span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'x'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">us</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'t'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Define a dynamic as casadi Function</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Fs</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'F'</span><span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">xs</span><span class="p">,</span><span class="n">us</span><span class="p">},{</span> <span class="o">-</span> <span class="n">xs</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">us</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                                      <span class="o">-</span> <span class="n">xs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">us</span><span class="p">(</span><span class="mi">2</span><span class="p">)});</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+<span class="nb">xline</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>And create a object ode</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ipde1d</span> <span class="o">=</span> <span class="n">pde1d</span><span class="p">(</span><span class="n">Fs</span><span class="p">,</span><span class="n">xs</span><span class="p">,</span><span class="n">us</span><span class="p">,</span><span class="n">tspan</span><span class="p">,</span><span class="nb">xline</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ipde1d</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ipde1d = 
+
+  pde1d with properties:
+
+               xline: [1x100 double]
+               tspan: [1x100 double]
+                  ts: [1x1 casadi.SX]
+          MassMatrix: [2x2 double]
+              method: []
+              solver: []
+          DynamicFcn: [1x1 casadi.Function]
+               State: [1x1 fun]
+             Control: [1x1 fun]
+    InitialCondition: [2x1 casadi.DM]
+                  Nt: 100
+
+
+</code></pre></div></div>
+
+
+    </div>
+    
+    </div>
+    <hr>
+
+    <hr>
+    <div style="border: 5px solid red;padding:10px">
+    <div id="pde2d"><h1><b style="color:red">Class:: </b><b>pde2d</b ></h1></div>
+    <p>A object of class pde2d is a structure that contains a all information of a partial differential equation in two dimension. This have a dynamic equation, initial condition, time span, space span etc.</p>
+    <!-- BUCLE METHODS -->
+    
+        <div id="pde2dpde2d" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>pde2d</b> of <b style="color:red">Class::</b><b>pde2d</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+                <li><code>
+                ipde1d = pde1d(Fs,Xs,Us,tspan,xline)
+                </code></li>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>Fs</td>
+                            <td><a href="https://web.casadi.org/docs/#function-objects">CasADi Function</a></td>           
+                            <td><p>This is a function $f:R^+\times\mathcal{X}\times\mathcal{U}$ that define the dynamics.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Xs</td>
+                            <td><a href="https://web.casadi.org/docs/#the-sx-symbolics">SX.sym</a></td>           
+                            <td><p>It is a symbolical state vector, $x \in \mathcal{X}$.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Us</td>
+                            <td><a href="https://web.casadi.org/docs/#the-sx-symbolics">SX.sym</a></td>           
+                            <td><p>it is a symbolical control vector, $u \in \mathcal{U}$</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>tspan</td>
+                            <td><a href="">double</a></td>           
+                            <td><p>The ode is a object that can be solved with the command “solve” but this need a time span to build a answer. The number of points in time is denote by $N_t$. It is $N_t = length(tspan)$</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>xline</td>
+                            <td><a href="">double</a></td>           
+                            <td><p>The number of points in time is denote by $N_x$. It is $N_x = length(xline)$.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>yline</td>
+                            <td><a href="">double</a></td>           
+                            <td><p>The number of points in time is denote by $N_y$. It is $N_y = length(yline)$.</p>
+</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>ipde2d</td>
+                            <td><a href="/dycon-toolbox-documentation/posts/03-Dynamics/#pde2d">pde2d</a></td>
+                            <td>ode object that contain all information of pde 2d.</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+<p>Create a symbolical variable</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span>
+<span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+<span class="n">us</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">vs</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'v'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'t'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Define a dynamic as casadi Function</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Fs</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'F'</span><span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">us</span><span class="p">,</span><span class="n">vs</span><span class="p">},{</span> <span class="o">-</span> <span class="n">us</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">vs</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                                      <span class="o">-</span> <span class="n">us</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">vs</span><span class="p">(</span><span class="mi">2</span><span class="p">)});</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+<span class="nb">xline</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+<span class="nb">yline</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>And create a object ode</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ipde2d</span> <span class="o">=</span> <span class="n">pde2d</span><span class="p">(</span><span class="n">Fs</span><span class="p">,</span><span class="n">us</span><span class="p">,</span><span class="n">vs</span><span class="p">,</span><span class="n">tspan</span><span class="p">,</span><span class="nb">xline</span><span class="p">,</span><span class="nb">yline</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ipde2d</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ipde2d = 
+
+  pde2d with properties:
+
+               xline: [1x100 double]
+               yline: [1x100 double]
+                 xms: [100x100 double]
+                 yms: [100x100 double]
+               tspan: [1x100 double]
+                  ts: [1x1 casadi.SX]
+          MassMatrix: [2x2 double]
+              method: []
+              solver: []
+          DynamicFcn: [1x1 casadi.Function]
+               State: [1x1 fun]
+             Control: [1x1 fun]
+    InitialCondition: [2x1 casadi.DM]
+                  Nt: 100
+
+
+</code></pre></div></div>
+
+
+    </div>
+    
+    </div>
+    <hr>
+
+    <hr>
+    <div style="border: 5px solid red;padding:10px">
+    <div id="pdefem"><h1><b style="color:red">Class:: </b><b>pdefem</b ></h1></div>
+    <p>A object of class pdefem is a structure that contains a all information of a partial differential equation in two dimension in finite elements. This have a dynamic equation, initial condition, time span, space discretization, nodes and elements, etc.</p>
+    <!-- BUCLE METHODS -->
+    
+        <div id="pdefempdefem" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>pdefem</b> of <b style="color:red">Class::</b><b>pdefem</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+                <li><code>
+                ipde1d = pde1d(Fs,Xs,Us,Nodes,Elements)
+                </code></li>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>Fs</td>
+                            <td><a href="https://web.casadi.org/docs/#function-objects">CasADi Function</a></td>           
+                            <td><p>This is a function $f:R^+\times\mathcal{X}\times\mathcal{U}$ that define the dynamics.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Xs</td>
+                            <td><a href="https://web.casadi.org/docs/#the-sx-symbolics">SX.sym</a></td>           
+                            <td><p>It is a symbolical state vector, $x \in \mathcal{X}$.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Us</td>
+                            <td><a href="https://web.casadi.org/docs/#the-sx-symbolics">SX.sym</a></td>           
+                            <td><p>it is a symbolical control vector, $u \in \mathcal{U}$</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>tspan</td>
+                            <td><a href="">double</a></td>           
+                            <td><p>The ode is a object that can be solved with the command “solve” but this need a time span to build a answer. The number of points in time is denote by $N_t$. It is $N_t = length(tspan)$</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Nodes</td>
+                            <td><a href="">double</a></td>           
+                            <td><p>Mesh nodes, specified as a matrix of real numbers. The matrix size is 2-by-Nnodes for a 2-D case and 3-by-Nnodes for a 3-D case. Nnodes is the number of nodes in the mesh. Node j has x, y, and z coordinates in column j of nodes.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Elements</td>
+                            <td><a href="">double</a></td>           
+                            <td><p>Mesh elements, specified as an integer matrix with 3, and Nelements columns, where Nelements is the number of elements in the mesh. Linear planar mesh or linear mesh on the geometry surface has size 3-by-Nelements. Each column of elements contains the indices of the triangle corner nodes for a surface element. In this case, the resulting geometry does not contain a full mesh. Create the mesh using the <a href="https://es.mathworks.com/help/pde/ug/pde.pdemodel.geometryfrommesh.html">generateMesh</a> function.</p>
+</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>ipdefem</td>
+                            <td><a href="/dycon-toolbox-documentation/posts/03-Dynamics/#pdefem">pdefem</a></td>
+                            <td>ode object that contain all information of pde in finite elements.</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+<p>Create a points an elements</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="nb">pi</span><span class="p">/</span><span class="mi">30</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="n">pgon</span> <span class="o">=</span> <span class="nb">polyshape</span><span class="p">({[</span><span class="mf">0.5</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)]},{[</span><span class="mf">0.5</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)]});</span>
+
+<span class="n">tr</span> <span class="o">=</span> <span class="nb">triangulation</span><span class="p">(</span><span class="n">pgon</span><span class="p">);</span>
+<span class="c1">%</span>
+<span class="n">tnodes</span>    <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">Points</span><span class="o">'</span><span class="p">;</span>
+<span class="n">telements</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">ConnectivityList</span><span class="o">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>With these we can create a FEM matrices with help to MATLAB PDE Toolbox</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">createpde</span><span class="p">();</span>
+<span class="n">geometryFromMesh</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">tnodes</span><span class="p">,</span><span class="n">telements</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Define Equation</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">applyBoundaryCondition</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="s1">'neumann'</span><span class="p">,</span><span class="s1">'Edge'</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="n">model</span><span class="o">.</span><span class="n">Geometry</span><span class="o">.</span><span class="n">NumEdges</span><span class="p">,</span><span class="s1">'g'</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">specifyCoefficients</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="s1">'m'</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">'d'</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">'c'</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">'a'</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">'f'</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>and generate mesh</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hmax</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">;</span>
+<span class="n">generateMesh</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="s1">'Hmax'</span><span class="p">,</span><span class="n">hmax</span><span class="p">,</span><span class="s1">'GeometricOrder'</span><span class="p">,</span><span class="s1">'linear'</span><span class="p">,</span><span class="s1">'Hgrad'</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Get a Finite elements Matrices</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">FEM</span> <span class="o">=</span> <span class="n">assembleFEMatrices</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="s1">'stiff-spring'</span><span class="p">);</span>
+<span class="n">Ns</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="n">FEM</span><span class="o">.</span><span class="n">Fs</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+<span class="c1">%</span>
+<span class="n">Us</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'w'</span><span class="p">,</span><span class="n">Ns</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">Vs</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'v'</span><span class="p">,</span><span class="n">Ns</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'t'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Define the dynamic</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Fs</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'f'</span><span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">Us</span><span class="p">,</span><span class="n">Vs</span><span class="p">},{</span> <span class="n">FEM</span><span class="o">.</span><span class="n">Fs</span> <span class="o">+</span> <span class="n">FEM</span><span class="o">.</span><span class="n">Ks</span><span class="o">*</span><span class="n">Us</span> <span class="o">+</span> <span class="n">Vs</span> <span class="p">});</span>
+<span class="c1">%</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">50</span><span class="p">);</span>
+<span class="c1">%</span>
+<span class="n">idyn</span> <span class="o">=</span> <span class="n">pdefem</span><span class="p">(</span><span class="n">Fs</span><span class="p">,</span><span class="n">Us</span><span class="p">,</span><span class="n">Vs</span><span class="p">,</span><span class="n">tspan</span><span class="p">,</span><span class="n">tnodes</span><span class="p">,</span><span class="n">tnodes</span><span class="p">);</span>
+<span class="n">SetIntegrator</span><span class="p">(</span><span class="n">idyn</span><span class="p">,</span><span class="s1">'RK4'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Initial Condition</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xms</span> <span class="o">=</span> <span class="n">Nodes</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span><span class="s1">' ;yms = Nodes(2,:)'</span> <span class="p">;</span>
+<span class="c1">% radial coordinates</span>
+<span class="n">rms</span>  <span class="o">=</span> <span class="nb">sqrt</span><span class="p">(</span><span class="n">xms</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">yms</span><span class="o">.^</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">thms</span> <span class="o">=</span> <span class="nb">atan2</span><span class="p">(</span><span class="n">yms</span><span class="p">,</span><span class="n">xms</span><span class="p">);</span>
+
+<span class="n">U0</span> <span class="o">=</span>  <span class="nb">exp</span><span class="p">((</span><span class="o">-</span><span class="n">xms</span><span class="o">.^</span><span class="mi">2</span><span class="o">-</span><span class="n">yms</span><span class="o">.^</span><span class="mi">2</span><span class="p">)/</span><span class="mf">0.25</span><span class="o">^</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">idyn</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="n">U0</span><span class="p">(:);</span>
+<span class="c1">%</span>
+<span class="n">Vt</span> <span class="o">=</span> <span class="n">ZerosControl</span><span class="p">(</span><span class="n">idyn</span><span class="p">);</span>
+<span class="n">Wt</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">idyn</span><span class="p">,</span><span class="n">Vt</span><span class="p">);</span>
+<span class="c1">%</span>
+<span class="n">Wt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Wt = 
+
+
+[[0.0183156, 0.0179932, 0.0176703, ..., -0.0567949, -0.0654909, -0.0753068], 
+ [0.0182246, 0.0178072, 0.0173858, ..., -0.0430701, -0.0483894, -0.0542836], 
+ [0.0185783, 0.018069, 0.0175525, ..., -0.0577603, -0.0643154, -0.0715892], 
+ ...,
+ [0.141174, 0.140772, 0.140377, ..., 0.447323, 0.49929, 0.559693], 
+ [0.122455, 0.122056, 0.12166, ..., 0.203015, 0.218401, 0.236377], 
+ [0.102459, 0.102, 0.101541, ..., 0.139265, 0.149296, 0.161212]]
+
+</code></pre></div></div>
+
+
+    </div>
+    
+    </div>
+    <hr>
+
+    <hr>
+    <div style="border: 5px solid red;padding:10px">
+    <div id="linearode"><h1><b style="color:red">Class:: </b><b>linearode</b ></h1></div>
+    <p></p>
+    <!-- BUCLE METHODS -->
+    
+    </div>
+    <hr>
+
+    <hr>
+    <div style="border: 5px solid red;padding:10px">
+    <div id="linearpde"><h1><b style="color:red">Class:: </b><b>linearpde</b ></h1></div>
+    <p></p>
+    <!-- BUCLE METHODS -->
+    
+    </div>
+    <hr>
+
+
+
+          <p></p>
+          <hr><h2 class="text-delta">Table of contents</h2><ul></ul>
+          <hr></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

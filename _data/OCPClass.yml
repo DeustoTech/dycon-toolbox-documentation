@@ -1,0 +1,59 @@
+#############################################
+################### ODE #####################
+#############################################
+
+
+ocp:
+  description: A object of class ode is a structure that contains a all information of a ordinary differential equation. This have a dynamic equation, initial condition, time span, etc. $$ \min_{u \in \mathcal{U}} \bigg[ \psi(T) + \int_0^T L(t,x(t),u(t)) dt \bigg] \\ \text{subjet to:} \\ \dot{x} = f(t,x,u)$$
+  methods:
+    
+    ##### ocp #####
+    
+    ocp: 
+      syntaxis:
+        SX1: "iocp = ocp(idynamics,PathCostFcn,FinalCostFcn)"
+      inputs: 
+        idynamics:
+          class: "{ode,pde1d,pde2d,pdefem}"
+          description: "This is a object { `ode` ,`pde1d`,`pde2d`,`pdefem`} that represent the dynamic. Inside this object we have a time span, dynamics equation, initial condition, etc."
+          url_class: /dycon-toolbox-documentation/posts/03-Dynamics
+        PathCostFcn: 
+          description: it is a casadi function that $ L:\\mathcal{X} \rightarrow \mathbb{R}$
+          class: casadi function
+          url_class: https://web.casadi.org/docs/#function-objects
+        FinalCostFcn: 
+          description: it is a casadi function that $ \psi:\\mathbb{R}^+ \times \mathcal{X} \times \mathcal{U} \rightarrow \mathbb{R}$
+          class: casadi function
+          url_class: https://web.casadi.org/docs/#function-objects
+      outputs:
+        iocp:
+          description: ocp object that contain all information of optimal control problem.
+          class: ode
+          url_class: /dycon-toolbox-documentation/posts/04-OptimalControlProblems/#ocp
+    
+    ##### IpoptSolver
+    ArmijoGradient:
+
+    # ComputeCostGradients:
+    # Control2ControlGradient:
+    IpoptSolver:
+      syntaxis:
+        SX1: "[uopt,xopt] = IpoptSolver(iocp,uguess)"
+        SX2: "[uopt,xopt] = IpoptSolver(iocp,uguess,'Integrator',Integrator)"
+      inputs:
+        iocp: 
+          class: ocp
+        uguess:
+          class: double
+        Integrator:
+          class: String
+      outputs:
+        uopt:
+          class: double
+        xopt:
+          class: double
+    SteptestGradientDescent:                     
+    ClassicalGradient:
+    ConjugateGradient:
+    # CreateAdjointStruture:
+    

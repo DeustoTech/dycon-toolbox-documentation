@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  
+    <title>Optimal Control Problems - DyCon Toolbox</title>
+
+    
+  
+
+  <link rel="shortcut icon" href="https://deustotech.github.io/dycon-toolbox-documentation/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://deustotech.github.io/dycon-toolbox-documentation/assets/css/styles.css">
+  <link rel="stylesheet" href="https://deustotech.github.io/dycon-toolbox-documentation/assets/css/just-the-docs.css">
+
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-2709176-10', 'https://deustotech.github.io');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+  
+
+  
+    <script type="text/javascript" src="https://deustotech.github.io/dycon-toolbox-documentation/assets/js/vendor/lunr.min.js"></script>
+  
+  <script type="text/javascript" src="https://deustotech.github.io/dycon-toolbox-documentation/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Optimal Control Problems | DyCon Toolbox</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Optimal Control Problems" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="DyCon Toolbox Documentation" />
+<meta property="og:description" content="DyCon Toolbox Documentation" />
+<link rel="canonical" href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-OptimalControlProblems/" />
+<meta property="og:url" content="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-OptimalControlProblems/" />
+<meta property="og:site_name" content="DyCon Toolbox" />
+<script type="application/ld+json">
+{"description":"DyCon Toolbox Documentation","@type":"WebPage","url":"https://deustotech.github.io/dycon-toolbox-documentation/posts/04-OptimalControlProblems/","headline":"Optimal Control Problems","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    },
+		TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      },
+      extensions: ["AMSmath.js", "AMSsymbols.js"],
+      Macros:{
+        Y: "\\textbf{Y}",
+        dY: "\\dot{\\textbf{Y}}",
+        U: "\\textbf{U}",
+      }
+    },
+    CommonHTML: {
+      styles: {
+        "@font-face /* vec */ ": {
+          "font-family": "MJX-VEC",
+          src: [
+            "url(data:application/x-font-woff;charset=utf-8;base64,",
+            "d09GRgABAAAAAARMAA0AAAAABiQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAEMAAAABwA",
+            "AAAccRGLqUdERUYAAAQMAAAAJAAAACgANAAmT1MvMgAAAaAAAABJAAAAYFc5gfFjbWFwAAACAAAA",
+            "AEYAAAFKQxjlbWdhc3AAAAQEAAAACAAAAAj//wADZ2x5ZgAAAlQAAACUAAAAlIQU9HBoZWFkAAAB",
+            "MAAAADAAAAA2C748e2hoZWEAAAFgAAAAHgAAACQFXQDqaG10eAAAAewAAAAUAAAAFAYvAE9sb2Nh",
+            "AAACSAAAAAwAAAAMACgAcm1heHAAAAGAAAAAHQAAACAASQAmbmFtZQAAAugAAADxAAAB5uwlD0hw",
+            "b3N0AAAD3AAAACgAAAA34M9aEXjaY2BkYGAA4uOfgq7G89t8ZeBmfgEUYbga+icNTssClVxnOgXk",
+            "cjAwgUQBdqEMW3jaY2BkYGBu+feBgYHxCwMQMF5nYGRABawAcaQESgAAeNpjYGRgYGBlUGZgYgAB",
+            "EMnIABJzAPMZAAZZAHAAAAB42mNgYSxn/MLAysDA1MW0h4GBoQdCMz5gMGRkAooysDEzwAAjECvA",
+            "OAFprikMBxgUFCcxt/z7wMDA3MIoAFUDAwoMjACD8Qv5AAAAAfQAMgAAAAABTQAAAPoAAAH0AB14",
+            "2mNgYGBmgGAZBkYGEHAB8hjBfBYGDSDNBqQZGZgYFBQn/f8P5IPp/4/vFUHVAwEjGwOcw8gEJJgY",
+            "UAEjxIrhDACLGwmnAAAAAAAUABQAFAAUAEoAAgAyAAABwgIVAAMABwAAMxEhESUhESEyAZD+ogEs",
+            "/tQCFf3rMgGxAAEAHQIEAdcCygAiAAABNDYzMhcWFxYXFhUUBgcGBw4DIyImNTQ3IycmNTQ3ISYB",
+            "eQsJBwUFBQofCwYLKyACBwMGBAcNL6urDQ0BZxgCtggMBQQPJRQHCwkGBhYpAgkCAgsJEygBCQoH",
+            "DSYAeNqVjrGKwkAURe/EGBBUrG12CishMrFQcDuLsAi26YMOmsIMxAh+hN8i+CF+gd+y4B3zttjC",
+            "woHhncu7774HoI8rFP5eIKzQw5dwgAjfwi2McBEO6bkLtzHAr3CEnhrTqcKOpDasMCQ1HKCLWLiF",
+            "HyyFQ3puwm1oPIQjDFXfR62Ro8YeK9YzMlhsqB0qtvJ6v8rPmd3Uzkv2tihwwoHCbosTa0pryYH0",
+            "NbKjRWPB/z626Se8dsY/hSHPGeTKOnXVzuqF/reYOoln8dQk80+u9b0KR97rD9Rc4xdNXtVQI7PV",
+            "sXClNiaZGGP0B+FPMN1KMAAAAHjaY2BiAIP/zQxGDNgAKxAzMjAxMDMycSUWFeWXF2WmZ5QAAGh5",
+            "BhgAAAAB//8AAnjaY2BkYGDgA2IJBgUgycTAyMDMwAIkWcA8BgZGCAYACgIAWwAAAAEAAAAAxmW3",
+            "ygAAAADVVeemAAAAANVV7Dg=) format('woff')"
+          ].join('')
+        },
+        ".MJX-VEC": {
+          "font-family": "MJX-VEC"
+        }
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function () {
+    var MML = MathJax.ElementJax.mml;
+    var fixCombiningChar = MML.mo.prototype.CHTMLfixCombiningChar;
+    MML.mo.Augment({
+      CHTMLfixCombiningChar: function (node) {
+        if (node.textContent === '\u20D7') {
+          //
+          //  Safari makes combining characters into non-combining ones when
+          //  they don't have anything to combine with; replace \vec arrow
+          //  with a non-combining one so all browsers get the same thing
+          //
+          node = node.firstChild;
+          node.firstChild.nodeValue = "\u2192";
+          node.className = "mjx-char MJX-VEC";
+          node.style.marginLeft = "-.5em";
+          node.style.paddingTop = ".45em";
+        } else {
+          fixCombiningChar.call(this,node);
+        }
+      }
+    });
+  });
+	</script>
+</head>
+
+<body>
+
+  <div class="page-wrap">
+    <div class="side-bar">
+          <center>
+              <a href="https://deustotech.github.io/dycon-toolbox-documentation/" class="site-title fs-6 lh-tight">
+                <img src="https://deustotech.github.io/dycon-toolbox-documentation/assets/images/logo.png" width="70%"></img>
+              </a>
+          </center>
+      <span class="fs-3"><button class="js-main-nav-trigger navigation-list-toggle btn btn-outline" type="button" data-text-toggle="Hide">Menu</button></span>
+      <div class="navigation main-nav js-main-nav">
+        <nav role="navigation" aria-label="Main navigation">
+  <ul class="navigation-list">
+    
+    
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/" class="navigation-list-link">Home</a>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/02-Download/" class="navigation-list-link">Download</a>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/03-Dynamics/" class="navigation-list-link">Dynamics definition</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item active">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-OptimalControlProblems/" class="navigation-list-link active">Optimal Control Problems</a>
+            
+              
+              <ul class="navigation-list-child-list ">
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+              </ul>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/05-Examples/" class="navigation-list-link">Examples</a>
+            
+          </li>
+        
+      
+    
+  </ul>
+</nav>
+
+      </div>
+      <footer role="contentinfo" class="site-footer">
+        <p class="text-small text-grey-dk-000 mb-0">
+            The DyCon Toolbox is developed primarily by the <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>, at <a href="http://deustotech.deusto.es/">DeustoTech</a>. Contact the DyCon Toolbox developer team <a href="mailto:dycon-dev-group@deusto.es">dycon-dev-group@deusto.es</a> for more information.
+        </p>
+      </footer>
+    </div>
+    <div class="main-content-wrap js-main-content" tabindex="0">
+      <div class="page-header">
+        <div class="main-content">
+          
+          <div class="search js-search">
+            <div class="search-input-wrap">
+              <input type="text" class="js-search-input search-input" tabindex="0" placeholder="Search DyCon Toolbox" aria-label="Search DyCon Toolbox" autocomplete="off">
+              <svg width="14" height="14" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" class="search-icon"><title>Search</title><g fill-rule="nonzero"><path d="M17.332 20.735c-5.537 0-10-4.6-10-10.247 0-5.646 4.463-10.247 10-10.247 5.536 0 10 4.601 10 10.247s-4.464 10.247-10 10.247zm0-4c3.3 0 6-2.783 6-6.247 0-3.463-2.7-6.247-6-6.247s-6 2.784-6 6.247c0 3.464 2.7 6.247 6 6.247z"/><path d="M11.672 13.791L.192 25.271 3.02 28.1 14.5 16.62z"/></g></svg>
+            </div>
+            <div class="js-search-results search-results-wrap"></div>
+          </div>
+          
+            <ul class="list-style-none text-small mt-md-1 mb-md-1 pb-4 pb-md-0 js-aux-nav aux-nav">
+                <li class="d-inline-block">
+                      <div align="right">
+                          Visit ↠  <a href="https://cmc.deusto.eus/">
+                          Chair of Computational Mathematics
+                        </a>
+
+                        </div>
+                </li>
+            </ul>
+        </div>
+      </div>
+      <div class="main-content">
+        
+          
+        
+        <div id="main-content" class="page-content" role="main">
+          
+          <center>
+          <h1 style="color:#942947"><b>Optimal Control Problems</b></h1>
+        </center>
+
+          <h4 id="ToC">Table of Contents</h4  >
+<ol>
+
+    <li><b><a href="#ocp">ocp</a></b>. A object of class ode is a structure that contains a all information of a ordinary differential equation. This have a dynamic equation, initial condition, time span, etc. $$ \min_{u \in \mathcal{U}} \bigg[ \psi(T) + \int_0^T L(t,x(t),u(t)) dt \bigg] \\ \text{subjet to:} \\ \dot{x} = f(t,x,u)$$</li>
+    <h5>Methods</h5>
+    <ul>
+    
+        <li><a href="#ocpocp">ocp</a></li>
+    
+        <li><a href="#ocpArmijoGradient">ArmijoGradient</a></li>
+    
+        <li><a href="#ocpIpoptSolver">IpoptSolver</a></li>
+    
+        <li><a href="#ocpSteptestGradientDescent">SteptestGradientDescent</a></li>
+    
+        <li><a href="#ocpClassicalGradient">ClassicalGradient</a></li>
+    
+        <li><a href="#ocpConjugateGradient">ConjugateGradient</a></li>
+    
+    </ul>
+    <p> </p>
+
+</ol>
+
+
+    <hr>
+    <div style="border: 5px solid red;padding:10px">
+    <div id="ocp"><h1><b style="color:red">Class:: </b><b>ocp</b ></h1></div>
+    <p>A object of class ode is a structure that contains a all information of a ordinary differential equation. This have a dynamic equation, initial condition, time span, etc. $$ \min_{u \in \mathcal{U}} \bigg[ \psi(T) + \int_0^T L(t,x(t),u(t)) dt \bigg] \\ \text{subjet to:} \\ \dot{x} = f(t,x,u)$$</p>
+    <!-- BUCLE METHODS -->
+    
+        <div id="ocpocp" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>ocp</b> of <b style="color:red">Class::</b><b>ocp</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+                <li><code>
+                iocp = ocp(idynamics,PathCostFcn,FinalCostFcn)
+                </code></li>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>idynamics</td>
+                            <td><a href="/dycon-toolbox-documentation/posts/03-Dynamics">{ode,pde1d,pde2d,pdefem}</a></td>           
+                            <td><p>This is a object { <code class="highlighter-rouge">ode</code> ,<code class="highlighter-rouge">pde1d</code>,<code class="highlighter-rouge">pde2d</code>,<code class="highlighter-rouge">pdefem</code>} that represent the dynamic. Inside this object we have a time span, dynamics equation, initial condition, etc.</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>PathCostFcn</td>
+                            <td><a href="https://web.casadi.org/docs/#function-objects">casadi function</a></td>           
+                            <td><p>it is a casadi function that $ L:\mathcal{X} \rightarrow \mathbb{R}$</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>FinalCostFcn</td>
+                            <td><a href="https://web.casadi.org/docs/#function-objects">casadi function</a></td>           
+                            <td><p>it is a casadi function that $ \psi:\mathbb{R}^+ \times \mathcal{X} \times \mathcal{U} \rightarrow \mathbb{R}$</p>
+</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>iocp</td>
+                            <td><a href="/dycon-toolbox-documentation/posts/04-OptimalControlProblems/#ocp"><p>ode</p>
+</a></td>
+                            <td>ocp object that contain all information of optimal control problem.</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">clear</span> <span class="nb">all</span><span class="p">;</span><span class="nb">close</span> <span class="nb">all</span>
+<span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+
+<span class="n">Xs</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'x'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">Us</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'u'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">SX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s1">'t'</span><span class="p">);</span>
+<span class="c1">%</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span> <span class="o">-</span><span class="mi">2</span> <span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+      <span class="o">+</span><span class="mi">1</span> <span class="o">-</span><span class="mi">2</span><span class="p">];</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="mi">0</span> <span class="mi">1</span><span class="p">];</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EvolutionFcn</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'f'</span><span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">Xs</span><span class="p">,</span><span class="n">Us</span><span class="p">},{</span> <span class="n">A</span><span class="o">*</span><span class="n">Xs</span> <span class="o">+</span> <span class="n">B</span><span class="o">*</span><span class="n">Us</span> <span class="p">});</span>
+<span class="c1">%</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+<span class="n">iode</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">EvolutionFcn</span><span class="p">,</span><span class="n">Xs</span><span class="p">,</span><span class="n">Us</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+<span class="n">SetIntegrator</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="s1">'RK4'</span><span class="p">)</span>
+<span class="n">iode</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">];</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e4</span><span class="p">;</span>
+<span class="n">PathCost</span>  <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'L'</span>  <span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">Xs</span><span class="p">,</span><span class="n">Us</span><span class="p">},{</span> <span class="n">Us</span><span class="o">'*</span><span class="n">Us</span>           <span class="p">});</span>
+<span class="n">FinalCost</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'Psi'</span><span class="p">,{</span><span class="n">Xs</span><span class="p">}</span>      <span class="p">,{</span> <span class="n">epsilon</span><span class="o">*</span><span class="p">(</span><span class="n">Xs</span><span class="o">'*</span><span class="n">Xs</span><span class="p">)</span> <span class="p">});</span>
+
+<span class="n">iocp</span> <span class="o">=</span> <span class="n">ocp</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">PathCost</span><span class="p">,</span><span class="n">FinalCost</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+iocp = 
+
+  ocp with properties:
+
+      DynamicSystem: [1x1 ode]
+            CostFcn: [1x1 CostFcn]
+       VariableTime: 0
+        constraints: [1x1 constraints]
+        TargetState: []
+        Hamiltonian: [0x0 casadi.Function]
+      AdjointStruct: [1x1 AdjointStruct]
+    ControlGradient: [1x1 casadi.Function]
+
+
+</code></pre></div></div>
+
+
+    </div>
+    
+        <div id="ocpArmijoGradient" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>ArmijoGradient</b> of <b style="color:red">Class::</b><b>ocp</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+
+    </div>
+    
+        <div id="ocpIpoptSolver" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>IpoptSolver</b> of <b style="color:red">Class::</b><b>ocp</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+                <li><code>
+                [uopt,xopt] = IpoptSolver(iocp,uguess)
+                </code></li>
+            
+                <li><code>
+                [uopt,xopt] = IpoptSolver(iocp,uguess,'Integrator',Integrator)
+                </code></li>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>iocp</td>
+                            <td><a href="">ocp</a></td>           
+                            <td>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>uguess</td>
+                            <td><a href="">double</a></td>           
+                            <td>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Integrator</td>
+                            <td><a href="">String</a></td>           
+                            <td>
+</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>uopt</td>
+                            <td><a href=""><p>double</p>
+</a></td>
+                            <td></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>xopt</td>
+                            <td><a href=""><p>double</p>
+</a></td>
+                            <td></td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span>  <span class="mi">1</span><span class="p">;</span>
+      <span class="mi">1</span> <span class="o">-</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+<span class="c1">%</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
+<span class="n">idyn</span> <span class="o">=</span> <span class="n">linearode</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+<span class="n">idyn</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">];</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ts</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">ts</span><span class="p">;</span>
+<span class="n">Xs</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="n">Us</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="c1">%</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e4</span><span class="p">;</span>
+<span class="n">PathCost</span>  <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'L'</span>  <span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">Xs</span><span class="p">,</span><span class="n">Us</span><span class="p">},{</span> <span class="n">Us</span><span class="o">'*</span><span class="n">Us</span>           <span class="p">});</span>
+<span class="n">FinalCost</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'Psi'</span><span class="p">,{</span><span class="n">Xs</span><span class="p">}</span>      <span class="p">,{</span> <span class="n">epsilon</span><span class="o">*</span><span class="p">(</span><span class="n">Xs</span><span class="o">'*</span><span class="n">Xs</span><span class="p">)</span> <span class="p">});</span>
+
+<span class="n">iocp</span> <span class="o">=</span> <span class="n">ocp</span><span class="p">(</span><span class="n">idyn</span><span class="p">,</span><span class="n">PathCost</span><span class="p">,</span><span class="n">FinalCost</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uguess</span> <span class="o">=</span> <span class="n">tspan</span><span class="p">;</span>
+<span class="p">[</span><span class="n">uopt</span><span class="p">,</span><span class="n">xopt</span><span class="p">]</span> <span class="o">=</span> <span class="n">IpoptSolver</span><span class="p">(</span><span class="n">iocp</span><span class="p">,</span><span class="n">uguess</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This is Ipopt version 3.12.3, running with linear solver mumps.
+NOTE: Other linear solvers might be more efficient (see Ipopt documentation).
+
+Number of nonzeros in equality constraint Jacobian...:       62
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:        9
+
+Total number of variables............................:       21
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:       14
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  2.0000338e+04 1.00e+00 1.33e+01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  2.1420978e+01 3.33e-16 1.66e-14  -1.0 5.90e+00    -  1.00e+00 1.00e+00f  1
+
+Number of Iterations....: 1
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.0710489227567338e-01    2.1420978455134676e+01
+Dual infeasibility......:   1.6577017536434369e-14    3.3154035072868737e-12
+Constraint violation....:   3.3306690738754696e-16    3.3306690738754696e-16
+Complementarity.........:   0.0000000000000000e+00    0.0000000000000000e+00
+Overall NLP error.......:   1.6577017536434369e-14    3.3154035072868737e-12
+
+
+Number of objective function evaluations             = 2
+Number of objective gradient evaluations             = 2
+Number of equality constraint evaluations            = 2
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 2
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 1
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.004
+Total CPU secs in NLP function evaluations           =      0.000
+
+EXIT: Optimal Solution Found.
+               t_proc [s]   t_wall [s]    n_eval
+       nlp_f      2.1e-05      2.2e-05         2
+       nlp_g      3.3e-05      3.3e-05         2
+  nlp_grad_f      5.2e-05      5.4e-05         3
+  nlp_hess_l      3.2e-05      3.2e-05         1
+   nlp_jac_g     0.000133     0.000134         3
+      solver      0.00895      0.00512         1
+Elapsed time is 0.016984 seconds.
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uopt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+uopt =
+
+   -5.5768   -5.6623   -5.5679   -4.7070   -2.4409    2.3186    5.4928
+
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xopt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+xopt =
+
+    1.0000    0.1623   -0.5028   -0.9714   -1.1358   -0.7915   -0.0010
+    2.0000    1.5116    1.0554    0.6485    0.3127    0.0857    0.0046
+
+
+</code></pre></div></div>
+
+
+    </div>
+    
+        <div id="ocpSteptestGradientDescent" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>SteptestGradientDescent</b> of <b style="color:red">Class::</b><b>ocp</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+
+    </div>
+    
+        <div id="ocpClassicalGradient" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>ClassicalGradient</b> of <b style="color:red">Class::</b><b>ocp</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+
+    </div>
+    
+        <div id="ocpConjugateGradient" style="border: 2px solid blue;padding:10px">
+            <div style="display:flex">
+                <div style="padding-left:auto; width: 100%;" >
+                    <h3 ><b style="color:blue">Method::</b><b>ConjugateGradient</b> of <b style="color:red">Class::</b><b>ocp</b></h3>
+                </div>
+                <div style="padding-left:auto; width: 100%;" >
+                    <p style="text-align: right;"><a href="">Index&#10548;</a></p>
+                </div>
+            </div>
+            <!-- SYNTAX -->
+            <h4>Syntax</h4>
+            <ul>
+            
+            </ul>
+            <!-- INTERFACE -->
+            <h4>Interface</h4>
+            <div style="display:block" align="center" vertical-align="top">
+                <div style="padding:10px">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+
+            </div>
+            <!-- EXAMPLES -->
+                     
+            
+            <h4>Example</h4>
+            
+
+    </div>
+    
+    </div>
+    <hr>
+
+
+
+          <p></p>
+          <hr><h2 class="text-delta">Table of contents</h2><ul></ul>
+          <hr></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

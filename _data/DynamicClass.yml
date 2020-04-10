@@ -1,0 +1,204 @@
+#############################################
+################### ODE #####################
+#############################################
+
+
+ode:
+  description: A object of class ode is a structure that contains a all information of a ordinary differential equation. This have a dynamic equation, initial condition, time span, etc. 
+  methods:
+    
+    ##### ode #####
+    
+    ode: 
+      syntaxis:
+        SX1: "iode = ode(Fs,Xs,Us,tspan)"
+      inputs: 
+        Fs:
+          class: CasADi Function
+          description: This is a function $f:R^+\times\mathcal{X}\times\mathcal{U}$ that define the dynamics. 
+          url_class: https://web.casadi.org/docs/#function-objects
+        Xs: 
+          description:  It is a symbolical state vector, $x \in \mathcal{X}$.
+          class: SX.sym
+          url_class: https://web.casadi.org/docs/#the-sx-symbolics
+        Us: 
+          description: it is a symbolical control vector, $u \in \mathcal{U}$
+          class: SX.sym
+          url_class: https://web.casadi.org/docs/#the-sx-symbolics
+        tspan:
+          class: double
+          description: The ode is a object that can be solved with the command "solve" but this need a time span to build a answer. The number of points in time is denote by $N_t$. It is $N_t = length(tspan)$
+      outputs:
+        iode:
+          description: ode object that contain all information of ode.
+          class: ode
+          url_class: /dycon-toolbox-documentation/posts/03-Dynamics/#ode
+
+    
+    ##### SetIntegrator #####
+
+    SetIntegrator:
+      inputs:
+        idyn:
+          description: dynamic object
+          class: ode
+          url_class: /dycon-toolbox-documentation/posts/03-Dynamics/#ode
+        method:
+          description: It is a string that can be {`BackwardEuler`,`RK4`,`RK8`,`casadi`}. This parameter define the numerical schema that it will use to solve the problem
+          class: string
+      syntaxis:
+        SX1: SetIntegrator(iode,method)
+    
+    ##### solve #####
+    
+    solve:
+      inputs:
+        idyn:
+          description: dynamic object
+          class: ode
+          url_class: /dycon-toolbox-documentation/posts/03-Dynamics/#ode
+        u0:
+          description: control initial guess
+          class: double or casadi.DM
+          url_class: https://web.casadi.org/docs/#dm
+      outputs:
+        xt:
+          description: dynamic solution in tspan
+          class: double or casadi.DM
+          url_class: https://web.casadi.org/docs/#dm
+      syntaxis: 
+        SX1: "xt = solve(iode,u0)"
+    
+    ##### ZerosControl #####
+    
+    ZerosControl:
+      inputs: 
+        idyn:
+          description: dynamic object
+          class: ode
+          url_class: /dycon-toolbox-documentation/posts/03-Dynamics/#ode       
+      outputs:
+        u0:
+          description: zero control
+          class: casadi.DM
+          url_class: https://web.casadi.org/docs/#dm
+      syntaxis: 
+        SX1: "u0 = ZerosControl(iode)"
+
+#############################################
+################### PDE1D ###################
+#############################################
+
+pde1d:
+  description: A object of class pde1d is a structure that contains a all information of a partial differential equation in one dimension. This have a dynamic equation, initial condition, time span, space span etc. 
+  methods:
+    ######## pde1d #######
+    pde1d: 
+      syntaxis:
+        SX1: "ipde1d = pde1d(Fs,Xs,Us,tspan,xline)"
+      inputs: 
+        Fs:
+          class: CasADi Function
+          description: This is a function $f:R^+\times\mathcal{X}\times\mathcal{U}$ that define the dynamics. 
+          url_class: https://web.casadi.org/docs/#function-objects
+        Xs: 
+          description:  It is a symbolical state vector, $x \in \mathcal{X}$.
+          class: SX.sym
+          url_class: https://web.casadi.org/docs/#the-sx-symbolics
+        Us: 
+          description: it is a symbolical control vector, $u \in \mathcal{U}$
+          class: SX.sym
+          url_class: https://web.casadi.org/docs/#the-sx-symbolics
+        tspan:
+          class: double
+          description: The ode is a object that can be solved with the command "solve" but this need a time span to build a answer. The number of points in time is denote by $N_t$. It is $N_t = length(tspan)$
+        xline:
+          class: double
+          description: The number of points in time is denote by $N_x$. It is $N_x = length(xline)$. 
+      outputs:
+        ipde1d:
+          description: ode object that contain all information of pde 1d.
+          class: pde1d
+          url_class: /dycon-toolbox-documentation/posts/03-Dynamics/#pde1d
+
+#############################################
+################### PDE2D ###################
+#############################################
+pde2d:
+  description: A object of class pde2d is a structure that contains a all information of a partial differential equation in two dimension. This have a dynamic equation, initial condition, time span, space span etc. 
+  methods:
+    ######## pde1d #######
+    pde2d:
+      syntaxis:
+        SX1: "ipde1d = pde1d(Fs,Xs,Us,tspan,xline)"
+      inputs: 
+        Fs:
+          class: CasADi Function
+          description: This is a function $f:R^+\times\mathcal{X}\times\mathcal{U}$ that define the dynamics. 
+          url_class: https://web.casadi.org/docs/#function-objects
+        Xs: 
+          description:  It is a symbolical state vector, $x \in \mathcal{X}$.
+          class: SX.sym
+          url_class: https://web.casadi.org/docs/#the-sx-symbolics
+        Us: 
+          description: it is a symbolical control vector, $u \in \mathcal{U}$
+          class: SX.sym
+          url_class: https://web.casadi.org/docs/#the-sx-symbolics
+        tspan:
+          class: double
+          description: The ode is a object that can be solved with the command "solve" but this need a time span to build a answer. The number of points in time is denote by $N_t$. It is $N_t = length(tspan)$
+        xline:
+          class: double
+          description: The number of points in time is denote by $N_x$. It is $N_x = length(xline)$.  
+        yline:
+          class: double
+          description: The number of points in time is denote by $N_y$. It is $N_y = length(yline)$.  
+      outputs:
+        ipde2d:
+          description: ode object that contain all information of pde 2d.
+          class: pde2d
+          url_class: /dycon-toolbox-documentation/posts/03-Dynamics/#pde2d
+#############################################
+################### PDEFEM ###################
+#############################################
+pdefem:
+  description: A object of class pdefem is a structure that contains a all information of a partial differential equation in two dimension in finite elements. This have a dynamic equation, initial condition, time span, space discretization, nodes and elements, etc. 
+  methods:
+    ######## pde1d #######
+    pdefem:
+      syntaxis:
+        SX1: "ipde1d = pde1d(Fs,Xs,Us,Nodes,Elements)"
+      inputs: 
+        Fs:
+          class: CasADi Function
+          description: This is a function $f:R^+\times\mathcal{X}\times\mathcal{U}$ that define the dynamics. 
+          url_class: https://web.casadi.org/docs/#function-objects
+        Xs: 
+          description:  It is a symbolical state vector, $x \in \mathcal{X}$.
+          class: SX.sym
+          url_class: https://web.casadi.org/docs/#the-sx-symbolics
+        Us: 
+          description: it is a symbolical control vector, $u \in \mathcal{U}$
+          class: SX.sym
+          url_class: https://web.casadi.org/docs/#the-sx-symbolics
+        tspan:
+          class: double
+          description: The ode is a object that can be solved with the command "solve" but this need a time span to build a answer. The number of points in time is denote by $N_t$. It is $N_t = length(tspan)$
+        Nodes:
+          class: double
+          description: Mesh nodes, specified as a matrix of real numbers. The matrix size is 2-by-Nnodes for a 2-D case and 3-by-Nnodes for a 3-D case. Nnodes is the number of nodes in the mesh. Node j has x, y, and z coordinates in column j of nodes. 
+        Elements:
+          class: double
+          description: 'Mesh elements, specified as an integer matrix with 3, and Nelements columns, where Nelements is the number of elements in the mesh.
+                      Linear planar mesh or linear mesh on the geometry surface has size 3-by-Nelements. Each column of elements contains the indices of the triangle corner nodes for a surface element. In this case, the resulting geometry does not contain a full mesh. Create the mesh using the <a href="https://es.mathworks.com/help/pde/ug/pde.pdemodel.geometryfrommesh.html">generateMesh</a> function.'
+      outputs:
+        ipdefem:
+          description: ode object that contain all information of pde in finite elements.
+          class: pdefem
+          url_class: /dycon-toolbox-documentation/posts/03-Dynamics/#pdefem
+
+linearode:
+
+linearpde:
+
+
