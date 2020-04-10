@@ -4,7 +4,7 @@
 
 
 ocp:
-  description: A object of class ode is a structure that contains a all information of a ordinary differential equation. This have a dynamic equation, initial condition, time span, etc. $$ \min_{u \in \mathcal{U}} \bigg[ \psi(T) + \int_0^T L(t,x(t),u(t)) dt \bigg] \\ \text{subjet to:} \\ \dot{x} = f(t,x,u)$$
+  description: A object of class ode is a structure that contains a all information of a ordinary differential equation. This have a dynamic equation, initial condition, time span, etc. $$ \min_{u \in \mathcal{U}} \bigg[ \psi(T) + \int_0^T L(t,x(t),u(t)) dt \bigg] \\ \text{subject to:} \\ \dot{x} = f(t,x,u)$$
   methods:
     
     ##### ocp #####
