@@ -77,18 +77,18 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 2
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 1
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.004
-Total CPU secs in NLP function evaluations           =      0.000
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.006
+Total CPU secs in NLP function evaluations           =      0.001
 
 EXIT: Optimal Solution Found.
                t_proc [s]   t_wall [s]    n_eval
-       nlp_f      2.1e-05      2.2e-05         2
-       nlp_g      3.3e-05      3.3e-05         2
-  nlp_grad_f      5.2e-05      5.4e-05         3
-  nlp_hess_l      3.2e-05      3.2e-05         1
-   nlp_jac_g     0.000133     0.000134         3
-      solver      0.00895      0.00512         1
-Elapsed time is 0.016984 seconds.
+       nlp_f      3.3e-05      3.4e-05         2
+       nlp_g      5.8e-05      5.8e-05         2
+  nlp_grad_f     0.000101       0.0001         3
+  nlp_hess_l      0.00807      6.2e-05         1
+   nlp_jac_g     0.000236      0.00024         3
+      solver       0.0208      0.00761         1
+Elapsed time is 0.022389 seconds.
 
 ```
 

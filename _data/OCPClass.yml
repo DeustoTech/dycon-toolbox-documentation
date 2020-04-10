@@ -24,18 +24,37 @@ ocp:
         FinalCostFcn: 
           description: it is a casadi function that $ \psi:\\mathbb{R}^+ \times \mathcal{X} \times \mathcal{U} \rightarrow \mathbb{R}$
           class: casadi function
-          url_class: https://web.casadi.org/docs/#function-objects
+          url_class: https://web.casadi.org/docs/#function-objects        
       outputs:
         iocp:
           description: ocp object that contain all information of optimal control problem.
           class: ode
           url_class: /dycon-toolbox-documentation/posts/04-OptimalControlProblems/#ocp
     
-    ##### IpoptSolver
+    ####### ArmijoGradient ###########
     ArmijoGradient:
+      syntaxis:
+        SX1: "[uopt,xopt] = ArmijoGradient(iocp,uguess)"
+        SX2: "[uopt,xopt] = ArmijoGradient(iocp,uguess,'MaxIter',MaxIter)"
+      inputs:
+        iocp: 
+          class: ocp
+          description: Optimal Control Problems object 
+        uguess:
+          class: double    
+      opt_inputs:
+          MaxIter:
+            default: 50
+      outputs:
+        uopt:
+          class: double
+          description: Optimal Control
+        xopt:
+          class: double
+          description: Optimal State
 
-    # ComputeCostGradients:
-    # Control2ControlGradient:
+    ####### IpoptSolver #######
+
     IpoptSolver:
       syntaxis:
         SX1: "[uopt,xopt] = IpoptSolver(iocp,uguess)"
@@ -43,17 +62,79 @@ ocp:
       inputs:
         iocp: 
           class: ocp
+          description: Optimal Control Problems object 
         uguess:
           class: double
         Integrator:
           class: String
+          description: 'Integrator define the numerical schema in time. This variable must be: `BackwardEuler` , `ForwardEuler` , `rk4` , `rk5`,
+          `CrankNicolson` , `rk8` , `SemiLinearBackwardEuler`'
       outputs:
         uopt:
           class: double
+          description: Optimal Control
         xopt:
           class: double
-    SteptestGradientDescent:                     
+          description: Optimal State
+    
+    ##### SteptestGradientDescent #####
+
+    SteptestGradientDescent:      
+      syntaxis:
+        SX1: "[uopt,xopt] = SteptestGradientDescent(iocp,uguess)"
+        SX2: "[uopt,xopt] = SteptestGradientDescent(iocp,uguess,'MaxIter',MaxIter)"    
+        SX3: "[uopt,xopt] = SteptestGradientDescent(iocp,uguess,'InitialLengthStep',InitialLengthStep)"   
+      inputs:
+        iocp: 
+          class: ocp
+          description: Optimal Control Problems object 
+        uguess:
+          class: double         
+      outputs:
+        uopt:
+          class: double
+          description: Optimal Control
+        xopt:
+          class: double
+          description: Optimal State   
+
+    ###### ClassicalGradient ######
+     
     ClassicalGradient:
+      syntaxis:
+        SX1: "[uopt,xopt] = ArmijoGradient(iocp,uguess)"
+        SX2: "[uopt,xopt] = ArmijoGradient(iocp,uguess,'MaxIter',MaxIter)"
+      inputs:
+        iocp: 
+          class: ocp
+          description: Optimal Control Problems object 
+        uguess:
+          class: double    
+      outputs:
+        uopt:
+          class: double
+          description: Optimal Control
+        xopt:
+          class: double
+          description: Optimal State    
+
+    ###### ConjugateGradient ######
+
     ConjugateGradient:
-    # CreateAdjointStruture:
+      syntaxis:
+        SX1: "[uopt,xopt] = ArmijoGradient(iocp,uguess)"
+        SX2: "[uopt,xopt] = ArmijoGradient(iocp,uguess,'MaxIter',MaxIter)"
+      inputs:
+        iocp: 
+          class: ocp
+          description: Optimal Control Problems object 
+        uguess:
+          class: double    
+      outputs:
+        uopt:
+          class: double
+          description: Optimal Control
+        xopt:
+          class: double
+          description: Optimal State    
     

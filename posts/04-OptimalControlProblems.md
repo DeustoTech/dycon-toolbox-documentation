@@ -2,7 +2,6 @@
 layout: default
 title: Optimal Control Problems
 nav_order: 3
-has_children: true
 ---
 
 {::nomarkdown}  
@@ -22,7 +21,7 @@ has_children: true
 
 {% for class in site.data.OCPClass %}
     <hr>
-    <div style="border: 5px solid red;padding:10px">
+    <div style="border: 5px solid red;padding:2px">
     <div id="{{class[0]}}"><h1><b style="color:red">Class:: </b><b>{{class[0]}}</b ></h1></div>
     <p>{{class[1].description}}</p>
     <!-- BUCLE METHODS -->
@@ -67,6 +66,29 @@ has_children: true
                         {% endfor%}
                     </table>
                 </div>
+                {% if  method[1].opt_inputs %}
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="4">OPTIONAL INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                            <th>Default</th>
+                        </tr>
+                        {% for output in method[1].opt_inputs %}
+                        <tr>
+                            <td>{{output[0]}}</td>
+                            <td><a href="{{output[1].url_class}}">{{output[1].class|markdownify}}</a></td>
+                            <td>{{output[1].description}}</td>
+                            <td>{{output[1].default}}</td>
+                        </tr>
+                        {% endfor%}
+                    </table>
+                </div>
+                {% endif %}
                 {% if  method[1].outputs %}
                 <div style="padding:10px">
                     <table>
@@ -88,7 +110,6 @@ has_children: true
                     </table>
                 </div>
                 {% endif %}
-
             </div>
             <!-- EXAMPLES -->
             {% assign exp1 = method[0] | append: ".md" |prepend:"/"| prepend: {{class[0]}} | prepend:"examples/"%}         
@@ -96,6 +117,7 @@ has_children: true
             <h4>Example</h4>
             {{ my_include | markdownify }}
     </div>
+    <hr>
     {% endfor %}
     </div>
     <hr>

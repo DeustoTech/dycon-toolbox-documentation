@@ -197,23 +197,6 @@
             
             <a href="https://deustotech.github.io/dycon-toolbox-documentation/posts/04-OptimalControlProblems/" class="navigation-list-link active">Optimal Control Problems</a>
             
-              
-              <ul class="navigation-list-child-list ">
-                
-                  
-                
-                  
-                
-                  
-                
-                  
-                
-                  
-                
-                  
-                
-              </ul>
-            
           </li>
         
       
@@ -298,7 +281,7 @@
 
 
     <hr>
-    <div style="border: 5px solid red;padding:10px">
+    <div style="border: 5px solid red;padding:2px">
     <div id="ocp"><h1><b style="color:red">Class:: </b><b>ocp</b ></h1></div>
     <p>A object of class ode is a structure that contains a all information of a ordinary differential equation. This have a dynamic equation, initial condition, time span, etc. $$ \min_{u \in \mathcal{U}} \bigg[ \psi(T) + \int_0^T L(t,x(t),u(t)) dt \bigg] \\ \text{subjet to:} \\ \dot{x} = f(t,x,u)$$</p>
     <!-- BUCLE METHODS -->
@@ -359,6 +342,7 @@
                     </table>
                 </div>
                 
+                
                 <div style="padding:10px">
                     <table>
                         <tr>
@@ -380,7 +364,6 @@
                     </table>
                 </div>
                 
-
             </div>
             <!-- EXAMPLES -->
                      
@@ -435,6 +418,7 @@ iocp =
 
 
     </div>
+    <hr>
     
         <div id="ocpArmijoGradient" style="border: 2px solid blue;padding:10px">
             <div style="display:flex">
@@ -448,6 +432,14 @@ iocp =
             <!-- SYNTAX -->
             <h4>Syntax</h4>
             <ul>
+            
+                <li><code>
+                [uopt,xopt] = ArmijoGradient(iocp,uguess)
+                </code></li>
+            
+                <li><code>
+                [uopt,xopt] = ArmijoGradient(iocp,uguess,'MaxIter',MaxIter)
+                </code></li>
             
             </ul>
             <!-- INTERFACE -->
@@ -464,18 +456,166 @@ iocp =
                             <th>Description</th>
                         </tr>
                         
+                        <tr>
+                            <td>iocp</td>
+                            <td><a href="">ocp</a></td>           
+                            <td><p>Optimal Control Problems object</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>uguess</td>
+                            <td><a href="">double</a></td>           
+                            <td>
+</td>
+                        </tr>
+                        
                     </table>
                 </div>
                 
-
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="4">OPTIONAL INPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                            <th>Default</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>MaxIter</td>
+                            <td><a href="">
+</a></td>
+                            <td></td>
+                            <td>50</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>uopt</td>
+                            <td><a href=""><p>double</p>
+</a></td>
+                            <td>Optimal Control</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>xopt</td>
+                            <td><a href=""><p>double</p>
+</a></td>
+                            <td>Optimal State</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
             </div>
             <!-- EXAMPLES -->
                      
             
             <h4>Example</h4>
             
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span>  <span class="mi">1</span><span class="p">;</span>
+      <span class="mi">1</span> <span class="o">-</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+<span class="c1">%</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
+<span class="n">idyn</span> <span class="o">=</span> <span class="n">linearode</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+<span class="n">idyn</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">];</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ts</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">ts</span><span class="p">;</span>
+<span class="n">Xs</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="n">Us</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="c1">%</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e4</span><span class="p">;</span>
+<span class="n">PathCost</span>  <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'L'</span>  <span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">Xs</span><span class="p">,</span><span class="n">Us</span><span class="p">},{</span> <span class="n">Us</span><span class="o">'*</span><span class="n">Us</span>           <span class="p">});</span>
+<span class="n">FinalCost</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'Psi'</span><span class="p">,{</span><span class="n">Xs</span><span class="p">}</span>      <span class="p">,{</span> <span class="n">epsilon</span><span class="o">*</span><span class="p">(</span><span class="n">Xs</span><span class="o">'*</span><span class="n">Xs</span><span class="p">)</span> <span class="p">});</span>
+
+<span class="n">iocp</span> <span class="o">=</span> <span class="n">ocp</span><span class="p">(</span><span class="n">idyn</span><span class="p">,</span><span class="n">PathCost</span><span class="p">,</span><span class="n">FinalCost</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uguess</span> <span class="o">=</span> <span class="n">tspan</span><span class="p">;</span>
+<span class="p">[</span><span class="n">uopt</span><span class="p">,</span><span class="n">xopt</span><span class="p">]</span> <span class="o">=</span> <span class="n">ArmijoGradient</span><span class="p">(</span><span class="n">iocp</span><span class="p">,</span><span class="n">uguess</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>===================================================================================================
+|   iter   |   norm(dJ/du)  |  abs(Jc-Ja)/Jc  |  LengthStep  |       J       |   Distance2Target  |
+===================================================================================================
+|   008    |    2.017e+03   |    1.780e-01    |   2.50e-04   |  1.13750e+03  |       NaN          |
+|   012    |    1.651e+03   |    2.549e-01    |   2.50e-04   |  6.18609e+02  |       NaN          |
+|   016    |    2.011e+03   |    1.540e-01    |   1.00e-03   |  4.12580e+02  |       NaN          |
+|   020    |    3.068e+03   |    4.962e-02    |   1.00e-03   |  3.26251e+02  |       NaN          |
+|   024    |    8.769e+02   |    8.368e-02    |   1.00e-03   |  2.07381e+02  |       NaN          |
+|   028    |    8.176e+02   |    1.259e-01    |   1.00e-03   |  1.28015e+02  |       NaN          |
+|   032    |    1.172e+03   |    7.778e-02    |   1.00e-03   |  1.02105e+02  |       NaN          |
+|   036    |    3.997e+02   |    1.316e-01    |   2.50e-04   |  8.07760e+01  |       NaN          |
+|   040    |    4.187e+02   |    2.306e-02    |   1.00e-03   |  6.74948e+01  |       NaN          |
+===================================================================================================
+|   iter   |   norm(dJ/du)  |  abs(Jc-Ja)/Jc  |  LengthStep  |       J       |   Distance2Target  |
+===================================================================================================
+|   048    |    1.864e+02   |    3.809e-02    |   2.50e-04   |  5.13924e+01  |       NaN          |
+|   052    |    1.509e+02   |    3.159e-02    |   2.50e-04   |  4.71590e+01  |       NaN          |
+|   056    |    1.803e+02   |    1.423e-02    |   1.00e-03   |  4.55183e+01  |       NaN          |
+|   060    |    8.734e+01   |    8.959e-03    |   1.00e-03   |  4.47686e+01  |       NaN          |
+|   064    |    7.475e+01   |    1.117e-02    |   2.50e-04   |  4.39292e+01  |       NaN          |
+|   068    |    5.289e+01   |    3.286e-04    |   2.50e-04   |  4.35600e+01  |       NaN          |
+|   072    |    9.023e+01   |    2.091e-03    |   1.00e-03   |  4.32197e+01  |       NaN          |
+|   076    |    3.367e+01   |    1.155e-03    |   1.00e-03   |  4.31266e+01  |       NaN          |
+|   080    |    2.741e+01   |    3.512e-05    |   2.50e-04   |  4.30802e+01  |       NaN          |
+===================================================================================================
+|   iter   |   norm(dJ/du)  |  abs(Jc-Ja)/Jc  |  LengthStep  |       J       |   Distance2Target  |
+===================================================================================================
+
+    Mininum Length Step have been achieve !! 
+
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uopt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+uopt =
+
+   -7.9370   -8.1077   -7.8352   -6.7968   -4.4915   -0.1483    7.4126
+
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xopt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+xopt =
+
+    1.0000   -0.0772   -0.9118   -1.4622   -1.6301   -1.2395   -0.0019
+    2.0000    1.4904    1.0038    0.5701    0.2238    0.0129    0.0094
+
+
+</code></pre></div></div>
+
 
     </div>
+    <hr>
     
         <div id="ocpIpoptSolver" style="border: 2px solid blue;padding:10px">
             <div style="display:flex">
@@ -516,7 +656,7 @@ iocp =
                         <tr>
                             <td>iocp</td>
                             <td><a href="">ocp</a></td>           
-                            <td>
+                            <td><p>Optimal Control Problems object</p>
 </td>
                         </tr>
                         
@@ -530,12 +670,13 @@ iocp =
                         <tr>
                             <td>Integrator</td>
                             <td><a href="">String</a></td>           
-                            <td>
+                            <td><p>Integrator define the numerical schema in time. This variable must be: <code class="highlighter-rouge">BackwardEuler</code> , <code class="highlighter-rouge">ForwardEuler</code> , <code class="highlighter-rouge">rk4</code> , <code class="highlighter-rouge">rk5</code>, <code class="highlighter-rouge">CrankNicolson</code> , <code class="highlighter-rouge">rk8</code> , <code class="highlighter-rouge">SemiLinearBackwardEuler</code></p>
 </td>
                         </tr>
                         
                     </table>
                 </div>
+                
                 
                 <div style="padding:10px">
                     <table>
@@ -552,20 +693,19 @@ iocp =
                             <td>uopt</td>
                             <td><a href=""><p>double</p>
 </a></td>
-                            <td></td>
+                            <td>Optimal Control</td>
                         </tr>
                         
                         <tr>
                             <td>xopt</td>
                             <td><a href=""><p>double</p>
 </a></td>
-                            <td></td>
+                            <td>Optimal State</td>
                         </tr>
                         
                     </table>
                 </div>
                 
-
             </div>
             <!-- EXAMPLES -->
                      
@@ -636,18 +776,18 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 2
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 1
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.004
-Total CPU secs in NLP function evaluations           =      0.000
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.006
+Total CPU secs in NLP function evaluations           =      0.001
 
 EXIT: Optimal Solution Found.
                t_proc [s]   t_wall [s]    n_eval
-       nlp_f      2.1e-05      2.2e-05         2
-       nlp_g      3.3e-05      3.3e-05         2
-  nlp_grad_f      5.2e-05      5.4e-05         3
-  nlp_hess_l      3.2e-05      3.2e-05         1
-   nlp_jac_g     0.000133     0.000134         3
-      solver      0.00895      0.00512         1
-Elapsed time is 0.016984 seconds.
+       nlp_f      3.3e-05      3.4e-05         2
+       nlp_g      5.8e-05      5.8e-05         2
+  nlp_grad_f     0.000101       0.0001         3
+  nlp_hess_l      0.00807      6.2e-05         1
+   nlp_jac_g     0.000236      0.00024         3
+      solver       0.0208      0.00761         1
+Elapsed time is 0.022389 seconds.
 
 </code></pre></div></div>
 
@@ -676,6 +816,7 @@ xopt =
 
 
     </div>
+    <hr>
     
         <div id="ocpSteptestGradientDescent" style="border: 2px solid blue;padding:10px">
             <div style="display:flex">
@@ -690,6 +831,18 @@ xopt =
             <h4>Syntax</h4>
             <ul>
             
+                <li><code>
+                [uopt,xopt] = SteptestGradientDescent(iocp,uguess)
+                </code></li>
+            
+                <li><code>
+                [uopt,xopt] = SteptestGradientDescent(iocp,uguess,'MaxIter',MaxIter)
+                </code></li>
+            
+                <li><code>
+                [uopt,xopt] = SteptestGradientDescent(iocp,uguess,'InitialLengthStep',InitialLengthStep)
+                </code></li>
+            
             </ul>
             <!-- INTERFACE -->
             <h4>Interface</h4>
@@ -705,18 +858,123 @@ xopt =
                             <th>Description</th>
                         </tr>
                         
+                        <tr>
+                            <td>iocp</td>
+                            <td><a href="">ocp</a></td>           
+                            <td><p>Optimal Control Problems object</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>uguess</td>
+                            <td><a href="">double</a></td>           
+                            <td>
+</td>
+                        </tr>
+                        
                     </table>
                 </div>
                 
-
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>uopt</td>
+                            <td><a href=""><p>double</p>
+</a></td>
+                            <td>Optimal Control</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>xopt</td>
+                            <td><a href=""><p>double</p>
+</a></td>
+                            <td>Optimal State</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
             </div>
             <!-- EXAMPLES -->
                      
             
             <h4>Example</h4>
             
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span>  <span class="mi">1</span><span class="p">;</span>
+      <span class="mi">1</span> <span class="o">-</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+<span class="c1">%</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
+<span class="n">idyn</span> <span class="o">=</span> <span class="n">linearode</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+<span class="n">idyn</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">];</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ts</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">ts</span><span class="p">;</span>
+<span class="n">Xs</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="n">Us</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="c1">%</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e4</span><span class="p">;</span>
+<span class="n">PathCost</span>  <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'L'</span>  <span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">Xs</span><span class="p">,</span><span class="n">Us</span><span class="p">},{</span> <span class="n">Us</span><span class="o">'*</span><span class="n">Us</span>           <span class="p">});</span>
+<span class="n">FinalCost</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'Psi'</span><span class="p">,{</span><span class="n">Xs</span><span class="p">}</span>      <span class="p">,{</span> <span class="n">epsilon</span><span class="o">*</span><span class="p">(</span><span class="n">Xs</span><span class="o">'*</span><span class="n">Xs</span><span class="p">)</span> <span class="p">});</span>
+
+<span class="n">iocp</span> <span class="o">=</span> <span class="n">ocp</span><span class="p">(</span><span class="n">idyn</span><span class="p">,</span><span class="n">PathCost</span><span class="p">,</span><span class="n">FinalCost</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uguess</span> <span class="o">=</span> <span class="n">tspan</span><span class="p">;</span>
+<span class="p">[</span><span class="n">uopt</span><span class="p">,</span><span class="n">xopt</span><span class="p">]</span> <span class="o">=</span> <span class="n">SteptestGradientDescent</span><span class="p">(</span><span class="n">iocp</span><span class="p">,</span><span class="n">uguess</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iteration: 005 | error: 3.672e+03 | LengthStep: 8.705e-04 | J: 1.234e+03 | Distance2Target: NaN 
+iteration: 010 | error: 2.642e+02 | LengthStep: 2.640e-04 | J: 5.972e+01 | Distance2Target: NaN 
+iteration: 015 | error: 1.706e+02 | LengthStep: 1.358e-04 | J: 5.118e+01 | Distance2Target: NaN 
+iteration: 020 | error: 3.506e+01 | LengthStep: 1.806e-04 | J: 4.304e+01 | Distance2Target: NaN 
+iteration: 025 | error: 2.688e+01 | LengthStep: 2.964e-06 | J: 4.304e+01 | Distance2Target: NaN 
+iteration: 030 | error: 2.658e+01 | LengthStep: 3.377e-07 | J: 4.304e+01 | Distance2Target: NaN 
+iteration: 035 | error: 2.655e+01 | LengthStep: 4.453e-08 | J: 4.304e+01 | Distance2Target: NaN 
+
+    Mininum Length Step have been achive !! 
+
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uopt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+uopt =
+
+   -7.9333   -8.1012   -7.8269   -6.7884   -4.4855   -0.1486    7.3999
+
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xopt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+xopt =
+
+    1.0000   -0.0763   -0.9101   -1.4598   -1.6275   -1.2375   -0.0019
+    2.0000    1.4905    1.0041    0.5706    0.2245    0.0137    0.0100
+
+
+</code></pre></div></div>
+
 
     </div>
+    <hr>
     
         <div id="ocpClassicalGradient" style="border: 2px solid blue;padding:10px">
             <div style="display:flex">
@@ -731,6 +989,14 @@ xopt =
             <h4>Syntax</h4>
             <ul>
             
+                <li><code>
+                [uopt,xopt] = ArmijoGradient(iocp,uguess)
+                </code></li>
+            
+                <li><code>
+                [uopt,xopt] = ArmijoGradient(iocp,uguess,'MaxIter',MaxIter)
+                </code></li>
+            
             </ul>
             <!-- INTERFACE -->
             <h4>Interface</h4>
@@ -746,18 +1012,122 @@ xopt =
                             <th>Description</th>
                         </tr>
                         
+                        <tr>
+                            <td>iocp</td>
+                            <td><a href="">ocp</a></td>           
+                            <td><p>Optimal Control Problems object</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>uguess</td>
+                            <td><a href="">double</a></td>           
+                            <td>
+</td>
+                        </tr>
+                        
                     </table>
                 </div>
                 
-
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>uopt</td>
+                            <td><a href=""><p>double</p>
+</a></td>
+                            <td>Optimal Control</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>xopt</td>
+                            <td><a href=""><p>double</p>
+</a></td>
+                            <td>Optimal State</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
             </div>
             <!-- EXAMPLES -->
                      
             
             <h4>Example</h4>
             
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span>  <span class="mi">1</span><span class="p">;</span>
+      <span class="mi">1</span> <span class="o">-</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+<span class="c1">%</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
+<span class="n">idyn</span> <span class="o">=</span> <span class="n">linearode</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+<span class="n">idyn</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">];</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ts</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">ts</span><span class="p">;</span>
+<span class="n">Xs</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="n">Us</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="c1">%</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e4</span><span class="p">;</span>
+<span class="n">PathCost</span>  <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'L'</span>  <span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">Xs</span><span class="p">,</span><span class="n">Us</span><span class="p">},{</span> <span class="n">Us</span><span class="o">'*</span><span class="n">Us</span>           <span class="p">});</span>
+<span class="n">FinalCost</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'Psi'</span><span class="p">,{</span><span class="n">Xs</span><span class="p">}</span>      <span class="p">,{</span> <span class="n">epsilon</span><span class="o">*</span><span class="p">(</span><span class="n">Xs</span><span class="o">'*</span><span class="n">Xs</span><span class="p">)</span> <span class="p">});</span>
+
+<span class="n">iocp</span> <span class="o">=</span> <span class="n">ocp</span><span class="p">(</span><span class="n">idyn</span><span class="p">,</span><span class="n">PathCost</span><span class="p">,</span><span class="n">FinalCost</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uguess</span> <span class="o">=</span> <span class="n">tspan</span><span class="p">;</span>
+<span class="p">[</span><span class="n">uopt</span><span class="p">,</span><span class="n">xopt</span><span class="p">]</span> <span class="o">=</span> <span class="n">ClassicalGradient</span><span class="p">(</span><span class="n">iocp</span><span class="p">,</span><span class="n">uguess</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iteration: 005 | error: 2.525e+03 | LengthStep: 1.000e-04 | J: 1.981e+03 | Distance2Target: NaN 
+iteration: 010 | error: 2.253e+03 | LengthStep: 1.000e-04 | J: 1.688e+03 | Distance2Target: NaN 
+iteration: 015 | error: 2.086e+03 | LengthStep: 1.000e-04 | J: 1.453e+03 | Distance2Target: NaN 
+iteration: 020 | error: 1.933e+03 | LengthStep: 1.000e-04 | J: 1.252e+03 | Distance2Target: NaN 
+iteration: 025 | error: 1.790e+03 | LengthStep: 1.000e-04 | J: 1.079e+03 | Distance2Target: NaN 
+iteration: 030 | error: 1.658e+03 | LengthStep: 1.000e-04 | J: 9.315e+02 | Distance2Target: NaN 
+iteration: 035 | error: 1.536e+03 | LengthStep: 1.000e-04 | J: 8.046e+02 | Distance2Target: NaN 
+iteration: 040 | error: 1.423e+03 | LengthStep: 1.000e-04 | J: 6.957e+02 | Distance2Target: NaN 
+iteration: 045 | error: 1.318e+03 | LengthStep: 1.000e-04 | J: 6.024e+02 | Distance2Target: NaN 
+iteration: 050 | error: 1.221e+03 | LengthStep: 1.000e-04 | J: 5.223e+02 | Distance2Target: NaN 
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uopt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+uopt = 
+
+[[-4.66594, -4.75716, -4.63036, -4.11885, -2.96299, -0.762059, 3.09807]]
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xopt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+xopt = 
+
+
+[[1, 0.354971, -0.164069, -0.534352, -0.705436, -0.587689, -0.0341006], 
+ [2, 1.54437, 1.13777, 0.786533, 0.501721, 0.302829, 0.222859]]
+
+</code></pre></div></div>
+
 
     </div>
+    <hr>
     
         <div id="ocpConjugateGradient" style="border: 2px solid blue;padding:10px">
             <div style="display:flex">
@@ -772,6 +1142,14 @@ xopt =
             <h4>Syntax</h4>
             <ul>
             
+                <li><code>
+                [uopt,xopt] = ArmijoGradient(iocp,uguess)
+                </code></li>
+            
+                <li><code>
+                [uopt,xopt] = ArmijoGradient(iocp,uguess,'MaxIter',MaxIter)
+                </code></li>
+            
             </ul>
             <!-- INTERFACE -->
             <h4>Interface</h4>
@@ -787,18 +1165,123 @@ xopt =
                             <th>Description</th>
                         </tr>
                         
+                        <tr>
+                            <td>iocp</td>
+                            <td><a href="">ocp</a></td>           
+                            <td><p>Optimal Control Problems object</p>
+</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>uguess</td>
+                            <td><a href="">double</a></td>           
+                            <td>
+</td>
+                        </tr>
+                        
                     </table>
                 </div>
                 
-
+                
+                <div style="padding:10px">
+                    <table>
+                        <tr>
+                            <th style="background-color:#92354f93;text-align:center"colspan="3">OUTPUTS</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>uopt</td>
+                            <td><a href=""><p>double</p>
+</a></td>
+                            <td>Optimal Control</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>xopt</td>
+                            <td><a href=""><p>double</p>
+</a></td>
+                            <td>Optimal State</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
             </div>
             <!-- EXAMPLES -->
                      
             
             <h4>Example</h4>
             
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">import</span> <span class="n">casadi</span><span class="o">.*</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span>  <span class="mi">1</span><span class="p">;</span>
+      <span class="mi">1</span> <span class="o">-</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+<span class="c1">%</span>
+<span class="n">tspan</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
+<span class="n">idyn</span> <span class="o">=</span> <span class="n">linearode</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">tspan</span><span class="p">);</span>
+<span class="n">idyn</span><span class="o">.</span><span class="n">InitialCondition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">];</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ts</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">ts</span><span class="p">;</span>
+<span class="n">Xs</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="n">Us</span> <span class="o">=</span> <span class="n">idyn</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">sym</span><span class="p">;</span>
+<span class="c1">%</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e4</span><span class="p">;</span>
+<span class="n">PathCost</span>  <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'L'</span>  <span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">Xs</span><span class="p">,</span><span class="n">Us</span><span class="p">},{</span> <span class="n">Us</span><span class="o">'*</span><span class="n">Us</span>           <span class="p">});</span>
+<span class="n">FinalCost</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'Psi'</span><span class="p">,{</span><span class="n">Xs</span><span class="p">}</span>      <span class="p">,{</span> <span class="n">epsilon</span><span class="o">*</span><span class="p">(</span><span class="n">Xs</span><span class="o">'*</span><span class="n">Xs</span><span class="p">)</span> <span class="p">});</span>
+
+<span class="n">iocp</span> <span class="o">=</span> <span class="n">ocp</span><span class="p">(</span><span class="n">idyn</span><span class="p">,</span><span class="n">PathCost</span><span class="p">,</span><span class="n">FinalCost</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uguess</span> <span class="o">=</span> <span class="n">tspan</span><span class="p">;</span>
+<span class="p">[</span><span class="n">uopt</span><span class="p">,</span><span class="n">xopt</span><span class="p">]</span> <span class="o">=</span> <span class="n">ConjugateGradient</span><span class="p">(</span><span class="n">iocp</span><span class="p">,</span><span class="n">uguess</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iteration: 005 | error: 2.473e+03 | norm(dJ): 2.473e+03 | LengthStep: +2.762e-07 | beta: 1.093e+00 | J: 1.9944e+03 | Distance2Target: NaN 
+iteration: 010 | error: 2.997e+03 | norm(dJ): 2.997e+03 | LengthStep: +1.976e-07 | beta: 1.073e+00 | J: 1.9937e+03 | Distance2Target: NaN 
+iteration: 015 | error: 3.521e+03 | norm(dJ): 3.521e+03 | LengthStep: +1.609e-07 | beta: 1.063e+00 | J: 1.9930e+03 | Distance2Target: NaN 
+iteration: 020 | error: 4.065e+03 | norm(dJ): 4.065e+03 | LengthStep: +1.405e-07 | beta: 1.057e+00 | J: 1.9922e+03 | Distance2Target: NaN 
+iteration: 025 | error: 4.638e+03 | norm(dJ): 4.638e+03 | LengthStep: +1.278e-07 | beta: 1.053e+00 | J: 1.9913e+03 | Distance2Target: NaN 
+iteration: 030 | error: 5.248e+03 | norm(dJ): 5.248e+03 | LengthStep: +1.195e-07 | beta: 1.049e+00 | J: 1.9902e+03 | Distance2Target: NaN 
+iteration: 035 | error: 5.897e+03 | norm(dJ): 5.897e+03 | LengthStep: +1.138e-07 | beta: 1.047e+00 | J: 1.9889e+03 | Distance2Target: NaN 
+iteration: 040 | error: 6.586e+03 | norm(dJ): 6.586e+03 | LengthStep: +1.098e-07 | beta: 1.044e+00 | J: 1.9874e+03 | Distance2Target: NaN 
+iteration: 045 | error: 7.312e+03 | norm(dJ): 7.312e+03 | LengthStep: +1.070e-07 | beta: 1.042e+00 | J: 1.9855e+03 | Distance2Target: NaN 
+iteration: 050 | error: 8.066e+03 | norm(dJ): 8.066e+03 | LengthStep: +1.049e-07 | beta: 1.039e+00 | J: 1.9833e+03 | Distance2Target: NaN 
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uopt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+uopt =
+
+   -2.6217   -2.6272   -2.5285   -2.2421   -1.6369   -0.5107    1.4475
+
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xopt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+xopt =
+
+    1.0000    0.6188    0.3006    0.0606   -0.0738   -0.0560    0.1892
+    2.0000    1.5773    1.2206    0.9230    0.6830    0.5053    0.4026
+
+
+</code></pre></div></div>
+
 
     </div>
+    <hr>
     
     </div>
     <hr>
@@ -806,7 +1289,6 @@ xopt =
 
 
           <p></p>
-          <hr><h2 class="text-delta">Table of contents</h2><ul></ul>
           <hr></div>
       </div>
     </div>

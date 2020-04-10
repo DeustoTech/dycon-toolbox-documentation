@@ -22,12 +22,12 @@ has_children: true
 
 {% for class in site.data.DynamicClass %}
     <hr>
-    <div style="border: 5px solid red;padding:10px">
+    <div style="border: 2px solid red;padding:2px">
     <div id="{{class[0]}}"><h1><b style="color:red">Class:: </b><b>{{class[0]}}</b ></h1></div>
     <p>{{class[1].description}}</p>
     <!-- BUCLE METHODS -->
     {% for method in class[1].methods %}
-        <div id="{{class[0]}}{{method[0]}}" style="border: 2px solid blue;padding:10px">
+        <div id="{{class[0]}}{{method[0]}}" style="border: 1px solid blue;padding:2px">
             <div style="display:flex">
                 <div style="padding-left:auto; width: 100%;" >
                     <h3 ><b style="color:blue">Method::</b><b>{{method[0]}}</b> of <b style="color:red">Class::</b><b>{{class[0]}}</b></h3>
@@ -48,7 +48,7 @@ has_children: true
             <!-- INTERFACE -->
             <h4>Interface</h4>
             <div style="display:block" align="center" vertical-align="top">
-                <div style="padding:10px">
+                <div style="padding:5px">
                     <table align="center">
                         <tr>
                             <th style="text-align:center;background-color:#92354f93"colspan="3">INPUTS</th>
@@ -88,7 +88,6 @@ has_children: true
                     </table>
                 </div>
                 {% endif %}
-
             </div>
             <!-- EXAMPLES -->
             {% assign exp1 = method[0] | append: ".md" |prepend:"/"| prepend: {{class[0]}} | prepend:"examples/"%}         
