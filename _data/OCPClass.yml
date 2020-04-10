@@ -18,11 +18,11 @@ ocp:
           description: "This is a object { `ode` ,`pde1d`,`pde2d`,`pdefem`} that represent the dynamic. Inside this object we have a time span, dynamics equation, initial condition, etc."
           url_class: /dycon-toolbox-documentation/posts/03-Dynamics
         PathCostFcn: 
-          description: it is a casadi function that $ L:\\mathcal{X} \rightarrow \mathbb{R}$
+          description: it is a casadi function that $ L:\\mathbb{R}^+ \times \mathcal{X} \times \mathcal{U} \rightarrow \mathbb{R}$
           class: casadi function
           url_class: https://web.casadi.org/docs/#function-objects
         FinalCostFcn: 
-          description: it is a casadi function that $ \psi:\\mathbb{R}^+ \times \mathcal{X} \times \mathcal{U} \rightarrow \mathbb{R}$
+          description: it is a casadi function that $ \psi:\\mathcal{X} \rightarrow \mathbb{R}$
           class: casadi function
           url_class: https://web.casadi.org/docs/#function-objects        
       outputs:
