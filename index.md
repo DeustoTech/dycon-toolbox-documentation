@@ -4,14 +4,20 @@ title: Home
 nav_order: 1
 ---
 <center>
-<h1 style="color:#942947"><b>DYCON TOOLBOX</b></h1>
+<h1 class="main-title"><b>DYCON TOOLBOX</b></h1>
 <h4> <b>MATLAB library for non-linear optimal control problems</b></h4>
 
 <h5>The DyCon Toolbox is a MATLAB library for analyzing both linear and non-linear optimal control problems. It uses <a href="https://web.casadi.org/">CasADi</a>-based automatic differentiation to compute all derivatives necessary for the optimization process.</h5>
 
 <h5>The DyCon Toolbox has a high-level syntax, which allows for an easy definition of the user’s control problem, and thus to its quick implementation. Moreover, the user may freely and easily tune the optimization algorithms in view of speeding-up the computation process.
 </h5>
-
+<div>
+   <a href="https://www.facebook.com/deustoCCM/" class="fa fa-facebook-square" style="padding: 10px;font-size: 25px; color: #777;" width="100%"></a>
+   <a href="https://twitter.com/deustoccm" class="fa fa-twitter"         style="padding: 10px;font-size: 25px; color: #777"  width="100%"></a>
+   <a href="https://www.linkedin.com/showcase/deustoccm/" class="fa fa-linkedin-square" style="padding: 10px;font-size: 25px; color: #777"  width="100%"></a>
+   <a href="https://deustotech.github.io/DyCon-Blog/" class="fa fa-window-maximize" style="padding: 10px;font-size: 25px; color: #777"  width="100%"></a>
+   <a href="https://github.com/DeustoTech" class="fa fa-github" style="padding: 10px;font-size: 25px; color: #777"  width="100%"></a>
+</div>
 </center>
 <hr>
 

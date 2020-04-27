@@ -29,3 +29,15 @@ ol li:before {
     margin-right: 100%;
     right: 10px; /* space between number and text */
 }
+
+
+.main-title {
+    color:#942947;
+}
+
+@media only screen and (max-width: 600px)  {
+    .main-title {
+        display: none;
+    }
+    
+}
