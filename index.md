@@ -4,7 +4,7 @@ title: Home
 nav_order: 1
 ---
 <center>
-<h1 class="main-title"><b>DYCON TOOLBOX</b></h1>
+<h1 class="main-title"><b>DyCon Toolbox</b></h1>
 <h4> <b>MATLAB library for non-linear optimal control problems</b></h4>
 
 <h5>The DyCon Toolbox is a MATLAB library for analyzing both linear and non-linear optimal control problems. It uses <a href="https://web.casadi.org/">CasADi</a>-based automatic differentiation to compute all derivatives necessary for the optimization process.</h5>
