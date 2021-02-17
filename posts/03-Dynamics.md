@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Dynamics definition
+title: Dynamics Definition
 nav_order: 3
 has_children: true
 ---

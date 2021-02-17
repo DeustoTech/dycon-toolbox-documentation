@@ -40,6 +40,6 @@ ga_tracking: UA-2709176-10
 plugins:
   - jekyll-seo-tag
 
-footer: The DyCon Toolbox is developed primarily by the <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>, at <a href="http://deustotech.deusto.es/">DeustoTech</a>. Contact the DyCon Toolbox developer team <a href="mailto:dycon-dev-group@deusto.es">dycon-dev-group@deusto.es</a> for more information.
+footer: The DyCon Toolbox is developed primarily by the <a href="http://cmc.deusto.eus/">Chair of Computational Mathematics</a>, at Deusto Fundation. Contact the DyCon Toolbox developer team <a href="mailto:dycon-dev-group@deusto.es">dycon-dev-group@deusto.es</a> for more information.
 
 destination: docs
