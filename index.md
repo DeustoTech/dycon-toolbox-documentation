@@ -113,8 +113,8 @@ ts  = SX.sym('t'); %% <= Create a symbolical time
 % Set Target
 YT = zeros(2*M, 1);
 %
-PathCost  = casadi.Function('L'  ,{ts,Ys,Us},{ (1/2)*(Us'*Us)           });
-FinalCost = casadi.Function('Psi',{Ys}      ,{  1e7*((Ys-YT).'*(Ys-YT)) });
+PathCost  =  (1/2)*(Us'*Us)          ;
+FinalCost =  1e7*((Ys-YT).'*(Ys-YT)) ;
 % Create the optimal control
 iocp = ocp(iode,PathCost,FinalCost);
 ```
@@ -171,7 +171,7 @@ Yfree = full(Yfree);
 ```matlab
 fig = figure();
 %%
-plotSimu(tspan,Yfree,Yopt,Uopt,M)
+plotSimu(tspan,Yfree,full(Yopt),Uopt,M)
 ```
 
 

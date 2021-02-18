@@ -359,8 +359,8 @@ B_\nu = \begin{bmatrix}
 <span class="c1">% Set Target</span>
 <span class="n">YT</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">M</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 <span class="c1">%</span>
-<span class="n">PathCost</span>  <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'L'</span>  <span class="p">,{</span><span class="n">ts</span><span class="p">,</span><span class="n">Ys</span><span class="p">,</span><span class="n">Us</span><span class="p">},{</span> <span class="p">(</span><span class="mi">1</span><span class="p">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Us</span><span class="o">'*</span><span class="n">Us</span><span class="p">)</span>           <span class="p">});</span>
-<span class="n">FinalCost</span> <span class="o">=</span> <span class="n">casadi</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s1">'Psi'</span><span class="p">,{</span><span class="n">Ys</span><span class="p">}</span>      <span class="p">,{</span>  <span class="mf">1e7</span><span class="o">*</span><span class="p">((</span><span class="n">Ys</span><span class="o">-</span><span class="n">YT</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">Ys</span><span class="o">-</span><span class="n">YT</span><span class="p">))</span> <span class="p">});</span>
+<span class="n">PathCost</span>  <span class="o">=</span>  <span class="p">(</span><span class="mi">1</span><span class="p">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Us</span><span class="o">'*</span><span class="n">Us</span><span class="p">)</span>          <span class="p">;</span>
+<span class="n">FinalCost</span> <span class="o">=</span>  <span class="mf">1e7</span><span class="o">*</span><span class="p">((</span><span class="n">Ys</span><span class="o">-</span><span class="n">YT</span><span class="p">)</span><span class="o">.'*</span><span class="p">(</span><span class="n">Ys</span><span class="o">-</span><span class="n">YT</span><span class="p">))</span> <span class="p">;</span>
 <span class="c1">% Create the optimal control</span>
 <span class="n">iocp</span> <span class="o">=</span> <span class="n">ocp</span><span class="p">(</span><span class="n">iode</span><span class="p">,</span><span class="n">PathCost</span><span class="p">,</span><span class="n">FinalCost</span><span class="p">);</span>
 </code></pre></div></div>
@@ -413,7 +413,7 @@ Elapsed time is 3.853462 seconds.
 
 <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span> <span class="o">=</span> <span class="nb">figure</span><span class="p">();</span>
 <span class="c1">%%</span>
-<span class="n">plotSimu</span><span class="p">(</span><span class="n">tspan</span><span class="p">,</span><span class="n">Yfree</span><span class="p">,</span><span class="n">Yopt</span><span class="p">,</span><span class="n">Uopt</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+<span class="n">plotSimu</span><span class="p">(</span><span class="n">tspan</span><span class="p">,</span><span class="n">Yfree</span><span class="p">,</span><span class="nb">full</span><span class="p">(</span><span class="n">Yopt</span><span class="p">),</span><span class="n">Uopt</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><img src="https://deustotech.github.io//DyCon-Blog/assets/imgs/WP01/P0009/copiaRM_01.png" /></p>
